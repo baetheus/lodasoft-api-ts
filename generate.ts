@@ -3,10 +3,10 @@ import { writeFileSync } from 'fs';
 import fetch from 'node-fetch';
 import { join } from 'path';
 
-const TEMP_FILE_NAME = join(__dirname, 'src', 'spec.json');
+const TEMP_FILE_NAME = join(__dirname, 'spec.json');
 
 const API_URL =
-  process.env.API_URL || 'http://prodapi.lodasoft.com/swagger/docs/v1';
+  process.env.API_URL || 'http://devapi.lodasoft.com/swagger/docs/v1';
 const LIB_PATH = join(__dirname, 'src');
 
 const makeClient = async (url: string, path: string) => {

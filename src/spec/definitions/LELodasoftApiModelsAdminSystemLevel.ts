@@ -1,0 +1,106 @@
+import {
+	LELodasoftApiModelsSharedIntegrationsModel,
+	LELodasoftApiModelsSharedIntegrationsModelIO,
+} from '../definitions/LELodasoftApiModelsSharedIntegrationsModel';
+import {
+	LELodasoftCommonModelsConfigurationConfigurationViewModel,
+	LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
+} from '../definitions/LELodasoftCommonModelsConfigurationConfigurationViewModel';
+import {
+	LELodasoftCommonModelsEmailDefinedEmailTemplateViewModel,
+	LELodasoftCommonModelsEmailDefinedEmailTemplateViewModelIO,
+} from '../definitions/LELodasoftCommonModelsEmailDefinedEmailTemplateViewModel';
+import {
+	LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModel,
+	LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModelIO,
+} from '../definitions/LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModel';
+import {
+	LELodasoftDataAccessDbModelsConfigurationAgentPortalContentModel,
+	LELodasoftDataAccessDbModelsConfigurationAgentPortalContentModelIO,
+} from '../definitions/LELodasoftDataAccessDbModelsConfigurationAgentPortalContentModel';
+import {
+	LELodasoftDataAccessDbModelsConfigurationBorrowerPortalContentModel,
+	LELodasoftDataAccessDbModelsConfigurationBorrowerPortalContentModelIO,
+} from '../definitions/LELodasoftDataAccessDbModelsConfigurationBorrowerPortalContentModel';
+import {
+	LELodasoftDataAccessDbModelsConfigurationCompanyModel,
+	LELodasoftDataAccessDbModelsConfigurationCompanyModelIO,
+} from '../definitions/LELodasoftDataAccessDbModelsConfigurationCompanyModel';
+import {
+	LELodasoftDataAccessDbModelsConfigurationDefinedSmsTemplateModel,
+	LELodasoftDataAccessDbModelsConfigurationDefinedSmsTemplateModelIO,
+} from '../definitions/LELodasoftDataAccessDbModelsConfigurationDefinedSmsTemplateModel';
+import {
+	LELodasoftDataAccessDbModelsConfigurationPrequalGenerationSettingsModel,
+	LELodasoftDataAccessDbModelsConfigurationPrequalGenerationSettingsModelIO,
+} from '../definitions/LELodasoftDataAccessDbModelsConfigurationPrequalGenerationSettingsModel';
+import {
+	LELodasoftDataAccessDbModelsSharedEmailServiceModel,
+	LELodasoftDataAccessDbModelsSharedEmailServiceModelIO,
+} from '../definitions/LELodasoftDataAccessDbModelsSharedEmailServiceModel';
+import {
+	LELodasoftDataAccessDbModelsSharedSmsServiceModel,
+	LELodasoftDataAccessDbModelsSharedSmsServiceModelIO,
+} from '../definitions/LELodasoftDataAccessDbModelsSharedSmsServiceModel';
+import { Option } from 'fp-ts/lib/Option';
+import { array, type } from 'io-ts';
+import { createOptionFromNullable } from 'io-ts-types';
+
+export type LELodasoftApiModelsAdminSystemLevel = {
+	sessionTimeout: Option<LELodasoftCommonModelsConfigurationConfigurationViewModel>;
+	reminderEmailEnabled: Option<LELodasoftCommonModelsConfigurationConfigurationViewModel>;
+	reminderEmailInterval: Option<LELodasoftCommonModelsConfigurationConfigurationViewModel>;
+	reminderSmsEnabled: Option<LELodasoftCommonModelsConfigurationConfigurationViewModel>;
+	reminderSmsInterval: Option<LELodasoftCommonModelsConfigurationConfigurationViewModel>;
+	documentExportFormat: Option<LELodasoftCommonModelsConfigurationConfigurationViewModel>;
+	digitalAssetVerificationEnabled: Option<LELodasoftCommonModelsConfigurationConfigurationViewModel>;
+	digitalEmploymentVerificationEnabled: Option<LELodasoftCommonModelsConfigurationConfigurationViewModel>;
+	creditReportingEnabled: Option<LELodasoftCommonModelsConfigurationConfigurationViewModel>;
+	ausEnabled: Option<LELodasoftCommonModelsConfigurationConfigurationViewModel>;
+	losEnabled: Option<LELodasoftCommonModelsConfigurationConfigurationViewModel>;
+	defaultCreditVendor: Option<LELodasoftCommonModelsConfigurationConfigurationViewModel>;
+	prequalGenerationSettings: Option<LELodasoftDataAccessDbModelsConfigurationPrequalGenerationSettingsModel>;
+	definedEmailTemplate: Option<LELodasoftCommonModelsEmailDefinedEmailTemplateViewModel>;
+	definedSmsTemplate: Option<LELodasoftDataAccessDbModelsConfigurationDefinedSmsTemplateModel>;
+	borrowerPortalContent: Option<LELodasoftDataAccessDbModelsConfigurationBorrowerPortalContentModel>;
+	agentPortalContent: Option<LELodasoftDataAccessDbModelsConfigurationAgentPortalContentModel>;
+	emailService: Option<LELodasoftDataAccessDbModelsSharedEmailServiceModel>;
+	smsService: Option<LELodasoftDataAccessDbModelsSharedSmsServiceModel>;
+	integrations: Option<LELodasoftApiModelsSharedIntegrationsModel>;
+	thirdPartyCredentials: Option<Array<LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModel>>;
+	company: Option<LELodasoftDataAccessDbModelsConfigurationCompanyModel>;
+};
+export const LELodasoftApiModelsAdminSystemLevelIO = type({
+	sessionTimeout: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
+	reminderEmailEnabled: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
+	reminderEmailInterval: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
+	reminderSmsEnabled: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
+	reminderSmsInterval: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
+	documentExportFormat: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
+	digitalAssetVerificationEnabled: createOptionFromNullable(
+		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
+	),
+	digitalEmploymentVerificationEnabled: createOptionFromNullable(
+		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
+	),
+	creditReportingEnabled: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
+	ausEnabled: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
+	losEnabled: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
+	defaultCreditVendor: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
+	prequalGenerationSettings: createOptionFromNullable(
+		LELodasoftDataAccessDbModelsConfigurationPrequalGenerationSettingsModelIO,
+	),
+	definedEmailTemplate: createOptionFromNullable(LELodasoftCommonModelsEmailDefinedEmailTemplateViewModelIO),
+	definedSmsTemplate: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationDefinedSmsTemplateModelIO),
+	borrowerPortalContent: createOptionFromNullable(
+		LELodasoftDataAccessDbModelsConfigurationBorrowerPortalContentModelIO,
+	),
+	agentPortalContent: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationAgentPortalContentModelIO),
+	emailService: createOptionFromNullable(LELodasoftDataAccessDbModelsSharedEmailServiceModelIO),
+	smsService: createOptionFromNullable(LELodasoftDataAccessDbModelsSharedSmsServiceModelIO),
+	integrations: createOptionFromNullable(LELodasoftApiModelsSharedIntegrationsModelIO),
+	thirdPartyCredentials: createOptionFromNullable(
+		array(LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModelIO),
+	),
+	company: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO),
+});
