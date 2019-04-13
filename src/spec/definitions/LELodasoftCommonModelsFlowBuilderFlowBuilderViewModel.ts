@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, union, literal, string, boolean, type } from 'io-ts';
+import { number, keyof, string, boolean, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel = {
@@ -18,12 +18,7 @@ export type LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel = {
 };
 export const LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO = type({
 	id: createOptionFromNullable(number),
-	flowType: union([
-		literal('Unspecified'),
-		literal('LeadPost'),
-		literal('OnlineApplication'),
-		literal('ContactStrategy'),
-	]),
+	flowType: keyof({ Unspecified: null, LeadPost: null, OnlineApplication: null, ContactStrategy: null }),
 	title: string,
 	comment: string,
 	data: createOptionFromNullable(string),

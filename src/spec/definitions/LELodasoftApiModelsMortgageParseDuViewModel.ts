@@ -7,13 +7,15 @@ import {
 	LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO,
 } from '../definitions/LELodasoftDataAccessModelsAdminBorrowerBorrowerDto';
 import { Option } from 'fp-ts/lib/Option';
-import { array, string, dictionary, boolean, type } from 'io-ts';
+import { array, string, dictionary, number, boolean, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 
 export type LELodasoftApiModelsMortgageParseDuViewModel = {
 	mortgageViewModel: Option<LELodasoftCommonModelsMortgageMortgageViewModel>;
 	suggestedBorrowers: Option<{ [key: string]: Array<LELodasoftDataAccessModelsAdminBorrowerBorrowerDto> }>;
 	loanNumber: Option<string>;
+	loanPurposeId: Option<number>;
+	loanTypeId: Option<number>;
 	losIdentifier: Option<string>;
 	success: Option<boolean>;
 	validationErrors: Option<Array<string>>;
@@ -25,6 +27,8 @@ export const LELodasoftApiModelsMortgageParseDuViewModelIO = type({
 		dictionary(string, array(LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO)),
 	),
 	loanNumber: createOptionFromNullable(string),
+	loanPurposeId: createOptionFromNullable(number),
+	loanTypeId: createOptionFromNullable(number),
 	losIdentifier: createOptionFromNullable(string),
 	success: createOptionFromNullable(boolean),
 	validationErrors: createOptionFromNullable(array(string)),

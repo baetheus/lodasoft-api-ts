@@ -1,8 +1,16 @@
 import { ResponseValiationError, TAPIClient } from '../client/client';
 import {
+	LELodasoftCommonModelsReportPipelineMetricsRequest,
+	LELodasoftCommonModelsReportPipelineMetricsRequestIO,
+} from '../definitions/LELodasoftCommonModelsReportPipelineMetricsRequest';
+import {
 	LELodasoftCommonModelsReportTaskMetricsRequest,
 	LELodasoftCommonModelsReportTaskMetricsRequestIO,
 } from '../definitions/LELodasoftCommonModelsReportTaskMetricsRequest';
+import {
+	LELodasoftDataAccessModelsReportPipelineMetricsModel,
+	LELodasoftDataAccessModelsReportPipelineMetricsModelIO,
+} from '../definitions/LELodasoftDataAccessModelsReportPipelineMetricsModel';
 import {
 	LELodasoftDataAccessModelsReportTaskMetricsModel,
 	LELodasoftDataAccessModelsReportTaskMetricsModelIO,
@@ -21,6 +29,14 @@ export type ReportController = {
 	readonly Report_GetTaskMetrics: (parameters: {
 		body: LELodasoftCommonModelsReportTaskMetricsRequest;
 	}) => Observable<AsyncData<Error, LELodasoftDataAccessModelsReportTaskMetricsModel>>;
+
+	/**
+	 * Get Pipeline Metrics
+	 * @param { object } parameters
+	 */
+	readonly Report_GetPipelineMetrics: (parameters: {
+		body: LELodasoftCommonModelsReportPipelineMetricsRequest;
+	}) => Observable<AsyncData<Error, LELodasoftDataAccessModelsReportPipelineMetricsModel>>;
 };
 
 export const reportController = asks(
@@ -40,6 +56,29 @@ export const reportController = asks(
 						data.chain(value =>
 							fromEither(
 								LELodasoftDataAccessModelsReportTaskMetricsModelIO.decode(value).mapLeft(
+									ResponseValiationError.create,
+								),
+							),
+						),
+					),
+				);
+		},
+
+		Report_GetPipelineMetrics: parameters => {
+			const encoded = partial({ body: LELodasoftCommonModelsReportPipelineMetricsRequestIO }).encode(parameters);
+
+			return e.apiClient
+				.request({
+					url: `/api/Report/GetPipelineMetrics`,
+					method: 'POST',
+
+					body: encoded.body,
+				})
+				.pipe(
+					map(data =>
+						data.chain(value =>
+							fromEither(
+								LELodasoftDataAccessModelsReportPipelineMetricsModelIO.decode(value).mapLeft(
 									ResponseValiationError.create,
 								),
 							),

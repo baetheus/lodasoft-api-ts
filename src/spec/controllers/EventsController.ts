@@ -55,10 +55,11 @@ export type EventsController = {
 	readonly Events_DeleteEvent: (eventId: number) => Observable<AsyncData<Error, unknown>>;
 
 	/**
+	 * Get all events
 	 * @param { object } [parameters]
 	 */
 	readonly Events_GetAllEvents: (parameters: {
-		query?: { filterdate: Option<string> };
+		query?: { filterdate: Option<string>; applicationId: Option<number>; leadId: Option<number> };
 	}) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsEventsEventViewModel>>>;
 
 	/**
@@ -185,9 +186,13 @@ export const eventsController = asks(
 		},
 
 		Events_GetAllEvents: parameters => {
-			const encoded = partial({ query: type({ filterdate: createOptionFromNullable(string) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({
+					filterdate: createOptionFromNullable(string),
+					applicationId: createOptionFromNullable(number),
+					leadId: createOptionFromNullable(number),
+				}),
+			}).encode(parameters);
 
 			return e.apiClient
 				.request({

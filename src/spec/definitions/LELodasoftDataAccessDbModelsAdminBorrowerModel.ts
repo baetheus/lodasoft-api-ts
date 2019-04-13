@@ -1,11 +1,12 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, boolean, union, literal, type } from 'io-ts';
+import { number, string, boolean, keyof, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftDataAccessDbModelsAdminBorrowerModel = {
 	borrowerId: Option<number>;
 	userId: Option<string>;
 	firstName: Option<string>;
+	middleName: Option<string>;
 	lastName: Option<string>;
 	birthDate: Option<Date>;
 	socialSecNum: Option<string>;
@@ -38,6 +39,7 @@ export const LELodasoftDataAccessDbModelsAdminBorrowerModelIO = type({
 	borrowerId: createOptionFromNullable(number),
 	userId: createOptionFromNullable(string),
 	firstName: createOptionFromNullable(string),
+	middleName: createOptionFromNullable(string),
 	lastName: createOptionFromNullable(string),
 	birthDate: createOptionFromNullable(DateFromISOString),
 	socialSecNum: createOptionFromNullable(string),
@@ -59,7 +61,7 @@ export const LELodasoftDataAccessDbModelsAdminBorrowerModelIO = type({
 	mailingState: createOptionFromNullable(string),
 	mailingZip: createOptionFromNullable(string),
 	dateCreateBorrower: createOptionFromNullable(DateFromISOString),
-	creditMonitoringStatus: createOptionFromNullable(union([literal('Unset'), literal('Active'), literal('Disabled')])),
+	creditMonitoringStatus: createOptionFromNullable(keyof({ Unset: null, Active: null, Disabled: null })),
 	companyId: createOptionFromNullable(number),
 	insertedBy: createOptionFromNullable(string),
 	dateInserted: createOptionFromNullable(DateFromISOString),

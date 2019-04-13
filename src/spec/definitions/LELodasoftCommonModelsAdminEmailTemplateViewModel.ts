@@ -3,7 +3,7 @@ import {
 	LELodasoftCommonModelsAdminEmailTemplateImageViewModelIO,
 } from '../definitions/LELodasoftCommonModelsAdminEmailTemplateImageViewModel';
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, union, literal, boolean, array, type } from 'io-ts';
+import { number, string, keyof, boolean, array, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsAdminEmailTemplateViewModel = {
@@ -24,7 +24,7 @@ export const LELodasoftCommonModelsAdminEmailTemplateViewModelIO = type({
 	emailTemplateId: createOptionFromNullable(number),
 	emailTemplateName: createOptionFromNullable(string),
 	description: createOptionFromNullable(string),
-	emailTemplateType: createOptionFromNullable(union([literal('Loan'), literal('Lead')])),
+	emailTemplateType: createOptionFromNullable(keyof({ Loan: null, Lead: null })),
 	manualSendEnabled: createOptionFromNullable(boolean),
 	emailText: createOptionFromNullable(string),
 	images: createOptionFromNullable(array(LELodasoftCommonModelsAdminEmailTemplateImageViewModelIO)),

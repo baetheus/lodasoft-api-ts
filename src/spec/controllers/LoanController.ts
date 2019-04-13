@@ -36,6 +36,10 @@ import {
 	LELodasoftApiModelsSharedAddressViewIO,
 } from '../definitions/LELodasoftApiModelsSharedAddressView';
 import {
+	LELodasoftCommonModelsAdminActivityLogViewModel,
+	LELodasoftCommonModelsAdminActivityLogViewModelIO,
+} from '../definitions/LELodasoftCommonModelsAdminActivityLogViewModel';
+import {
 	LELodasoftCommonModelsAdminAgentViewModel,
 	LELodasoftCommonModelsAdminAgentViewModelIO,
 } from '../definitions/LELodasoftCommonModelsAdminAgentViewModel';
@@ -315,6 +319,13 @@ export type LoanController = {
 	readonly Loan_ViewLoanStatusHistory: (
 		loanId: number,
 	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminTrackingViewModel>>>;
+
+	/**
+	 * @param { number } applicationId undefined
+	 */
+	readonly Loan_ViewLoanStatusHistory1: (
+		applicationId: number,
+	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminActivityLogViewModel>>>;
 
 	/**
 	 * @param { number } loanId undefined
@@ -929,6 +940,25 @@ export const loanController = asks(
 						data.chain(value =>
 							fromEither(
 								array(LELodasoftCommonModelsAdminTrackingViewModelIO)
+									.decode(value)
+									.mapLeft(ResponseValiationError.create),
+							),
+						),
+					),
+				);
+		},
+
+		Loan_ViewLoanStatusHistory1: applicationId => {
+			return e.apiClient
+				.request({
+					url: `/api/Loan/${encodeURIComponent(number.encode(applicationId).toString())}/GetActivityLogs`,
+					method: 'GET',
+				})
+				.pipe(
+					map(data =>
+						data.chain(value =>
+							fromEither(
+								array(LELodasoftCommonModelsAdminActivityLogViewModelIO)
 									.decode(value)
 									.mapLeft(ResponseValiationError.create),
 							),

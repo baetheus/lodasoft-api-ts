@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, union, literal, type } from 'io-ts';
+import { number, string, keyof, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsMortgagePhoneViewModel = {
@@ -17,7 +17,7 @@ export const LELodasoftCommonModelsMortgagePhoneViewModelIO = type({
 	phoneId: createOptionFromNullable(number),
 	borrowerId: createOptionFromNullable(number),
 	phoneNumber: createOptionFromNullable(string),
-	typeOfPhone: createOptionFromNullable(union([literal('HomePhone'), literal('WorkPhone'), literal('CellPhone')])),
+	typeOfPhone: createOptionFromNullable(keyof({ HomePhone: null, WorkPhone: null, CellPhone: null })),
 	companyId: createOptionFromNullable(number),
 	insertedBy: createOptionFromNullable(string),
 	dateInserted: createOptionFromNullable(DateFromISOString),

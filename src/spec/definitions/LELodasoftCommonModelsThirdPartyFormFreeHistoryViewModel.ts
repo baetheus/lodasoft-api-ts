@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, union, literal, type } from 'io-ts';
+import { number, string, keyof, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModel = {
@@ -34,7 +34,7 @@ export const LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO = type({
 	lastName: createOptionFromNullable(string),
 	email: createOptionFromNullable(string),
 	last4Ssn: createOptionFromNullable(string),
-	voaRequestType: createOptionFromNullable(union([literal('full'), literal('lite')])),
+	voaRequestType: createOptionFromNullable(keyof({ full: null, lite: null })),
 	transactionId: createOptionFromNullable(string),
 	accountChekOrderId: createOptionFromNullable(string),
 	reportId: createOptionFromNullable(string),
@@ -46,16 +46,16 @@ export const LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO = type({
 	borrowerId: createOptionFromNullable(number),
 	loanDocTaskId: createOptionFromNullable(number),
 	taskStatus: createOptionFromNullable(
-		union([
-			literal('Pending'),
-			literal('Submitted'),
-			literal('Rejected'),
-			literal('Approved'),
-			literal('NotApplicable'),
-			literal('Requested'),
-			literal('Completed'),
-			literal('ReviewReady'),
-		]),
+		keyof({
+			Pending: null,
+			Submitted: null,
+			Rejected: null,
+			Approved: null,
+			NotApplicable: null,
+			Requested: null,
+			Completed: null,
+			ReviewReady: null,
+		}),
 	),
 	companyId: createOptionFromNullable(number),
 	insertedBy: createOptionFromNullable(string),

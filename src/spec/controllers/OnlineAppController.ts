@@ -156,9 +156,29 @@ export type OnlineAppController = {
 	 * @param { string } companyGuid undefined
 	 * @param { object } parameters
 	 */
-	readonly OnlineApp_InitializeFormFree: (
+	readonly OnlineApp_InitializeFormFreeByCompanyGuid: (
 		companyGuid: string,
 		parameters: { body: LELodasoftApiControllersInitializeFormFreeRequest },
+	) => Observable<AsyncData<Error, LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse>>;
+
+	/**
+	 * Initialize Form Free for Online Application (authed). This will link the request to the loanid and the primary borrower on that loan.
+	 * @param { number } loanId -
+	 * @param { object } parameters
+	 */
+	readonly OnlineApp_InitializeFormFree: (
+		loanId: number,
+		parameters: { body: LELodasoftApiControllersInitializeFormFreeRequest },
+	) => Observable<AsyncData<Error, LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse>>;
+
+	/**
+	 * Initialize Form Free for Online Application (authed). This will link the request to the loanid and the borrowerId passed.
+	 * @param { number } loanId - the loan id
+	 * @param { number } borrowerId - id of the borrower to initialize form free for
+	 */
+	readonly OnlineApp_InitializeFormFreeForBorrower: (
+		loanId: number,
+		borrowerId: number,
 	) => Observable<AsyncData<Error, LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse>>;
 
 	/**
@@ -395,7 +415,7 @@ export const onlineAppController = asks(
 				);
 		},
 
-		OnlineApp_InitializeFormFree: (companyGuid, parameters) => {
+		OnlineApp_InitializeFormFreeByCompanyGuid: (companyGuid, parameters) => {
 			const encoded = partial({ body: LELodasoftApiControllersInitializeFormFreeRequestIO }).encode(parameters);
 
 			return e.apiClient
@@ -406,6 +426,50 @@ export const onlineAppController = asks(
 					method: 'POST',
 
 					body: encoded.body,
+				})
+				.pipe(
+					map(data =>
+						data.chain(value =>
+							fromEither(
+								LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO.decode(value).mapLeft(
+									ResponseValiationError.create,
+								),
+							),
+						),
+					),
+				);
+		},
+
+		OnlineApp_InitializeFormFree: (loanId, parameters) => {
+			const encoded = partial({ body: LELodasoftApiControllersInitializeFormFreeRequestIO }).encode(parameters);
+
+			return e.apiClient
+				.request({
+					url: `/api/online-app/InitializeFormFree/${encodeURIComponent(number.encode(loanId).toString())}`,
+					method: 'POST',
+
+					body: encoded.body,
+				})
+				.pipe(
+					map(data =>
+						data.chain(value =>
+							fromEither(
+								LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO.decode(value).mapLeft(
+									ResponseValiationError.create,
+								),
+							),
+						),
+					),
+				);
+		},
+
+		OnlineApp_InitializeFormFreeForBorrower: (loanId, borrowerId) => {
+			return e.apiClient
+				.request({
+					url: `/api/online-app/InitializeFormFreeForBorrower/${encodeURIComponent(
+						number.encode(loanId).toString(),
+					)}/${encodeURIComponent(number.encode(borrowerId).toString())}`,
+					method: 'POST',
 				})
 				.pipe(
 					map(data =>

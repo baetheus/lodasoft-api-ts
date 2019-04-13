@@ -1,5 +1,9 @@
 import { ResponseValiationError, TAPIClient } from '../client/client';
 import {
+	LELodasoftCommonModelsAdminAlertViewModel,
+	LELodasoftCommonModelsAdminAlertViewModelIO,
+} from '../definitions/LELodasoftCommonModelsAdminAlertViewModel';
+import {
 	LELodasoftCommonModelsAdminNotificationViewModel,
 	LELodasoftCommonModelsAdminNotificationViewModelIO,
 } from '../definitions/LELodasoftCommonModelsAdminNotificationViewModel';
@@ -26,7 +30,7 @@ export type CommonController = {
 	 */
 	readonly Common_GetAlerts: (
 		alertTypeId: string,
-	) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsAdminAlertModel>>>;
+	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminAlertViewModel>>>;
 
 	/**
 	 * @param { number } alertId undefined
@@ -89,7 +93,7 @@ export const commonController = asks(
 					map(data =>
 						data.chain(value =>
 							fromEither(
-								array(LELodasoftDataAccessDbModelsAdminAlertModelIO)
+								array(LELodasoftCommonModelsAdminAlertViewModelIO)
 									.decode(value)
 									.mapLeft(ResponseValiationError.create),
 							),

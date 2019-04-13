@@ -2,7 +2,7 @@ import { Option } from 'fp-ts/lib/Option';
 import { number, keyof, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
-export type LELodasoftDataAccessDbModelsAdminAlertModel = {
+export type LELodasoftCommonModelsAdminAlertViewModel = {
 	alertId: Option<number>;
 	applicationId: Option<number>;
 	taskId: Option<number>;
@@ -103,7 +103,7 @@ export type LELodasoftDataAccessDbModelsAdminAlertModel = {
 	borrowerId: Option<number>;
 	borrowerName: Option<string>;
 };
-export const LELodasoftDataAccessDbModelsAdminAlertModelIO = type({
+export const LELodasoftCommonModelsAdminAlertViewModelIO = type({
 	alertId: createOptionFromNullable(number),
 	applicationId: createOptionFromNullable(number),
 	taskId: createOptionFromNullable(number),

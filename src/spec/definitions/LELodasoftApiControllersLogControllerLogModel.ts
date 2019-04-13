@@ -1,6 +1,6 @@
 import { unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
-import { union, literal, string, dictionary, type } from 'io-ts';
+import { keyof, string, dictionary, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftApiControllersLogControllerLogModel = {
@@ -13,14 +13,7 @@ export type LELodasoftApiControllersLogControllerLogModel = {
 };
 export const LELodasoftApiControllersLogControllerLogModelIO = type({
 	level: createOptionFromNullable(
-		union([
-			literal('Fatal'),
-			literal('Error'),
-			literal('Warning'),
-			literal('Info'),
-			literal('Debug'),
-			literal('Trace'),
-		]),
+		keyof({ Fatal: null, Error: null, Warning: null, Info: null, Debug: null, Trace: null }),
 	),
 	timestamp: createOptionFromNullable(DateFromISOString),
 	message: createOptionFromNullable(string),

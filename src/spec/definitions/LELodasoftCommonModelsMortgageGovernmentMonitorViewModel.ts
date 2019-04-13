@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, boolean, union, literal, string, type } from 'io-ts';
+import { number, boolean, keyof, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsMortgageGovernmentMonitorViewModel = {
@@ -39,32 +39,32 @@ export const LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO = type({
 	borrowerId: createOptionFromNullable(number),
 	isFurnishInfo: createOptionFromNullable(boolean),
 	ethnicity: createOptionFromNullable(
-		union([
-			literal('AmericanIndianOrAlaskaNative'),
-			literal('Asian'),
-			literal('BlackOrAfricanAmerican'),
-			literal('HispanicOrLatino'),
-			literal('NativeHawaiianOrOtherPacificIslander'),
-			literal('White'),
-			literal('InformationNotProvided'),
-			literal('NotApplicable'),
-		]),
+		keyof({
+			AmericanIndianOrAlaskaNative: null,
+			Asian: null,
+			BlackOrAfricanAmerican: null,
+			HispanicOrLatino: null,
+			NativeHawaiianOrOtherPacificIslander: null,
+			White: null,
+			InformationNotProvided: null,
+			NotApplicable: null,
+		}),
 	),
 	race: createOptionFromNullable(
-		union([
-			literal('Caucasian'),
-			literal('NonCaucasian'),
-			literal('AmericanIndianOrAlaskaNative'),
-			literal('Asian'),
-			literal('BlackOrAfricanAmerican'),
-			literal('NativeHawaiianOrOtherPacificIslander'),
-			literal('White'),
-			literal('InformationNotProvided'),
-			literal('NotApplicable'),
-		]),
+		keyof({
+			Caucasian: null,
+			NonCaucasian: null,
+			AmericanIndianOrAlaskaNative: null,
+			Asian: null,
+			BlackOrAfricanAmerican: null,
+			NativeHawaiianOrOtherPacificIslander: null,
+			White: null,
+			InformationNotProvided: null,
+			NotApplicable: null,
+		}),
 	),
 	sex: createOptionFromNullable(
-		union([literal('Female'), literal('Male'), literal('InformationNotProvided'), literal('NotApplicable')]),
+		keyof({ Female: null, Male: null, InformationNotProvided: null, NotApplicable: null }),
 	),
 	companyId: createOptionFromNullable(number),
 	insertedBy: createOptionFromNullable(string),

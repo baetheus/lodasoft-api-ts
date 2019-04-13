@@ -3,7 +3,7 @@ import {
 	LELodasoftDataAccessModelsAdminBorrowerFileDtoIO,
 } from '../definitions/LELodasoftDataAccessModelsAdminBorrowerFileDto';
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, union, literal, boolean, array, type } from 'io-ts';
+import { number, string, keyof, boolean, array, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView = {
@@ -76,32 +76,30 @@ export const LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO = type({
 	requestedBy: createOptionFromNullable(string),
 	note: createOptionFromNullable(string),
 	status: createOptionFromNullable(
-		union([
-			literal('Pending'),
-			literal('Submitted'),
-			literal('Rejected'),
-			literal('Approved'),
-			literal('NotApplicable'),
-			literal('Requested'),
-			literal('Completed'),
-			literal('ReviewReady'),
-		]),
+		keyof({
+			Pending: null,
+			Submitted: null,
+			Rejected: null,
+			Approved: null,
+			NotApplicable: null,
+			Requested: null,
+			Completed: null,
+			ReviewReady: null,
+		}),
 	),
 	taskStatus: createOptionFromNullable(string),
-	taskPriority: createOptionFromNullable(
-		union([literal('Low'), literal('Normal'), literal('High'), literal('Immediate')]),
-	),
+	taskPriority: createOptionFromNullable(keyof({ Low: null, Normal: null, High: null, Immediate: null })),
 	taskType: createOptionFromNullable(
-		union([
-			literal('RequestDocument'),
-			literal('ViewDocument'),
-			literal('AcknowledgeReceipt'),
-			literal('EsignDocument'),
-			literal('RequestInformation'),
-			literal('PerformAction'),
-			literal('OnlineApplication'),
-			literal('DigitalAssetVerification'),
-		]),
+		keyof({
+			RequestDocument: null,
+			ViewDocument: null,
+			AcknowledgeReceipt: null,
+			EsignDocument: null,
+			RequestInformation: null,
+			PerformAction: null,
+			OnlineApplication: null,
+			DigitalAssetVerification: null,
+		}),
 	),
 	documentTypeId: createOptionFromNullable(number),
 	docTypeText: createOptionFromNullable(string),
@@ -120,9 +118,9 @@ export const LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO = type({
 	borrowerNote: createOptionFromNullable(string),
 	condition: createOptionFromNullable(boolean),
 	conditionStatus: createOptionFromNullable(
-		union([literal('ConditionPending'), literal('ConditionCleared'), literal('ConditionReOpened')]),
+		keyof({ ConditionPending: null, ConditionCleared: null, ConditionReOpened: null }),
 	),
-	conditionType: createOptionFromNullable(union([literal('PTS'), literal('PTD'), literal('PTF'), literal('PTC')])),
+	conditionType: createOptionFromNullable(keyof({ PTS: null, PTD: null, PTF: null, PTC: null })),
 	docFiles: createOptionFromNullable(array(LELodasoftDataAccessModelsAdminBorrowerFileDtoIO)),
 	notifyPartyId: createOptionFromNullable(string),
 	requiresReview: createOptionFromNullable(boolean),

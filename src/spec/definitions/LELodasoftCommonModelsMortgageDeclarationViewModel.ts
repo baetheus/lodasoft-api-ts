@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, boolean, string, union, literal, type } from 'io-ts';
+import { number, boolean, string, keyof, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsMortgageDeclarationViewModel = {
@@ -77,42 +77,32 @@ export const LELodasoftCommonModelsMortgageDeclarationViewModelIO = type({
 	coSignedLoanInfo: createOptionFromNullable(string),
 	isVeteran: createOptionFromNullable(boolean),
 	residenceStatus: createOptionFromNullable(
-		union([
-			literal('USCitizen'),
-			literal('PermanentResident'),
-			literal('ResidentAlien'),
-			literal('UnknownResidencyStatus'),
-		]),
+		keyof({ USCitizen: null, PermanentResident: null, ResidentAlien: null, UnknownResidencyStatus: null }),
 	),
 	occupyProperty: createOptionFromNullable(boolean),
 	havePropertiesOwnership: createOptionFromNullable(boolean),
 	typeOfProperty: createOptionFromNullable(
-		union([
-			literal('SFRAttached'),
-			literal('Condominium'),
-			literal('Cooperative'),
-			literal('SFR'),
-			literal('HighRiseCondominium'),
-			literal('ManufacturedHousing'),
-			literal('Modular'),
-			literal('PUD'),
-			literal('ManufacturedHousingSingleWide'),
-			literal('ManufacturedHousingDoubleWide'),
-			literal('DetachedCondominium'),
-			literal('ManufacturedHomeCondominium'),
-			literal('ManufacturedHousingMultiWide'),
-			literal('ManufacturedHomeCondominiumOrPUDOrCooperative'),
-			literal('TwoTo4UnitBuilding'),
-			literal('NonWarrantedCondo'),
-		]),
+		keyof({
+			SFRAttached: null,
+			Condominium: null,
+			Cooperative: null,
+			SFR: null,
+			HighRiseCondominium: null,
+			ManufacturedHousing: null,
+			Modular: null,
+			PUD: null,
+			ManufacturedHousingSingleWide: null,
+			ManufacturedHousingDoubleWide: null,
+			DetachedCondominium: null,
+			ManufacturedHomeCondominium: null,
+			ManufacturedHousingMultiWide: null,
+			ManufacturedHomeCondominiumOrPUDOrCooperative: null,
+			TwoTo4UnitBuilding: null,
+			NonWarrantedCondo: null,
+		}),
 	),
 	propertyWillBe: createOptionFromNullable(
-		union([
-			literal('PrimaryResidence'),
-			literal('SecondaryResidence'),
-			literal('Investment'),
-			literal('ShortTermRental'),
-		]),
+		keyof({ PrimaryResidence: null, SecondaryResidence: null, Investment: null, ShortTermRental: null }),
 	),
 	heldTitleHow: createOptionFromNullable(number),
 	fromCreditReport: createOptionFromNullable(boolean),

@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { string, union, literal, number, type } from 'io-ts';
+import { string, keyof, number, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftThirdPartyFormFreeModelsLiteAccountInfo = {
@@ -16,7 +16,7 @@ export type LELodasoftThirdPartyFormFreeModelsLiteAccountInfo = {
 };
 export const LELodasoftThirdPartyFormFreeModelsLiteAccountInfoIO = type({
 	accountId: createOptionFromNullable(string),
-	accountType: createOptionFromNullable(union([literal('DDA'), literal('SDA'), literal('INV'), literal('OLA')])),
+	accountType: createOptionFromNullable(keyof({ DDA: null, SDA: null, INV: null, OLA: null })),
 	accountName: createOptionFromNullable(string),
 	accountNumber: createOptionFromNullable(string),
 	accountHolder: createOptionFromNullable(string),

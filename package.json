@@ -28,7 +28,7 @@
   "homepage": "https://github.com/baetheus/lodasoft-api-ts#readme",
   "devDependencies": {
     "@nll/dux": "^1.0.5",
-    "@nll/swagger-codegen-ts": "^1.0.1",
+    "@nll/swagger-codegen-ts": "^1.0.3",
     "@types/node-fetch": "^2.1.6",
     "fp-ts": "^1.14.4",
     "io-ts": "^1.8.3",

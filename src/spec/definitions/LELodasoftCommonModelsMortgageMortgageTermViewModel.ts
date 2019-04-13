@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, union, literal, string, type } from 'io-ts';
+import { number, keyof, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsMortgageMortgageTermViewModel = {
@@ -22,13 +22,7 @@ export type LELodasoftCommonModelsMortgageMortgageTermViewModel = {
 export const LELodasoftCommonModelsMortgageMortgageTermViewModelIO = type({
 	mortgageTermId: createOptionFromNullable(number),
 	mortgageAppliedFor: createOptionFromNullable(
-		union([
-			literal('VA'),
-			literal('FHA'),
-			literal('Conventional'),
-			literal('USDARuralHousingService'),
-			literal('OtherMortgage'),
-		]),
+		keyof({ VA: null, FHA: null, Conventional: null, USDARuralHousingService: null, OtherMortgage: null }),
 	),
 	agencyCaseNumber: createOptionFromNullable(string),
 	lenderCaseNumber: createOptionFromNullable(string),
@@ -37,9 +31,9 @@ export const LELodasoftCommonModelsMortgageMortgageTermViewModelIO = type({
 	interestRate: createOptionFromNullable(number),
 	noOfMonths: createOptionFromNullable(number),
 	amortizationType: createOptionFromNullable(
-		union([literal('FixedRate'), literal('GEM'), literal('GPM'), literal('ARM'), literal('OtherAmortization')]),
+		keyof({ FixedRate: null, GEM: null, GPM: null, ARM: null, OtherAmortization: null }),
 	),
-	lienPosition: createOptionFromNullable(union([literal('FirstLien'), literal('SecondLien'), literal('Other')])),
+	lienPosition: createOptionFromNullable(keyof({ FirstLien: null, SecondLien: null, Other: null })),
 	companyId: createOptionFromNullable(number),
 	insertedBy: createOptionFromNullable(string),
 	dateInserted: createOptionFromNullable(DateFromISOString),

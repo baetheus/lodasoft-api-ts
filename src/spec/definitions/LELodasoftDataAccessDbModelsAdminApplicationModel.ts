@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, union, literal, type } from 'io-ts';
+import { number, string, keyof, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftDataAccessDbModelsAdminApplicationModel = {
@@ -36,6 +36,7 @@ export type LELodasoftDataAccessDbModelsAdminApplicationModel = {
 	mailingState: Option<string>;
 	mailingZip: Option<string>;
 	dateCreate: Option<Date>;
+	referralSource: Option<number>;
 	companyId: Option<number>;
 	insertedBy: Option<string>;
 	dateInserted: Option<Date>;
@@ -53,7 +54,7 @@ export const LELodasoftDataAccessDbModelsAdminApplicationModelIO = type({
 	refNumber: createOptionFromNullable(string),
 	losIdentifier: createOptionFromNullable(string),
 	thirdPartyCredentialProviderId: createOptionFromNullable(number),
-	losVendor: createOptionFromNullable(union([literal('Encompass'), literal('LendingQb')])),
+	losVendor: createOptionFromNullable(keyof({ Encompass: null, LendingQb: null })),
 	loanAmount: createOptionFromNullable(number),
 	mipAmount: createOptionFromNullable(number),
 	cashOutAmount: createOptionFromNullable(number),
@@ -76,6 +77,7 @@ export const LELodasoftDataAccessDbModelsAdminApplicationModelIO = type({
 	mailingState: createOptionFromNullable(string),
 	mailingZip: createOptionFromNullable(string),
 	dateCreate: createOptionFromNullable(DateFromISOString),
+	referralSource: createOptionFromNullable(number),
 	companyId: createOptionFromNullable(number),
 	insertedBy: createOptionFromNullable(string),
 	dateInserted: createOptionFromNullable(DateFromISOString),

@@ -1,101 +1,100 @@
-import { AsyncData, fromEither } from '@nll/dux';
+import { ResponseValiationError, TAPIClient } from '../client/client';
+import {
+	LELodasoftApiControllersInitializeFormFreeRequest,
+	LELodasoftApiControllersInitializeFormFreeRequestIO,
+} from '../definitions/LELodasoftApiControllersInitializeFormFreeRequest';
+import {
+	LELodasoftApiModelsBorrowerPortalBorrowerMessageModel,
+	LELodasoftApiModelsBorrowerPortalBorrowerMessageModelIO,
+} from '../definitions/LELodasoftApiModelsBorrowerPortalBorrowerMessageModel';
+import {
+	LELodasoftApiModelsForgotPasswordBindingModel,
+	LELodasoftApiModelsForgotPasswordBindingModelIO,
+} from '../definitions/LELodasoftApiModelsForgotPasswordBindingModel';
+import {
+	LELodasoftApiModelsResetPasswordBindingModel,
+	LELodasoftApiModelsResetPasswordBindingModelIO,
+} from '../definitions/LELodasoftApiModelsResetPasswordBindingModel';
+import {
+	LELodasoftApiModelsSharedPortalContentViewModel,
+	LELodasoftApiModelsSharedPortalContentViewModelIO,
+} from '../definitions/LELodasoftApiModelsSharedPortalContentViewModel';
+import {
+	LELodasoftCommonModelsAdminMessageViewModel,
+	LELodasoftCommonModelsAdminMessageViewModelIO,
+} from '../definitions/LELodasoftCommonModelsAdminMessageViewModel';
+import {
+	LELodasoftCommonModelsAdminPrequalDetailViewModel,
+	LELodasoftCommonModelsAdminPrequalDetailViewModelIO,
+} from '../definitions/LELodasoftCommonModelsAdminPrequalDetailViewModel';
+import {
+	LELodasoftCommonModelsBorrowerPortalBorrowerContact,
+	LELodasoftCommonModelsBorrowerPortalBorrowerContactIO,
+} from '../definitions/LELodasoftCommonModelsBorrowerPortalBorrowerContact';
+import {
+	LELodasoftCommonModelsLoanLoanDocTaskViewModel,
+	LELodasoftCommonModelsLoanLoanDocTaskViewModelIO,
+} from '../definitions/LELodasoftCommonModelsLoanLoanDocTaskViewModel';
+import {
+	LELodasoftCommonModelsSharedApplicationView,
+	LELodasoftCommonModelsSharedApplicationViewIO,
+} from '../definitions/LELodasoftCommonModelsSharedApplicationView';
+import {
+	LELodasoftCommonModelsSharedCallbackModel,
+	LELodasoftCommonModelsSharedCallbackModelIO,
+} from '../definitions/LELodasoftCommonModelsSharedCallbackModel';
+import {
+	LELodasoftCommonModelsSharedConfirmRegisterRequestModel,
+	LELodasoftCommonModelsSharedConfirmRegisterRequestModelIO,
+} from '../definitions/LELodasoftCommonModelsSharedConfirmRegisterRequestModel';
+import {
+	LELodasoftCommonModelsSharedCreateAccountModel,
+	LELodasoftCommonModelsSharedCreateAccountModelIO,
+} from '../definitions/LELodasoftCommonModelsSharedCreateAccountModel';
+import {
+	LELodasoftCommonModelsSharedCreateAccountResponseModel,
+	LELodasoftCommonModelsSharedCreateAccountResponseModelIO,
+} from '../definitions/LELodasoftCommonModelsSharedCreateAccountResponseModel';
+import {
+	LELodasoftCommonModelsSharedGeneratePrequalLetterRequest,
+	LELodasoftCommonModelsSharedGeneratePrequalLetterRequestIO,
+} from '../definitions/LELodasoftCommonModelsSharedGeneratePrequalLetterRequest';
+import {
+	LELodasoftCommonModelsSharedGeneratePrequalLetterResponse,
+	LELodasoftCommonModelsSharedGeneratePrequalLetterResponseIO,
+} from '../definitions/LELodasoftCommonModelsSharedGeneratePrequalLetterResponse';
+import {
+	LELodasoftCommonModelsSharedPortalLiveData,
+	LELodasoftCommonModelsSharedPortalLiveDataIO,
+} from '../definitions/LELodasoftCommonModelsSharedPortalLiveData';
+import {
+	LELodasoftCommonModelsSharedPortalTasks,
+	LELodasoftCommonModelsSharedPortalTasksIO,
+} from '../definitions/LELodasoftCommonModelsSharedPortalTasks';
+import {
+	LELodasoftCommonModelsSharedReferralAgent,
+	LELodasoftCommonModelsSharedReferralAgentIO,
+} from '../definitions/LELodasoftCommonModelsSharedReferralAgent';
+import {
+	LELodasoftCommonModelsSharedReferralModel,
+	LELodasoftCommonModelsSharedReferralModelIO,
+} from '../definitions/LELodasoftCommonModelsSharedReferralModel';
+import {
+	LELodasoftCommonModelsSharedRegisterModel,
+	LELodasoftCommonModelsSharedRegisterModelIO,
+} from '../definitions/LELodasoftCommonModelsSharedRegisterModel';
+import {
+	LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse,
+	LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO,
+} from '../definitions/LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse';
+import { unknownType } from '../utils/utils';
+import { fromEither, AsyncData } from '@nll/dux';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
-import { array, boolean, number, partial, string, type } from 'io-ts';
+import { string, partial, boolean, array, number, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { ResponseValiationError, TAPIClient } from '../client/client';
-import {
-  LELodasoftApiControllersInitializeFormFreeRequest,
-  LELodasoftApiControllersInitializeFormFreeRequestIO,
-} from '../definitions/LELodasoftApiControllersInitializeFormFreeRequest';
-import {
-  LELodasoftApiModelsBorrowerPortalBorrowerMessageModel,
-  LELodasoftApiModelsBorrowerPortalBorrowerMessageModelIO,
-} from '../definitions/LELodasoftApiModelsBorrowerPortalBorrowerMessageModel';
-import {
-  LELodasoftApiModelsForgotPasswordBindingModel,
-  LELodasoftApiModelsForgotPasswordBindingModelIO,
-} from '../definitions/LELodasoftApiModelsForgotPasswordBindingModel';
-import {
-  LELodasoftApiModelsResetPasswordBindingModel,
-  LELodasoftApiModelsResetPasswordBindingModelIO,
-} from '../definitions/LELodasoftApiModelsResetPasswordBindingModel';
-import {
-  LELodasoftApiModelsSharedPortalContentViewModel,
-  LELodasoftApiModelsSharedPortalContentViewModelIO,
-} from '../definitions/LELodasoftApiModelsSharedPortalContentViewModel';
-import {
-  LELodasoftCommonModelsAdminMessageViewModel,
-  LELodasoftCommonModelsAdminMessageViewModelIO,
-} from '../definitions/LELodasoftCommonModelsAdminMessageViewModel';
-import {
-  LELodasoftCommonModelsAdminPrequalDetailViewModel,
-  LELodasoftCommonModelsAdminPrequalDetailViewModelIO,
-} from '../definitions/LELodasoftCommonModelsAdminPrequalDetailViewModel';
-import {
-  LELodasoftCommonModelsBorrowerPortalBorrowerContact,
-  LELodasoftCommonModelsBorrowerPortalBorrowerContactIO,
-} from '../definitions/LELodasoftCommonModelsBorrowerPortalBorrowerContact';
-import {
-  LELodasoftCommonModelsLoanLoanDocTaskViewModel,
-  LELodasoftCommonModelsLoanLoanDocTaskViewModelIO,
-} from '../definitions/LELodasoftCommonModelsLoanLoanDocTaskViewModel';
-import {
-  LELodasoftCommonModelsSharedApplicationView,
-  LELodasoftCommonModelsSharedApplicationViewIO,
-} from '../definitions/LELodasoftCommonModelsSharedApplicationView';
-import {
-  LELodasoftCommonModelsSharedCallbackModel,
-  LELodasoftCommonModelsSharedCallbackModelIO,
-} from '../definitions/LELodasoftCommonModelsSharedCallbackModel';
-import {
-  LELodasoftCommonModelsSharedConfirmRegisterRequestModel,
-  LELodasoftCommonModelsSharedConfirmRegisterRequestModelIO,
-} from '../definitions/LELodasoftCommonModelsSharedConfirmRegisterRequestModel';
-import {
-  LELodasoftCommonModelsSharedCreateAccountModel,
-  LELodasoftCommonModelsSharedCreateAccountModelIO,
-} from '../definitions/LELodasoftCommonModelsSharedCreateAccountModel';
-import {
-  LELodasoftCommonModelsSharedCreateAccountResponseModel,
-  LELodasoftCommonModelsSharedCreateAccountResponseModelIO,
-} from '../definitions/LELodasoftCommonModelsSharedCreateAccountResponseModel';
-import {
-  LELodasoftCommonModelsSharedGeneratePrequalLetterRequest,
-  LELodasoftCommonModelsSharedGeneratePrequalLetterRequestIO,
-} from '../definitions/LELodasoftCommonModelsSharedGeneratePrequalLetterRequest';
-import {
-  LELodasoftCommonModelsSharedGeneratePrequalLetterResponse,
-  LELodasoftCommonModelsSharedGeneratePrequalLetterResponseIO,
-} from '../definitions/LELodasoftCommonModelsSharedGeneratePrequalLetterResponse';
-import {
-  LELodasoftCommonModelsSharedPortalLiveData,
-  LELodasoftCommonModelsSharedPortalLiveDataIO,
-} from '../definitions/LELodasoftCommonModelsSharedPortalLiveData';
-import {
-  LELodasoftCommonModelsSharedPortalTasks,
-  LELodasoftCommonModelsSharedPortalTasksIO,
-} from '../definitions/LELodasoftCommonModelsSharedPortalTasks';
-import {
-  LELodasoftCommonModelsSharedReferralAgent,
-  LELodasoftCommonModelsSharedReferralAgentIO,
-} from '../definitions/LELodasoftCommonModelsSharedReferralAgent';
-import {
-  LELodasoftCommonModelsSharedReferralModel,
-  LELodasoftCommonModelsSharedReferralModelIO,
-} from '../definitions/LELodasoftCommonModelsSharedReferralModel';
-import {
-  LELodasoftCommonModelsSharedRegisterModel,
-  LELodasoftCommonModelsSharedRegisterModelIO,
-} from '../definitions/LELodasoftCommonModelsSharedRegisterModel';
-import {
-  LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse,
-  LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO,
-} from '../definitions/LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse';
-import { unknownType } from '../utils/utils';
 
 export type BorrowerPortalController = {
 	/**
@@ -112,9 +111,16 @@ export type BorrowerPortalController = {
 	/**
 	 * @param { object } parameters
 	 */
-	readonly BorrowerPortal_ConfirmRegistration: (parameters: {
+	readonly BorrowerPortal_ConfirmRegistrationToken: (parameters: {
 		body: LELodasoftCommonModelsSharedConfirmRegisterRequestModel;
 	}) => Observable<AsyncData<Error, LELodasoftCommonModelsSharedRegisterModel>>;
+
+	/**
+	 * @param { object } parameters
+	 */
+	readonly BorrowerPortal_ConfirmRegistration: (parameters: {
+		body: LELodasoftCommonModelsSharedRegisterModel;
+	}) => Observable<AsyncData<Error, boolean>>;
 
 	readonly BorrowerPortal_GetApplicationsForUser: () => Observable<
 		AsyncData<Error, Array<LELodasoftCommonModelsSharedApplicationView>>
@@ -271,7 +277,7 @@ export const borrowerPortalController = asks(
 				);
 		},
 
-		BorrowerPortal_ConfirmRegistration: parameters => {
+		BorrowerPortal_ConfirmRegistrationToken: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsSharedConfirmRegisterRequestModelIO }).encode(
 				parameters,
 			);
@@ -292,6 +298,23 @@ export const borrowerPortalController = asks(
 								),
 							),
 						),
+					),
+				);
+		},
+
+		BorrowerPortal_ConfirmRegistration: parameters => {
+			const encoded = partial({ body: LELodasoftCommonModelsSharedRegisterModelIO }).encode(parameters);
+
+			return e.apiClient
+				.request({
+					url: `/api/BorrowerPortal/ConfirmRegistration`,
+					method: 'POST',
+
+					body: encoded.body,
+				})
+				.pipe(
+					map(data =>
+						data.chain(value => fromEither(boolean.decode(value).mapLeft(ResponseValiationError.create))),
 					),
 				);
 		},

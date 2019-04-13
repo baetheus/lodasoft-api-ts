@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, union, literal, type } from 'io-ts';
+import { number, string, keyof, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsMessageSmsHistoryViewModel = {
@@ -22,7 +22,7 @@ export const LELodasoftCommonModelsMessageSmsHistoryViewModelIO = type({
 	from: createOptionFromNullable(string),
 	to: createOptionFromNullable(string),
 	body: createOptionFromNullable(string),
-	direction: createOptionFromNullable(union([literal('Unspecified'), literal('Outbound'), literal('Inbound')])),
+	direction: createOptionFromNullable(keyof({ Unspecified: null, Outbound: null, Inbound: null })),
 	smsMessageSid: createOptionFromNullable(string),
 	messageSid: createOptionFromNullable(string),
 	accountSid: createOptionFromNullable(string),

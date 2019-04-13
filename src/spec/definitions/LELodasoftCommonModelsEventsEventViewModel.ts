@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, union, literal, boolean, type } from 'io-ts';
+import { number, string, keyof, boolean, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsEventsEventViewModel = {
@@ -33,9 +33,9 @@ export type LELodasoftCommonModelsEventsEventViewModel = {
 export const LELodasoftCommonModelsEventsEventViewModelIO = type({
 	eventId: createOptionFromNullable(number),
 	title: createOptionFromNullable(string),
-	eventType: createOptionFromNullable(union([literal('Appointment')])),
+	eventType: createOptionFromNullable(keyof({ Appointment: null })),
 	description: createOptionFromNullable(string),
-	privilege: createOptionFromNullable(union([literal('Private'), literal('Public')])),
+	privilege: createOptionFromNullable(keyof({ Private: null, Public: null })),
 	location: createOptionFromNullable(string),
 	icon: createOptionFromNullable(string),
 	className: createOptionFromNullable(string),

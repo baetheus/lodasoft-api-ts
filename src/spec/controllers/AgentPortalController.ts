@@ -1,85 +1,91 @@
-import { AsyncData, fromEither } from '@nll/dux';
+import { ResponseValiationError, TAPIClient } from '../client/client';
+import {
+	LELodasoftApiModelsForgotPasswordBindingModel,
+	LELodasoftApiModelsForgotPasswordBindingModelIO,
+} from '../definitions/LELodasoftApiModelsForgotPasswordBindingModel';
+import {
+	LELodasoftApiModelsResetPasswordBindingModel,
+	LELodasoftApiModelsResetPasswordBindingModelIO,
+} from '../definitions/LELodasoftApiModelsResetPasswordBindingModel';
+import {
+	LELodasoftApiModelsSharedPortalContentViewModel,
+	LELodasoftApiModelsSharedPortalContentViewModelIO,
+} from '../definitions/LELodasoftApiModelsSharedPortalContentViewModel';
+import {
+	LELodasoftCommonModelsAdminPrequalDetailViewModel,
+	LELodasoftCommonModelsAdminPrequalDetailViewModelIO,
+} from '../definitions/LELodasoftCommonModelsAdminPrequalDetailViewModel';
+import {
+	LELodasoftCommonModelsAgentPortalAgentContact,
+	LELodasoftCommonModelsAgentPortalAgentContactIO,
+} from '../definitions/LELodasoftCommonModelsAgentPortalAgentContact';
+import {
+	LELodasoftCommonModelsLoanLoanDocTaskViewModel,
+	LELodasoftCommonModelsLoanLoanDocTaskViewModelIO,
+} from '../definitions/LELodasoftCommonModelsLoanLoanDocTaskViewModel';
+import {
+	LELodasoftCommonModelsSharedApplicationView,
+	LELodasoftCommonModelsSharedApplicationViewIO,
+} from '../definitions/LELodasoftCommonModelsSharedApplicationView';
+import {
+	LELodasoftCommonModelsSharedCallbackModel,
+	LELodasoftCommonModelsSharedCallbackModelIO,
+} from '../definitions/LELodasoftCommonModelsSharedCallbackModel';
+import {
+	LELodasoftCommonModelsSharedConfirmRegisterRequestModel,
+	LELodasoftCommonModelsSharedConfirmRegisterRequestModelIO,
+} from '../definitions/LELodasoftCommonModelsSharedConfirmRegisterRequestModel';
+import {
+	LELodasoftCommonModelsSharedGeneratePrequalLetterRequest,
+	LELodasoftCommonModelsSharedGeneratePrequalLetterRequestIO,
+} from '../definitions/LELodasoftCommonModelsSharedGeneratePrequalLetterRequest';
+import {
+	LELodasoftCommonModelsSharedGeneratePrequalLetterResponse,
+	LELodasoftCommonModelsSharedGeneratePrequalLetterResponseIO,
+} from '../definitions/LELodasoftCommonModelsSharedGeneratePrequalLetterResponse';
+import {
+	LELodasoftCommonModelsSharedPortalLiveData,
+	LELodasoftCommonModelsSharedPortalLiveDataIO,
+} from '../definitions/LELodasoftCommonModelsSharedPortalLiveData';
+import {
+	LELodasoftCommonModelsSharedPortalTasks,
+	LELodasoftCommonModelsSharedPortalTasksIO,
+} from '../definitions/LELodasoftCommonModelsSharedPortalTasks';
+import {
+	LELodasoftCommonModelsSharedReferralAgent,
+	LELodasoftCommonModelsSharedReferralAgentIO,
+} from '../definitions/LELodasoftCommonModelsSharedReferralAgent';
+import {
+	LELodasoftCommonModelsSharedReferralModel,
+	LELodasoftCommonModelsSharedReferralModelIO,
+} from '../definitions/LELodasoftCommonModelsSharedReferralModel';
+import {
+	LELodasoftCommonModelsSharedRegisterModel,
+	LELodasoftCommonModelsSharedRegisterModelIO,
+} from '../definitions/LELodasoftCommonModelsSharedRegisterModel';
+import { unknownType } from '../utils/utils';
+import { fromEither, AsyncData } from '@nll/dux';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
-import { array, boolean, number, partial, string, type } from 'io-ts';
+import { partial, boolean, array, number, string, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { ResponseValiationError, TAPIClient } from '../client/client';
-import {
-  LELodasoftApiModelsForgotPasswordBindingModel,
-  LELodasoftApiModelsForgotPasswordBindingModelIO,
-} from '../definitions/LELodasoftApiModelsForgotPasswordBindingModel';
-import {
-  LELodasoftApiModelsResetPasswordBindingModel,
-  LELodasoftApiModelsResetPasswordBindingModelIO,
-} from '../definitions/LELodasoftApiModelsResetPasswordBindingModel';
-import {
-  LELodasoftApiModelsSharedPortalContentViewModel,
-  LELodasoftApiModelsSharedPortalContentViewModelIO,
-} from '../definitions/LELodasoftApiModelsSharedPortalContentViewModel';
-import {
-  LELodasoftCommonModelsAdminPrequalDetailViewModel,
-  LELodasoftCommonModelsAdminPrequalDetailViewModelIO,
-} from '../definitions/LELodasoftCommonModelsAdminPrequalDetailViewModel';
-import {
-  LELodasoftCommonModelsAgentPortalAgentContact,
-  LELodasoftCommonModelsAgentPortalAgentContactIO,
-} from '../definitions/LELodasoftCommonModelsAgentPortalAgentContact';
-import {
-  LELodasoftCommonModelsLoanLoanDocTaskViewModel,
-  LELodasoftCommonModelsLoanLoanDocTaskViewModelIO,
-} from '../definitions/LELodasoftCommonModelsLoanLoanDocTaskViewModel';
-import {
-  LELodasoftCommonModelsSharedApplicationView,
-  LELodasoftCommonModelsSharedApplicationViewIO,
-} from '../definitions/LELodasoftCommonModelsSharedApplicationView';
-import {
-  LELodasoftCommonModelsSharedCallbackModel,
-  LELodasoftCommonModelsSharedCallbackModelIO,
-} from '../definitions/LELodasoftCommonModelsSharedCallbackModel';
-import {
-  LELodasoftCommonModelsSharedConfirmRegisterRequestModel,
-  LELodasoftCommonModelsSharedConfirmRegisterRequestModelIO,
-} from '../definitions/LELodasoftCommonModelsSharedConfirmRegisterRequestModel';
-import {
-  LELodasoftCommonModelsSharedGeneratePrequalLetterRequest,
-  LELodasoftCommonModelsSharedGeneratePrequalLetterRequestIO,
-} from '../definitions/LELodasoftCommonModelsSharedGeneratePrequalLetterRequest';
-import {
-  LELodasoftCommonModelsSharedGeneratePrequalLetterResponse,
-  LELodasoftCommonModelsSharedGeneratePrequalLetterResponseIO,
-} from '../definitions/LELodasoftCommonModelsSharedGeneratePrequalLetterResponse';
-import {
-  LELodasoftCommonModelsSharedPortalLiveData,
-  LELodasoftCommonModelsSharedPortalLiveDataIO,
-} from '../definitions/LELodasoftCommonModelsSharedPortalLiveData';
-import {
-  LELodasoftCommonModelsSharedPortalTasks,
-  LELodasoftCommonModelsSharedPortalTasksIO,
-} from '../definitions/LELodasoftCommonModelsSharedPortalTasks';
-import {
-  LELodasoftCommonModelsSharedReferralAgent,
-  LELodasoftCommonModelsSharedReferralAgentIO,
-} from '../definitions/LELodasoftCommonModelsSharedReferralAgent';
-import {
-  LELodasoftCommonModelsSharedReferralModel,
-  LELodasoftCommonModelsSharedReferralModelIO,
-} from '../definitions/LELodasoftCommonModelsSharedReferralModel';
-import {
-  LELodasoftCommonModelsSharedRegisterModel,
-  LELodasoftCommonModelsSharedRegisterModelIO,
-} from '../definitions/LELodasoftCommonModelsSharedRegisterModel';
-import { unknownType } from '../utils/utils';
 
 export type AgentPortalController = {
 	/**
 	 * @param { object } parameters
 	 */
-	readonly AgentPortal_ConfirmRegistration: (parameters: {
+	readonly AgentPortal_ConfirmRegistrationToken: (parameters: {
 		body: LELodasoftCommonModelsSharedConfirmRegisterRequestModel;
 	}) => Observable<AsyncData<Error, LELodasoftCommonModelsSharedRegisterModel>>;
+
+	/**
+	 * @param { object } parameters
+	 */
+	readonly AgentPortal_ConfirmRegistration: (parameters: {
+		body: LELodasoftCommonModelsSharedRegisterModel;
+	}) => Observable<AsyncData<Error, boolean>>;
 
 	/**
 	 * @param { object } parameters
@@ -181,7 +187,7 @@ export type AgentPortalController = {
 
 export const agentPortalController = asks(
 	(e: { apiClient: TAPIClient }): AgentPortalController => ({
-		AgentPortal_ConfirmRegistration: parameters => {
+		AgentPortal_ConfirmRegistrationToken: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsSharedConfirmRegisterRequestModelIO }).encode(
 				parameters,
 			);
@@ -202,6 +208,23 @@ export const agentPortalController = asks(
 								),
 							),
 						),
+					),
+				);
+		},
+
+		AgentPortal_ConfirmRegistration: parameters => {
+			const encoded = partial({ body: LELodasoftCommonModelsSharedRegisterModelIO }).encode(parameters);
+
+			return e.apiClient
+				.request({
+					url: `/api/AgentPortal/ConfirmRegistration`,
+					method: 'POST',
+
+					body: encoded.body,
+				})
+				.pipe(
+					map(data =>
+						data.chain(value => fromEither(boolean.decode(value).mapLeft(ResponseValiationError.create))),
 					),
 				);
 		},

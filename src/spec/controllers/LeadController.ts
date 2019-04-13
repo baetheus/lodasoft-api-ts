@@ -39,6 +39,10 @@ import {
 	LELodasoftCommonModelsLeadsReportsLeadStatusReportResponse,
 	LELodasoftCommonModelsLeadsReportsLeadStatusReportResponseIO,
 } from '../definitions/LELodasoftCommonModelsLeadsReportsLeadStatusReportResponse';
+import {
+	LELodasoftDataAccessModelsTaskCountModel,
+	LELodasoftDataAccessModelsTaskCountModelIO,
+} from '../definitions/LELodasoftDataAccessModelsTaskCountModel';
 import { unknownType } from '../utils/utils';
 import { fromEither, AsyncData } from '@nll/dux';
 import { Option } from 'fp-ts/lib/Option';
@@ -98,8 +102,21 @@ export type LeadController = {
 
 	/**
 	 * @param { number } leadId undefined
+	 * @param { number } referralSourceType undefined
 	 */
-	readonly Lead_ConvertLeadToBorrower: (leadId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Lead_ConvertLeadToBorrower: (
+		leadId: number,
+		referralSourceType: number,
+	) => Observable<AsyncData<Error, unknown>>;
+
+	/**
+	 * @param { object } [parameters]
+	 */
+	readonly Lead_ImportListUserForCompany: (parameters: {
+		query?: { companyId: Option<number> };
+	}) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadViewModel>>;
+
+	readonly Lead_ExportLeads: () => Observable<AsyncData<Error, unknown>>;
 
 	/**
 	 * @param { number } leadId undefined
@@ -329,6 +346,13 @@ export type LeadController = {
 	readonly Lead_GetLeadStatusReport: (parameters: {
 		query?: { CampaignId: Option<number>; DateCreatedStart: Option<string>; DateCreatedEnd: Option<string> };
 	}) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsReportsLeadStatusReportResponse>>;
+
+	/**
+	 * @param { number } leadId undefined
+	 */
+	readonly Lead_GetTaskCountByLeadId: (
+		leadId: number,
+	) => Observable<AsyncData<Error, LELodasoftDataAccessModelsTaskCountModel>>;
 };
 
 export const leadController = asks(
@@ -466,11 +490,52 @@ export const leadController = asks(
 				);
 		},
 
-		Lead_ConvertLeadToBorrower: leadId => {
+		Lead_ConvertLeadToBorrower: (leadId, referralSourceType) => {
 			return e.apiClient
 				.request({
-					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/convert`,
+					url: `/api/leads/${encodeURIComponent(
+						number.encode(leadId).toString(),
+					)}/convert/${encodeURIComponent(number.encode(referralSourceType).toString())}`,
 					method: 'POST',
+				})
+				.pipe(
+					map(data =>
+						data.chain(value =>
+							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
+						),
+					),
+				);
+		},
+
+		Lead_ImportListUserForCompany: parameters => {
+			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
+				parameters,
+			);
+
+			return e.apiClient
+				.request({
+					url: `/api/leads/import-leads`,
+					method: 'POST',
+					query: encoded.query,
+				})
+				.pipe(
+					map(data =>
+						data.chain(value =>
+							fromEither(
+								LELodasoftCommonModelsLeadsLeadViewModelIO.decode(value).mapLeft(
+									ResponseValiationError.create,
+								),
+							),
+						),
+					),
+				);
+		},
+
+		Lead_ExportLeads: () => {
+			return e.apiClient
+				.request({
+					url: `/api/leads/export-leads`,
+					method: 'GET',
 				})
 				.pipe(
 					map(data =>
@@ -1152,6 +1217,25 @@ export const leadController = asks(
 						data.chain(value =>
 							fromEither(
 								LELodasoftCommonModelsLeadsReportsLeadStatusReportResponseIO.decode(value).mapLeft(
+									ResponseValiationError.create,
+								),
+							),
+						),
+					),
+				);
+		},
+
+		Lead_GetTaskCountByLeadId: leadId => {
+			return e.apiClient
+				.request({
+					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/GetTaskCountByLeadId`,
+					method: 'GET',
+				})
+				.pipe(
+					map(data =>
+						data.chain(value =>
+							fromEither(
+								LELodasoftDataAccessModelsTaskCountModelIO.decode(value).mapLeft(
 									ResponseValiationError.create,
 								),
 							),

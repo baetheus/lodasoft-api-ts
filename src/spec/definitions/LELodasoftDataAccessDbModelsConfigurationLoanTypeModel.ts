@@ -3,7 +3,7 @@ import {
 	LELodasoftDataAccessDbModelsConfigurationCompanyModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationCompanyModel';
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, union, literal, boolean, type } from 'io-ts';
+import { number, string, keyof, boolean, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 
 export type LELodasoftDataAccessDbModelsConfigurationLoanTypeModel = {
@@ -20,13 +20,7 @@ export const LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO = type({
 	loanTypeId: createOptionFromNullable(number),
 	loanTypeName: createOptionFromNullable(string),
 	mortgageAppliedForType: createOptionFromNullable(
-		union([
-			literal('VA'),
-			literal('FHA'),
-			literal('Conventional'),
-			literal('USDARuralHousingService'),
-			literal('OtherMortgage'),
-		]),
+		keyof({ VA: null, FHA: null, Conventional: null, USDARuralHousingService: null, OtherMortgage: null }),
 	),
 	companyId: createOptionFromNullable(number),
 	companyModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO),

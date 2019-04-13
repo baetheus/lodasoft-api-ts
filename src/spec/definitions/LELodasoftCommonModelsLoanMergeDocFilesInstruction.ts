@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { string, number, boolean, union, literal, array, type } from 'io-ts';
+import { string, number, boolean, keyof, array, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 
 export type LELodasoftCommonModelsLoanMergeDocFilesInstruction = {
@@ -29,7 +29,7 @@ export const LELodasoftCommonModelsLoanMergeDocFilesInstructionIO = type({
 	note: createOptionFromNullable(string),
 	borrowerNote: createOptionFromNullable(string),
 	condition: createOptionFromNullable(boolean),
-	mergeMode: createOptionFromNullable(union([literal('Append'), literal('Prepend'), literal('Replace')])),
+	mergeMode: createOptionFromNullable(keyof({ Append: null, Prepend: null, Replace: null })),
 	allPages: createOptionFromNullable(boolean),
 	customPages: createOptionFromNullable(array(number)),
 	removePagesFromSource: createOptionFromNullable(boolean),

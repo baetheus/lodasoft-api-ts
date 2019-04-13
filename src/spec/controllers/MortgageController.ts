@@ -78,9 +78,11 @@ export type MortgageController = {
 	/**
 	 * Import DU
 	 * @param { number } loanId - id of the loan to import du 3.2
+	 * @param { number } mortgageId - id of the to mortgage import du 3.2
 	 */
 	readonly Mortgage_ImportDu: (
 		loanId: number,
+		mortgageId: number,
 	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageMortgageViewModel>>;
 
 	/**
@@ -268,10 +270,12 @@ export const mortgageController = asks(
 				);
 		},
 
-		Mortgage_ImportDu: loanId => {
+		Mortgage_ImportDu: (loanId, mortgageId) => {
 			return e.apiClient
 				.request({
-					url: `/api/mortgages/${encodeURIComponent(number.encode(loanId).toString())}/import-du`,
+					url: `/api/mortgages/${encodeURIComponent(
+						number.encode(loanId).toString(),
+					)}/import-du/${encodeURIComponent(number.encode(mortgageId).toString())}`,
 					method: 'POST',
 				})
 				.pipe(

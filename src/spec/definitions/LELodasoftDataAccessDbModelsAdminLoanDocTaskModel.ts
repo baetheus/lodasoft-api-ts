@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, union, literal, boolean, type } from 'io-ts';
+import { number, string, keyof, boolean, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftDataAccessDbModelsAdminLoanDocTaskModel = {
@@ -66,41 +66,39 @@ export const LELodasoftDataAccessDbModelsAdminLoanDocTaskModelIO = type({
 	notifyPartyId: createOptionFromNullable(string),
 	reviewPartyId: createOptionFromNullable(string),
 	taskType: createOptionFromNullable(
-		union([
-			literal('RequestDocument'),
-			literal('ViewDocument'),
-			literal('AcknowledgeReceipt'),
-			literal('EsignDocument'),
-			literal('RequestInformation'),
-			literal('PerformAction'),
-			literal('OnlineApplication'),
-			literal('DigitalAssetVerification'),
-		]),
+		keyof({
+			RequestDocument: null,
+			ViewDocument: null,
+			AcknowledgeReceipt: null,
+			EsignDocument: null,
+			RequestInformation: null,
+			PerformAction: null,
+			OnlineApplication: null,
+			DigitalAssetVerification: null,
+		}),
 	),
-	taskPriority: createOptionFromNullable(
-		union([literal('Low'), literal('Normal'), literal('High'), literal('Immediate')]),
-	),
+	taskPriority: createOptionFromNullable(keyof({ Low: null, Normal: null, High: null, Immediate: null })),
 	description: createOptionFromNullable(string),
 	note: createOptionFromNullable(string),
 	borrowerFacingNote: createOptionFromNullable(string),
 	requestedBy: createOptionFromNullable(string),
 	dueDays: createOptionFromNullable(number),
 	taskStatus: createOptionFromNullable(
-		union([
-			literal('Pending'),
-			literal('Submitted'),
-			literal('Rejected'),
-			literal('Approved'),
-			literal('NotApplicable'),
-			literal('Requested'),
-			literal('Completed'),
-			literal('ReviewReady'),
-		]),
+		keyof({
+			Pending: null,
+			Submitted: null,
+			Rejected: null,
+			Approved: null,
+			NotApplicable: null,
+			Requested: null,
+			Completed: null,
+			ReviewReady: null,
+		}),
 	),
 	conditionStatus: createOptionFromNullable(
-		union([literal('ConditionPending'), literal('ConditionCleared'), literal('ConditionReOpened')]),
+		keyof({ ConditionPending: null, ConditionCleared: null, ConditionReOpened: null }),
 	),
-	conditionType: createOptionFromNullable(union([literal('PTS'), literal('PTD'), literal('PTF'), literal('PTC')])),
+	conditionType: createOptionFromNullable(keyof({ PTS: null, PTD: null, PTF: null, PTC: null })),
 	requestBorrower: createOptionFromNullable(boolean),
 	condition: createOptionFromNullable(boolean),
 	requiresReview: createOptionFromNullable(boolean),

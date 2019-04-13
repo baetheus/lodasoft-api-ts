@@ -3,7 +3,7 @@ import {
 	LELodasoftCommonModelsMortgageAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageAddressViewModel';
 import { Option } from 'fp-ts/lib/Option';
-import { number, union, literal, boolean, string, type } from 'io-ts';
+import { number, keyof, boolean, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsMortgageReoViewModel = {
@@ -44,27 +44,22 @@ export const LELodasoftCommonModelsMortgageReoViewModelIO = type({
 	borrowerId: createOptionFromNullable(number),
 	addressId: createOptionFromNullable(number),
 	typeOfProperty: createOptionFromNullable(
-		union([
-			literal('SingleFamily'),
-			literal('Condo'),
-			literal('Townhouse'),
-			literal('Coop'),
-			literal('TwoToFourUnitProperty'),
-			literal('MultifamilyMoreThanFourUnits'),
-			literal('CommercialNonResidential'),
-			literal('MixedUseResidential'),
-			literal('Farm'),
-			literal('HomeAndBusinessCombined'),
-			literal('Land'),
-		]),
+		keyof({
+			SingleFamily: null,
+			Condo: null,
+			Townhouse: null,
+			Coop: null,
+			TwoToFourUnitProperty: null,
+			MultifamilyMoreThanFourUnits: null,
+			CommercialNonResidential: null,
+			MixedUseResidential: null,
+			Farm: null,
+			HomeAndBusinessCombined: null,
+			Land: null,
+		}),
 	),
 	dispositionStatus: createOptionFromNullable(
-		union([
-			literal('Sold'),
-			literal('PendingSale'),
-			literal('RetainForPrimaryOrSecondaryResidence'),
-			literal('RentalProperty'),
-		]),
+		keyof({ Sold: null, PendingSale: null, RetainForPrimaryOrSecondaryResidence: null, RentalProperty: null }),
 	),
 	marketValue: createOptionFromNullable(number),
 	amountOfMortgage: createOptionFromNullable(number),

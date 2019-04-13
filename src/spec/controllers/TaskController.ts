@@ -1,30 +1,35 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
-import {
-	LELodasoftApiModelsBorrowerLoanDocTaskUpsertModel,
-	LELodasoftApiModelsBorrowerLoanDocTaskUpsertModelIO,
-} from '../definitions/LELodasoftApiModelsBorrowerLoanDocTaskUpsertModel';
-import {
-	LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView,
-	LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO,
-} from '../definitions/LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView';
-import {
-	LELodasoftCommonModelsAdminTrackingViewModel,
-	LELodasoftCommonModelsAdminTrackingViewModelIO,
-} from '../definitions/LELodasoftCommonModelsAdminTrackingViewModel';
-import {
-	LELodasoftCommonModelsLoanLoanDocTaskViewModel,
-	LELodasoftCommonModelsLoanLoanDocTaskViewModelIO,
-} from '../definitions/LELodasoftCommonModelsLoanLoanDocTaskViewModel';
-import {
-	LELodasoftDataAccessDbModelsAdminLoanDocTaskModel,
-	LELodasoftDataAccessDbModelsAdminLoanDocTaskModelIO,
-} from '../definitions/LELodasoftDataAccessDbModelsAdminLoanDocTaskModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { AsyncData, fromEither } from '@nll/dux';
 import { asks } from 'fp-ts/lib/Reader';
-import { partial, number, array, void as tvoid, string, type } from 'io-ts';
+import { array, number, partial, string, type, void as tvoid } from 'io-ts';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { ResponseValiationError, TAPIClient } from '../client/client';
+import {
+  LELodasoftApiControllersTaskNoteModel,
+  LELodasoftApiControllersTaskNoteModelIO,
+} from '../definitions/LELodasoftApiControllersTaskNoteModel';
+import {
+  LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView,
+  LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO,
+} from '../definitions/LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView';
+import {
+  LELodasoftApiModelsBorrowerLoanDocTaskUpsertModel,
+  LELodasoftApiModelsBorrowerLoanDocTaskUpsertModelIO,
+} from '../definitions/LELodasoftApiModelsBorrowerLoanDocTaskUpsertModel';
+import {
+  LELodasoftCommonModelsAdminTrackingViewModel,
+  LELodasoftCommonModelsAdminTrackingViewModelIO,
+} from '../definitions/LELodasoftCommonModelsAdminTrackingViewModel';
+import {
+  LELodasoftCommonModelsLoanLoanDocTaskViewModel,
+  LELodasoftCommonModelsLoanLoanDocTaskViewModelIO,
+} from '../definitions/LELodasoftCommonModelsLoanLoanDocTaskViewModel';
+import {
+  LELodasoftDataAccessDbModelsAdminLoanDocTaskModel,
+  LELodasoftDataAccessDbModelsAdminLoanDocTaskModelIO,
+} from '../definitions/LELodasoftDataAccessDbModelsAdminLoanDocTaskModel';
+import { unknownType } from '../utils/utils';
 
 export type TaskController = {
 	/**
@@ -51,11 +56,21 @@ export type TaskController = {
 	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminTrackingViewModel>>>;
 
 	/**
-	 * Update the FollowUp date for a task
+	 * Add notes to existing task
 	 * @param { number } loandoctaskid -
 	 * @param { object } parameters
 	 */
 	readonly Task_UpdateFollowUp: (
+		loandoctaskid: number,
+		parameters: { body: LELodasoftApiControllersTaskNoteModel },
+	) => Observable<AsyncData<Error, void>>;
+
+	/**
+	 * Update the FollowUp date for a task
+	 * @param { number } loandoctaskid -
+	 * @param { object } parameters
+	 */
+	readonly Task_AddTaskNote: (
 		loandoctaskid: number,
 		parameters: { query: { followup: string } },
 	) => Observable<AsyncData<Error, void>>;
@@ -197,6 +212,23 @@ export const taskController = asks(
 		},
 
 		Task_UpdateFollowUp: (loandoctaskid, parameters) => {
+			const encoded = partial({ body: LELodasoftApiControllersTaskNoteModelIO }).encode(parameters);
+
+			return e.apiClient
+				.request({
+					url: `/api/Task/${encodeURIComponent(number.encode(loandoctaskid).toString())}/AddTaskNote`,
+					method: 'POST',
+
+					body: encoded.body,
+				})
+				.pipe(
+					map(data =>
+						data.chain(value => fromEither(tvoid.decode(value).mapLeft(ResponseValiationError.create))),
+					),
+				);
+		},
+
+		Task_AddTaskNote: (loandoctaskid, parameters) => {
 			const encoded = partial({ query: type({ followup: string }) }).encode(parameters);
 
 			return e.apiClient

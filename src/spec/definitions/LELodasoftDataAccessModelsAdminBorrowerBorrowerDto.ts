@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, boolean, union, literal, type } from 'io-ts';
+import { number, string, boolean, keyof, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftDataAccessModelsAdminBorrowerBorrowerDto = {
@@ -49,6 +49,6 @@ export const LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO = type({
 	mailingState: createOptionFromNullable(string),
 	mailingZip: createOptionFromNullable(string),
 	borrowerContact: createOptionFromNullable(string),
-	creditMonitoringStatus: createOptionFromNullable(union([literal('Unset'), literal('Active'), literal('Disabled')])),
+	creditMonitoringStatus: createOptionFromNullable(keyof({ Unset: null, Active: null, Disabled: null })),
 	dateCreateBorrower: createOptionFromNullable(DateFromISOString),
 });

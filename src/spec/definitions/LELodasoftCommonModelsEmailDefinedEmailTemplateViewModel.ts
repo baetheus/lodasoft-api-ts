@@ -12,6 +12,12 @@ export type LELodasoftCommonModelsEmailDefinedEmailTemplateViewModel = {
 	onlineAppRegistrationOverride: Option<boolean>;
 	onlineAppRegistrationSubject: Option<string>;
 	onlineAppRegistrationEmail: Option<string>;
+	onlineAppStartedOverride: Option<boolean>;
+	onlineAppStartedSubject: Option<string>;
+	onlineAppStartedEmail: Option<string>;
+	onlineAppSubmissionOverride: Option<boolean>;
+	onlineAppSubmissionSubject: Option<string>;
+	onlineAppSubmissionEmail: Option<string>;
 	inviteOverride: Option<boolean>;
 	inviteSubject: Option<string>;
 	inviteEmail: Option<string>;
@@ -37,6 +43,12 @@ export const LELodasoftCommonModelsEmailDefinedEmailTemplateViewModelIO = type({
 	onlineAppRegistrationOverride: createOptionFromNullable(boolean),
 	onlineAppRegistrationSubject: createOptionFromNullable(string),
 	onlineAppRegistrationEmail: createOptionFromNullable(string),
+	onlineAppStartedOverride: createOptionFromNullable(boolean),
+	onlineAppStartedSubject: createOptionFromNullable(string),
+	onlineAppStartedEmail: createOptionFromNullable(string),
+	onlineAppSubmissionOverride: createOptionFromNullable(boolean),
+	onlineAppSubmissionSubject: createOptionFromNullable(string),
+	onlineAppSubmissionEmail: createOptionFromNullable(string),
 	inviteOverride: createOptionFromNullable(boolean),
 	inviteSubject: createOptionFromNullable(string),
 	inviteEmail: createOptionFromNullable(string),

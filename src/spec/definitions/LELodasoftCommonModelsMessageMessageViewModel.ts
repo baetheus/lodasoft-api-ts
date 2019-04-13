@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, union, literal, type } from 'io-ts';
+import { number, string, keyof, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsMessageMessageViewModel = {
@@ -64,49 +64,41 @@ export const LELodasoftCommonModelsMessageMessageViewModelIO = type({
 	leadId: createOptionFromNullable(number),
 	fromUserId: createOptionFromNullable(string),
 	msgType: createOptionFromNullable(
-		union([
-			literal('Unspecified'),
-			literal('UserInvite'),
-			literal('BorrowerInvite'),
-			literal('AgentInvite'),
-			literal('ForgotPassword'),
-			literal('DocRequest'),
-			literal('DocReject'),
-			literal('DocAccepted'),
-			literal('StatusUpdate'),
-			literal('Reminder'),
-			literal('ApplicationEmailCampaign'),
-			literal('ContactEmailCampaign'),
-			literal('NewMessage'),
-			literal('UserCreatedEmail'),
-			literal('UserCreatedSms'),
-			literal('Test'),
-			literal('AppointmentAlert'),
-			literal('Referral'),
-			literal('CombinedParent'),
-		]),
+		keyof({
+			Unspecified: null,
+			UserInvite: null,
+			BorrowerInvite: null,
+			AgentInvite: null,
+			ForgotPassword: null,
+			DocRequest: null,
+			DocReject: null,
+			DocAccepted: null,
+			StatusUpdate: null,
+			Reminder: null,
+			ApplicationEmailCampaign: null,
+			ContactEmailCampaign: null,
+			NewMessage: null,
+			UserCreatedEmail: null,
+			UserCreatedSms: null,
+			Test: null,
+			AppointmentAlert: null,
+			Referral: null,
+			CombinedParent: null,
+		}),
 	),
-	delivery: createOptionFromNullable(
-		union([literal('Unspecified'), literal('Email'), literal('SMS'), literal('Toaster')]),
-	),
+	delivery: createOptionFromNullable(keyof({ Unspecified: null, Email: null, SMS: null, Toaster: null })),
 	priority: createOptionFromNullable(
-		union([
-			literal('Unspecified'),
-			literal('Immediate'),
-			literal('Queue'),
-			literal('QueuedImmediate'),
-			literal('Retry'),
-		]),
+		keyof({ Unspecified: null, Immediate: null, Queue: null, QueuedImmediate: null, Retry: null }),
 	),
 	status: createOptionFromNullable(
-		union([
-			literal('Unprocessed'),
-			literal('InProcess'),
-			literal('FailureSmsNotEnabled'),
-			literal('Failure'),
-			literal('Success'),
-			literal('CombinedChild'),
-		]),
+		keyof({
+			Unprocessed: null,
+			InProcess: null,
+			FailureSmsNotEnabled: null,
+			Failure: null,
+			Success: null,
+			CombinedChild: null,
+		}),
 	),
 	to: createOptionFromNullable(string),
 	from: createOptionFromNullable(string),

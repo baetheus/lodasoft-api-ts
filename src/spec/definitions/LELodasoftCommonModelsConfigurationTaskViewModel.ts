@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, union, literal, boolean, type } from 'io-ts';
+import { number, string, keyof, boolean, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsConfigurationTaskViewModel = {
@@ -42,7 +42,7 @@ export const LELodasoftCommonModelsConfigurationTaskViewModelIO = type({
 	taskName: createOptionFromNullable(string),
 	triggerAssociations: createOptionFromNullable(string),
 	borrowerTrigger: createOptionFromNullable(
-		union([literal('Loan'), literal('PrimaryBorrower'), literal('AllBorrowers'), literal('SelectBorrowers')]),
+		keyof({ Loan: null, PrimaryBorrower: null, AllBorrowers: null, SelectBorrowers: null }),
 	),
 	isLeadTask: createOptionFromNullable(boolean),
 	roleId: createOptionFromNullable(number),
@@ -50,20 +50,18 @@ export const LELodasoftCommonModelsConfigurationTaskViewModelIO = type({
 	reviewRequiredRoleId: createOptionFromNullable(number),
 	notifyPartyRoleId: createOptionFromNullable(number),
 	taskType: createOptionFromNullable(
-		union([
-			literal('RequestDocument'),
-			literal('ViewDocument'),
-			literal('AcknowledgeReceipt'),
-			literal('EsignDocument'),
-			literal('RequestInformation'),
-			literal('PerformAction'),
-			literal('OnlineApplication'),
-			literal('DigitalAssetVerification'),
-		]),
+		keyof({
+			RequestDocument: null,
+			ViewDocument: null,
+			AcknowledgeReceipt: null,
+			EsignDocument: null,
+			RequestInformation: null,
+			PerformAction: null,
+			OnlineApplication: null,
+			DigitalAssetVerification: null,
+		}),
 	),
-	defaultTaskPriority: createOptionFromNullable(
-		union([literal('Low'), literal('Normal'), literal('High'), literal('Immediate')]),
-	),
+	defaultTaskPriority: createOptionFromNullable(keyof({ Low: null, Normal: null, High: null, Immediate: null })),
 	dueDays: createOptionFromNullable(number),
 	permittedAgentTypes: createOptionFromNullable(string),
 	tasksOnCompletion: createOptionFromNullable(string),

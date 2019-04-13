@@ -3,7 +3,7 @@ import {
 	LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModelIO,
 } from '../definitions/LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModel';
 import { Option } from 'fp-ts/lib/Option';
-import { number, union, literal, string, boolean, array, type } from 'io-ts';
+import { number, keyof, string, boolean, array, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsConfigurationDocumentTemplateViewModel = {
@@ -27,7 +27,7 @@ export type LELodasoftCommonModelsConfigurationDocumentTemplateViewModel = {
 export const LELodasoftCommonModelsConfigurationDocumentTemplateViewModelIO = type({
 	documentTemplateId: createOptionFromNullable(number),
 	documentTypeId: createOptionFromNullable(number),
-	documentTemplateType: createOptionFromNullable(union([literal('Unspecified'), literal('Html'), literal('Pdf')])),
+	documentTemplateType: createOptionFromNullable(keyof({ Unspecified: null, Html: null, Pdf: null })),
 	documentTemplateName: createOptionFromNullable(string),
 	description: createOptionFromNullable(string),
 	headerHtml: createOptionFromNullable(string),

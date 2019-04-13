@@ -3,7 +3,7 @@ import {
 	LELodasoftDataAccessDbModelsAdminBorrowerModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsAdminBorrowerModel';
 import { Option } from 'fp-ts/lib/Option';
-import { string, boolean, union, literal, type } from 'io-ts';
+import { string, boolean, keyof, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 
 export type LELodasoftApiModelsBorrowerBorrowerFull = {
@@ -16,5 +16,5 @@ export const LELodasoftApiModelsBorrowerBorrowerFullIO = type({
 	portalUserName: createOptionFromNullable(string),
 	borrower: createOptionFromNullable(LELodasoftDataAccessDbModelsAdminBorrowerModelIO),
 	isEdit: createOptionFromNullable(boolean),
-	accountStatus: createOptionFromNullable(union([literal('NotInvited'), literal('Invited'), literal('Live')])),
+	accountStatus: createOptionFromNullable(keyof({ NotInvited: null, Invited: null, Live: null })),
 });

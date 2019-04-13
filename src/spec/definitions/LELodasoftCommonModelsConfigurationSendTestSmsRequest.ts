@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { union, literal, string, number, type } from 'io-ts';
+import { keyof, string, number, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 
 export type LELodasoftCommonModelsConfigurationSendTestSmsRequest = {
@@ -12,7 +12,7 @@ export type LELodasoftCommonModelsConfigurationSendTestSmsRequest = {
 	companyId: Option<number>;
 };
 export const LELodasoftCommonModelsConfigurationSendTestSmsRequestIO = type({
-	serviceType: createOptionFromNullable(union([literal('Twilio')])),
+	serviceType: createOptionFromNullable(keyof({ Twilio: null })),
 	fromPhoneNumber: createOptionFromNullable(string),
 	accountIdentifier: createOptionFromNullable(string),
 	authToken: createOptionFromNullable(string),

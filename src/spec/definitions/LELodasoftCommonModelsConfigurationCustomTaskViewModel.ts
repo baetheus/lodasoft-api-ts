@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, union, literal, boolean, type } from 'io-ts';
+import { number, string, keyof, boolean, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsConfigurationCustomTaskViewModel = {
@@ -43,27 +43,25 @@ export const LELodasoftCommonModelsConfigurationCustomTaskViewModelIO = type({
 	taskCategoryId: createOptionFromNullable(number),
 	loanStatusId: createOptionFromNullable(number),
 	taskDescription: createOptionFromNullable(string),
-	option: createOptionFromNullable(union([literal('Immediately'), literal('OnLoanStatus')])),
-	applyTo: createOptionFromNullable(union([literal('Loan'), literal('PrimaryBorrower'), literal('SelectBorrowers')])),
+	option: createOptionFromNullable(keyof({ Immediately: null, OnLoanStatus: null })),
+	applyTo: createOptionFromNullable(keyof({ Loan: null, PrimaryBorrower: null, SelectBorrowers: null })),
 	roleId: createOptionFromNullable(number),
 	documentTypeId: createOptionFromNullable(number),
 	reviewRequiredRoleId: createOptionFromNullable(number),
 	notifyPartyRoleId: createOptionFromNullable(number),
 	taskType: createOptionFromNullable(
-		union([
-			literal('RequestDocument'),
-			literal('ViewDocument'),
-			literal('AcknowledgeReceipt'),
-			literal('EsignDocument'),
-			literal('RequestInformation'),
-			literal('PerformAction'),
-			literal('OnlineApplication'),
-			literal('DigitalAssetVerification'),
-		]),
+		keyof({
+			RequestDocument: null,
+			ViewDocument: null,
+			AcknowledgeReceipt: null,
+			EsignDocument: null,
+			RequestInformation: null,
+			PerformAction: null,
+			OnlineApplication: null,
+			DigitalAssetVerification: null,
+		}),
 	),
-	defaultTaskPriority: createOptionFromNullable(
-		union([literal('Low'), literal('Normal'), literal('High'), literal('Immediate')]),
-	),
+	defaultTaskPriority: createOptionFromNullable(keyof({ Low: null, Normal: null, High: null, Immediate: null })),
 	dueDays: createOptionFromNullable(number),
 	permittedAgentTypes: createOptionFromNullable(string),
 	tasksOnCompletion: createOptionFromNullable(string),

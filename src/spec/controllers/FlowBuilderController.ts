@@ -1,15 +1,14 @@
-import { AsyncData, fromEither } from '@nll/dux';
-import { asks } from 'fp-ts/lib/Reader';
-import { array, number, partial, string, type } from 'io-ts';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 import { ResponseValiationError, TAPIClient } from '../client/client';
 import {
-  LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel,
-  LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO,
+	LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel,
+	LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO,
 } from '../definitions/LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel';
 import { unknownType } from '../utils/utils';
+import { fromEither, AsyncData } from '@nll/dux';
+import { asks } from 'fp-ts/lib/Reader';
+import { array, number, string, type, partial } from 'io-ts';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export type FlowBuilderController = {
 	/**
@@ -46,6 +45,13 @@ export type FlowBuilderController = {
 	 * @param { number } flowId undefined
 	 */
 	readonly FlowBuilder_DeleteFlow: (flowId: number) => Observable<AsyncData<Error, unknown>>;
+
+	/**
+	 * @param { string } flowguid undefined
+	 */
+	readonly FlowBuilder_GetFlowByGuid: (
+		flowguid: string,
+	) => Observable<AsyncData<Error, LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel>>;
 
 	/**
 	 * @param { string } flowGuid undefined
@@ -174,6 +180,25 @@ export const flowBuilderController = asks(
 					map(data =>
 						data.chain(value =>
 							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
+						),
+					),
+				);
+		},
+
+		FlowBuilder_GetFlowByGuid: flowguid => {
+			return e.apiClient
+				.request({
+					url: `/api/flow-builder/by-guid/${encodeURIComponent(string.encode(flowguid).toString())}`,
+					method: 'GET',
+				})
+				.pipe(
+					map(data =>
+						data.chain(value =>
+							fromEither(
+								LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO.decode(value).mapLeft(
+									ResponseValiationError.create,
+								),
+							),
 						),
 					),
 				);

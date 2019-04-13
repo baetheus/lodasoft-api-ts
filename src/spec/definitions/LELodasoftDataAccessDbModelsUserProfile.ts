@@ -23,7 +23,7 @@ import {
 	MicrosoftAspNetIdentityEntityFrameworkIdentityUserRoleIO,
 } from '../definitions/MicrosoftAspNetIdentityEntityFrameworkIdentityUserRole';
 import { Option } from 'fp-ts/lib/Option';
-import { number, union, literal, string, boolean, array, type } from 'io-ts';
+import { number, keyof, string, boolean, array, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftDataAccessDbModelsUserProfile = {
@@ -86,7 +86,7 @@ export const LELodasoftDataAccessDbModelsUserProfileIO = type({
 	stackingOrder: createOptionFromNullable(LELodasoftDataAccessDbModelsAdminStackingOrderModelIO),
 	roleId: createOptionFromNullable(number),
 	roleModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationRoleModelIO),
-	userType: createOptionFromNullable(union([literal('Admin'), literal('Borrower'), literal('Agent')])),
+	userType: createOptionFromNullable(keyof({ Admin: null, Borrower: null, Agent: null })),
 	avatarId: createOptionFromNullable(string),
 	firstName: createOptionFromNullable(string),
 	lastName: createOptionFromNullable(string),

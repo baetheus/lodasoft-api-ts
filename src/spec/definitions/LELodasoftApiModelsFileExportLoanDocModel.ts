@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { union, literal, string, number, boolean, type } from 'io-ts';
+import { keyof, string, number, boolean, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftApiModelsFileExportLoanDocModel = {
@@ -22,19 +22,19 @@ export type LELodasoftApiModelsFileExportLoanDocModel = {
 };
 export const LELodasoftApiModelsFileExportLoanDocModelIO = type({
 	taskStatus: createOptionFromNullable(
-		union([
-			literal('Pending'),
-			literal('Submitted'),
-			literal('Rejected'),
-			literal('Approved'),
-			literal('NotApplicable'),
-			literal('Requested'),
-			literal('Completed'),
-			literal('ReviewReady'),
-		]),
+		keyof({
+			Pending: null,
+			Submitted: null,
+			Rejected: null,
+			Approved: null,
+			NotApplicable: null,
+			Requested: null,
+			Completed: null,
+			ReviewReady: null,
+		}),
 	),
 	conditionStatus: createOptionFromNullable(
-		union([literal('ConditionPending'), literal('ConditionCleared'), literal('ConditionReOpened')]),
+		keyof({ ConditionPending: null, ConditionCleared: null, ConditionReOpened: null }),
 	),
 	guid: createOptionFromNullable(string),
 	loanDocId: createOptionFromNullable(number),

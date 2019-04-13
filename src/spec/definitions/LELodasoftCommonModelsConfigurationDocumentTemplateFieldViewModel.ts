@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, union, literal, boolean, type } from 'io-ts';
+import { number, string, keyof, boolean, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModel = {
@@ -23,9 +23,7 @@ export const LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModelIO
 	documentTemplateFieldId: createOptionFromNullable(number),
 	documentTemplateId: createOptionFromNullable(number),
 	fieldKey: createOptionFromNullable(string),
-	fieldType: createOptionFromNullable(
-		union([literal('Unspecified'), literal('Text'), literal('CheckBox'), literal('RadioButton')]),
-	),
+	fieldType: createOptionFromNullable(keyof({ Unspecified: null, Text: null, CheckBox: null, RadioButton: null })),
 	displayName: createOptionFromNullable(string),
 	globalMergeFieldKey: createOptionFromNullable(string),
 	defaultValue: createOptionFromNullable(string),

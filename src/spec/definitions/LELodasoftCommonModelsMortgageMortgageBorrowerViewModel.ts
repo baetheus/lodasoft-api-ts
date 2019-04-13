@@ -47,7 +47,7 @@ import {
 	LELodasoftCommonModelsMortgageResidencyAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageResidencyAddressViewModel';
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, boolean, union, literal, array, type } from 'io-ts';
+import { number, string, boolean, keyof, array, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsMortgageMortgageBorrowerViewModel = {
@@ -100,13 +100,13 @@ export const LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO = type({
 	dependentCount: createOptionFromNullable(number),
 	authorizedCreditCheck: createOptionFromNullable(boolean),
 	socialSecNum: createOptionFromNullable(string),
-	maritalStatus: createOptionFromNullable(union([literal('Single'), literal('Married'), literal('Separated')])),
+	maritalStatus: createOptionFromNullable(keyof({ Single: null, Married: null, Separated: null })),
 	dateOfBirth: createOptionFromNullable(DateFromISOString),
 	creditScore: createOptionFromNullable(number),
 	creditScore_Equifax: createOptionFromNullable(number),
 	creditScore_Experian: createOptionFromNullable(number),
 	creditScore_TransUnion: createOptionFromNullable(number),
-	typeOfBorrower: union([literal('PrimaryBorrower'), literal('CoBorrower')]),
+	typeOfBorrower: keyof({ PrimaryBorrower: null, CoBorrower: null }),
 	active: createOptionFromNullable(boolean),
 	assets: createOptionFromNullable(array(LELodasoftCommonModelsMortgageAssetViewModelIO)),
 	declarations: createOptionFromNullable(array(LELodasoftCommonModelsMortgageDeclarationViewModelIO)),

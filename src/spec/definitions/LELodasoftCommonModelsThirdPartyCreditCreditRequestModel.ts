@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, array, union, literal, boolean, string, type } from 'io-ts';
+import { number, array, keyof, boolean, string, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 
 export type LELodasoftCommonModelsThirdPartyCreditCreditRequestModel = {
@@ -16,9 +16,9 @@ export type LELodasoftCommonModelsThirdPartyCreditCreditRequestModel = {
 export const LELodasoftCommonModelsThirdPartyCreditCreditRequestModelIO = type({
 	applicationId: number,
 	borrowerIds: array(number),
-	pullType: union([literal('Individual'), literal('Joint')]),
-	creditVendor: union([literal('MeridianLink'), literal('CoreLogicCredco')]),
-	creditRequestType: union([literal('Submit'), literal('Reissue'), literal('Upgrade')]),
+	pullType: keyof({ Individual: null, Joint: null }),
+	creditVendor: keyof({ MeridianLink: null, CoreLogicCredco: null }),
+	creditRequestType: keyof({ Submit: null, Reissue: null, Upgrade: null }),
 	experian: boolean,
 	equifax: boolean,
 	transUnion: boolean,

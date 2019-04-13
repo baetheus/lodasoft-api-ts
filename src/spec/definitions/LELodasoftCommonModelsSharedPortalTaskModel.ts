@@ -3,7 +3,7 @@ import {
 	LELodasoftCommonModelsSharedPortalTaskDocumentIO,
 } from '../definitions/LELodasoftCommonModelsSharedPortalTaskDocument';
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, union, literal, array, boolean, type } from 'io-ts';
+import { number, string, keyof, array, boolean, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsSharedPortalTaskModel = {
@@ -37,16 +37,16 @@ export const LELodasoftCommonModelsSharedPortalTaskModelIO = type({
 	taskId: createOptionFromNullable(number),
 	taskTypeId: createOptionFromNullable(string),
 	borrowerTaskType: createOptionFromNullable(
-		union([
-			literal('RequestDocument'),
-			literal('ViewDocument'),
-			literal('AcknowledgeReceipt'),
-			literal('EsignDocument'),
-			literal('RequestInformation'),
-			literal('PerformAction'),
-			literal('OnlineApplication'),
-			literal('DigitalAssetVerification'),
-		]),
+		keyof({
+			RequestDocument: null,
+			ViewDocument: null,
+			AcknowledgeReceipt: null,
+			EsignDocument: null,
+			RequestInformation: null,
+			PerformAction: null,
+			OnlineApplication: null,
+			DigitalAssetVerification: null,
+		}),
 	),
 	description: createOptionFromNullable(string),
 	docType: createOptionFromNullable(string),
@@ -59,7 +59,7 @@ export const LELodasoftCommonModelsSharedPortalTaskModelIO = type({
 	borrowerName: createOptionFromNullable(string),
 	borrowerFacingNote: createOptionFromNullable(string),
 	borrowerTaskStatus: createOptionFromNullable(
-		union([literal('Pending'), literal('Submitted'), literal('Rejected'), literal('Completed')]),
+		keyof({ Pending: null, Submitted: null, Rejected: null, Completed: null }),
 	),
 	linkedDocuments: createOptionFromNullable(array(LELodasoftCommonModelsSharedPortalTaskDocumentIO)),
 	allowUpload: createOptionFromNullable(boolean),

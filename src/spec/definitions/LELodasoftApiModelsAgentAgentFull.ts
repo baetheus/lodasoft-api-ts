@@ -3,7 +3,7 @@ import {
 	LELodasoftCommonModelsAdminAgentViewModelIO,
 } from '../definitions/LELodasoftCommonModelsAdminAgentViewModel';
 import { Option } from 'fp-ts/lib/Option';
-import { string, number, boolean, union, literal, type } from 'io-ts';
+import { string, number, boolean, keyof, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 
 export type LELodasoftApiModelsAgentAgentFull = {
@@ -18,5 +18,5 @@ export const LELodasoftApiModelsAgentAgentFullIO = type({
 	portalUserName: createOptionFromNullable(string),
 	agentTypeId: createOptionFromNullable(number),
 	isEdit: createOptionFromNullable(boolean),
-	accountStatus: createOptionFromNullable(union([literal('NotInvited'), literal('Invited'), literal('Live')])),
+	accountStatus: createOptionFromNullable(keyof({ NotInvited: null, Invited: null, Live: null })),
 });

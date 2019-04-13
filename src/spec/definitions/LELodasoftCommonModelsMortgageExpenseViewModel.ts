@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, union, literal, boolean, string, type } from 'io-ts';
+import { number, keyof, boolean, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsMortgageExpenseViewModel = {
@@ -29,17 +29,17 @@ export const LELodasoftCommonModelsMortgageExpenseViewModelIO = type({
 	borrowerId: createOptionFromNullable(number),
 	monthlyAmount: createOptionFromNullable(number),
 	expenseType: createOptionFromNullable(
-		union([
-			literal('FirstMortgagePrincipalAndInterest'),
-			literal('HazardInsurance'),
-			literal('HomeownersInsurance'),
-			literal('HomeownersAssociationDuesAndCondominiumFees'),
-			literal('MorgageInsurance'),
-			literal('OtherHousingExpense'),
-			literal('OtherMortgageLoanPrincipalAndInterest'),
-			literal('RealEstateTax'),
-			literal('Rent'),
-		]),
+		keyof({
+			FirstMortgagePrincipalAndInterest: null,
+			HazardInsurance: null,
+			HomeownersInsurance: null,
+			HomeownersAssociationDuesAndCondominiumFees: null,
+			MorgageInsurance: null,
+			OtherHousingExpense: null,
+			OtherMortgageLoanPrincipalAndInterest: null,
+			RealEstateTax: null,
+			Rent: null,
+		}),
 	),
 	isCurrent: createOptionFromNullable(boolean),
 	companyId: createOptionFromNullable(number),

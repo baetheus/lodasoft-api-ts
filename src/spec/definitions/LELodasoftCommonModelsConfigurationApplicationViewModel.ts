@@ -34,6 +34,7 @@ export type LELodasoftCommonModelsConfigurationApplicationViewModel = {
 	mailingState: Option<string>;
 	mailingZip: Option<string>;
 	dateCreate: Option<Date>;
+	referralSource: Option<number>;
 	companyId: Option<number>;
 	insertedBy: Option<string>;
 	dateInserted: Option<Date>;
@@ -72,6 +73,7 @@ export const LELodasoftCommonModelsConfigurationApplicationViewModelIO = type({
 	mailingState: createOptionFromNullable(string),
 	mailingZip: createOptionFromNullable(string),
 	dateCreate: createOptionFromNullable(DateFromISOString),
+	referralSource: createOptionFromNullable(number),
 	companyId: createOptionFromNullable(number),
 	insertedBy: createOptionFromNullable(string),
 	dateInserted: createOptionFromNullable(DateFromISOString),

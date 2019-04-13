@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { string, number, union, literal, boolean, type } from 'io-ts';
+import { string, number, keyof, boolean, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsLeadsUserProfileViewModel = {
@@ -43,7 +43,7 @@ export const LELodasoftCommonModelsLeadsUserProfileViewModelIO = type({
 	stackOrderId: createOptionFromNullable(number),
 	roleId: createOptionFromNullable(number),
 	userName: createOptionFromNullable(string),
-	userType: createOptionFromNullable(union([literal('Admin'), literal('Borrower'), literal('Agent')])),
+	userType: createOptionFromNullable(keyof({ Admin: null, Borrower: null, Agent: null })),
 	avatarId: createOptionFromNullable(string),
 	firstName: createOptionFromNullable(string),
 	lastName: createOptionFromNullable(string),

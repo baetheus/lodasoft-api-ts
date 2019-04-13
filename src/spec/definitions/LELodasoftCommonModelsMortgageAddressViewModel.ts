@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, union, literal, string, boolean, type } from 'io-ts';
+import { number, keyof, string, boolean, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsMortgageAddressViewModel = {
@@ -19,9 +19,7 @@ export type LELodasoftCommonModelsMortgageAddressViewModel = {
 };
 export const LELodasoftCommonModelsMortgageAddressViewModelIO = type({
 	addressId: createOptionFromNullable(number),
-	typeOfAddress: createOptionFromNullable(
-		union([literal('PresentAddress'), literal('FormerAddress'), literal('MailingAddress')]),
-	),
+	typeOfAddress: createOptionFromNullable(keyof({ PresentAddress: null, FormerAddress: null, MailingAddress: null })),
 	address1: createOptionFromNullable(string),
 	city: createOptionFromNullable(string),
 	state: createOptionFromNullable(string),

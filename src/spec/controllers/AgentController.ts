@@ -12,6 +12,10 @@ import {
 	LELodasoftCommonModelsAdminAgentListViewModelIO,
 } from '../definitions/LELodasoftCommonModelsAdminAgentListViewModel';
 import {
+	LELodasoftCommonModelsAdminAgentNoteViewModel,
+	LELodasoftCommonModelsAdminAgentNoteViewModelIO,
+} from '../definitions/LELodasoftCommonModelsAdminAgentNoteViewModel';
+import {
 	LELodasoftCommonModelsAdminAgentViewModel,
 	LELodasoftCommonModelsAdminAgentViewModelIO,
 } from '../definitions/LELodasoftCommonModelsAdminAgentViewModel';
@@ -124,6 +128,22 @@ export type AgentController = {
 		agentListId: number,
 		agentId: number,
 	) => Observable<AsyncData<Error, unknown>>;
+
+	/**
+	 * @param { number } agentId undefined
+	 * @param { object } parameters
+	 */
+	readonly Agent_AddAgentNote: (
+		agentId: number,
+		parameters: { body: LELodasoftCommonModelsAdminAgentNoteViewModel },
+	) => Observable<AsyncData<Error, unknown>>;
+
+	/**
+	 * @param { number } agentId undefined
+	 */
+	readonly Agent_GetAgentNotes: (
+		agentId: number,
+	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminAgentNoteViewModel>>>;
 };
 
 export const agentController = asks(
@@ -423,6 +443,44 @@ export const agentController = asks(
 					map(data =>
 						data.chain(value =>
 							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
+						),
+					),
+				);
+		},
+
+		Agent_AddAgentNote: (agentId, parameters) => {
+			const encoded = partial({ body: LELodasoftCommonModelsAdminAgentNoteViewModelIO }).encode(parameters);
+
+			return e.apiClient
+				.request({
+					url: `/api/Agent/${encodeURIComponent(number.encode(agentId).toString())}/note`,
+					method: 'POST',
+
+					body: encoded.body,
+				})
+				.pipe(
+					map(data =>
+						data.chain(value =>
+							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
+						),
+					),
+				);
+		},
+
+		Agent_GetAgentNotes: agentId => {
+			return e.apiClient
+				.request({
+					url: `/api/Agent/${encodeURIComponent(number.encode(agentId).toString())}/notes`,
+					method: 'GET',
+				})
+				.pipe(
+					map(data =>
+						data.chain(value =>
+							fromEither(
+								array(LELodasoftCommonModelsAdminAgentNoteViewModelIO)
+									.decode(value)
+									.mapLeft(ResponseValiationError.create),
+							),
 						),
 					),
 				);

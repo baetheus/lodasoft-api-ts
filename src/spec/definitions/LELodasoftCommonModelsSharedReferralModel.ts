@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { string, union, literal, type } from 'io-ts';
+import { string, keyof, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 
 export type LELodasoftCommonModelsSharedReferralModel = {
@@ -17,7 +17,7 @@ export type LELodasoftCommonModelsSharedReferralModel = {
 };
 export const LELodasoftCommonModelsSharedReferralModelIO = type({
 	referToUserId: createOptionFromNullable(string),
-	referralType: createOptionFromNullable(union([literal('Borrower'), literal('Agent')])),
+	referralType: createOptionFromNullable(keyof({ Borrower: null, Agent: null })),
 	firstName: createOptionFromNullable(string),
 	lastName: createOptionFromNullable(string),
 	userContact: createOptionFromNullable(string),

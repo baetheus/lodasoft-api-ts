@@ -15,7 +15,7 @@ import {
 	LELodasoftDataAccessDbModelsConfigurationRoleModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationRoleModel';
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, union, literal, boolean, type } from 'io-ts';
+import { number, string, keyof, boolean, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftDataAccessDbModelsConfigurationCustomTaskModel = {
@@ -66,8 +66,8 @@ export const LELodasoftDataAccessDbModelsConfigurationCustomTaskModelIO = type({
 	loanStatusId: createOptionFromNullable(number),
 	loanStatusModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO),
 	taskDescription: createOptionFromNullable(string),
-	option: createOptionFromNullable(union([literal('Immediately'), literal('OnLoanStatus')])),
-	applyTo: createOptionFromNullable(union([literal('Loan'), literal('PrimaryBorrower'), literal('SelectBorrowers')])),
+	option: createOptionFromNullable(keyof({ Immediately: null, OnLoanStatus: null })),
+	applyTo: createOptionFromNullable(keyof({ Loan: null, PrimaryBorrower: null, SelectBorrowers: null })),
 	roleId: createOptionFromNullable(number),
 	roleModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationRoleModelIO),
 	documentTypeId: createOptionFromNullable(number),
@@ -77,24 +77,22 @@ export const LELodasoftDataAccessDbModelsConfigurationCustomTaskModelIO = type({
 	notifyPartyRoleId: createOptionFromNullable(number),
 	notifyPartyRoleModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationRoleModelIO),
 	taskType: createOptionFromNullable(
-		union([
-			literal('RequestDocument'),
-			literal('ViewDocument'),
-			literal('AcknowledgeReceipt'),
-			literal('EsignDocument'),
-			literal('RequestInformation'),
-			literal('PerformAction'),
-			literal('OnlineApplication'),
-			literal('DigitalAssetVerification'),
-		]),
+		keyof({
+			RequestDocument: null,
+			ViewDocument: null,
+			AcknowledgeReceipt: null,
+			EsignDocument: null,
+			RequestInformation: null,
+			PerformAction: null,
+			OnlineApplication: null,
+			DigitalAssetVerification: null,
+		}),
 	),
 	dueDays: createOptionFromNullable(number),
 	permittedAgentTypes: createOptionFromNullable(string),
 	tasksOnCompletion: createOptionFromNullable(string),
 	documentDataHeader: createOptionFromNullable(string),
-	defaultTaskPriority: createOptionFromNullable(
-		union([literal('Low'), literal('Normal'), literal('High'), literal('Immediate')]),
-	),
+	defaultTaskPriority: createOptionFromNullable(keyof({ Low: null, Normal: null, High: null, Immediate: null })),
 	docDataString: createOptionFromNullable(string),
 	requestBorrower: createOptionFromNullable(boolean),
 	alwaysShowPending: createOptionFromNullable(boolean),

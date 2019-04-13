@@ -15,7 +15,7 @@ import {
 	LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactSenderIO,
 } from '../definitions/LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactSender';
 import { Option } from 'fp-ts/lib/Option';
-import { union, literal, string, number, type } from 'io-ts';
+import { keyof, string, number, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsLeadsProviderModelsZillowLead = {
@@ -42,26 +42,24 @@ export type LELodasoftCommonModelsLeadsProviderModelsZillowLead = {
 	quote: Option<LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactLoanQuote>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsZillowLeadIO = type({
-	type: createOptionFromNullable(
-		union([literal('simple'), literal('quote'), literal('longForm'), literal('propertyPreapproval')]),
-	),
+	type: createOptionFromNullable(keyof({ simple: null, quote: null, longForm: null, propertyPreapproval: null })),
 	id: createOptionFromNullable(string),
 	created: createOptionFromNullable(DateFromISOString),
 	source: createOptionFromNullable(string),
 	price: createOptionFromNullable(number),
 	conciergeStatus: createOptionFromNullable(
-		union([
-			literal('Transferred'),
-			literal('AppointmentSet'),
-			literal('UnsupportedLanguage'),
-			literal('EmailRequested'),
-			literal('DoNotCall'),
-			literal('Duplicate'),
-			literal('LenderContacted'),
-			literal('NotInterested'),
-			literal('ConciergeUnsuccessful'),
-			literal('LenderMustCall'),
-		]),
+		keyof({
+			Transferred: null,
+			AppointmentSet: null,
+			UnsupportedLanguage: null,
+			EmailRequested: null,
+			DoNotCall: null,
+			Duplicate: null,
+			LenderContacted: null,
+			NotInterested: null,
+			ConciergeUnsuccessful: null,
+			LenderMustCall: null,
+		}),
 	),
 	sender: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactSenderIO),
 	recipient: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactRecipientIO),

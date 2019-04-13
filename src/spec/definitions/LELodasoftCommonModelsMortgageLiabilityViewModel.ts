@@ -3,7 +3,7 @@ import {
 	LELodasoftCommonModelsMortgageAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageAddressViewModel';
 import { Option } from 'fp-ts/lib/Option';
-import { number, union, literal, string, boolean, type } from 'io-ts';
+import { number, keyof, string, boolean, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsMortgageLiabilityViewModel = {
@@ -54,23 +54,23 @@ export const LELodasoftCommonModelsMortgageLiabilityViewModelIO = type({
 	borrowerId: createOptionFromNullable(number),
 	addressId: createOptionFromNullable(number),
 	typeOfLiability: createOptionFromNullable(
-		union([
-			literal('Alimony'),
-			literal('ChildCare'),
-			literal('ChildSupport'),
-			literal('CollectionsJudgementsAndLiens'),
-			literal('HELOC'),
-			literal('Installment'),
-			literal('JobRelatedExpenses'),
-			literal('LeasePayments'),
-			literal('MortgageLoan'),
-			literal('Open30DayChargeAccount'),
-			literal('OtherLiability'),
-			literal('Revolving'),
-			literal('SeparateMaintenanceExpense'),
-			literal('OtherExpense'),
-			literal('Taxes'),
-		]),
+		keyof({
+			Alimony: null,
+			ChildCare: null,
+			ChildSupport: null,
+			CollectionsJudgementsAndLiens: null,
+			HELOC: null,
+			Installment: null,
+			JobRelatedExpenses: null,
+			LeasePayments: null,
+			MortgageLoan: null,
+			Open30DayChargeAccount: null,
+			OtherLiability: null,
+			Revolving: null,
+			SeparateMaintenanceExpense: null,
+			OtherExpense: null,
+			Taxes: null,
+		}),
 	),
 	creditorName: createOptionFromNullable(string),
 	accountNumber: createOptionFromNullable(string),

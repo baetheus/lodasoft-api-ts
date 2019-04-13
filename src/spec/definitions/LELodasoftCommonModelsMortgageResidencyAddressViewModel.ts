@@ -3,7 +3,7 @@ import {
 	LELodasoftCommonModelsMortgageAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageAddressViewModel';
 import { Option } from 'fp-ts/lib/Option';
-import { number, union, literal, boolean, string, type } from 'io-ts';
+import { number, keyof, boolean, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsMortgageResidencyAddressViewModel = {
@@ -26,10 +26,10 @@ export const LELodasoftCommonModelsMortgageResidencyAddressViewModelIO = type({
 	residencyAddressId: createOptionFromNullable(number),
 	borrowerId: number,
 	addressId: createOptionFromNullable(number),
-	residencyBasis: union([literal('PresentAddress'), literal('FormerAddress'), literal('MailingAddress')]),
+	residencyBasis: keyof({ PresentAddress: null, FormerAddress: null, MailingAddress: null }),
 	durationYears: createOptionFromNullable(number),
 	durationMonths: createOptionFromNullable(number),
-	ownRentType: createOptionFromNullable(union([literal('Own'), literal('Rent'), literal('LivingRentFree')])),
+	ownRentType: createOptionFromNullable(keyof({ Own: null, Rent: null, LivingRentFree: null })),
 	fromCreditReport: createOptionFromNullable(boolean),
 	address: createOptionFromNullable(LELodasoftCommonModelsMortgageAddressViewModelIO),
 	companyId: createOptionFromNullable(number),

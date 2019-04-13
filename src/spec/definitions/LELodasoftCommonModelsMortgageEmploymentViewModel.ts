@@ -7,7 +7,7 @@ import {
 	LELodasoftCommonModelsMortgageIncomeViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageIncomeViewModel';
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, union, literal, boolean, array, type } from 'io-ts';
+import { number, string, keyof, boolean, array, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsMortgageEmploymentViewModel = {
@@ -42,7 +42,7 @@ export const LELodasoftCommonModelsMortgageEmploymentViewModelIO = type({
 	employer: createOptionFromNullable(string),
 	employerEmail: createOptionFromNullable(string),
 	employerPhone: createOptionFromNullable(string),
-	employmentType: createOptionFromNullable(union([literal('CurrentEmployer'), literal('FormerEmployer')])),
+	employmentType: createOptionFromNullable(keyof({ CurrentEmployer: null, FormerEmployer: null })),
 	selfEmployed: createOptionFromNullable(boolean),
 	isPrimary: createOptionFromNullable(boolean),
 	position: createOptionFromNullable(string),

@@ -3,7 +3,7 @@ import {
 	LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrowerIO,
 } from '../definitions/LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrower';
 import { Option } from 'fp-ts/lib/Option';
-import { union, literal, string, type } from 'io-ts';
+import { keyof, string, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 
 export type LELodasoftThirdPartyTheWorkNumberModelsVerificationRequest = {
@@ -13,8 +13,8 @@ export type LELodasoftThirdPartyTheWorkNumberModelsVerificationRequest = {
 	borrower: Option<LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrower>;
 };
 export const LELodasoftThirdPartyTheWorkNumberModelsVerificationRequestIO = type({
-	requestType: createOptionFromNullable(union([literal('VOE'), literal('VOI')])),
-	responseFormat: createOptionFromNullable(union([literal('Pdf'), literal('Xml')])),
+	requestType: createOptionFromNullable(keyof({ VOE: null, VOI: null })),
+	responseFormat: createOptionFromNullable(keyof({ Pdf: null, Xml: null })),
 	referenceNumber: createOptionFromNullable(string),
 	borrower: createOptionFromNullable(LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrowerIO),
 });
