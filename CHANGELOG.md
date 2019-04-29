@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.3.0](https://github.com/baetheus/lodasoft-api-ts/compare/v0.2.0...v0.3.0) (2019-04-29)
+
+
+### Features
+
+* **prefix:** add prefix to operation reader ([b35db5a](https://github.com/baetheus/lodasoft-api-ts/commit/b35db5a))
+
+
+
 # [0.2.0](https://github.com/baetheus/lodasoft-api-ts/compare/v0.1.1...v0.2.0) (2019-04-29)
 
 
