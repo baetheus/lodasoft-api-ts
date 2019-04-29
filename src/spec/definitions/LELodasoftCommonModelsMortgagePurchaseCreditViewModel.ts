@@ -31,6 +31,7 @@ export type LELodasoftCommonModelsMortgagePurchaseCreditViewModel = {
 		| 'EmployerAssistedHousing'
 		| 'LeasePurchaseFund'
 		| 'Other'
+		| 'LenderCredit'
 	>;
 	purchaseCreditAmount: Option<number>;
 	companyId: Option<number>;
@@ -69,6 +70,7 @@ export const LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO = type({
 			EmployerAssistedHousing: null,
 			LeasePurchaseFund: null,
 			Other: null,
+			LenderCredit: null,
 		}),
 	),
 	purchaseCreditAmount: createOptionFromNullable(number),

@@ -1,0 +1,37 @@
+import { Option } from 'fp-ts/lib/Option';
+export declare type LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactLoanQuote = {
+    rate: Option<number>;
+    apr: Option<number>;
+    termMonths: Option<number>;
+    dueInMonths: Option<number>;
+    interestOnlyMonths: Option<number>;
+    lockDays: Option<number>;
+    hasPrepaymentPenalty: Option<boolean>;
+    jumbo: Option<boolean>;
+    harp: Option<boolean>;
+    lenderPaidMortgageInsurance: Option<boolean>;
+    annualMortgageInsurancePercent: Option<number>;
+    currentBackerMustBeFannieMae: Option<boolean>;
+    currentBackerMustBeFreddieMac: Option<boolean>;
+    lenderCredit: Option<number>;
+    lenderCreditPercent: Option<number>;
+    maxAllowedLTV: Option<number>;
+};
+export declare const LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactLoanQuoteIO: import("io-ts").TypeC<{
+    rate: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    apr: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    termMonths: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    dueInMonths: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    interestOnlyMonths: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    lockDays: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    hasPrepaymentPenalty: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    jumbo: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    harp: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    lenderPaidMortgageInsurance: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    annualMortgageInsurancePercent: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    currentBackerMustBeFannieMae: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    currentBackerMustBeFreddieMac: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    lenderCredit: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    lenderCreditPercent: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    maxAllowedLTV: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+}>;

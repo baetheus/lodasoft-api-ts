@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsLoanMergeDocFilesRequest,
 	LELodasoftCommonModelsLoanMergeDocFilesRequestIO,
@@ -15,36 +15,30 @@ import {
 	LELodasoftDataAccessModelsAdminBorrowerFileDto,
 	LELodasoftDataAccessModelsAdminBorrowerFileDtoIO,
 } from '../definitions/LELodasoftDataAccessModelsAdminBorrowerFileDto';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, void as tvoid, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type LoanDocController = {
 	/**
 	 * Get a loan document
 	 * @param { number } loanDocId -
 	 */
-	readonly LoanDoc_Get: (
-		loanDocId: number,
-	) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsAdminLoanDocModel>>;
+	readonly LoanDoc_Get: (loanDocId: number) => Observable<LELodasoftDataAccessDbModelsAdminLoanDocModel>;
 
 	/**
 	 * Change the document type for a loan document
 	 * @param { number } loanDocId -
 	 * @param { number } documentTypeId -
 	 */
-	readonly LoanDoc_ChangeDocumentTypeOfLoanDoc: (
-		loanDocId: number,
-		documentTypeId: number,
-	) => Observable<AsyncData<Error, void>>;
+	readonly LoanDoc_ChangeDocumentTypeOfLoanDoc: (loanDocId: number, documentTypeId: number) => Observable<void>;
 
 	/**
 	 * Delete a loan document
 	 * @param { number } loanDocId -
 	 */
-	readonly LoanDoc_RemoveLoanDoc: (loanDocId: number) => Observable<AsyncData<Error, void>>;
+	readonly LoanDoc_RemoveLoanDoc: (loanDocId: number) => Observable<void>;
 
 	/**
 	 * Update or Insert a doc file to a Loan Document
@@ -54,7 +48,7 @@ export type LoanDocController = {
 	readonly LoanDoc_UpsertFile: (
 		loanDocId: number,
 		parameters: { body: LELodasoftDataAccessDbModelsAdminDocFileModel },
-	) => Observable<AsyncData<Error, LELodasoftDataAccessModelsAdminBorrowerFileDto>>;
+	) => Observable<LELodasoftDataAccessModelsAdminBorrowerFileDto>;
 
 	/**
 	 * Merge doc files into a single file for a Loan Document
@@ -64,7 +58,7 @@ export type LoanDocController = {
 	readonly LoanDoc_MergeDocFiles: (
 		loanDocId: number,
 		parameters: { body: LELodasoftCommonModelsLoanMergeDocFilesRequest },
-	) => Observable<AsyncData<Error, void>>;
+	) => Observable<void>;
 };
 
 export const loanDocController = asks(
@@ -75,17 +69,7 @@ export const loanDocController = asks(
 					url: `/api/LoanDoc/${encodeURIComponent(number.encode(loanDocId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsAdminLoanDocModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminLoanDocModelIO));
 		},
 
 		LoanDoc_ChangeDocumentTypeOfLoanDoc: (loanDocId, documentTypeId) => {
@@ -96,11 +80,7 @@ export const loanDocController = asks(
 					)}/ChangeDocumentType/${encodeURIComponent(number.encode(documentTypeId).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(tvoid.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(tvoid));
 		},
 
 		LoanDoc_RemoveLoanDoc: loanDocId => {
@@ -109,11 +89,7 @@ export const loanDocController = asks(
 					url: `/api/LoanDoc/${encodeURIComponent(number.encode(loanDocId).toString())}/RemoveLoanDoc`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(tvoid.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(tvoid));
 		},
 
 		LoanDoc_UpsertFile: (loanDocId, parameters) => {
@@ -126,17 +102,7 @@ export const loanDocController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessModelsAdminBorrowerFileDtoIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessModelsAdminBorrowerFileDtoIO));
 		},
 
 		LoanDoc_MergeDocFiles: (loanDocId, parameters) => {
@@ -149,11 +115,7 @@ export const loanDocController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(tvoid.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(tvoid));
 		},
 	}),
 );

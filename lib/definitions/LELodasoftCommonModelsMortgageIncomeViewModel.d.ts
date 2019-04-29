@@ -1,0 +1,21 @@
+import { LELodasoftCommonModelsMortgageEmploymentViewModel } from '../definitions/LELodasoftCommonModelsMortgageEmploymentViewModel';
+import { LELodasoftCommonModelsMortgageReoViewModel } from '../definitions/LELodasoftCommonModelsMortgageReoViewModel';
+import { Option } from 'fp-ts/lib/Option';
+export declare type LELodasoftCommonModelsMortgageIncomeViewModel = {
+    incomeId: Option<number>;
+    borrowerId: Option<number>;
+    employmentId: Option<number>;
+    employmentModel: Option<LELodasoftCommonModelsMortgageEmploymentViewModel>;
+    reoId: Option<number>;
+    reoModel: Option<LELodasoftCommonModelsMortgageReoViewModel>;
+    monthlyIncome: Option<number>;
+    typeOfIncome: Option<'AlimonyChildSupport' | 'AutomobileExpenseAccount' | 'Base' | 'Bonus' | 'Commissions' | 'DividendsInterest' | 'EmploymentIncome' | 'FosterCare' | 'NetRentalIncome' | 'NotesReceivableInstallment' | 'OtherTypesOfIncome' | 'Overtime' | 'Pension' | 'SocialSecurity' | 'SubjectPropertyNetCashFlow' | 'Trust' | 'Unemployment' | 'PublicAssistance' | 'VABenefitsNonEducational' | 'MortgageDifferential' | 'MilitaryBasePay' | 'MilitaryRationsAllowance' | 'MilitaryFlightPay' | 'MilitaryHazardPay' | 'MilitaryClothesAllowance' | 'MilitaryQuartersAllowance' | 'MilitaryPropPay' | 'MilitaryOverseasPay' | 'MilitaryCombatPay' | 'MilitaryVariableHousingAllowance' | 'SelfEmployment' | 'IndependentContractor'>;
+    categoryOfIncome: Option<'Employment' | 'IndependentContractor' | 'MilitaryPay' | 'Rental' | 'SocialSecurity' | 'Pension' | 'BuisnessSelfEmployment' | 'Other'>;
+    fromCreditReport: Option<boolean>;
+    companyId: Option<number>;
+    insertedBy: Option<string>;
+    dateInserted: Option<Date>;
+    updatedBy: Option<string>;
+    dateUpdated: Option<Date>;
+};
+export declare const LELodasoftCommonModelsMortgageIncomeViewModelIO: any;

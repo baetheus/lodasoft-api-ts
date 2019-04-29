@@ -1,22 +1,18 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgagePhoneViewModel,
 	LELodasoftCommonModelsMortgagePhoneViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgagePhoneViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type MortgagePhoneController = {
 	/**
 	 * @param { number } phoneId undefined
 	 */
-	readonly MortgagePhone_GetPhoneById: (
-		phoneId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgagePhoneViewModel>>;
+	readonly MortgagePhone_GetPhoneById: (phoneId: number) => Observable<LELodasoftCommonModelsMortgagePhoneViewModel>;
 
 	/**
 	 * @param { number } phoneId undefined
@@ -25,12 +21,12 @@ export type MortgagePhoneController = {
 	readonly MortgagePhone_UpdatePhone: (
 		phoneId: number,
 		parameters: { body: LELodasoftCommonModelsMortgagePhoneViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgagePhoneViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgagePhoneViewModel>;
 
 	/**
 	 * @param { number } phoneId undefined
 	 */
-	readonly MortgagePhone_DeletePhone: (phoneId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly MortgagePhone_DeletePhone: (phoneId: number) => Observable<unknown>;
 };
 
 export const mortgagePhoneController = asks(
@@ -41,17 +37,7 @@ export const mortgagePhoneController = asks(
 					url: `/api/mortgage/phones/${encodeURIComponent(number.encode(phoneId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgagePhoneViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgagePhoneViewModelIO));
 		},
 
 		MortgagePhone_UpdatePhone: (phoneId, parameters) => {
@@ -64,17 +50,7 @@ export const mortgagePhoneController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgagePhoneViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgagePhoneViewModelIO));
 		},
 
 		MortgagePhone_DeletePhone: phoneId => {
@@ -83,13 +59,7 @@ export const mortgagePhoneController = asks(
 					url: `/api/mortgage/phones/${encodeURIComponent(number.encode(phoneId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgageAddressViewModel,
 	LELodasoftCommonModelsMortgageAddressViewModelIO,
@@ -7,12 +7,10 @@ import {
 	LELodasoftCommonModelsMortgageSubjectPropertyViewModel,
 	LELodasoftCommonModelsMortgageSubjectPropertyViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageSubjectPropertyViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type MortgageSubjectPropertyController = {
 	/**
@@ -20,7 +18,7 @@ export type MortgageSubjectPropertyController = {
 	 */
 	readonly MortgageSubjectProperty_GetSubjectPropertyById: (
 		subjectPropertyId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageSubjectPropertyViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageSubjectPropertyViewModel>;
 
 	/**
 	 * @param { number } subjectPropertyId undefined
@@ -29,14 +27,12 @@ export type MortgageSubjectPropertyController = {
 	readonly MortgageSubjectProperty_UpdateSubjectProperty: (
 		subjectPropertyId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageSubjectPropertyViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageSubjectPropertyViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageSubjectPropertyViewModel>;
 
 	/**
 	 * @param { number } subjectPropertyId undefined
 	 */
-	readonly MortgageSubjectProperty_DeleteSubjectProperty: (
-		subjectPropertyId: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly MortgageSubjectProperty_DeleteSubjectProperty: (subjectPropertyId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } subjectPropertyId undefined
@@ -45,7 +41,7 @@ export type MortgageSubjectPropertyController = {
 	readonly MortgageSubjectProperty_InsertAddress: (
 		subjectPropertyId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageAddressViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageAddressViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageAddressViewModel>;
 };
 
 export const mortgageSubjectPropertyController = asks(
@@ -58,17 +54,7 @@ export const mortgageSubjectPropertyController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageSubjectPropertyViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageSubjectPropertyViewModelIO));
 		},
 
 		MortgageSubjectProperty_UpdateSubjectProperty: (subjectPropertyId, parameters) => {
@@ -85,17 +71,7 @@ export const mortgageSubjectPropertyController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageSubjectPropertyViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageSubjectPropertyViewModelIO));
 		},
 
 		MortgageSubjectProperty_DeleteSubjectProperty: subjectPropertyId => {
@@ -106,13 +82,7 @@ export const mortgageSubjectPropertyController = asks(
 					)}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageSubjectProperty_InsertAddress: (subjectPropertyId, parameters) => {
@@ -127,17 +97,7 @@ export const mortgageSubjectPropertyController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageAddressViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
 		},
 	}),
 );

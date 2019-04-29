@@ -1,14 +1,12 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsDemoRequestDemoViewModel,
 	LELodasoftCommonModelsDemoRequestDemoViewModelIO,
 } from '../definitions/LELodasoftCommonModelsDemoRequestDemoViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type DemoController = {
 	/**
@@ -16,7 +14,7 @@ export type DemoController = {
 	 */
 	readonly Demo_RequestDemo: (parameters: {
 		body: LELodasoftCommonModelsDemoRequestDemoViewModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 };
 
 export const demoController = asks(
@@ -31,13 +29,7 @@ export const demoController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

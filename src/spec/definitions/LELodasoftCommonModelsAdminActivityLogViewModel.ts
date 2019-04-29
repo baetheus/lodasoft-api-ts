@@ -4,9 +4,10 @@ import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsAdminActivityLogViewModel = {
 	userId: Option<string>;
-	category: Option<'LoanChangeStatus' | 'InternalMessage' | 'Lead' | 'DocumentFile'>;
+	category: Option<'LoanChangeStatus' | 'BorrowerMessage' | 'InternalMessage' | 'Lead' | 'DocumentFile'>;
 	activityType: Option<
 		| 'LoanChangeStatus'
+		| 'BorrowerMessage'
 		| 'InternalMessage'
 		| 'LeadNote'
 		| 'LeadEmail'
@@ -50,11 +51,12 @@ export type LELodasoftCommonModelsAdminActivityLogViewModel = {
 export const LELodasoftCommonModelsAdminActivityLogViewModelIO = type({
 	userId: createOptionFromNullable(string),
 	category: createOptionFromNullable(
-		keyof({ LoanChangeStatus: null, InternalMessage: null, Lead: null, DocumentFile: null }),
+		keyof({ LoanChangeStatus: null, BorrowerMessage: null, InternalMessage: null, Lead: null, DocumentFile: null }),
 	),
 	activityType: createOptionFromNullable(
 		keyof({
 			LoanChangeStatus: null,
+			BorrowerMessage: null,
 			InternalMessage: null,
 			LeadNote: null,
 			LeadEmail: null,

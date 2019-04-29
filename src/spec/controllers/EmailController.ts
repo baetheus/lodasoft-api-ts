@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMessageMessageHistoryViewModel,
 	LELodasoftCommonModelsMessageMessageHistoryViewModelIO,
@@ -11,12 +11,10 @@ import {
 	LELodasoftDataAccessDbModelsSharedEmailServiceModel,
 	LELodasoftDataAccessDbModelsSharedEmailServiceModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsSharedEmailServiceModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { partial, string, number, array } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type EmailController = {
 	/**
@@ -24,52 +22,52 @@ export type EmailController = {
 	 */
 	readonly Email_SendTestEmail: (parameters: {
 		body: LELodasoftDataAccessDbModelsSharedEmailServiceModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Email_AutoDiscoverExchangeUrl: (parameters: {
 		body: LELodasoftDataAccessDbModelsSharedEmailServiceModel;
-	}) => Observable<AsyncData<Error, string>>;
+	}) => Observable<string>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
 	readonly Email_GetEmailsSentToBorrower: (
 		borrowerId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMessageMessageHistoryViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsMessageMessageHistoryViewModel>>;
 
 	/**
 	 * @param { number } appId undefined
 	 */
 	readonly Email_GetEmailsSentForApp: (
 		appId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMessageMessageHistoryViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsMessageMessageHistoryViewModel>>;
 
 	/**
 	 * @param { number } leadId undefined
 	 */
 	readonly Email_GetEmailsSentForLead: (
 		leadId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMessageMessageHistoryViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsMessageMessageHistoryViewModel>>;
 
 	/**
 	 * @param { number } agentId undefined
 	 */
 	readonly Email_GetEmailsSentToAgent: (
 		agentId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMessageMessageHistoryViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsMessageMessageHistoryViewModel>>;
 
 	/**
 	 * @param { number } messageId undefined
 	 */
 	readonly Email_SetEmailPriorityToRetry: (
 		messageId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMessageMessageViewModel>>;
+	) => Observable<LELodasoftCommonModelsMessageMessageViewModel>;
 
 	readonly Email_GetFailedEmailsSentByUser: () => Observable<
-		AsyncData<Error, Array<LELodasoftCommonModelsMessageMessageHistoryViewModel>>
+		Array<LELodasoftCommonModelsMessageMessageHistoryViewModel>
 	>;
 };
 
@@ -85,13 +83,7 @@ export const emailController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Email_AutoDiscoverExchangeUrl: parameters => {
@@ -104,11 +96,7 @@ export const emailController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(string.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(string));
 		},
 
 		Email_GetEmailsSentToBorrower: borrowerId => {
@@ -119,17 +107,7 @@ export const emailController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)));
 		},
 
 		Email_GetEmailsSentForApp: appId => {
@@ -138,17 +116,7 @@ export const emailController = asks(
 					url: `/api/Email/GetEmailsSentForApp/${encodeURIComponent(number.encode(appId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)));
 		},
 
 		Email_GetEmailsSentForLead: leadId => {
@@ -157,17 +125,7 @@ export const emailController = asks(
 					url: `/api/Email/GetEmailsSentForLead/${encodeURIComponent(number.encode(leadId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)));
 		},
 
 		Email_GetEmailsSentToAgent: agentId => {
@@ -176,17 +134,7 @@ export const emailController = asks(
 					url: `/api/Email/GetEmailsSentToAgent/${encodeURIComponent(number.encode(agentId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)));
 		},
 
 		Email_SetEmailPriorityToRetry: messageId => {
@@ -197,17 +145,7 @@ export const emailController = asks(
 					)}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMessageMessageViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMessageMessageViewModelIO));
 		},
 
 		Email_GetFailedEmailsSentByUser: () => {
@@ -216,17 +154,7 @@ export const emailController = asks(
 					url: `/api/Email/GetFailedEmailsSentByUser`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)));
 		},
 	}),
 );

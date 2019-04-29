@@ -1,35 +1,32 @@
-import { AsyncData, fromEither } from '@nll/dux';
-import { asks } from 'fp-ts/lib/Reader';
-import { array, number, partial, string, type, void as tvoid } from 'io-ts';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
-  LELodasoftApiControllersTaskNoteModel,
-  LELodasoftApiControllersTaskNoteModelIO,
+	LELodasoftApiControllersTaskNoteModel,
+	LELodasoftApiControllersTaskNoteModelIO,
 } from '../definitions/LELodasoftApiControllersTaskNoteModel';
 import {
-  LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView,
-  LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO,
-} from '../definitions/LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView';
-import {
-  LELodasoftApiModelsBorrowerLoanDocTaskUpsertModel,
-  LELodasoftApiModelsBorrowerLoanDocTaskUpsertModelIO,
+	LELodasoftApiModelsBorrowerLoanDocTaskUpsertModel,
+	LELodasoftApiModelsBorrowerLoanDocTaskUpsertModelIO,
 } from '../definitions/LELodasoftApiModelsBorrowerLoanDocTaskUpsertModel';
 import {
-  LELodasoftCommonModelsAdminTrackingViewModel,
-  LELodasoftCommonModelsAdminTrackingViewModelIO,
+	LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView,
+	LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO,
+} from '../definitions/LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView';
+import {
+	LELodasoftCommonModelsAdminTrackingViewModel,
+	LELodasoftCommonModelsAdminTrackingViewModelIO,
 } from '../definitions/LELodasoftCommonModelsAdminTrackingViewModel';
 import {
-  LELodasoftCommonModelsLoanLoanDocTaskViewModel,
-  LELodasoftCommonModelsLoanLoanDocTaskViewModelIO,
+	LELodasoftCommonModelsLoanLoanDocTaskViewModel,
+	LELodasoftCommonModelsLoanLoanDocTaskViewModelIO,
 } from '../definitions/LELodasoftCommonModelsLoanLoanDocTaskViewModel';
 import {
-  LELodasoftDataAccessDbModelsAdminLoanDocTaskModel,
-  LELodasoftDataAccessDbModelsAdminLoanDocTaskModelIO,
+	LELodasoftDataAccessDbModelsAdminLoanDocTaskModel,
+	LELodasoftDataAccessDbModelsAdminLoanDocTaskModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsAdminLoanDocTaskModel';
-import { unknownType } from '../utils/utils';
+import { decodeAndMap, unknownType } from '../utils/utils';
+import { asks } from 'fp-ts/lib/Reader';
+import { partial, number, array, void as tvoid, string, type } from 'io-ts';
+import { Observable } from 'rxjs';
 
 export type TaskController = {
 	/**
@@ -38,57 +35,55 @@ export type TaskController = {
 	 */
 	readonly Task_UpsertLoanDocTask: (parameters: {
 		body: LELodasoftApiModelsBorrowerLoanDocTaskUpsertModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsAdminLoanDocTaskModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsAdminLoanDocTaskModel>;
 
 	/**
 	 * Get a LoanDocTask
 	 * @param { number } loanDocTaskId -
 	 */
-	readonly Task_GetLoanDocTask: (
-		loanDocTaskId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLoanLoanDocTaskViewModel>>;
+	readonly Task_GetLoanDocTask: (loanDocTaskId: number) => Observable<LELodasoftCommonModelsLoanLoanDocTaskViewModel>;
 
 	/**
 	 * @param { number } loanDocTaskId undefined
 	 */
 	readonly Task_TrackingFile: (
 		loanDocTaskId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminTrackingViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsAdminTrackingViewModel>>;
 
 	/**
 	 * Add notes to existing task
 	 * @param { number } loandoctaskid -
 	 * @param { object } parameters
 	 */
-	readonly Task_UpdateFollowUp: (
+	readonly Task_AddTaskNote: (
 		loandoctaskid: number,
 		parameters: { body: LELodasoftApiControllersTaskNoteModel },
-	) => Observable<AsyncData<Error, void>>;
+	) => Observable<void>;
 
 	/**
 	 * Update the FollowUp date for a task
 	 * @param { number } loandoctaskid -
 	 * @param { object } parameters
 	 */
-	readonly Task_AddTaskNote: (
+	readonly Task_UpdateFollowUp: (
 		loandoctaskid: number,
 		parameters: { query: { followup: string } },
-	) => Observable<AsyncData<Error, void>>;
+	) => Observable<void>;
 
 	/**
 	 * @param { object } parameters
 	 */
-	readonly Task_UpdateFollowUps: (parameters: {
+	readonly Task_UpdateFollowUpBulk: (parameters: {
 		query: { followup: string };
 		body: Array<number>;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * Set Task Status
 	 * @param { number } loandoctaskId -
 	 * @param { string } status - Lookup LoanDocStatus or OtherTaskStatus
 	 */
-	readonly Task_SetTaskStatus: (loandoctaskId: number, status: string) => Observable<AsyncData<Error, void>>;
+	readonly Task_SetTaskStatus: (loandoctaskId: number, status: string) => Observable<void>;
 
 	/**
 	 * Set condition status for a task
@@ -98,7 +93,7 @@ export type TaskController = {
 	readonly Task_SetConditionStatus: (
 		loandoctaskId: number,
 		status: number,
-	) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsAdminLoanDocTaskModel>>;
+	) => Observable<LELodasoftDataAccessDbModelsAdminLoanDocTaskModel>;
 
 	/**
 	 * Change Responsible User for Multiple Tasks
@@ -108,44 +103,38 @@ export type TaskController = {
 	readonly Task_ChangeResponsibleMultiTasks: (
 		userId: string,
 		parameters: { body: Array<number> },
-	) => Observable<AsyncData<Error, void>>;
+	) => Observable<void>;
 
 	/**
 	 * Delete a Loan Doc Task
 	 * @param { number } loandoctaskid -
 	 */
-	readonly Task_DeleteLoanDocTask: (loandoctaskid: number) => Observable<AsyncData<Error, void>>;
+	readonly Task_DeleteLoanDocTask: (loandoctaskid: number) => Observable<void>;
 
 	/**
 	 * Delete multiple Loan Doc Tasks
 	 * @param { object } parameters
 	 */
-	readonly Task_DeleteMultiTasks: (parameters: { body: Array<number> }) => Observable<AsyncData<Error, void>>;
+	readonly Task_DeleteMultiTasks: (parameters: { body: Array<number> }) => Observable<void>;
 
 	/**
 	 * @param { number } loandoctaskid undefined
 	 */
 	readonly Task_GetTaskDashboardViewById: (
 		loandoctaskid: number,
-	) => Observable<AsyncData<Error, LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView>>;
+	) => Observable<LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView>;
 
 	/**
 	 * @param { string } taskTypeId undefined
 	 * @param { string } currentUserId undefined
 	 */
-	readonly Task_DownloadTemplateFile: (
-		taskTypeId: string,
-		currentUserId: string,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly Task_DownloadTemplateFile: (taskTypeId: string, currentUserId: string) => Observable<unknown>;
 
 	/**
 	 * @param { string } taskTypeId undefined
 	 * @param { string } currentUserId undefined
 	 */
-	readonly Task_ViewTemplateFile: (
-		taskTypeId: string,
-		currentUserId: string,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly Task_ViewTemplateFile: (taskTypeId: string, currentUserId: string) => Observable<unknown>;
 };
 
 export const taskController = asks(
@@ -160,17 +149,7 @@ export const taskController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsAdminLoanDocTaskModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminLoanDocTaskModelIO));
 		},
 
 		Task_GetLoanDocTask: loanDocTaskId => {
@@ -179,17 +158,7 @@ export const taskController = asks(
 					url: `/api/Task/${encodeURIComponent(number.encode(loanDocTaskId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLoanLoanDocTaskViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO));
 		},
 
 		Task_TrackingFile: loanDocTaskId => {
@@ -198,20 +167,10 @@ export const taskController = asks(
 					url: `/api/Task/tracking/${encodeURIComponent(number.encode(loanDocTaskId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminTrackingViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminTrackingViewModelIO)));
 		},
 
-		Task_UpdateFollowUp: (loandoctaskid, parameters) => {
+		Task_AddTaskNote: (loandoctaskid, parameters) => {
 			const encoded = partial({ body: LELodasoftApiControllersTaskNoteModelIO }).encode(parameters);
 
 			return e.apiClient
@@ -221,14 +180,10 @@ export const taskController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(tvoid.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(tvoid));
 		},
 
-		Task_AddTaskNote: (loandoctaskid, parameters) => {
+		Task_UpdateFollowUp: (loandoctaskid, parameters) => {
 			const encoded = partial({ query: type({ followup: string }) }).encode(parameters);
 
 			return e.apiClient
@@ -237,14 +192,10 @@ export const taskController = asks(
 					method: 'POST',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(tvoid.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(tvoid));
 		},
 
-		Task_UpdateFollowUps: parameters => {
+		Task_UpdateFollowUpBulk: parameters => {
 			const encoded = partial({ query: type({ followup: string }), body: array(number) }).encode(parameters);
 
 			return e.apiClient
@@ -254,13 +205,7 @@ export const taskController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Task_SetTaskStatus: (loandoctaskId, status) => {
@@ -271,11 +216,7 @@ export const taskController = asks(
 					)}/SetTaskStatus/${encodeURIComponent(string.encode(status).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(tvoid.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(tvoid));
 		},
 
 		Task_SetConditionStatus: (loandoctaskId, status) => {
@@ -286,17 +227,7 @@ export const taskController = asks(
 					)}/SetConditionStatus/${encodeURIComponent(number.encode(status).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsAdminLoanDocTaskModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminLoanDocTaskModelIO));
 		},
 
 		Task_ChangeResponsibleMultiTasks: (userId, parameters) => {
@@ -311,11 +242,7 @@ export const taskController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(tvoid.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(tvoid));
 		},
 
 		Task_DeleteLoanDocTask: loandoctaskid => {
@@ -324,11 +251,7 @@ export const taskController = asks(
 					url: `/api/Task/${encodeURIComponent(number.encode(loandoctaskid).toString())}/DeleteLoanDocTask`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(tvoid.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(tvoid));
 		},
 
 		Task_DeleteMultiTasks: parameters => {
@@ -341,11 +264,7 @@ export const taskController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(tvoid.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(tvoid));
 		},
 
 		Task_GetTaskDashboardViewById: loandoctaskid => {
@@ -356,17 +275,7 @@ export const taskController = asks(
 					)}/GetTaskDashboardViewById`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO));
 		},
 
 		Task_DownloadTemplateFile: (taskTypeId, currentUserId) => {
@@ -377,13 +286,7 @@ export const taskController = asks(
 					)}/${encodeURIComponent(string.encode(currentUserId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Task_ViewTemplateFile: (taskTypeId, currentUserId) => {
@@ -394,13 +297,7 @@ export const taskController = asks(
 					)}/${encodeURIComponent(string.encode(currentUserId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

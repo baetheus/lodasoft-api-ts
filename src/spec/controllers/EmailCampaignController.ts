@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsAdminEmailCampaignViewModel,
 	LELodasoftCommonModelsAdminEmailCampaignViewModelIO,
@@ -7,18 +7,16 @@ import {
 	LELodasoftCommonModelsAdminEmailTemplateViewModel,
 	LELodasoftCommonModelsAdminEmailTemplateViewModelIO,
 } from '../definitions/LELodasoftCommonModelsAdminEmailTemplateViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { array, partial, number, string, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type EmailCampaignController = {
 	readonly EmailCampaign_GetAllEmailCampaigns: () => Observable<
-		AsyncData<Error, Array<LELodasoftCommonModelsAdminEmailCampaignViewModel>>
+		Array<LELodasoftCommonModelsAdminEmailCampaignViewModel>
 	>;
 
 	/**
@@ -26,14 +24,14 @@ export type EmailCampaignController = {
 	 */
 	readonly EmailCampaign_InsertEmailCampaign: (parameters: {
 		body: LELodasoftCommonModelsAdminEmailCampaignViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsAdminEmailCampaignViewModel>>;
+	}) => Observable<LELodasoftCommonModelsAdminEmailCampaignViewModel>;
 
 	/**
 	 * @param { number } emailCampaignId undefined
 	 */
 	readonly EmailCampaign_GetEmailCampaignById: (
 		emailCampaignId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsAdminEmailCampaignViewModel>>;
+	) => Observable<LELodasoftCommonModelsAdminEmailCampaignViewModel>;
 
 	/**
 	 * @param { number } emailCampaignId undefined
@@ -42,15 +40,15 @@ export type EmailCampaignController = {
 	readonly EmailCampaign_UpdateEmailCampaign: (
 		emailCampaignId: number,
 		parameters: { body: LELodasoftCommonModelsAdminEmailCampaignViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsAdminEmailCampaignViewModel>>;
+	) => Observable<LELodasoftCommonModelsAdminEmailCampaignViewModel>;
 
 	/**
 	 * @param { number } emailCampaignId undefined
 	 */
-	readonly EmailCampaign_DeleteEmailCampaign: (emailCampaignId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly EmailCampaign_DeleteEmailCampaign: (emailCampaignId: number) => Observable<unknown>;
 
 	readonly EmailCampaign_GetAllEmailTemplates: () => Observable<
-		AsyncData<Error, Array<LELodasoftCommonModelsAdminEmailTemplateViewModel>>
+		Array<LELodasoftCommonModelsAdminEmailTemplateViewModel>
 	>;
 
 	/**
@@ -58,14 +56,14 @@ export type EmailCampaignController = {
 	 */
 	readonly EmailCampaign_InsertEmailTemplate: (parameters: {
 		body: LELodasoftCommonModelsAdminEmailTemplateViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsAdminEmailTemplateViewModel>>;
+	}) => Observable<LELodasoftCommonModelsAdminEmailTemplateViewModel>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly EmailCampaign_GetAllManualEmailTemplates: (parameters: {
 		query?: { emailTemplateType: Option<string> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminEmailTemplateViewModel>>>;
+	}) => Observable<Array<LELodasoftCommonModelsAdminEmailTemplateViewModel>>;
 
 	/**
 	 * @param { number } emailTemplateId undefined
@@ -74,14 +72,14 @@ export type EmailCampaignController = {
 	readonly EmailCampaign_GetManualEmailTemplateById: (
 		emailTemplateId: number,
 		parameters: { query?: { loanId: Option<number>; leadId: Option<number> } },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsAdminEmailTemplateViewModel>>;
+	) => Observable<LELodasoftCommonModelsAdminEmailTemplateViewModel>;
 
 	/**
 	 * @param { number } emailTemplateId undefined
 	 */
 	readonly EmailCampaign_GetEmailTemplateById: (
 		emailTemplateId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsAdminEmailTemplateViewModel>>;
+	) => Observable<LELodasoftCommonModelsAdminEmailTemplateViewModel>;
 
 	/**
 	 * @param { number } emailTemplateId undefined
@@ -90,12 +88,12 @@ export type EmailCampaignController = {
 	readonly EmailCampaign_UpdateEmailTemplate: (
 		emailTemplateId: number,
 		parameters: { body: LELodasoftCommonModelsAdminEmailTemplateViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsAdminEmailTemplateViewModel>>;
+	) => Observable<LELodasoftCommonModelsAdminEmailTemplateViewModel>;
 
 	/**
 	 * @param { number } emailTemplateId undefined
 	 */
-	readonly EmailCampaign_DeleteEmailTemplate: (emailTemplateId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly EmailCampaign_DeleteEmailTemplate: (emailTemplateId: number) => Observable<unknown>;
 };
 
 export const emailCampaignController = asks(
@@ -106,17 +104,7 @@ export const emailCampaignController = asks(
 					url: `/api/admin/email-campaigns/campaigns`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminEmailCampaignViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminEmailCampaignViewModelIO)));
 		},
 
 		EmailCampaign_InsertEmailCampaign: parameters => {
@@ -129,17 +117,7 @@ export const emailCampaignController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAdminEmailCampaignViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailCampaignViewModelIO));
 		},
 
 		EmailCampaign_GetEmailCampaignById: emailCampaignId => {
@@ -150,17 +128,7 @@ export const emailCampaignController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAdminEmailCampaignViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailCampaignViewModelIO));
 		},
 
 		EmailCampaign_UpdateEmailCampaign: (emailCampaignId, parameters) => {
@@ -175,17 +143,7 @@ export const emailCampaignController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAdminEmailCampaignViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailCampaignViewModelIO));
 		},
 
 		EmailCampaign_DeleteEmailCampaign: emailCampaignId => {
@@ -196,13 +154,7 @@ export const emailCampaignController = asks(
 					)}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		EmailCampaign_GetAllEmailTemplates: () => {
@@ -211,17 +163,7 @@ export const emailCampaignController = asks(
 					url: `/api/admin/email-campaigns/templates`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminEmailTemplateViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminEmailTemplateViewModelIO)));
 		},
 
 		EmailCampaign_InsertEmailTemplate: parameters => {
@@ -234,17 +176,7 @@ export const emailCampaignController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAdminEmailTemplateViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailTemplateViewModelIO));
 		},
 
 		EmailCampaign_GetAllManualEmailTemplates: parameters => {
@@ -258,17 +190,7 @@ export const emailCampaignController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminEmailTemplateViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminEmailTemplateViewModelIO)));
 		},
 
 		EmailCampaign_GetManualEmailTemplateById: (emailTemplateId, parameters) => {
@@ -284,17 +206,7 @@ export const emailCampaignController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAdminEmailTemplateViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailTemplateViewModelIO));
 		},
 
 		EmailCampaign_GetEmailTemplateById: emailTemplateId => {
@@ -305,17 +217,7 @@ export const emailCampaignController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAdminEmailTemplateViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailTemplateViewModelIO));
 		},
 
 		EmailCampaign_UpdateEmailTemplate: (emailTemplateId, parameters) => {
@@ -330,17 +232,7 @@ export const emailCampaignController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAdminEmailTemplateViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailTemplateViewModelIO));
 		},
 
 		EmailCampaign_DeleteEmailTemplate: emailTemplateId => {
@@ -351,13 +243,7 @@ export const emailCampaignController = asks(
 					)}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

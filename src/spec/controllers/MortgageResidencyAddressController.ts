@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgageAddressViewModel,
 	LELodasoftCommonModelsMortgageAddressViewModelIO,
@@ -7,12 +7,10 @@ import {
 	LELodasoftCommonModelsMortgageResidencyAddressViewModel,
 	LELodasoftCommonModelsMortgageResidencyAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageResidencyAddressViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type MortgageResidencyAddressController = {
 	/**
@@ -20,7 +18,7 @@ export type MortgageResidencyAddressController = {
 	 */
 	readonly MortgageResidencyAddress_GetResidencyAddressById: (
 		residencyAddressId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageResidencyAddressViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageResidencyAddressViewModel>;
 
 	/**
 	 * @param { number } residencyAddressId undefined
@@ -29,21 +27,19 @@ export type MortgageResidencyAddressController = {
 	readonly MortgageResidencyAddress_UpdateResidencyAddress: (
 		residencyAddressId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageResidencyAddressViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageResidencyAddressViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageResidencyAddressViewModel>;
 
 	/**
 	 * @param { number } residencyAddressId undefined
 	 */
-	readonly MortgageResidencyAddress_DeleteResidencyAddress: (
-		residencyAddressId: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly MortgageResidencyAddress_DeleteResidencyAddress: (residencyAddressId: number) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly MortgageResidencyAddress_InsertResidencyAddress: (parameters: {
 		body: LELodasoftCommonModelsMortgageResidencyAddressViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageResidencyAddressViewModel>>;
+	}) => Observable<LELodasoftCommonModelsMortgageResidencyAddressViewModel>;
 
 	/**
 	 * @param { number } residencyAddressId undefined
@@ -52,7 +48,7 @@ export type MortgageResidencyAddressController = {
 	readonly MortgageResidencyAddress_InsertAddress: (
 		residencyAddressId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageAddressViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageAddressViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageAddressViewModel>;
 };
 
 export const mortgageResidencyAddressController = asks(
@@ -65,17 +61,7 @@ export const mortgageResidencyAddressController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageResidencyAddressViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageResidencyAddressViewModelIO));
 		},
 
 		MortgageResidencyAddress_UpdateResidencyAddress: (residencyAddressId, parameters) => {
@@ -92,17 +78,7 @@ export const mortgageResidencyAddressController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageResidencyAddressViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageResidencyAddressViewModelIO));
 		},
 
 		MortgageResidencyAddress_DeleteResidencyAddress: residencyAddressId => {
@@ -113,13 +89,7 @@ export const mortgageResidencyAddressController = asks(
 					)}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageResidencyAddress_InsertResidencyAddress: parameters => {
@@ -134,17 +104,7 @@ export const mortgageResidencyAddressController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageResidencyAddressViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageResidencyAddressViewModelIO));
 		},
 
 		MortgageResidencyAddress_InsertAddress: (residencyAddressId, parameters) => {
@@ -159,17 +119,7 @@ export const mortgageResidencyAddressController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageAddressViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
 		},
 	}),
 );

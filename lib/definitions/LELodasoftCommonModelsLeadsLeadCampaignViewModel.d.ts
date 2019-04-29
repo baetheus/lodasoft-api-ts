@@ -1,0 +1,31 @@
+import { Option } from 'fp-ts/lib/Option';
+export declare type LELodasoftCommonModelsLeadsLeadCampaignViewModel = {
+    leadCampaignId: Option<number>;
+    name: Option<string>;
+    description: Option<string>;
+    type: Option<string>;
+    costPerLead: Option<number>;
+    email: Option<string>;
+    note: Option<string>;
+    active: Option<boolean>;
+    companyId: Option<number>;
+    insertedBy: Option<string>;
+    dateInserted: Option<Date>;
+    updatedBy: Option<string>;
+    dateUpdated: Option<Date>;
+};
+export declare const LELodasoftCommonModelsLeadsLeadCampaignViewModelIO: import("io-ts").TypeC<{
+    leadCampaignId: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    name: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    description: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    type: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    costPerLead: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    email: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    note: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    active: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    companyId: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    insertedBy: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    dateInserted: import("io-ts-types").OptionFromNullableC<import("io-ts-types").DateFromISOStringC>;
+    updatedBy: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    dateUpdated: import("io-ts-types").OptionFromNullableC<import("io-ts-types").DateFromISOStringC>;
+}>;

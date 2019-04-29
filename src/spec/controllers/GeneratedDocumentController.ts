@@ -1,13 +1,12 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsAdminGenerateDocumentRequest,
 	LELodasoftCommonModelsAdminGenerateDocumentRequestIO,
 } from '../definitions/LELodasoftCommonModelsAdminGenerateDocumentRequest';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { string, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type GeneratedDocumentController = {
 	/**
@@ -15,7 +14,7 @@ export type GeneratedDocumentController = {
 	 */
 	readonly GeneratedDocument_GenerateDocument: (parameters: {
 		body: LELodasoftCommonModelsAdminGenerateDocumentRequest;
-	}) => Observable<AsyncData<Error, string>>;
+	}) => Observable<string>;
 };
 
 export const generatedDocumentController = asks(
@@ -30,11 +29,7 @@ export const generatedDocumentController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(string.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(string));
 		},
 	}),
 );

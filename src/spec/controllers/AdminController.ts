@@ -1,12 +1,10 @@
-import { AsyncData, fromEither } from '@nll/dux';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { array, boolean, dictionary, number, partial, string, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
   LELodasoftApiControllersAdminControllerCheckRegisterModel,
   LELodasoftApiControllersAdminControllerCheckRegisterModelIO,
@@ -147,7 +145,7 @@ import {
   LELodasoftDataAccessDbModelsUserProfile,
   LELodasoftDataAccessDbModelsUserProfileIO,
 } from '../definitions/LELodasoftDataAccessDbModelsUserProfile';
-import { unknownType } from '../utils/utils';
+import { decodeAndMap, unknownType } from '../utils/utils';
 
 export type AdminController = {
 	/**
@@ -155,7 +153,7 @@ export type AdminController = {
 	 */
 	readonly Admin_GetAllByCompanyId: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationProductModel>>>;
+	}) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationProductModel>>;
 
 	/**
 	 * @param { number } productId undefined
@@ -164,7 +162,7 @@ export type AdminController = {
 	readonly Admin_GetProductById: (
 		productId: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationProductModel>>;
+	) => Observable<LELodasoftDataAccessDbModelsConfigurationProductModel>;
 
 	/**
 	 * @param { object } parameters
@@ -172,7 +170,7 @@ export type AdminController = {
 	readonly Admin_UpdateProduct: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationProductModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -180,7 +178,7 @@ export type AdminController = {
 	readonly Admin_InsertProduct: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationProductModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { number } id undefined
@@ -189,14 +187,14 @@ export type AdminController = {
 	readonly Admin_DeleteProduct: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllQuestion: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationQuestionModel>>>;
+	}) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationQuestionModel>>;
 
 	/**
 	 * @param { object } parameters
@@ -204,7 +202,7 @@ export type AdminController = {
 	readonly Admin_UpdateQuestion: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationQuestionModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -212,7 +210,7 @@ export type AdminController = {
 	readonly Admin_InsertQuestion: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationQuestionModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { number } id undefined
@@ -221,14 +219,14 @@ export type AdminController = {
 	readonly Admin_DeleteQuestion: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_QuestionAnswerGroupByQuestion: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { number } questionId undefined
@@ -237,7 +235,7 @@ export type AdminController = {
 	readonly Admin_GetAllQuestionAnswer: (
 		questionId: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, Array<LELodasoftApiModelsAdminQuestionTaskAnswerDto>>>;
+	) => Observable<Array<LELodasoftApiModelsAdminQuestionTaskAnswerDto>>;
 
 	/**
 	 * @param { object } parameters
@@ -245,7 +243,7 @@ export type AdminController = {
 	readonly Admin_UpdateQuestionAnswer: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftApiModelsAdminQuestionTaskAnswerDto;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -253,7 +251,7 @@ export type AdminController = {
 	readonly Admin_InsertQuestionAnswer: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftApiModelsAdminQuestionTaskAnswerDto;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { number } id undefined
@@ -262,14 +260,14 @@ export type AdminController = {
 	readonly Admin_DeleteQuestionAnswer: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllQATaskModel: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationQATaskModel>>>;
+	}) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationQATaskModel>>;
 
 	/**
 	 * @param { object } parameters
@@ -277,7 +275,7 @@ export type AdminController = {
 	readonly Admin_UpdateQATaskModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationQATaskModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -285,7 +283,7 @@ export type AdminController = {
 	readonly Admin_InsertQATaskModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationQATaskModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationQATaskModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationQATaskModel>;
 
 	/**
 	 * @param { number } id undefined
@@ -294,14 +292,14 @@ export type AdminController = {
 	readonly Admin_DeleteQATaskModel: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllCheckListItem: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationChecklistItemModel>>>;
+	}) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationChecklistItemModel>>;
 
 	/**
 	 * @param { object } parameters
@@ -309,7 +307,7 @@ export type AdminController = {
 	readonly Admin_UpdateCheckListItem: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationChecklistItemModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -317,7 +315,7 @@ export type AdminController = {
 	readonly Admin_InsertCheckListItem: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationChecklistItemModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationChecklistItemModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationChecklistItemModel>;
 
 	/**
 	 * @param { number } id undefined
@@ -326,7 +324,7 @@ export type AdminController = {
 	readonly Admin_DeleteCheckListItem: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { number } TemplateCompanyId undefined
@@ -335,7 +333,7 @@ export type AdminController = {
 	readonly Admin_GetSetupReferenceByTemplateCompany_CompanyId: (
 		TemplateCompanyId: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationSetupReferenceModel>>>;
+	) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationSetupReferenceModel>>;
 
 	/**
 	 * @param { object } parameters
@@ -343,7 +341,7 @@ export type AdminController = {
 	readonly Admin_UpsertSetupReference: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationSetupReferenceModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationSetupReferenceModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationSetupReferenceModel>;
 
 	/**
 	 * @param { string } page undefined
@@ -352,51 +350,45 @@ export type AdminController = {
 	readonly Admin_GetPageResource: (
 		page: string,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { string } userId undefined
 	 */
-	readonly Admin_GetProfile: (userId: string) => Observable<AsyncData<Error, LELodasoftApiModelsUserProfileModel>>;
+	readonly Admin_GetProfile: (userId: string) => Observable<LELodasoftApiModelsUserProfileModel>;
 
 	/**
 	 * @param { object } parameters
 	 */
-	readonly Admin_PostSaveProfile: (parameters: {
-		body: LELodasoftApiModelsUserProfileModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	readonly Admin_PostSaveProfile: (parameters: { body: LELodasoftApiModelsUserProfileModel }) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Admin_WizardEverythingElse: (parameters: {
 		body: LELodasoftApiModelsAdminWizardEverythingElseRequestModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Admin_GetCurrentReleaseNotes: (parameters: {
 		query: { releaseNotesVersion: string };
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsReleaseNotesReleaseNotesViewModel>>;
+	}) => Observable<LELodasoftCommonModelsReleaseNotesReleaseNotesViewModel>;
 
 	/**
 	 * @param { object } parameters
 	 */
-	readonly Admin_ViewedReleaseNotes: (parameters: {
-		query: { releaseNotesVersion: string };
-	}) => Observable<AsyncData<Error, unknown>>;
+	readonly Admin_ViewedReleaseNotes: (parameters: { query: { releaseNotesVersion: string } }) => Observable<unknown>;
 
-	readonly Admin_GetReleaseNotes: () => Observable<
-		AsyncData<Error, Array<LELodasoftCommonModelsReleaseNotesReleaseNotesViewModel>>
-	>;
+	readonly Admin_GetReleaseNotes: () => Observable<Array<LELodasoftCommonModelsReleaseNotesReleaseNotesViewModel>>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Admin_InsertReleaseNotes: (parameters: {
 		body: LELodasoftCommonModelsReleaseNotesReleaseNotesViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsReleaseNotesReleaseNotesViewModel>>;
+	}) => Observable<LELodasoftCommonModelsReleaseNotesReleaseNotesViewModel>;
 
 	/**
 	 * @param { number } id undefined
@@ -405,28 +397,28 @@ export type AdminController = {
 	readonly Admin_UpdateReleaseNotes: (
 		id: number,
 		parameters: { body: LELodasoftCommonModelsReleaseNotesReleaseNotesViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsReleaseNotesReleaseNotesViewModel>>;
+	) => Observable<LELodasoftCommonModelsReleaseNotesReleaseNotesViewModel>;
 
 	/**
 	 * @param { number } id undefined
 	 */
-	readonly Admin_DeleteReleaseNotes: (id: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Admin_DeleteReleaseNotes: (id: number) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetPermissionMenu: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, LELodasoftApiModelsAdminPermissionMenu>>;
+	}) => Observable<LELodasoftApiModelsAdminPermissionMenu>;
 
-	readonly Admin_GetAllTable: () => Observable<AsyncData<Error, { [key: string]: { [key: string]: string } }>>;
+	readonly Admin_GetAllTable: () => Observable<{ [key: string]: { [key: string]: string } }>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllUserModel: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftApiModelsAdminUser_View_AdminPage>>>;
+	}) => Observable<Array<LELodasoftApiModelsAdminUser_View_AdminPage>>;
 
 	/**
 	 * @param { object } parameters
@@ -434,7 +426,7 @@ export type AdminController = {
 	readonly Admin_UpdateUserModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsUserProfile;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -442,7 +434,7 @@ export type AdminController = {
 	readonly Admin_InsertUserModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsUserProfile;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsUserProfile>>;
+	}) => Observable<LELodasoftDataAccessDbModelsUserProfile>;
 
 	/**
 	 * @param { string } id undefined
@@ -451,11 +443,9 @@ export type AdminController = {
 	readonly Admin_DeleteUserModel: (
 		id: string,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, string>>;
+	) => Observable<string>;
 
-	readonly Admin_GetAllCompanyModel: () => Observable<
-		AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationCompanyModel>>
-	>;
+	readonly Admin_GetAllCompanyModel: () => Observable<Array<LELodasoftDataAccessDbModelsConfigurationCompanyModel>>;
 
 	/**
 	 * @param { object } parameters
@@ -463,26 +453,26 @@ export type AdminController = {
 	readonly Admin_UpdateCompanyModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationCompanyModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Admin_InsertCompanyModel: (parameters: {
 		body: LELodasoftDataAccessDbModelsConfigurationCompanyModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationCompanyModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationCompanyModel>;
 
 	/**
 	 * @param { number } id undefined
 	 */
-	readonly Admin_DeleteCompanyModel: (id: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Admin_DeleteCompanyModel: (id: number) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Admin_GetCheckRegister: (parameters: {
 		body: LELodasoftApiControllersAdminControllerCheckRegisterModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { string } userId undefined
@@ -491,7 +481,7 @@ export type AdminController = {
 	readonly Admin_DeleteInvite: (
 		userId: string,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { string } userId undefined
@@ -500,7 +490,7 @@ export type AdminController = {
 	readonly Admin_ResendInvite: (
 		userId: string,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -508,28 +498,28 @@ export type AdminController = {
 	readonly Admin_InviteUser: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftApiModelsAdminInviteViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftApiModelsAdminInviteViewModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsUserProfile>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllInvite: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftApiModelsAdminInviteViewModel>>>;
+	}) => Observable<Array<LELodasoftApiModelsAdminInviteViewModel>>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_ImportListUserForCompany: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, LELodasoftApiModelsAdminInviteViewModel>>;
+	}) => Observable<LELodasoftApiModelsAdminInviteViewModel>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllRoleModel: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationRoleModel>>>;
+	}) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationRoleModel>>;
 
 	/**
 	 * @param { object } parameters
@@ -537,7 +527,7 @@ export type AdminController = {
 	readonly Admin_UpdateRoleModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationRoleModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -545,7 +535,7 @@ export type AdminController = {
 	readonly Admin_InsertRoleModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationRoleModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationRoleModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationRoleModel>;
 
 	/**
 	 * @param { number } id undefined
@@ -554,7 +544,7 @@ export type AdminController = {
 	readonly Admin_DeleteRoleModel: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -562,21 +552,19 @@ export type AdminController = {
 	readonly Admin_UpdateRoleOrder: (parameters: {
 		query?: { companyId: Option<number> };
 		body: Array<unknown>;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetCompanyAndRoleAndUserAligment: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
-	readonly Admin_GetAllAlignmentModel: (parameters: {
-		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, unknown>>;
+	readonly Admin_GetAllAlignmentModel: (parameters: { query?: { companyId: Option<number> } }) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -584,7 +572,7 @@ export type AdminController = {
 	readonly Admin_UpdateAlignmentModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: unknown;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -592,7 +580,7 @@ export type AdminController = {
 	readonly Admin_InsertAlignmentModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: unknown;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { string } groupnumber undefined
@@ -601,14 +589,14 @@ export type AdminController = {
 	readonly Admin_DeleteAlignmentModel: (
 		groupnumber: string,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllLeadStatusModel: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationLoanStatusModel>>>;
+	}) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationLoanStatusModel>>;
 
 	/**
 	 * @param { number } leadStatusId undefined
@@ -617,7 +605,7 @@ export type AdminController = {
 	readonly Admin_GetLeadStatus: (
 		leadStatusId: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { number } LoanPurposeId undefined
@@ -626,7 +614,7 @@ export type AdminController = {
 	readonly Admin_GetLeadStatusByLoanPurposeId: (
 		LoanPurposeId: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationLoanStatusModel>>>;
+	) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationLoanStatusModel>>;
 
 	/**
 	 * @param { object } parameters
@@ -634,7 +622,7 @@ export type AdminController = {
 	readonly Admin_UpdateLeadStatusModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationLoanStatusModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -642,7 +630,7 @@ export type AdminController = {
 	readonly Admin_InsertLeadStatusModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationLoanStatusModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationLoanStatusModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationLoanStatusModel>;
 
 	/**
 	 * @param { number } loanStatusId undefined
@@ -655,7 +643,7 @@ export type AdminController = {
 		loanPurposeId: number,
 		associate: string,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>>;
+	) => Observable<LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>;
 
 	/**
 	 * @param { object } parameters
@@ -663,7 +651,7 @@ export type AdminController = {
 	readonly Admin_SaveLeadStatusFlow: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>;
 
 	/**
 	 * @param { number } id undefined
@@ -672,7 +660,7 @@ export type AdminController = {
 	readonly Admin_DeleteLeadStatusModel: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -680,14 +668,14 @@ export type AdminController = {
 	readonly Admin_UpdateLeadOrder: (parameters: {
 		query?: { companyId: Option<number> };
 		body: Array<unknown>;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllLoanStatusModel: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationLoanStatusModel>>>;
+	}) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationLoanStatusModel>>;
 
 	/**
 	 * @param { number } loanStatusId undefined
@@ -696,7 +684,7 @@ export type AdminController = {
 	readonly Admin_GetLoanStatus: (
 		loanStatusId: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { number } LoanPurposeId undefined
@@ -705,7 +693,7 @@ export type AdminController = {
 	readonly Admin_GetLoanStatusByLoanTypeId: (
 		LoanPurposeId: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationLoanStatusModel>>>;
+	) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationLoanStatusModel>>;
 
 	/**
 	 * @param { object } parameters
@@ -713,7 +701,7 @@ export type AdminController = {
 	readonly Admin_UpdateLoanStatusModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationLoanStatusModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -721,7 +709,7 @@ export type AdminController = {
 	readonly Admin_InsertLoanStatusModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationLoanStatusModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationLoanStatusModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationLoanStatusModel>;
 
 	/**
 	 * @param { number } loanPurposeId undefined
@@ -734,7 +722,7 @@ export type AdminController = {
 		loanStatusId: number,
 		associate: string,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>>;
+	) => Observable<LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>;
 
 	/**
 	 * @param { object } parameters
@@ -742,7 +730,7 @@ export type AdminController = {
 	readonly Admin_SaveLoanStatusFlow: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>;
 
 	/**
 	 * @param { number } id undefined
@@ -751,7 +739,7 @@ export type AdminController = {
 	readonly Admin_DeleteLoanStatusModel: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -759,14 +747,14 @@ export type AdminController = {
 	readonly Admin_UpdateLoanOrder: (parameters: {
 		query?: { companyId: Option<number>; leadStatus: Option<boolean> };
 		body: Array<unknown>;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllLoanTypeModel: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationLoanTypeModel>>>;
+	}) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationLoanTypeModel>>;
 
 	/**
 	 * @param { object } parameters
@@ -774,7 +762,7 @@ export type AdminController = {
 	readonly Admin_UpdateLoanTypeModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationLoanTypeModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -782,7 +770,7 @@ export type AdminController = {
 	readonly Admin_InsertLoanTypeModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationLoanTypeModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationLoanTypeModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationLoanTypeModel>;
 
 	/**
 	 * @param { number } id undefined
@@ -791,7 +779,7 @@ export type AdminController = {
 	readonly Admin_DeleteLoanTypeModel: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -799,14 +787,14 @@ export type AdminController = {
 	readonly Admin_UpdateLoanTypeOrder: (parameters: {
 		query?: { companyId: Option<number> };
 		body: Array<unknown>;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllLoanPurposeModel: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationLoanPurposeModel>>>;
+	}) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationLoanPurposeModel>>;
 
 	/**
 	 * @param { object } parameters
@@ -814,7 +802,7 @@ export type AdminController = {
 	readonly Admin_UpdateLoanPurposeModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationLoanPurposeModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -822,7 +810,7 @@ export type AdminController = {
 	readonly Admin_InsertLoanPurposeModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationLoanPurposeModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationLoanPurposeModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationLoanPurposeModel>;
 
 	/**
 	 * @param { number } id undefined
@@ -831,7 +819,7 @@ export type AdminController = {
 	readonly Admin_DeleteLoanPurposeModel: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -839,14 +827,14 @@ export type AdminController = {
 	readonly Admin_UpdateLoanPurposeOrder: (parameters: {
 		query?: { companyId: Option<number> };
 		body: Array<unknown>;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllLeadStatusAssociations: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>>>;
+	}) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>>;
 
 	/**
 	 * @param { number } loanPurposeId undefined
@@ -855,7 +843,7 @@ export type AdminController = {
 	readonly Admin_GetAllLeadStatusAssociationsByLoanPurpose: (
 		loanPurposeId: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>>>;
+	) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>>;
 
 	/**
 	 * @param { object } parameters
@@ -863,7 +851,7 @@ export type AdminController = {
 	readonly Admin_UpdateLeadStatusAssociation: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { number } id undefined
@@ -872,7 +860,7 @@ export type AdminController = {
 	readonly Admin_DeleteLeadStatusAssociation: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -880,7 +868,7 @@ export type AdminController = {
 	readonly Admin_InsertLeadStatusAssociation: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>;
 
 	/**
 	 * @param { number } loanPurposeId undefined
@@ -889,14 +877,14 @@ export type AdminController = {
 	readonly Admin_UpdateLeadStatusFlowOrder: (
 		loanPurposeId: number,
 		parameters: { query?: { companyId: Option<number> }; body: Array<unknown> },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllLoanStatusAssociations: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>>>;
+	}) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>>;
 
 	/**
 	 * @param { number } loanPurposeId undefined
@@ -905,7 +893,7 @@ export type AdminController = {
 	readonly Admin_GetAllLoanStatusAssociationsByLoanPurpose: (
 		loanPurposeId: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>>>;
+	) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>>;
 
 	/**
 	 * @param { object } parameters
@@ -913,7 +901,7 @@ export type AdminController = {
 	readonly Admin_UpdateLoanStatusAssociation: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { number } id undefined
@@ -922,7 +910,7 @@ export type AdminController = {
 	readonly Admin_DeleteLoanStatusAssociation: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -930,7 +918,7 @@ export type AdminController = {
 	readonly Admin_InsertLoanStatusAssociation: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel>;
 
 	/**
 	 * @param { number } loanPurposeId undefined
@@ -939,21 +927,21 @@ export type AdminController = {
 	readonly Admin_UpdateLoanStatusFlowOrder: (
 		loanPurposeId: number,
 		parameters: { query?: { companyId: Option<number> }; body: Array<unknown> },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllTaskModel: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsConfigurationTaskViewModel>>>;
+	}) => Observable<Array<LELodasoftCommonModelsConfigurationTaskViewModel>>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetLeadAllTaskModel: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsConfigurationTaskViewModel>>>;
+	}) => Observable<Array<LELodasoftCommonModelsConfigurationTaskViewModel>>;
 
 	/**
 	 * @param { number } taskId undefined
@@ -962,7 +950,7 @@ export type AdminController = {
 	readonly Admin_GetTaskById: (
 		taskId: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -970,7 +958,7 @@ export type AdminController = {
 	readonly Admin_UpdateTaskModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftCommonModelsConfigurationTaskViewModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { number } taskId undefined
@@ -981,7 +969,7 @@ export type AdminController = {
 		taskId: number,
 		subTasks: string,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -989,7 +977,7 @@ export type AdminController = {
 	readonly Admin_InsertTaskModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftCommonModelsConfigurationTaskViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationTaskViewModel>>;
+	}) => Observable<LELodasoftCommonModelsConfigurationTaskViewModel>;
 
 	/**
 	 * @param { number } templateCompanyId undefined
@@ -1000,7 +988,7 @@ export type AdminController = {
 		templateCompanyId: number,
 		templateTaskId: number,
 		parameters: { query?: { companyId: Option<number> }; body: LELodasoftCommonModelsConfigurationTaskViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationTaskViewModel>>;
+	) => Observable<LELodasoftCommonModelsConfigurationTaskViewModel>;
 
 	/**
 	 * @param { number } id undefined
@@ -1009,10 +997,10 @@ export type AdminController = {
 	readonly Admin_DeleteTaskModel: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	readonly Admin_GetGlobalEmailMergeFieldsModel: () => Observable<
-		AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModel>>
+		Array<LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModel>
 	>;
 
 	/**
@@ -1020,26 +1008,26 @@ export type AdminController = {
 	 */
 	readonly Admin_UpdateGlobalEmailMergeFieldsModel: (parameters: {
 		body: LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Admin_InsertGlobalEmailMergeFieldsModel: (parameters: {
 		body: LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModel>;
 
 	/**
 	 * @param { number } id undefined
 	 */
-	readonly Admin_DeleteGlobalEmailMergeFieldsModel: (id: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Admin_DeleteGlobalEmailMergeFieldsModel: (id: number) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllEmailCampaignTriggerModel: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftApiModelsAdminGetAllEmailCampaignTrigger>>>;
+	}) => Observable<Array<LELodasoftApiModelsAdminGetAllEmailCampaignTrigger>>;
 
 	/**
 	 * @param { object } parameters
@@ -1047,7 +1035,7 @@ export type AdminController = {
 	readonly Admin_UpdateEmailCampaignTriggerModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftApiModelsAdminEmailCampaignTriggerModelView;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -1055,7 +1043,7 @@ export type AdminController = {
 	readonly Admin_InsertEmailCampaignTrigger: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftApiModelsAdminEmailCampaignTriggerModelView;
-	}) => Observable<AsyncData<Error, LELodasoftApiModelsAdminEmailCampaignTriggerModelView>>;
+	}) => Observable<LELodasoftApiModelsAdminEmailCampaignTriggerModelView>;
 
 	/**
 	 * @param { object } parameters
@@ -1063,7 +1051,7 @@ export type AdminController = {
 	readonly Admin_InsertChildEmailCampaignTrigger: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftApiModelsAdminEmailCampaignTriggerModelView;
-	}) => Observable<AsyncData<Error, LELodasoftApiModelsAdminEmailCampaignTriggerModelView>>;
+	}) => Observable<LELodasoftApiModelsAdminEmailCampaignTriggerModelView>;
 
 	/**
 	 * @param { number } id undefined
@@ -1072,14 +1060,14 @@ export type AdminController = {
 	readonly Admin_DeleteEmailCampaignTriggerModel: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllTaskCategoryModel: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationCharacteristicModel>>>;
+	}) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationCharacteristicModel>>;
 
 	/**
 	 * @param { object } parameters
@@ -1087,7 +1075,7 @@ export type AdminController = {
 	readonly Admin_InsertTaskCategoryModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationCharacteristicModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationCharacteristicModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationCharacteristicModel>;
 
 	/**
 	 * @param { number } id undefined
@@ -1096,7 +1084,7 @@ export type AdminController = {
 	readonly Admin_DeleteTaskCategoryModel: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -1104,7 +1092,7 @@ export type AdminController = {
 	readonly Admin_UpdateTaskCategoryModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationCharacteristicModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -1112,7 +1100,7 @@ export type AdminController = {
 	readonly Admin_UpdateTaskCategoryOrder: (parameters: {
 		query?: { companyId: Option<number> };
 		body: Array<unknown>;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { string } type undefined
@@ -1121,7 +1109,7 @@ export type AdminController = {
 	readonly Admin_GetCustomTaskModelByType: (
 		type: string,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationCustomTaskModel>>>;
+	) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationCustomTaskModel>>;
 
 	/**
 	 * @param { object } parameters
@@ -1129,7 +1117,7 @@ export type AdminController = {
 	readonly Admin_InsertCustomTaskModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftCommonModelsConfigurationCustomTaskViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationCustomTaskViewModel>>;
+	}) => Observable<LELodasoftCommonModelsConfigurationCustomTaskViewModel>;
 
 	/**
 	 * @param { number } id undefined
@@ -1138,7 +1126,7 @@ export type AdminController = {
 	readonly Admin_DeleteCustomTaskModel: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -1146,7 +1134,7 @@ export type AdminController = {
 	readonly Admin_UpdateCustomTaskModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftCommonModelsConfigurationCustomTaskViewModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { boolean } dbOnly undefined
@@ -1155,7 +1143,7 @@ export type AdminController = {
 	readonly Admin_GetAllDocumentModel: (
 		dbOnly: boolean,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationDocumentTypeModel>>>;
+	) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationDocumentTypeModel>>;
 
 	/**
 	 * @param { object } parameters
@@ -1163,7 +1151,7 @@ export type AdminController = {
 	readonly Admin_UpdateDocumentModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationDocumentTypeModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -1171,7 +1159,7 @@ export type AdminController = {
 	readonly Admin_InsertDocumentModel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationDocumentTypeModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationDocumentTypeModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationDocumentTypeModel>;
 
 	/**
 	 * @param { number } id undefined
@@ -1180,7 +1168,7 @@ export type AdminController = {
 	readonly Admin_DeleteDocumentModel: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -1188,14 +1176,14 @@ export type AdminController = {
 	readonly Admin_UpdateDocumentOrder: (parameters: {
 		query?: { companyId: Option<number> };
 		body: Array<unknown>;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllAgentType: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationAgentTypeModel>>>;
+	}) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationAgentTypeModel>>;
 
 	/**
 	 * @param { object } parameters
@@ -1203,7 +1191,7 @@ export type AdminController = {
 	readonly Admin_UpdateAgentType: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationAgentTypeModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -1211,7 +1199,7 @@ export type AdminController = {
 	readonly Admin_InsertAgentType: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsConfigurationAgentTypeModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationAgentTypeModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationAgentTypeModel>;
 
 	/**
 	 * @param { number } id undefined
@@ -1220,7 +1208,7 @@ export type AdminController = {
 	readonly Admin_DeleteAgentType: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -1228,14 +1216,14 @@ export type AdminController = {
 	readonly Admin_UpdateAgentTypeOrder: (parameters: {
 		query?: { companyId: Option<number> };
 		body: Array<unknown>;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllLender: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftApiModelsAdminLenderModelView>>>;
+	}) => Observable<Array<LELodasoftApiModelsAdminLenderModelView>>;
 
 	/**
 	 * @param { object } parameters
@@ -1243,7 +1231,7 @@ export type AdminController = {
 	readonly Admin_UpdateLender: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftApiModelsAdminLenderModelView;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -1251,7 +1239,7 @@ export type AdminController = {
 	readonly Admin_InsertLender: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftApiModelsAdminLenderModelView;
-	}) => Observable<AsyncData<Error, LELodasoftApiModelsAdminLenderModelView>>;
+	}) => Observable<LELodasoftApiModelsAdminLenderModelView>;
 
 	/**
 	 * @param { number } id undefined
@@ -1260,14 +1248,14 @@ export type AdminController = {
 	readonly Admin_DeleteLender: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetAllStackingOrder: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsAdminStackingOrderModel>>>;
+	}) => Observable<Array<LELodasoftDataAccessDbModelsAdminStackingOrderModel>>;
 
 	/**
 	 * @param { number } id undefined
@@ -1276,7 +1264,7 @@ export type AdminController = {
 	readonly Admin_GetStackingOrderInfo: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsAdminStackingOrderModel>>;
+	) => Observable<LELodasoftDataAccessDbModelsAdminStackingOrderModel>;
 
 	/**
 	 * @param { object } parameters
@@ -1284,7 +1272,7 @@ export type AdminController = {
 	readonly Admin_UpdateStackingOrder: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsAdminStackingOrderModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -1292,7 +1280,7 @@ export type AdminController = {
 	readonly Admin_InsertStackingOrder: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftDataAccessDbModelsAdminStackingOrderModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsAdminStackingOrderModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsAdminStackingOrderModel>;
 
 	/**
 	 * @param { number } id undefined
@@ -1301,7 +1289,7 @@ export type AdminController = {
 	readonly Admin_DeleteStackingOrder: (
 		id: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -1309,7 +1297,7 @@ export type AdminController = {
 	readonly Admin_PostSaveOrgChart: (parameters: {
 		query?: { companyId: Option<number> };
 		body: Array<LELodasoftApiModelsAdminOrgChartModel>;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -1317,21 +1305,21 @@ export type AdminController = {
 	readonly Admin_SaveSystemLevel: (parameters: {
 		query?: { companyId: Option<number> };
 		body: LELodasoftApiModelsAdminSystemLevel;
-	}) => Observable<AsyncData<Error, LELodasoftApiModelsAdminSystemLevel>>;
+	}) => Observable<LELodasoftApiModelsAdminSystemLevel>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Admin_GetSystemLevel: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, LELodasoftApiModelsAdminSystemLevel>>;
+	}) => Observable<LELodasoftApiModelsAdminSystemLevel>;
 
 	/**
 	 * @param { number } companyId undefined
 	 */
 	readonly Admin_GetExportFileNaming: (
 		companyId: number,
-	) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationConfigurationModel>>;
+	) => Observable<LELodasoftDataAccessDbModelsConfigurationConfigurationModel>;
 
 	/**
 	 * @param { number } CheckListItemId undefined
@@ -1343,7 +1331,7 @@ export type AdminController = {
 			query?: { companyId: Option<number> };
 			body: Array<LELodasoftDataAccessDbModelsConfigurationChecklistModel>;
 		},
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { number } CheckListItemId undefined
@@ -1352,7 +1340,7 @@ export type AdminController = {
 	readonly Admin_AllCheckList: (
 		CheckListItemId: number,
 		parameters: { query?: { companyId: Option<number> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 };
 
 export const adminController = asks(
@@ -1368,17 +1356,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationProductModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationProductModelIO)));
 		},
 
 		Admin_GetProductById: (productId, parameters) => {
@@ -1392,17 +1370,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationProductModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationProductModelIO));
 		},
 
 		Admin_UpdateProduct: parameters => {
@@ -1418,13 +1386,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertProduct: parameters => {
@@ -1440,13 +1402,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_DeleteProduct: (id, parameters) => {
@@ -1460,13 +1416,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllQuestion: parameters => {
@@ -1480,17 +1430,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationQuestionModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationQuestionModelIO)));
 		},
 
 		Admin_UpdateQuestion: parameters => {
@@ -1506,13 +1446,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertQuestion: parameters => {
@@ -1528,13 +1462,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_DeleteQuestion: (id, parameters) => {
@@ -1548,13 +1476,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_QuestionAnswerGroupByQuestion: parameters => {
@@ -1568,13 +1490,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllQuestionAnswer: (questionId, parameters) => {
@@ -1588,17 +1504,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftApiModelsAdminQuestionTaskAnswerDtoIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftApiModelsAdminQuestionTaskAnswerDtoIO)));
 		},
 
 		Admin_UpdateQuestionAnswer: parameters => {
@@ -1614,13 +1520,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertQuestionAnswer: parameters => {
@@ -1636,13 +1536,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_DeleteQuestionAnswer: (id, parameters) => {
@@ -1656,13 +1550,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllQATaskModel: parameters => {
@@ -1676,17 +1564,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationQATaskModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationQATaskModelIO)));
 		},
 
 		Admin_UpdateQATaskModel: parameters => {
@@ -1702,13 +1580,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertQATaskModel: parameters => {
@@ -1724,17 +1596,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationQATaskModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationQATaskModelIO));
 		},
 
 		Admin_DeleteQATaskModel: (id, parameters) => {
@@ -1748,13 +1610,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllCheckListItem: parameters => {
@@ -1768,17 +1624,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationChecklistItemModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationChecklistItemModelIO)));
 		},
 
 		Admin_UpdateCheckListItem: parameters => {
@@ -1794,13 +1640,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertCheckListItem: parameters => {
@@ -1816,17 +1656,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationChecklistItemModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationChecklistItemModelIO));
 		},
 
 		Admin_DeleteCheckListItem: (id, parameters) => {
@@ -1840,13 +1670,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetSetupReferenceByTemplateCompany_CompanyId: (TemplateCompanyId, parameters) => {
@@ -1862,17 +1686,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationSetupReferenceModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationSetupReferenceModelIO)));
 		},
 
 		Admin_UpsertSetupReference: parameters => {
@@ -1888,17 +1702,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationSetupReferenceModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationSetupReferenceModelIO));
 		},
 
 		Admin_GetPageResource: (page, parameters) => {
@@ -1912,13 +1716,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetProfile: userId => {
@@ -1927,17 +1725,7 @@ export const adminController = asks(
 					url: `/api/Admin/Profile/${encodeURIComponent(string.encode(userId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsUserProfileModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsUserProfileModelIO));
 		},
 
 		Admin_PostSaveProfile: parameters => {
@@ -1950,13 +1738,7 @@ export const adminController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_WizardEverythingElse: parameters => {
@@ -1971,13 +1753,7 @@ export const adminController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetCurrentReleaseNotes: parameters => {
@@ -1989,17 +1765,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsReleaseNotesReleaseNotesViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsReleaseNotesReleaseNotesViewModelIO));
 		},
 
 		Admin_ViewedReleaseNotes: parameters => {
@@ -2011,13 +1777,7 @@ export const adminController = asks(
 					method: 'POST',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetReleaseNotes: () => {
@@ -2026,17 +1786,7 @@ export const adminController = asks(
 					url: `/api/Admin/AllReleaseNotes`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsReleaseNotesReleaseNotesViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsReleaseNotesReleaseNotesViewModelIO)));
 		},
 
 		Admin_InsertReleaseNotes: parameters => {
@@ -2051,17 +1801,7 @@ export const adminController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsReleaseNotesReleaseNotesViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsReleaseNotesReleaseNotesViewModelIO));
 		},
 
 		Admin_UpdateReleaseNotes: (id, parameters) => {
@@ -2076,17 +1816,7 @@ export const adminController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsReleaseNotesReleaseNotesViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsReleaseNotesReleaseNotesViewModelIO));
 		},
 
 		Admin_DeleteReleaseNotes: id => {
@@ -2095,13 +1825,7 @@ export const adminController = asks(
 					url: `/api/Admin/ReleaseNotes/${encodeURIComponent(number.encode(id).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetPermissionMenu: parameters => {
@@ -2115,17 +1839,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsAdminPermissionMenuIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsAdminPermissionMenuIO));
 		},
 
 		Admin_GetAllTable: () => {
@@ -2134,17 +1848,7 @@ export const adminController = asks(
 					url: `/api/Admin/AllTable`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								dictionary(string, dictionary(string, string))
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(dictionary(string, dictionary(string, string))));
 		},
 
 		Admin_GetAllUserModel: parameters => {
@@ -2158,17 +1862,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftApiModelsAdminUser_View_AdminPageIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftApiModelsAdminUser_View_AdminPageIO)));
 		},
 
 		Admin_UpdateUserModel: parameters => {
@@ -2184,13 +1878,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertUserModel: parameters => {
@@ -2206,17 +1894,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsUserProfileIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsUserProfileIO));
 		},
 
 		Admin_DeleteUserModel: (id, parameters) => {
@@ -2230,11 +1908,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(string.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(string));
 		},
 
 		Admin_GetAllCompanyModel: () => {
@@ -2243,17 +1917,7 @@ export const adminController = asks(
 					url: `/api/Admin/AllCompanyModel`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO)));
 		},
 
 		Admin_UpdateCompanyModel: parameters => {
@@ -2269,13 +1933,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertCompanyModel: parameters => {
@@ -2290,17 +1948,7 @@ export const adminController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationCompanyModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO));
 		},
 
 		Admin_DeleteCompanyModel: id => {
@@ -2309,13 +1957,7 @@ export const adminController = asks(
 					url: `/api/Admin/DeleteCompanyModel/${encodeURIComponent(number.encode(id).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetCheckRegister: parameters => {
@@ -2330,13 +1972,7 @@ export const adminController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_DeleteInvite: (userId, parameters) => {
@@ -2350,13 +1986,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_ResendInvite: (userId, parameters) => {
@@ -2370,13 +2000,7 @@ export const adminController = asks(
 					method: 'POST',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InviteUser: parameters => {
@@ -2392,17 +2016,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsAdminInviteViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsUserProfileIO));
 		},
 
 		Admin_GetAllInvite: parameters => {
@@ -2416,17 +2030,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftApiModelsAdminInviteViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftApiModelsAdminInviteViewModelIO)));
 		},
 
 		Admin_ImportListUserForCompany: parameters => {
@@ -2440,17 +2044,7 @@ export const adminController = asks(
 					method: 'POST',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsAdminInviteViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsAdminInviteViewModelIO));
 		},
 
 		Admin_GetAllRoleModel: parameters => {
@@ -2464,17 +2058,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationRoleModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationRoleModelIO)));
 		},
 
 		Admin_UpdateRoleModel: parameters => {
@@ -2490,13 +2074,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertRoleModel: parameters => {
@@ -2512,17 +2090,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationRoleModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationRoleModelIO));
 		},
 
 		Admin_DeleteRoleModel: (id, parameters) => {
@@ -2536,13 +2104,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateRoleOrder: parameters => {
@@ -2558,13 +2120,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetCompanyAndRoleAndUserAligment: parameters => {
@@ -2578,13 +2134,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllAlignmentModel: parameters => {
@@ -2598,13 +2148,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateAlignmentModel: parameters => {
@@ -2620,13 +2164,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertAlignmentModel: parameters => {
@@ -2642,13 +2180,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_DeleteAlignmentModel: (groupnumber, parameters) => {
@@ -2662,13 +2194,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllLeadStatusModel: parameters => {
@@ -2682,17 +2208,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)));
 		},
 
 		Admin_GetLeadStatus: (leadStatusId, parameters) => {
@@ -2706,13 +2222,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetLeadStatusByLoanPurposeId: (LoanPurposeId, parameters) => {
@@ -2728,17 +2238,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)));
 		},
 
 		Admin_UpdateLeadStatusModel: parameters => {
@@ -2754,13 +2254,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertLeadStatusModel: parameters => {
@@ -2776,17 +2270,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO));
 		},
 
 		Admin_SaveAssociateLeadStatus: (loanStatusId, loanPurposeId, associate, parameters) => {
@@ -2804,17 +2288,7 @@ export const adminController = asks(
 					method: 'POST',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO.decode(
-									value,
-								).mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
 		},
 
 		Admin_SaveLeadStatusFlow: parameters => {
@@ -2830,17 +2304,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO.decode(
-									value,
-								).mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
 		},
 
 		Admin_DeleteLeadStatusModel: (id, parameters) => {
@@ -2854,13 +2318,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateLeadOrder: parameters => {
@@ -2876,13 +2334,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllLoanStatusModel: parameters => {
@@ -2896,17 +2348,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)));
 		},
 
 		Admin_GetLoanStatus: (loanStatusId, parameters) => {
@@ -2920,13 +2362,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetLoanStatusByLoanTypeId: (LoanPurposeId, parameters) => {
@@ -2942,17 +2378,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)));
 		},
 
 		Admin_UpdateLoanStatusModel: parameters => {
@@ -2968,13 +2394,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertLoanStatusModel: parameters => {
@@ -2990,17 +2410,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO));
 		},
 
 		Admin_SaveAssociateLoanStatus: (loanPurposeId, loanStatusId, associate, parameters) => {
@@ -3018,17 +2428,7 @@ export const adminController = asks(
 					method: 'POST',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO.decode(
-									value,
-								).mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
 		},
 
 		Admin_SaveLoanStatusFlow: parameters => {
@@ -3044,17 +2444,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO.decode(
-									value,
-								).mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
 		},
 
 		Admin_DeleteLoanStatusModel: (id, parameters) => {
@@ -3068,13 +2458,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateLoanOrder: parameters => {
@@ -3093,13 +2477,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllLoanTypeModel: parameters => {
@@ -3113,17 +2491,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO)));
 		},
 
 		Admin_UpdateLoanTypeModel: parameters => {
@@ -3139,13 +2507,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertLoanTypeModel: parameters => {
@@ -3161,17 +2523,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO));
 		},
 
 		Admin_DeleteLoanTypeModel: (id, parameters) => {
@@ -3185,13 +2537,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateLoanTypeOrder: parameters => {
@@ -3207,13 +2553,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllLoanPurposeModel: parameters => {
@@ -3227,17 +2567,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationLoanPurposeModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanPurposeModelIO)));
 		},
 
 		Admin_UpdateLoanPurposeModel: parameters => {
@@ -3253,13 +2583,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertLoanPurposeModel: parameters => {
@@ -3275,17 +2599,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationLoanPurposeModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanPurposeModelIO));
 		},
 
 		Admin_DeleteLoanPurposeModel: (id, parameters) => {
@@ -3299,13 +2613,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateLoanPurposeOrder: parameters => {
@@ -3321,13 +2629,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllLeadStatusAssociations: parameters => {
@@ -3341,17 +2643,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO)));
 		},
 
 		Admin_GetAllLeadStatusAssociationsByLoanPurpose: (loanPurposeId, parameters) => {
@@ -3367,17 +2659,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO)));
 		},
 
 		Admin_UpdateLeadStatusAssociation: parameters => {
@@ -3393,13 +2675,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_DeleteLeadStatusAssociation: (id, parameters) => {
@@ -3413,13 +2689,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertLeadStatusAssociation: parameters => {
@@ -3435,17 +2705,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO.decode(
-									value,
-								).mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
 		},
 
 		Admin_UpdateLeadStatusFlowOrder: (loanPurposeId, parameters) => {
@@ -3463,13 +2723,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllLoanStatusAssociations: parameters => {
@@ -3483,17 +2737,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO)));
 		},
 
 		Admin_GetAllLoanStatusAssociationsByLoanPurpose: (loanPurposeId, parameters) => {
@@ -3509,17 +2753,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO)));
 		},
 
 		Admin_UpdateLoanStatusAssociation: parameters => {
@@ -3535,13 +2769,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_DeleteLoanStatusAssociation: (id, parameters) => {
@@ -3555,13 +2783,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertLoanStatusAssociation: parameters => {
@@ -3577,17 +2799,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO.decode(
-									value,
-								).mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
 		},
 
 		Admin_UpdateLoanStatusFlowOrder: (loanPurposeId, parameters) => {
@@ -3605,13 +2817,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllTaskModel: parameters => {
@@ -3625,17 +2831,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsConfigurationTaskViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationTaskViewModelIO)));
 		},
 
 		Admin_GetLeadAllTaskModel: parameters => {
@@ -3649,17 +2845,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsConfigurationTaskViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationTaskViewModelIO)));
 		},
 
 		Admin_GetTaskById: (taskId, parameters) => {
@@ -3673,13 +2859,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateTaskModel: parameters => {
@@ -3695,13 +2875,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateTaskSubTask: (taskId, subTasks, parameters) => {
@@ -3717,13 +2891,7 @@ export const adminController = asks(
 					method: 'POST',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertTaskModel: parameters => {
@@ -3739,17 +2907,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationTaskViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationTaskViewModelIO));
 		},
 
 		Admin_InsertTaskModelFromTemplate: (templateCompanyId, templateTaskId, parameters) => {
@@ -3767,17 +2925,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationTaskViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationTaskViewModelIO));
 		},
 
 		Admin_DeleteTaskModel: (id, parameters) => {
@@ -3791,13 +2939,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetGlobalEmailMergeFieldsModel: () => {
@@ -3806,17 +2948,7 @@ export const adminController = asks(
 					url: `/api/Admin/AllGlobalEmailMergeFieldsModel`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModelIO)));
 		},
 
 		Admin_UpdateGlobalEmailMergeFieldsModel: parameters => {
@@ -3831,13 +2963,7 @@ export const adminController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertGlobalEmailMergeFieldsModel: parameters => {
@@ -3852,17 +2978,7 @@ export const adminController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModelIO.decode(
-									value,
-								).mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModelIO));
 		},
 
 		Admin_DeleteGlobalEmailMergeFieldsModel: id => {
@@ -3873,13 +2989,7 @@ export const adminController = asks(
 					)}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllEmailCampaignTriggerModel: parameters => {
@@ -3893,17 +3003,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftApiModelsAdminGetAllEmailCampaignTriggerIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftApiModelsAdminGetAllEmailCampaignTriggerIO)));
 		},
 
 		Admin_UpdateEmailCampaignTriggerModel: parameters => {
@@ -3919,13 +3019,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertEmailCampaignTrigger: parameters => {
@@ -3941,17 +3035,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsAdminEmailCampaignTriggerModelViewIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsAdminEmailCampaignTriggerModelViewIO));
 		},
 
 		Admin_InsertChildEmailCampaignTrigger: parameters => {
@@ -3967,17 +3051,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsAdminEmailCampaignTriggerModelViewIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsAdminEmailCampaignTriggerModelViewIO));
 		},
 
 		Admin_DeleteEmailCampaignTriggerModel: (id, parameters) => {
@@ -3993,13 +3067,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllTaskCategoryModel: parameters => {
@@ -4013,17 +3081,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO)));
 		},
 
 		Admin_InsertTaskCategoryModel: parameters => {
@@ -4039,17 +3097,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO));
 		},
 
 		Admin_DeleteTaskCategoryModel: (id, parameters) => {
@@ -4063,13 +3111,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateTaskCategoryModel: parameters => {
@@ -4085,13 +3127,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateTaskCategoryOrder: parameters => {
@@ -4107,37 +3143,23 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
-		Admin_GetCustomTaskModelByType: (typeParam, parameters) => {
+		Admin_GetCustomTaskModelByType: (taskType, parameters) => {
 			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
 				parameters,
 			);
 
 			return e.apiClient
 				.request({
-					url: `/api/Admin/GetCustomTaskModelByType/${encodeURIComponent(string.encode(typeParam).toString())}`,
+					url: `/api/Admin/GetCustomTaskModelByType/${encodeURIComponent(
+						string.encode(taskType).toString(),
+					)}`,
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationCustomTaskModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationCustomTaskModelIO)));
 		},
 
 		Admin_InsertCustomTaskModel: parameters => {
@@ -4153,17 +3175,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationCustomTaskViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationCustomTaskViewModelIO));
 		},
 
 		Admin_DeleteCustomTaskModel: (id, parameters) => {
@@ -4177,13 +3189,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateCustomTaskModel: parameters => {
@@ -4199,13 +3205,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllDocumentModel: (dbOnly, parameters) => {
@@ -4219,17 +3219,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationDocumentTypeModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationDocumentTypeModelIO)));
 		},
 
 		Admin_UpdateDocumentModel: parameters => {
@@ -4245,13 +3235,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertDocumentModel: parameters => {
@@ -4267,17 +3251,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationDocumentTypeModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationDocumentTypeModelIO));
 		},
 
 		Admin_DeleteDocumentModel: (id, parameters) => {
@@ -4291,13 +3265,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateDocumentOrder: parameters => {
@@ -4313,13 +3281,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllAgentType: parameters => {
@@ -4333,17 +3295,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationAgentTypeModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationAgentTypeModelIO)));
 		},
 
 		Admin_UpdateAgentType: parameters => {
@@ -4359,13 +3311,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertAgentType: parameters => {
@@ -4381,17 +3327,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationAgentTypeModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationAgentTypeModelIO));
 		},
 
 		Admin_DeleteAgentType: (id, parameters) => {
@@ -4405,13 +3341,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateAgentTypeOrder: parameters => {
@@ -4427,13 +3357,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllLender: parameters => {
@@ -4447,17 +3371,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftApiModelsAdminLenderModelViewIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftApiModelsAdminLenderModelViewIO)));
 		},
 
 		Admin_UpdateLender: parameters => {
@@ -4473,13 +3387,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertLender: parameters => {
@@ -4495,17 +3403,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsAdminLenderModelViewIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsAdminLenderModelViewIO));
 		},
 
 		Admin_DeleteLender: (id, parameters) => {
@@ -4519,13 +3417,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllStackingOrder: parameters => {
@@ -4539,17 +3431,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsAdminStackingOrderModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsAdminStackingOrderModelIO)));
 		},
 
 		Admin_GetStackingOrderInfo: (id, parameters) => {
@@ -4563,17 +3445,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsAdminStackingOrderModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminStackingOrderModelIO));
 		},
 
 		Admin_UpdateStackingOrder: parameters => {
@@ -4589,13 +3461,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertStackingOrder: parameters => {
@@ -4611,17 +3477,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsAdminStackingOrderModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminStackingOrderModelIO));
 		},
 
 		Admin_DeleteStackingOrder: (id, parameters) => {
@@ -4635,13 +3491,7 @@ export const adminController = asks(
 					method: 'DELETE',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_PostSaveOrgChart: parameters => {
@@ -4657,13 +3507,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_SaveSystemLevel: parameters => {
@@ -4679,17 +3523,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsAdminSystemLevelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsAdminSystemLevelIO));
 		},
 
 		Admin_GetSystemLevel: parameters => {
@@ -4703,17 +3537,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsAdminSystemLevelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsAdminSystemLevelIO));
 		},
 
 		Admin_GetExportFileNaming: companyId => {
@@ -4722,17 +3546,7 @@ export const adminController = asks(
 					url: `/api/Admin/GetExportFileNaming/${encodeURIComponent(number.encode(companyId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationConfigurationModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationConfigurationModelIO));
 		},
 
 		Admin_UpdateCheckList: (CheckListItemId, parameters) => {
@@ -4748,13 +3562,7 @@ export const adminController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_AllCheckList: (CheckListItemId, parameters) => {
@@ -4768,13 +3576,7 @@ export const adminController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

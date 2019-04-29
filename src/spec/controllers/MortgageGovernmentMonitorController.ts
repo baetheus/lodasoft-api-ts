@@ -1,14 +1,13 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { asks } from 'fp-ts/lib/Reader';
+import { number, partial } from 'io-ts';
+import { Observable } from 'rxjs';
+
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgageGovernmentMonitorViewModel,
 	LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageGovernmentMonitorViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
-import { asks } from 'fp-ts/lib/Reader';
-import { number, partial } from 'io-ts';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { decodeAndMap, unknownType } from '../utils/utils';
 
 export type MortgageGovernmentMonitorController = {
 	/**
@@ -16,7 +15,7 @@ export type MortgageGovernmentMonitorController = {
 	 */
 	readonly MortgageGovernmentMonitor_GetGovernmentMonitorById: (
 		governmentMonitorId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageGovernmentMonitorViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageGovernmentMonitorViewModel>;
 
 	/**
 	 * @param { number } governmentMonitorId undefined
@@ -25,21 +24,19 @@ export type MortgageGovernmentMonitorController = {
 	readonly MortgageGovernmentMonitor_UpdateGovernmentMonitor: (
 		governmentMonitorId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageGovernmentMonitorViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageGovernmentMonitorViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageGovernmentMonitorViewModel>;
 
 	/**
 	 * @param { number } governmentMonitorId undefined
 	 */
-	readonly MortgageGovernmentMonitor_DeleteGovernmentMonitor: (
-		governmentMonitorId: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly MortgageGovernmentMonitor_DeleteGovernmentMonitor: (governmentMonitorId: number) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly MortgageGovernmentMonitor_InsertGovernmentMonitor: (parameters: {
 		body: LELodasoftCommonModelsMortgageGovernmentMonitorViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageGovernmentMonitorViewModel>>;
+	}) => Observable<LELodasoftCommonModelsMortgageGovernmentMonitorViewModel>;
 };
 
 export const mortgageGovernmentMonitorController = asks(
@@ -52,17 +49,7 @@ export const mortgageGovernmentMonitorController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO));
 		},
 
 		MortgageGovernmentMonitor_UpdateGovernmentMonitor: (governmentMonitorId, parameters) => {
@@ -79,17 +66,7 @@ export const mortgageGovernmentMonitorController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO));
 		},
 
 		MortgageGovernmentMonitor_DeleteGovernmentMonitor: governmentMonitorId => {
@@ -100,13 +77,7 @@ export const mortgageGovernmentMonitorController = asks(
 					)}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageGovernmentMonitor_InsertGovernmentMonitor: parameters => {
@@ -121,17 +92,7 @@ export const mortgageGovernmentMonitorController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO));
 		},
 	}),
 );

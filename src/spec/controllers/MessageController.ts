@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsAdminMessageViewModel,
 	LELodasoftCommonModelsAdminMessageViewModelIO,
@@ -7,12 +7,10 @@ import {
 	LELodasoftCommonModelsMessageMessageViewModel,
 	LELodasoftCommonModelsMessageMessageViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMessageMessageViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, array, partial, boolean } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type MessageController = {
 	/**
@@ -21,7 +19,7 @@ export type MessageController = {
 	 */
 	readonly Message_GetBorrowerMessages: (
 		applicationId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminMessageViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsAdminMessageViewModel>>;
 
 	/**
 	 * Get internal Messages by Application.  Logged in user must be on the loan
@@ -29,7 +27,7 @@ export type MessageController = {
 	 */
 	readonly Message_GetInternalMessages: (
 		applicationId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminMessageViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsAdminMessageViewModel>>;
 
 	/**
 	 * Get Borrower Messages by Loan Doc Task. Logged in user must be on the loan
@@ -37,7 +35,7 @@ export type MessageController = {
 	 */
 	readonly Message_GetBorrowerTaskMessages: (
 		loanDocTaskId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminMessageViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsAdminMessageViewModel>>;
 
 	/**
 	 * Get internal Messages by Loan Doc Task. Logged in user must be on the loan
@@ -45,13 +43,13 @@ export type MessageController = {
 	 */
 	readonly Message_GetInternalTaskMessages: (
 		loanDocTaskId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminMessageViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsAdminMessageViewModel>>;
 
 	/**
 	 * Get count of messages since last reply
 	 * @param { number } applicationId -
 	 */
-	readonly Message_GetMessageCountSinceLastReply: (applicationId: number) => Observable<AsyncData<Error, number>>;
+	readonly Message_GetMessageCountSinceLastReply: (applicationId: number) => Observable<number>;
 
 	/**
 	 * Post message to internal user
@@ -59,7 +57,7 @@ export type MessageController = {
 	 */
 	readonly Message_PostInternalMessage: (parameters: {
 		body: LELodasoftCommonModelsAdminMessageViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsAdminMessageViewModel>>;
+	}) => Observable<LELodasoftCommonModelsAdminMessageViewModel>;
 
 	/**
 	 * Post message to borrower
@@ -67,7 +65,7 @@ export type MessageController = {
 	 */
 	readonly Message_PostBorrowerMessage: (parameters: {
 		body: LELodasoftCommonModelsAdminMessageViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsAdminMessageViewModel>>;
+	}) => Observable<LELodasoftCommonModelsAdminMessageViewModel>;
 
 	/**
 	 * Inserts a Message Into the Queue
@@ -77,7 +75,7 @@ export type MessageController = {
 	readonly Message_InsertLeadEmailIntoQueue: (
 		appendEmailSignature: boolean,
 		parameters: { body: LELodasoftCommonModelsMessageMessageViewModel },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * Inserts a Message Into the Queue
@@ -87,7 +85,7 @@ export type MessageController = {
 	readonly Message_InsertLeadSMSIntoQueue: (
 		appendSMSSignature: boolean,
 		parameters: { body: LELodasoftCommonModelsMessageMessageViewModel },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * Inserts a Message Into the Queue
@@ -97,7 +95,7 @@ export type MessageController = {
 	readonly Message_InsertLoanEmailIntoQueue: (
 		appendEmailSignature: boolean,
 		parameters: { body: LELodasoftCommonModelsMessageMessageViewModel },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * Inserts a Message Into the Queue
@@ -107,7 +105,7 @@ export type MessageController = {
 	readonly Message_InsertLoanSMSIntoQueue: (
 		appendSMSSignature: boolean,
 		parameters: { body: LELodasoftCommonModelsMessageMessageViewModel },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 };
 
 export const messageController = asks(
@@ -120,17 +118,7 @@ export const messageController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminMessageViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
 		},
 
 		Message_GetInternalMessages: applicationId => {
@@ -141,17 +129,7 @@ export const messageController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminMessageViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
 		},
 
 		Message_GetBorrowerTaskMessages: loanDocTaskId => {
@@ -162,17 +140,7 @@ export const messageController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminMessageViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
 		},
 
 		Message_GetInternalTaskMessages: loanDocTaskId => {
@@ -183,17 +151,7 @@ export const messageController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminMessageViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
 		},
 
 		Message_GetMessageCountSinceLastReply: applicationId => {
@@ -204,11 +162,7 @@ export const messageController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(number.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(number));
 		},
 
 		Message_PostInternalMessage: parameters => {
@@ -221,17 +175,7 @@ export const messageController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAdminMessageViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAdminMessageViewModelIO));
 		},
 
 		Message_PostBorrowerMessage: parameters => {
@@ -244,17 +188,7 @@ export const messageController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAdminMessageViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAdminMessageViewModelIO));
 		},
 
 		Message_InsertLeadEmailIntoQueue: (appendEmailSignature, parameters) => {
@@ -269,13 +203,7 @@ export const messageController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Message_InsertLeadSMSIntoQueue: (appendSMSSignature, parameters) => {
@@ -290,13 +218,7 @@ export const messageController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Message_InsertLoanEmailIntoQueue: (appendEmailSignature, parameters) => {
@@ -311,13 +233,7 @@ export const messageController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Message_InsertLoanSMSIntoQueue: (appendSMSSignature, parameters) => {
@@ -332,13 +248,7 @@ export const messageController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

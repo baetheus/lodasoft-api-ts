@@ -1,13 +1,12 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsAdminPrequalDetailViewModel,
 	LELodasoftCommonModelsAdminPrequalDetailViewModelIO,
 } from '../definitions/LELodasoftCommonModelsAdminPrequalDetailViewModel';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, type, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type PrequalDetailController = {
 	/**
@@ -15,14 +14,14 @@ export type PrequalDetailController = {
 	 */
 	readonly PrequalDetail_GetPrequalDetail: (parameters: {
 		query: { applicationId: number };
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsAdminPrequalDetailViewModel>>;
+	}) => Observable<LELodasoftCommonModelsAdminPrequalDetailViewModel>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly PrequalDetail_UpsertPrequalDetail: (parameters: {
 		body: LELodasoftCommonModelsAdminPrequalDetailViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsAdminPrequalDetailViewModel>>;
+	}) => Observable<LELodasoftCommonModelsAdminPrequalDetailViewModel>;
 };
 
 export const prequalDetailController = asks(
@@ -36,17 +35,7 @@ export const prequalDetailController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAdminPrequalDetailViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAdminPrequalDetailViewModelIO));
 		},
 
 		PrequalDetail_UpsertPrequalDetail: parameters => {
@@ -59,17 +48,7 @@ export const prequalDetailController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAdminPrequalDetailViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAdminPrequalDetailViewModelIO));
 		},
 	}),
 );

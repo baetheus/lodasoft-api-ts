@@ -1,0 +1,33 @@
+import { Option } from 'fp-ts/lib/Option';
+export declare type LELodasoftApiModelsBorrowerApplicationViewModel = {
+    companyId: Option<number>;
+    applicationId: Option<number>;
+    userId: Option<string>;
+    borrowerId: Option<number>;
+    refNumber: Option<string>;
+    borrowerName: Option<string>;
+    mailingStreet: Option<string>;
+    mailingCity: Option<string>;
+    mailingState: Option<string>;
+    mailingZip: Option<string>;
+    loanAmount: Option<number>;
+    loanStatusId: Option<number>;
+    loanPurposeId: Option<number>;
+    dateCreated: Option<Date>;
+};
+export declare const LELodasoftApiModelsBorrowerApplicationViewModelIO: import("io-ts").TypeC<{
+    companyId: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    applicationId: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    userId: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    borrowerId: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    refNumber: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    borrowerName: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    mailingStreet: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    mailingCity: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    mailingState: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    mailingZip: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    loanAmount: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    loanStatusId: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    loanPurposeId: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    dateCreated: import("io-ts-types").OptionFromNullableC<import("io-ts-types").DateFromISOStringC>;
+}>;

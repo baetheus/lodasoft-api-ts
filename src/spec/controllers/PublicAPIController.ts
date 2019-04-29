@@ -1,26 +1,25 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { asks } from 'fp-ts/lib/Reader';
+import { array, dictionary, partial, string } from 'io-ts';
+import { Observable } from 'rxjs';
+
+import { TAPIClient } from '../client/client';
 import {
-	LELodasoftCommonModelsLeadsProviderModelsBestReferralLead,
-	LELodasoftCommonModelsLeadsProviderModelsBestReferralLeadIO,
+  LELodasoftCommonModelsLeadsProviderModelsBestReferralLead,
+  LELodasoftCommonModelsLeadsProviderModelsBestReferralLeadIO,
 } from '../definitions/LELodasoftCommonModelsLeadsProviderModelsBestReferralLead';
 import {
-	LELodasoftCommonModelsLeadsProviderModelsLodasoftLead,
-	LELodasoftCommonModelsLeadsProviderModelsLodasoftLeadIO,
+  LELodasoftCommonModelsLeadsProviderModelsLodasoftLead,
+  LELodasoftCommonModelsLeadsProviderModelsLodasoftLeadIO,
 } from '../definitions/LELodasoftCommonModelsLeadsProviderModelsLodasoftLead';
 import {
-	LELodasoftCommonModelsLeadsProviderModelsZillowLead,
-	LELodasoftCommonModelsLeadsProviderModelsZillowLeadIO,
+  LELodasoftCommonModelsLeadsProviderModelsZillowLead,
+  LELodasoftCommonModelsLeadsProviderModelsZillowLeadIO,
 } from '../definitions/LELodasoftCommonModelsLeadsProviderModelsZillowLead';
 import {
-	LELodasoftCommonModelsPublicApiUserViewModel,
-	LELodasoftCommonModelsPublicApiUserViewModelIO,
+  LELodasoftCommonModelsPublicApiUserViewModel,
+  LELodasoftCommonModelsPublicApiUserViewModelIO,
 } from '../definitions/LELodasoftCommonModelsPublicApiUserViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
-import { asks } from 'fp-ts/lib/Reader';
-import { string, array, dictionary, partial } from 'io-ts';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { decodeAndMap, unknownType } from '../utils/utils';
 
 export type PublicAPIController = {
 	/**
@@ -28,19 +27,17 @@ export type PublicAPIController = {
 	 */
 	readonly PublicAPI_GetUserListPrimaryRole: (
 		companyGuid: string,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsPublicApiUserViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsPublicApiUserViewModel>>;
 
 	/**
 	 * @param { string } companyGuid undefined
 	 */
-	readonly PublicAPI_GetUserList: (companyGuid: string) => Observable<AsyncData<Error, { [key: string]: string }>>;
+	readonly PublicAPI_GetUserList: (companyGuid: string) => Observable<{ [key: string]: string }>;
 
 	/**
 	 * @param { string } companyGuid undefined
 	 */
-	readonly PublicAPI_GetLoanPurposes: (
-		companyGuid: string,
-	) => Observable<AsyncData<Error, { [key: string]: string }>>;
+	readonly PublicAPI_GetLoanPurposes: (companyGuid: string) => Observable<{ [key: string]: string }>;
 
 	/**
 	 * @param { string } companyGuid undefined
@@ -49,7 +46,7 @@ export type PublicAPIController = {
 	readonly PublicAPI_PostLodasoftLead: (
 		companyGuid: string,
 		parameters: { body: LELodasoftCommonModelsLeadsProviderModelsLodasoftLead },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { string } companyGuid undefined
@@ -60,7 +57,7 @@ export type PublicAPIController = {
 		companyGuid: string,
 		userId: string,
 		parameters: { body: LELodasoftCommonModelsLeadsProviderModelsBestReferralLead },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { string } companyGuid undefined
@@ -71,7 +68,13 @@ export type PublicAPIController = {
 		companyGuid: string,
 		userId: string,
 		parameters: { body: LELodasoftCommonModelsLeadsProviderModelsZillowLead },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
+
+	/**
+	 * @param { string } companyGuid undefined
+	 * @param { string } userId undefined
+	 */
+	readonly PublicAPI_PostLendingTreeLeadAsync: (companyGuid: string, userId: string) => Observable<unknown>;
 };
 
 export const publicAPIController = asks(
@@ -84,17 +87,7 @@ export const publicAPIController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsPublicApiUserViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsPublicApiUserViewModelIO)));
 		},
 
 		PublicAPI_GetUserList: companyGuid => {
@@ -103,17 +96,7 @@ export const publicAPIController = asks(
 					url: `/api/PublicApi/GetUserList/${encodeURIComponent(string.encode(companyGuid).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								dictionary(string, string)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(dictionary(string, string)));
 		},
 
 		PublicAPI_GetLoanPurposes: companyGuid => {
@@ -122,17 +105,7 @@ export const publicAPIController = asks(
 					url: `/api/PublicApi/GetLoanPurposes/${encodeURIComponent(string.encode(companyGuid).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								dictionary(string, string)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(dictionary(string, string)));
 		},
 
 		PublicAPI_PostLodasoftLead: (companyGuid, parameters) => {
@@ -147,13 +120,7 @@ export const publicAPIController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		PublicAPI_PostBestReferralLead: (companyGuid, userId, parameters) => {
@@ -170,13 +137,7 @@ export const publicAPIController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		PublicAPI_PostZillowLead: (companyGuid, userId, parameters) => {
@@ -191,13 +152,18 @@ export const publicAPIController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
+		},
+
+		PublicAPI_PostLendingTreeLeadAsync: (companyGuid, userId) => {
+			return e.apiClient
+				.request({
+					url: `/api/PublicApi/PostLendingTreeLead/${encodeURIComponent(
+						string.encode(companyGuid).toString(),
+					)}/${encodeURIComponent(string.encode(userId).toString())}`,
+					method: 'POST',
+				})
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgagePurchaseCreditViewModel,
 	LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO,
@@ -7,12 +7,10 @@ import {
 	LELodasoftCommonModelsMortgageTransactionDetailViewModel,
 	LELodasoftCommonModelsMortgageTransactionDetailViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageTransactionDetailViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, partial, array } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type MortgageTransactionDetailController = {
 	/**
@@ -20,7 +18,7 @@ export type MortgageTransactionDetailController = {
 	 */
 	readonly MortgageTransactionDetail_GetTransactionDetailById: (
 		transactionDetailId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageTransactionDetailViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageTransactionDetailViewModel>;
 
 	/**
 	 * @param { number } transactionDetailId undefined
@@ -29,21 +27,19 @@ export type MortgageTransactionDetailController = {
 	readonly MortgageTransactionDetail_UpdateTransactionDetail: (
 		transactionDetailId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageTransactionDetailViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageTransactionDetailViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageTransactionDetailViewModel>;
 
 	/**
 	 * @param { number } transactionDetailId undefined
 	 */
-	readonly MortgageTransactionDetail_DeleteTransactionDetail: (
-		transactionDetailId: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly MortgageTransactionDetail_DeleteTransactionDetail: (transactionDetailId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } transactionDetailId undefined
 	 */
 	readonly MortgageTransactionDetail_GetPurchaseCreditsByTransactionDetailId: (
 		transactionDetailId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMortgagePurchaseCreditViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsMortgagePurchaseCreditViewModel>>;
 
 	/**
 	 * @param { number } transactionDetailId undefined
@@ -52,7 +48,7 @@ export type MortgageTransactionDetailController = {
 	readonly MortgageTransactionDetail_InsertPurchaseCredit: (
 		transactionDetailId: number,
 		parameters: { body: LELodasoftCommonModelsMortgagePurchaseCreditViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgagePurchaseCreditViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgagePurchaseCreditViewModel>;
 };
 
 export const mortgageTransactionDetailController = asks(
@@ -65,17 +61,7 @@ export const mortgageTransactionDetailController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageTransactionDetailViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageTransactionDetailViewModelIO));
 		},
 
 		MortgageTransactionDetail_UpdateTransactionDetail: (transactionDetailId, parameters) => {
@@ -92,17 +78,7 @@ export const mortgageTransactionDetailController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageTransactionDetailViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageTransactionDetailViewModelIO));
 		},
 
 		MortgageTransactionDetail_DeleteTransactionDetail: transactionDetailId => {
@@ -113,13 +89,7 @@ export const mortgageTransactionDetailController = asks(
 					)}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageTransactionDetail_GetPurchaseCreditsByTransactionDetailId: transactionDetailId => {
@@ -130,17 +100,7 @@ export const mortgageTransactionDetailController = asks(
 					)}/purchasecredits`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO)));
 		},
 
 		MortgageTransactionDetail_InsertPurchaseCredit: (transactionDetailId, parameters) => {
@@ -157,17 +117,7 @@ export const mortgageTransactionDetailController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO));
 		},
 	}),
 );

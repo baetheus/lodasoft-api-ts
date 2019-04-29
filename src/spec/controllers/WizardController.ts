@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftApiControllersInitializeFormFreeRequest,
 	LELodasoftApiControllersInitializeFormFreeRequestIO,
@@ -47,16 +47,14 @@ import {
 	LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse,
 	LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO,
 } from '../definitions/LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { array, partial, number, type, string } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type WizardController = {
 	readonly Wizard_GetAllWizardConfigs: () => Observable<
-		AsyncData<Error, Array<LELodasoftCommonModelsConfigurationWizardWizardConfigViewModel>>
+		Array<LELodasoftCommonModelsConfigurationWizardWizardConfigViewModel>
 	>;
 
 	/**
@@ -64,40 +62,40 @@ export type WizardController = {
 	 */
 	readonly Wizard_UpsertWizardConfig: (parameters: {
 		body: LELodasoftCommonModelsConfigurationWizardWizardConfigViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationWizardWizardConfigViewModel>>;
+	}) => Observable<LELodasoftCommonModelsConfigurationWizardWizardConfigViewModel>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
 	 */
 	readonly Wizard_GetWizardConfigById: (
 		wizardConfigId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationWizardWizardConfigViewModel>>;
+	) => Observable<LELodasoftCommonModelsConfigurationWizardWizardConfigViewModel>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
 	 */
-	readonly Wizard_DeleteWizardConfig: (wizardConfigId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Wizard_DeleteWizardConfig: (wizardConfigId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
 	 */
 	readonly Wizard_GetExtractedWizardConfigById: (
 		wizardConfigId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModel>>;
+	) => Observable<LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModel>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Wizard_UpsertExtractedWizardConfig: (parameters: {
 		body: LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModel>>;
+	}) => Observable<LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModel>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
 	 */
 	readonly Wizard_GetDataIdListByWizardConfigId: (
 		wizardConfigId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsConfigurationWizardDataIdViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsConfigurationWizardDataIdViewModel>>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
@@ -106,7 +104,7 @@ export type WizardController = {
 	readonly Wizard_UpsertDataIdAndDataByWizardConfigId: (
 		wizardConfigId: number,
 		parameters: { body: LELodasoftCommonModelsConfigurationWizardDataIdViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationWizardDataIdViewModel>>;
+	) => Observable<LELodasoftCommonModelsConfigurationWizardDataIdViewModel>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
@@ -115,23 +113,20 @@ export type WizardController = {
 	readonly Wizard_GetDataIdByWizardConfigId: (
 		wizardConfigId: number,
 		dataIdId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationWizardDataIdViewModel>>;
+	) => Observable<LELodasoftCommonModelsConfigurationWizardDataIdViewModel>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
 	 * @param { number } dataIdId undefined
 	 */
-	readonly Wizard_DeleteDataIdByWizardConfigId: (
-		wizardConfigId: number,
-		dataIdId: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly Wizard_DeleteDataIdByWizardConfigId: (wizardConfigId: number, dataIdId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
 	 */
 	readonly Wizard_GetDataListByWizardConfigId: (
 		wizardConfigId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsConfigurationWizardDataViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsConfigurationWizardDataViewModel>>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
@@ -142,23 +137,20 @@ export type WizardController = {
 		wizardConfigId: number,
 		dataId: number,
 		parameters: { query: { category: number } },
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsConfigurationWizardDataViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsConfigurationWizardDataViewModel>>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
 	 * @param { number } dataId undefined
 	 */
-	readonly Wizard_DeleteDataByWizardConfigId: (
-		wizardConfigId: number,
-		dataId: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly Wizard_DeleteDataByWizardConfigId: (wizardConfigId: number, dataId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
 	 */
 	readonly Wizard_GetGroupIdListByWizardConfigId: (
 		wizardConfigId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsConfigurationWizardGroupIdViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsConfigurationWizardGroupIdViewModel>>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
@@ -167,7 +159,7 @@ export type WizardController = {
 	readonly Wizard_UpsertGroupIdAndGroupByWizardConfigId: (
 		wizardConfigId: number,
 		parameters: { body: LELodasoftCommonModelsConfigurationWizardGroupIdViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationWizardGroupIdViewModel>>;
+	) => Observable<LELodasoftCommonModelsConfigurationWizardGroupIdViewModel>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
@@ -176,23 +168,20 @@ export type WizardController = {
 	readonly Wizard_GetGroupIdByWizardConfigId: (
 		wizardConfigId: number,
 		groupIdId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationWizardGroupIdViewModel>>;
+	) => Observable<LELodasoftCommonModelsConfigurationWizardGroupIdViewModel>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
 	 * @param { number } groupIdId undefined
 	 */
-	readonly Wizard_DeleteGroupIdByWizardConfigId: (
-		wizardConfigId: number,
-		groupIdId: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly Wizard_DeleteGroupIdByWizardConfigId: (wizardConfigId: number, groupIdId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
 	 */
 	readonly Wizard_GetGroupListByWizardConfigId: (
 		wizardConfigId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsConfigurationWizardGroupViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsConfigurationWizardGroupViewModel>>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
@@ -201,23 +190,20 @@ export type WizardController = {
 	readonly Wizard_GetGroupByWizardConfigId: (
 		wizardConfigId: number,
 		groupId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationWizardGroupViewModel>>;
+	) => Observable<LELodasoftCommonModelsConfigurationWizardGroupViewModel>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
 	 * @param { number } groupId undefined
 	 */
-	readonly Wizard_DeleteGroupByWizardConfigId: (
-		wizardConfigId: number,
-		groupId: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly Wizard_DeleteGroupByWizardConfigId: (wizardConfigId: number, groupId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
 	 */
 	readonly Wizard_GetValidListByWizardConfigId: (
 		wizardConfigId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsConfigurationWizardValidViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsConfigurationWizardValidViewModel>>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
@@ -226,23 +212,20 @@ export type WizardController = {
 	readonly Wizard_GetValidByWizardConfigId: (
 		wizardConfigId: number,
 		validId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationWizardValidViewModel>>;
+	) => Observable<LELodasoftCommonModelsConfigurationWizardValidViewModel>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
 	 * @param { number } validId undefined
 	 */
-	readonly Wizard_DeleteValidByWizardConfigId: (
-		wizardConfigId: number,
-		validId: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly Wizard_DeleteValidByWizardConfigId: (wizardConfigId: number, validId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
 	 */
 	readonly Wizard_GetTreeListByWizardConfigId: (
 		wizardConfigId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsConfigurationWizardTreeViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsConfigurationWizardTreeViewModel>>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
@@ -251,10 +234,10 @@ export type WizardController = {
 	readonly Wizard_UpsertTreeByWizardConfigId: (
 		wizardConfigId: number,
 		parameters: { body: Array<LELodasoftCommonModelsConfigurationWizardTreeViewModel> },
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsConfigurationWizardTreeViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsConfigurationWizardTreeViewModel>>;
 
 	readonly Wizard_GetAllWizardQuestions: () => Observable<
-		AsyncData<Error, Array<LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModel>>
+		Array<LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModel>
 	>;
 
 	/**
@@ -262,26 +245,26 @@ export type WizardController = {
 	 */
 	readonly Wizard_UpsertWizardQuestion: (parameters: {
 		body: LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModel>>;
+	}) => Observable<LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModel>;
 
 	/**
 	 * @param { number } questionId undefined
 	 */
 	readonly Wizard_GetWizardQuestionById: (
 		questionId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModel>>;
+	) => Observable<LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModel>;
 
 	/**
 	 * @param { number } questionId undefined
 	 */
-	readonly Wizard_DeleteWizardQuestion: (questionId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Wizard_DeleteWizardQuestion: (questionId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
 	 */
 	readonly Wizard_GetWizardQuestionListByWizardConfigId: (
 		wizardConfigId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModel>>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
@@ -290,7 +273,7 @@ export type WizardController = {
 	readonly Wizard_UpsertWizardQuestionDataByWizardConfigId: (
 		wizardConfigId: number,
 		parameters: { body: LELodasoftApiModelsWizardModelsWizardQuestionDataViewModel },
-	) => Observable<AsyncData<Error, LELodasoftApiModelsWizardModelsWizardQuestionDataViewModel>>;
+	) => Observable<LELodasoftApiModelsWizardModelsWizardQuestionDataViewModel>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
@@ -299,16 +282,13 @@ export type WizardController = {
 	readonly Wizard_GetWizardQuestionDataById: (
 		wizardConfigId: number,
 		questionId: number,
-	) => Observable<AsyncData<Error, LELodasoftApiModelsWizardModelsWizardQuestionDataViewModel>>;
+	) => Observable<LELodasoftApiModelsWizardModelsWizardQuestionDataViewModel>;
 
 	/**
 	 * @param { number } wizardConfigId undefined
 	 * @param { number } questionId undefined
 	 */
-	readonly Wizard_DeleteWizardQuestionData: (
-		wizardConfigId: number,
-		questionId: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly Wizard_DeleteWizardQuestionData: (wizardConfigId: number, questionId: number) => Observable<unknown>;
 
 	/**
 	 * @param { string } companyGuid undefined
@@ -317,7 +297,7 @@ export type WizardController = {
 	readonly Wizard_InitializeFormFree: (
 		companyGuid: string,
 		parameters: { body: LELodasoftApiControllersInitializeFormFreeRequest },
-	) => Observable<AsyncData<Error, LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse>>;
+	) => Observable<LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse>;
 };
 
 export const wizardController = asks(
@@ -328,17 +308,7 @@ export const wizardController = asks(
 					url: `/api/wizardconfigs`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO)));
 		},
 
 		Wizard_UpsertWizardConfig: parameters => {
@@ -353,17 +323,7 @@ export const wizardController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO));
 		},
 
 		Wizard_GetWizardConfigById: wizardConfigId => {
@@ -372,17 +332,7 @@ export const wizardController = asks(
 					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO));
 		},
 
 		Wizard_DeleteWizardConfig: wizardConfigId => {
@@ -391,13 +341,7 @@ export const wizardController = asks(
 					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Wizard_GetExtractedWizardConfigById: wizardConfigId => {
@@ -406,17 +350,7 @@ export const wizardController = asks(
 					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/extracted`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO.decode(
-									value,
-								).mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO));
 		},
 
 		Wizard_UpsertExtractedWizardConfig: parameters => {
@@ -431,17 +365,7 @@ export const wizardController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO.decode(
-									value,
-								).mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO));
 		},
 
 		Wizard_GetDataIdListByWizardConfigId: wizardConfigId => {
@@ -450,17 +374,7 @@ export const wizardController = asks(
 					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/dataids`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsConfigurationWizardDataIdViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardDataIdViewModelIO)));
 		},
 
 		Wizard_UpsertDataIdAndDataByWizardConfigId: (wizardConfigId, parameters) => {
@@ -475,17 +389,7 @@ export const wizardController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationWizardDataIdViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardDataIdViewModelIO));
 		},
 
 		Wizard_GetDataIdByWizardConfigId: (wizardConfigId, dataIdId) => {
@@ -496,17 +400,7 @@ export const wizardController = asks(
 					)}/dataids/${encodeURIComponent(number.encode(dataIdId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationWizardDataIdViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardDataIdViewModelIO));
 		},
 
 		Wizard_DeleteDataIdByWizardConfigId: (wizardConfigId, dataIdId) => {
@@ -517,13 +411,7 @@ export const wizardController = asks(
 					)}/dataids/${encodeURIComponent(number.encode(dataIdId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Wizard_GetDataListByWizardConfigId: wizardConfigId => {
@@ -532,17 +420,7 @@ export const wizardController = asks(
 					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/datas`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsConfigurationWizardDataViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardDataViewModelIO)));
 		},
 
 		Wizard_GetDataByWizardConfigId: (wizardConfigId, dataId, parameters) => {
@@ -556,17 +434,7 @@ export const wizardController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsConfigurationWizardDataViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardDataViewModelIO)));
 		},
 
 		Wizard_DeleteDataByWizardConfigId: (wizardConfigId, dataId) => {
@@ -577,13 +445,7 @@ export const wizardController = asks(
 					)}/datas/${encodeURIComponent(number.encode(dataId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Wizard_GetGroupIdListByWizardConfigId: wizardConfigId => {
@@ -592,17 +454,7 @@ export const wizardController = asks(
 					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/groupids`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO)));
 		},
 
 		Wizard_UpsertGroupIdAndGroupByWizardConfigId: (wizardConfigId, parameters) => {
@@ -617,17 +469,7 @@ export const wizardController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO));
 		},
 
 		Wizard_GetGroupIdByWizardConfigId: (wizardConfigId, groupIdId) => {
@@ -638,17 +480,7 @@ export const wizardController = asks(
 					)}/groupids/${encodeURIComponent(number.encode(groupIdId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO));
 		},
 
 		Wizard_DeleteGroupIdByWizardConfigId: (wizardConfigId, groupIdId) => {
@@ -659,13 +491,7 @@ export const wizardController = asks(
 					)}/groupids/${encodeURIComponent(number.encode(groupIdId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Wizard_GetGroupListByWizardConfigId: wizardConfigId => {
@@ -674,17 +500,7 @@ export const wizardController = asks(
 					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/groups`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsConfigurationWizardGroupViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardGroupViewModelIO)));
 		},
 
 		Wizard_GetGroupByWizardConfigId: (wizardConfigId, groupId) => {
@@ -695,17 +511,7 @@ export const wizardController = asks(
 					)}/groups/${encodeURIComponent(number.encode(groupId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationWizardGroupViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardGroupViewModelIO));
 		},
 
 		Wizard_DeleteGroupByWizardConfigId: (wizardConfigId, groupId) => {
@@ -716,13 +522,7 @@ export const wizardController = asks(
 					)}/groups/${encodeURIComponent(number.encode(groupId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Wizard_GetValidListByWizardConfigId: wizardConfigId => {
@@ -731,17 +531,7 @@ export const wizardController = asks(
 					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/valids`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsConfigurationWizardValidViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardValidViewModelIO)));
 		},
 
 		Wizard_GetValidByWizardConfigId: (wizardConfigId, validId) => {
@@ -752,17 +542,7 @@ export const wizardController = asks(
 					)}/valids/${encodeURIComponent(number.encode(validId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationWizardValidViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardValidViewModelIO));
 		},
 
 		Wizard_DeleteValidByWizardConfigId: (wizardConfigId, validId) => {
@@ -773,13 +553,7 @@ export const wizardController = asks(
 					)}/valids/${encodeURIComponent(number.encode(validId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Wizard_GetTreeListByWizardConfigId: wizardConfigId => {
@@ -788,17 +562,7 @@ export const wizardController = asks(
 					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/tree`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsConfigurationWizardTreeViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardTreeViewModelIO)));
 		},
 
 		Wizard_UpsertTreeByWizardConfigId: (wizardConfigId, parameters) => {
@@ -813,17 +577,7 @@ export const wizardController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsConfigurationWizardTreeViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardTreeViewModelIO)));
 		},
 
 		Wizard_GetAllWizardQuestions: () => {
@@ -832,17 +586,7 @@ export const wizardController = asks(
 					url: `/api/wizardconfigs/questions`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO)));
 		},
 
 		Wizard_UpsertWizardQuestion: parameters => {
@@ -857,17 +601,7 @@ export const wizardController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO.decode(
-									value,
-								).mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO));
 		},
 
 		Wizard_GetWizardQuestionById: questionId => {
@@ -876,17 +610,7 @@ export const wizardController = asks(
 					url: `/api/wizardconfigs/questions/${encodeURIComponent(number.encode(questionId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO.decode(
-									value,
-								).mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO));
 		},
 
 		Wizard_DeleteWizardQuestion: questionId => {
@@ -895,13 +619,7 @@ export const wizardController = asks(
 					url: `/api/wizardconfigs/questions/${encodeURIComponent(number.encode(questionId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Wizard_GetWizardQuestionListByWizardConfigId: wizardConfigId => {
@@ -910,17 +628,7 @@ export const wizardController = asks(
 					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/questions`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO)));
 		},
 
 		Wizard_UpsertWizardQuestionDataByWizardConfigId: (wizardConfigId, parameters) => {
@@ -935,17 +643,7 @@ export const wizardController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsWizardModelsWizardQuestionDataViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsWizardModelsWizardQuestionDataViewModelIO));
 		},
 
 		Wizard_GetWizardQuestionDataById: (wizardConfigId, questionId) => {
@@ -956,17 +654,7 @@ export const wizardController = asks(
 					)}/questions/${encodeURIComponent(number.encode(questionId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsWizardModelsWizardQuestionDataViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsWizardModelsWizardQuestionDataViewModelIO));
 		},
 
 		Wizard_DeleteWizardQuestionData: (wizardConfigId, questionId) => {
@@ -977,13 +665,7 @@ export const wizardController = asks(
 					)}/questions/${encodeURIComponent(number.encode(questionId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Wizard_InitializeFormFree: (companyGuid, parameters) => {
@@ -998,17 +680,7 @@ export const wizardController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO));
 		},
 	}),
 );

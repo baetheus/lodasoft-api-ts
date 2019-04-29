@@ -1,0 +1,1 @@
+{"version":3,"file":"LELodasoftApiModelsBorrowerLoanInfo.js","sourceRoot":"","sources":["../../src/spec/definitions/LELodasoftApiModelsBorrowerLoanInfo.ts"],"names":[],"mappings":";;AAAA,kJAGgF;AAChF,8IAG8E;AAE9E,+BAA6B;AAC7B,2CAAuD;AAM1C,QAAA,qCAAqC,GAAG,YAAI,CAAC;IACzD,WAAW,EAAE,sCAAwB,CAAC,mHAAyD,CAAC;IAChG,eAAe,EAAE,sCAAwB,CAAC,+GAAuD,CAAC;CAClG,CAAC,CAAC"}

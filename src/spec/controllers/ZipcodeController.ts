@@ -1,40 +1,31 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftApiModelsZipcodeLookupResult,
 	LELodasoftApiModelsZipcodeLookupResultIO,
 } from '../definitions/LELodasoftApiModelsZipcodeLookupResult';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { string, array, type, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type ZipcodeController = {
 	/**
 	 * Lookup a Zip Code
 	 * @param { string } zip -
 	 */
-	readonly Zipcode_ZipcodeLookup: (
-		zip: string,
-	) => Observable<AsyncData<Error, Array<LELodasoftApiModelsZipcodeLookupResult>>>;
+	readonly Zipcode_ZipcodeLookup: (zip: string) => Observable<Array<LELodasoftApiModelsZipcodeLookupResult>>;
 
 	/**
 	 * Lookup a Zip Code
 	 * @param { string } zip -
 	 */
-	readonly Zipcode_ZipcodeLookuAnonymousp: (
-		zip: string,
-	) => Observable<AsyncData<Error, Array<LELodasoftApiModelsZipcodeLookupResult>>>;
+	readonly Zipcode_ZipcodeLookuAnonymousp: (zip: string) => Observable<Array<LELodasoftApiModelsZipcodeLookupResult>>;
 
 	/**
 	 * @param { string } toUserId undefined
 	 * @param { object } parameters
 	 */
-	readonly Zipcode_Send: (
-		toUserId: string,
-		parameters: { query: { message: string } },
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly Zipcode_Send: (toUserId: string, parameters: { query: { message: string } }) => Observable<unknown>;
 };
 
 export const zipcodeController = asks(
@@ -45,17 +36,7 @@ export const zipcodeController = asks(
 					url: `/api/Zipcode/Lookup/${encodeURIComponent(string.encode(zip).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftApiModelsZipcodeLookupResultIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftApiModelsZipcodeLookupResultIO)));
 		},
 
 		Zipcode_ZipcodeLookuAnonymousp: zip => {
@@ -64,17 +45,7 @@ export const zipcodeController = asks(
 					url: `/api/Zipcode/${encodeURIComponent(string.encode(zip).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftApiModelsZipcodeLookupResultIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftApiModelsZipcodeLookupResultIO)));
 		},
 
 		Zipcode_Send: (toUserId, parameters) => {
@@ -86,13 +57,7 @@ export const zipcodeController = asks(
 					method: 'PUT',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

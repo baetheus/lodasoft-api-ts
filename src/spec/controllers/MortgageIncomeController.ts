@@ -1,14 +1,12 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgageIncomeViewModel,
 	LELodasoftCommonModelsMortgageIncomeViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageIncomeViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type MortgageIncomeController = {
 	/**
@@ -16,7 +14,7 @@ export type MortgageIncomeController = {
 	 */
 	readonly MortgageIncome_GetIncomeById: (
 		incomeId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageIncomeViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageIncomeViewModel>;
 
 	/**
 	 * @param { number } incomeId undefined
@@ -25,19 +23,19 @@ export type MortgageIncomeController = {
 	readonly MortgageIncome_UpdateIncome: (
 		incomeId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageIncomeViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageIncomeViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageIncomeViewModel>;
 
 	/**
 	 * @param { number } incomeId undefined
 	 */
-	readonly MortgageIncome_DeleteIncome: (incomeId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly MortgageIncome_DeleteIncome: (incomeId: number) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly MortgageIncome_InsertIncome: (parameters: {
 		body: LELodasoftCommonModelsMortgageIncomeViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageIncomeViewModel>>;
+	}) => Observable<LELodasoftCommonModelsMortgageIncomeViewModel>;
 };
 
 export const mortgageIncomeController = asks(
@@ -48,17 +46,7 @@ export const mortgageIncomeController = asks(
 					url: `/api/mortgage/incomes/${encodeURIComponent(number.encode(incomeId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageIncomeViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageIncomeViewModelIO));
 		},
 
 		MortgageIncome_UpdateIncome: (incomeId, parameters) => {
@@ -71,17 +59,7 @@ export const mortgageIncomeController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageIncomeViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageIncomeViewModelIO));
 		},
 
 		MortgageIncome_DeleteIncome: incomeId => {
@@ -90,13 +68,7 @@ export const mortgageIncomeController = asks(
 					url: `/api/mortgage/incomes/${encodeURIComponent(number.encode(incomeId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageIncome_InsertIncome: parameters => {
@@ -109,17 +81,7 @@ export const mortgageIncomeController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageIncomeViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageIncomeViewModelIO));
 		},
 	}),
 );

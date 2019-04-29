@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftApiControllersDashboardControllerDashboardFilterCriteria,
 	LELodasoftApiControllersDashboardControllerDashboardFilterCriteriaIO,
@@ -11,11 +11,10 @@ import {
 	LELodasoftDataAccessModelsTaskCountModel,
 	LELodasoftDataAccessModelsTaskCountModelIO,
 } from '../definitions/LELodasoftDataAccessModelsTaskCountModel';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { partial, number, array } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type DashboardController = {
 	/**
@@ -23,7 +22,7 @@ export type DashboardController = {
 	 */
 	readonly Dashboard_GetTaskCountsbyFilterCriteria: (parameters: {
 		body: LELodasoftApiControllersDashboardControllerDashboardFilterCriteria;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessModelsTaskCountModel>>;
+	}) => Observable<LELodasoftDataAccessModelsTaskCountModel>;
 
 	/**
 	 * @param { number } filter undefined
@@ -32,16 +31,16 @@ export type DashboardController = {
 	readonly Dashboard_GetTaskByFilterbyFilterCriteria: (
 		filter: number,
 		parameters: { body: LELodasoftApiControllersDashboardControllerDashboardFilterCriteria },
-	) => Observable<AsyncData<Error, Array<LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView>>>;
+	) => Observable<Array<LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView>>;
 
-	readonly Dashboard_GetTaskCounts: () => Observable<AsyncData<Error, LELodasoftDataAccessModelsTaskCountModel>>;
+	readonly Dashboard_GetTaskCounts: () => Observable<LELodasoftDataAccessModelsTaskCountModel>;
 
 	/**
 	 * @param { number } filter undefined
 	 */
 	readonly Dashboard_GetTaskByFilter: (
 		filter: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView>>>;
+	) => Observable<Array<LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView>>;
 
 	/**
 	 * @param { number } filter undefined
@@ -50,7 +49,7 @@ export type DashboardController = {
 	readonly Dashboard_GetTaskByFilterInApp: (
 		filter: number,
 		appId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView>>>;
+	) => Observable<Array<LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView>>;
 
 	/**
 	 * @param { number } filter undefined
@@ -59,7 +58,7 @@ export type DashboardController = {
 	readonly Dashboard_GetTaskByFilterInLead: (
 		filter: number,
 		leadId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView>>>;
+	) => Observable<Array<LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView>>;
 };
 
 export const dashboardController = asks(
@@ -76,17 +75,7 @@ export const dashboardController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessModelsTaskCountModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessModelsTaskCountModelIO));
 		},
 
 		Dashboard_GetTaskByFilterbyFilterCriteria: (filter, parameters) => {
@@ -103,17 +92,7 @@ export const dashboardController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO)));
 		},
 
 		Dashboard_GetTaskCounts: () => {
@@ -122,17 +101,7 @@ export const dashboardController = asks(
 					url: `/api/Dashboard/GetTaskCounts`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessModelsTaskCountModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessModelsTaskCountModelIO));
 		},
 
 		Dashboard_GetTaskByFilter: filter => {
@@ -141,17 +110,7 @@ export const dashboardController = asks(
 					url: `/api/Dashboard/GetTaskByFilter/${encodeURIComponent(number.encode(filter).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO)));
 		},
 
 		Dashboard_GetTaskByFilterInApp: (filter, appId) => {
@@ -162,17 +121,7 @@ export const dashboardController = asks(
 					)}/${encodeURIComponent(number.encode(appId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO)));
 		},
 
 		Dashboard_GetTaskByFilterInLead: (filter, leadId) => {
@@ -183,17 +132,7 @@ export const dashboardController = asks(
 					)}/${encodeURIComponent(number.encode(leadId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO)));
 		},
 	}),
 );

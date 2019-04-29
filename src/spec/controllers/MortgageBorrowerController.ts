@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgageAssetViewModel,
 	LELodasoftCommonModelsMortgageAssetViewModelIO,
@@ -51,12 +51,10 @@ import {
 	LELodasoftCommonModelsMortgageResidencyAddressViewModel,
 	LELodasoftCommonModelsMortgageResidencyAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageResidencyAddressViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, partial, array } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type MortgageBorrowerController = {
 	/**
@@ -64,7 +62,7 @@ export type MortgageBorrowerController = {
 	 */
 	readonly MortgageBorrower_GetBorrowerById: (
 		borrowerId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageMortgageBorrowerViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageMortgageBorrowerViewModel>;
 
 	/**
 	 * @param { number } borrowerId undefined
@@ -73,26 +71,26 @@ export type MortgageBorrowerController = {
 	readonly MortgageBorrower_UpdateBorrower: (
 		borrowerId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageMortgageBorrowerViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageMortgageBorrowerViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageMortgageBorrowerViewModel>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
-	readonly MortgageBorrower_DeleteBorrower: (borrowerId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly MortgageBorrower_DeleteBorrower: (borrowerId: number) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly MortgageBorrower_InsertBorrower: (parameters: {
 		body: LELodasoftCommonModelsMortgageMortgageBorrowerViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageMortgageBorrowerViewModel>>;
+	}) => Observable<LELodasoftCommonModelsMortgageMortgageBorrowerViewModel>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
 	readonly MortgageBorrower_GetAssetsByBorrowerId: (
 		borrowerId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMortgageAssetViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsMortgageAssetViewModel>>;
 
 	/**
 	 * @param { number } borrowerId undefined
@@ -101,14 +99,14 @@ export type MortgageBorrowerController = {
 	readonly MortgageBorrower_InsertAsset: (
 		borrowerId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageAssetViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageAssetViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageAssetViewModel>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
 	readonly MortgageBorrower_GetDeclarationsByBorrowerId: (
 		borrowerId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMortgageDeclarationViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsMortgageDeclarationViewModel>>;
 
 	/**
 	 * @param { number } borrowerId undefined
@@ -117,14 +115,14 @@ export type MortgageBorrowerController = {
 	readonly MortgageBorrower_InsertDeclaration: (
 		borrowerId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageDeclarationViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageDeclarationViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageDeclarationViewModel>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
 	readonly MortgageBorrower_GetDependentsByBorrowerId: (
 		borrowerId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMortgageDependentViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsMortgageDependentViewModel>>;
 
 	/**
 	 * @param { number } borrowerId undefined
@@ -133,14 +131,14 @@ export type MortgageBorrowerController = {
 	readonly MortgageBorrower_InsertDependent: (
 		borrowerId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageDependentViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageDependentViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageDependentViewModel>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
 	readonly MortgageBorrower_GetEmailsByBorrowerId: (
 		borrowerId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMortgageEmailViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsMortgageEmailViewModel>>;
 
 	/**
 	 * @param { number } borrowerId undefined
@@ -149,14 +147,14 @@ export type MortgageBorrowerController = {
 	readonly MortgageBorrower_InsertEmail: (
 		borrowerId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageEmailViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageEmailViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageEmailViewModel>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
 	readonly MortgageBorrower_GetEmploymentsByBorrowerId: (
 		borrowerId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMortgageEmploymentViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsMortgageEmploymentViewModel>>;
 
 	/**
 	 * @param { number } borrowerId undefined
@@ -165,14 +163,14 @@ export type MortgageBorrowerController = {
 	readonly MortgageBorrower_InsertEmployment: (
 		borrowerId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageEmploymentViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageEmploymentViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageEmploymentViewModel>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
 	readonly MortgageBorrower_GetExpensesByBorrowerId: (
 		borrowerId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMortgageExpenseViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsMortgageExpenseViewModel>>;
 
 	/**
 	 * @param { number } borrowerId undefined
@@ -181,14 +179,14 @@ export type MortgageBorrowerController = {
 	readonly MortgageBorrower_InsertExpense: (
 		borrowerId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageExpenseViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageExpenseViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageExpenseViewModel>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
 	readonly MortgageBorrower_GetGovernmentMonitorsByBorrowerId: (
 		borrowerId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMortgageGovernmentMonitorViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsMortgageGovernmentMonitorViewModel>>;
 
 	/**
 	 * @param { number } borrowerId undefined
@@ -197,14 +195,14 @@ export type MortgageBorrowerController = {
 	readonly MortgageBorrower_InsertGovernmentMonitor: (
 		borrowerId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageGovernmentMonitorViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageGovernmentMonitorViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageGovernmentMonitorViewModel>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
 	readonly MortgageBorrower_GetIncomesByBorrowerId: (
 		borrowerId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMortgageIncomeViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsMortgageIncomeViewModel>>;
 
 	/**
 	 * @param { number } borrowerId undefined
@@ -213,14 +211,14 @@ export type MortgageBorrowerController = {
 	readonly MortgageBorrower_InsertIncome: (
 		borrowerId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageIncomeViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageIncomeViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageIncomeViewModel>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
 	readonly MortgageBorrower_GetLiabilitiesByBorrowerId: (
 		borrowerId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMortgageLiabilityViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsMortgageLiabilityViewModel>>;
 
 	/**
 	 * @param { number } borrowerId undefined
@@ -229,14 +227,14 @@ export type MortgageBorrowerController = {
 	readonly MortgageBorrower_InsertLiability: (
 		borrowerId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageLiabilityViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageLiabilityViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageLiabilityViewModel>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
 	readonly MortgageBorrower_GetPhonesByBorrowerId: (
 		borrowerId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMortgagePhoneViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsMortgagePhoneViewModel>>;
 
 	/**
 	 * @param { number } borrowerId undefined
@@ -245,14 +243,14 @@ export type MortgageBorrowerController = {
 	readonly MortgageBorrower_InsertPhone: (
 		borrowerId: number,
 		parameters: { body: LELodasoftCommonModelsMortgagePhoneViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgagePhoneViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgagePhoneViewModel>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
 	readonly MortgageBorrower_GetReosByBorrowerId: (
 		borrowerId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMortgageReoViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsMortgageReoViewModel>>;
 
 	/**
 	 * @param { number } borrowerId undefined
@@ -261,14 +259,14 @@ export type MortgageBorrowerController = {
 	readonly MortgageBorrower_InsertReo: (
 		borrowerId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageReoViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageReoViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageReoViewModel>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
 	readonly MortgageBorrower_GetResidencyAddressesByBorrowerId: (
 		borrowerId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMortgageResidencyAddressViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsMortgageResidencyAddressViewModel>>;
 
 	/**
 	 * @param { number } borrowerId undefined
@@ -277,7 +275,7 @@ export type MortgageBorrowerController = {
 	readonly MortgageBorrower_InsertResidencyAddress: (
 		borrowerId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageResidencyAddressViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageResidencyAddressViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageResidencyAddressViewModel>;
 };
 
 export const mortgageBorrowerController = asks(
@@ -288,17 +286,7 @@ export const mortgageBorrowerController = asks(
 					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO));
 		},
 
 		MortgageBorrower_UpdateBorrower: (borrowerId, parameters) => {
@@ -313,17 +301,7 @@ export const mortgageBorrowerController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO));
 		},
 
 		MortgageBorrower_DeleteBorrower: borrowerId => {
@@ -332,13 +310,7 @@ export const mortgageBorrowerController = asks(
 					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageBorrower_InsertBorrower: parameters => {
@@ -353,17 +325,7 @@ export const mortgageBorrowerController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO));
 		},
 
 		MortgageBorrower_GetAssetsByBorrowerId: borrowerId => {
@@ -372,17 +334,7 @@ export const mortgageBorrowerController = asks(
 					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/assets`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMortgageAssetViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageAssetViewModelIO)));
 		},
 
 		MortgageBorrower_InsertAsset: (borrowerId, parameters) => {
@@ -395,17 +347,7 @@ export const mortgageBorrowerController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageAssetViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageAssetViewModelIO));
 		},
 
 		MortgageBorrower_GetDeclarationsByBorrowerId: borrowerId => {
@@ -416,17 +358,7 @@ export const mortgageBorrowerController = asks(
 					)}/declarations`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMortgageDeclarationViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageDeclarationViewModelIO)));
 		},
 
 		MortgageBorrower_InsertDeclaration: (borrowerId, parameters) => {
@@ -441,17 +373,7 @@ export const mortgageBorrowerController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageDeclarationViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageDeclarationViewModelIO));
 		},
 
 		MortgageBorrower_GetDependentsByBorrowerId: borrowerId => {
@@ -462,17 +384,7 @@ export const mortgageBorrowerController = asks(
 					)}/dependents`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMortgageDependentViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageDependentViewModelIO)));
 		},
 
 		MortgageBorrower_InsertDependent: (borrowerId, parameters) => {
@@ -487,17 +399,7 @@ export const mortgageBorrowerController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageDependentViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageDependentViewModelIO));
 		},
 
 		MortgageBorrower_GetEmailsByBorrowerId: borrowerId => {
@@ -506,17 +408,7 @@ export const mortgageBorrowerController = asks(
 					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/emails`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMortgageEmailViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageEmailViewModelIO)));
 		},
 
 		MortgageBorrower_InsertEmail: (borrowerId, parameters) => {
@@ -529,17 +421,7 @@ export const mortgageBorrowerController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageEmailViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmailViewModelIO));
 		},
 
 		MortgageBorrower_GetEmploymentsByBorrowerId: borrowerId => {
@@ -550,17 +432,7 @@ export const mortgageBorrowerController = asks(
 					)}/employments`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMortgageEmploymentViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageEmploymentViewModelIO)));
 		},
 
 		MortgageBorrower_InsertEmployment: (borrowerId, parameters) => {
@@ -575,17 +447,7 @@ export const mortgageBorrowerController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageEmploymentViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmploymentViewModelIO));
 		},
 
 		MortgageBorrower_GetExpensesByBorrowerId: borrowerId => {
@@ -594,17 +456,7 @@ export const mortgageBorrowerController = asks(
 					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/expenses`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMortgageExpenseViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageExpenseViewModelIO)));
 		},
 
 		MortgageBorrower_InsertExpense: (borrowerId, parameters) => {
@@ -617,17 +469,7 @@ export const mortgageBorrowerController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageExpenseViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageExpenseViewModelIO));
 		},
 
 		MortgageBorrower_GetGovernmentMonitorsByBorrowerId: borrowerId => {
@@ -638,17 +480,7 @@ export const mortgageBorrowerController = asks(
 					)}/governmentmonitors`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO)));
 		},
 
 		MortgageBorrower_InsertGovernmentMonitor: (borrowerId, parameters) => {
@@ -665,17 +497,7 @@ export const mortgageBorrowerController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO));
 		},
 
 		MortgageBorrower_GetIncomesByBorrowerId: borrowerId => {
@@ -684,17 +506,7 @@ export const mortgageBorrowerController = asks(
 					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/incomes`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMortgageIncomeViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageIncomeViewModelIO)));
 		},
 
 		MortgageBorrower_InsertIncome: (borrowerId, parameters) => {
@@ -707,17 +519,7 @@ export const mortgageBorrowerController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageIncomeViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageIncomeViewModelIO));
 		},
 
 		MortgageBorrower_GetLiabilitiesByBorrowerId: borrowerId => {
@@ -728,17 +530,7 @@ export const mortgageBorrowerController = asks(
 					)}/liabilities`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMortgageLiabilityViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageLiabilityViewModelIO)));
 		},
 
 		MortgageBorrower_InsertLiability: (borrowerId, parameters) => {
@@ -753,17 +545,7 @@ export const mortgageBorrowerController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageLiabilityViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageLiabilityViewModelIO));
 		},
 
 		MortgageBorrower_GetPhonesByBorrowerId: borrowerId => {
@@ -772,17 +554,7 @@ export const mortgageBorrowerController = asks(
 					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/phones`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMortgagePhoneViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgagePhoneViewModelIO)));
 		},
 
 		MortgageBorrower_InsertPhone: (borrowerId, parameters) => {
@@ -795,17 +567,7 @@ export const mortgageBorrowerController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgagePhoneViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgagePhoneViewModelIO));
 		},
 
 		MortgageBorrower_GetReosByBorrowerId: borrowerId => {
@@ -814,17 +576,7 @@ export const mortgageBorrowerController = asks(
 					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/reos`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMortgageReoViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageReoViewModelIO)));
 		},
 
 		MortgageBorrower_InsertReo: (borrowerId, parameters) => {
@@ -837,17 +589,7 @@ export const mortgageBorrowerController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageReoViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageReoViewModelIO));
 		},
 
 		MortgageBorrower_GetResidencyAddressesByBorrowerId: borrowerId => {
@@ -858,17 +600,7 @@ export const mortgageBorrowerController = asks(
 					)}/residencyaddresses`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMortgageResidencyAddressViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageResidencyAddressViewModelIO)));
 		},
 
 		MortgageBorrower_InsertResidencyAddress: (borrowerId, parameters) => {
@@ -885,17 +617,7 @@ export const mortgageBorrowerController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageResidencyAddressViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageResidencyAddressViewModelIO));
 		},
 	}),
 );

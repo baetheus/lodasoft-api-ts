@@ -14,6 +14,7 @@ export type LELodasoftDataAccessDbModelsConfigurationCompanyModel = {
 	state: Option<string>;
 	zip: Option<string>;
 	logo: Option<string>;
+	smallLogo: Option<string>;
 	signatureLogo: Option<string>;
 	nmls: Option<string>;
 	isTemplate: Option<boolean>;
@@ -46,6 +47,7 @@ export const LELodasoftDataAccessDbModelsConfigurationCompanyModelIO = type({
 	state: createOptionFromNullable(string),
 	zip: createOptionFromNullable(string),
 	logo: createOptionFromNullable(string),
+	smallLogo: createOptionFromNullable(string),
 	signatureLogo: createOptionFromNullable(string),
 	nmls: createOptionFromNullable(string),
 	isTemplate: createOptionFromNullable(boolean),

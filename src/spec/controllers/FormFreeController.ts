@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModel,
 	LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO,
@@ -7,14 +7,12 @@ import {
 	LELodasoftThirdPartyFormFreeModelsLiteAccountInfo,
 	LELodasoftThirdPartyFormFreeModelsLiteAccountInfoIO,
 } from '../definitions/LELodasoftThirdPartyFormFreeModelsLiteAccountInfo';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { array, number, type, partial, string } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type FormFreeController = {
 	/**
@@ -23,7 +21,7 @@ export type FormFreeController = {
 	 */
 	readonly FormFree_GetFormFreeHistory: (parameters: {
 		query?: { loanId: Option<number>; leadId: Option<number>; borrowerId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModel>>>;
+	}) => Observable<Array<LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModel>>;
 
 	/**
 	 * Retrieves Account info for VOA transaction id
@@ -31,7 +29,7 @@ export type FormFreeController = {
 	 */
 	readonly FormFree_GetLiteAccountInfo: (
 		transactionId: string,
-	) => Observable<AsyncData<Error, Array<LELodasoftThirdPartyFormFreeModelsLiteAccountInfo>>>;
+	) => Observable<Array<LELodasoftThirdPartyFormFreeModelsLiteAccountInfo>>;
 
 	/**
 	 * Upgrade the VOA for transaction id
@@ -39,7 +37,7 @@ export type FormFreeController = {
 	 */
 	readonly FormFree_UpgradeVoaRequest: (
 		transactionId: string,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModel>>;
+	) => Observable<LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModel>;
 
 	/**
 	 * Link history to borrower by Id
@@ -49,7 +47,7 @@ export type FormFreeController = {
 	readonly FormFree_LinkHistoryToBorrower: (
 		historyId: number,
 		borrowerId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModel>>;
 
 	/**
 	 * Invite the borrower to complete VOA
@@ -61,7 +59,7 @@ export type FormFreeController = {
 		loanId: number,
 		borrowerId: number,
 		parameters: { query?: { requestType: Option<string> } },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 };
 
 export const formFreeController = asks(
@@ -81,17 +79,7 @@ export const formFreeController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO)));
 		},
 
 		FormFree_GetLiteAccountInfo: transactionId => {
@@ -100,17 +88,7 @@ export const formFreeController = asks(
 					url: `/api/form-free/${encodeURIComponent(string.encode(transactionId).toString())}/lite`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftThirdPartyFormFreeModelsLiteAccountInfoIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftThirdPartyFormFreeModelsLiteAccountInfoIO)));
 		},
 
 		FormFree_UpgradeVoaRequest: transactionId => {
@@ -119,17 +97,7 @@ export const formFreeController = asks(
 					url: `/api/form-free/${encodeURIComponent(string.encode(transactionId).toString())}/upgrade`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO));
 		},
 
 		FormFree_LinkHistoryToBorrower: (historyId, borrowerId) => {
@@ -140,17 +108,7 @@ export const formFreeController = asks(
 					)}/link-to-borrower/${encodeURIComponent(number.encode(borrowerId).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO)));
 		},
 
 		FormFree_InviteBorrower: (loanId, borrowerId, parameters) => {
@@ -166,13 +124,7 @@ export const formFreeController = asks(
 					method: 'POST',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsAdminAlertViewModel,
 	LELodasoftCommonModelsAdminAlertViewModelIO,
@@ -11,31 +11,25 @@ import {
 	LELodasoftDataAccessDbModelsAdminAlertModel,
 	LELodasoftDataAccessDbModelsAdminAlertModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsAdminAlertModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { array, string, number, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type CommonController = {
-	readonly Common_InsertDocExpire: () => Observable<AsyncData<Error, unknown>>;
+	readonly Common_InsertDocExpire: () => Observable<unknown>;
 
-	readonly Common_GetTaskStatusAlert: () => Observable<
-		AsyncData<Error, Array<LELodasoftDataAccessDbModelsAdminAlertModel>>
-	>;
+	readonly Common_GetTaskStatusAlert: () => Observable<Array<LELodasoftDataAccessDbModelsAdminAlertModel>>;
 
 	/**
 	 * @param { string } alertTypeId undefined
 	 */
-	readonly Common_GetAlerts: (
-		alertTypeId: string,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminAlertViewModel>>>;
+	readonly Common_GetAlerts: (alertTypeId: string) => Observable<Array<LELodasoftCommonModelsAdminAlertViewModel>>;
 
 	/**
 	 * @param { number } alertId undefined
 	 */
-	readonly Common_ClearAlert: (alertId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Common_ClearAlert: (alertId: number) => Observable<unknown>;
 
 	/**
 	 * @param { string } toUserId undefined
@@ -44,7 +38,7 @@ export type CommonController = {
 	readonly Common_SendAnonymous: (
 		toUserId: string,
 		parameters: { body: LELodasoftCommonModelsAdminNotificationViewModel },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 };
 
 export const commonController = asks(
@@ -55,13 +49,7 @@ export const commonController = asks(
 					url: `/api/Common/InsertDocExpire`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Common_GetTaskStatusAlert: () => {
@@ -70,17 +58,7 @@ export const commonController = asks(
 					url: `/api/Common/GetTaskStatusAlert`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsAdminAlertModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsAdminAlertModelIO)));
 		},
 
 		Common_GetAlerts: alertTypeId => {
@@ -89,17 +67,7 @@ export const commonController = asks(
 					url: `/api/Common/GetAlerts/${encodeURIComponent(string.encode(alertTypeId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminAlertViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAlertViewModelIO)));
 		},
 
 		Common_ClearAlert: alertId => {
@@ -108,13 +76,7 @@ export const commonController = asks(
 					url: `/api/Common/ClearAlert/${encodeURIComponent(number.encode(alertId).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Common_SendAnonymous: (toUserId, parameters) => {
@@ -127,13 +89,7 @@ export const commonController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

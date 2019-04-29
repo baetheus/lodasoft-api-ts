@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftApiModelsMortgageLosLoanSearchResponseModel,
 	LELodasoftApiModelsMortgageLosLoanSearchResponseModelIO,
@@ -15,14 +15,12 @@ import {
 	LELodasoftApiModelsMortgageProcessDuViewModel,
 	LELodasoftApiModelsMortgageProcessDuViewModelIO,
 } from '../definitions/LELodasoftApiModelsMortgageProcessDuViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, string, type, partial } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type NewSubmissionController = {
 	/**
@@ -34,7 +32,7 @@ export type NewSubmissionController = {
 		parameters: {
 			query?: { loanNumber: Option<string>; borrowerFirstName: Option<string>; borrowerLastName: Option<string> };
 		},
-	) => Observable<AsyncData<Error, LELodasoftApiModelsMortgageLosLoanSearchResponseModel>>;
+	) => Observable<LELodasoftApiModelsMortgageLosLoanSearchResponseModel>;
 
 	/**
 	 * @param { number } credentialId undefined
@@ -43,7 +41,7 @@ export type NewSubmissionController = {
 	readonly NewSubmission_ImportFromLos: (
 		credentialId: number,
 		losIdentifier: string,
-	) => Observable<AsyncData<Error, LELodasoftApiModelsMortgageParseDuViewModel>>;
+	) => Observable<LELodasoftApiModelsMortgageParseDuViewModel>;
 
 	/**
 	 * @param { number } credentialId undefined
@@ -52,7 +50,7 @@ export type NewSubmissionController = {
 	readonly NewSubmission_CreateMortgageInIntegratedLos: (
 		credentialId: number,
 		applicationId: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { number } applicationId undefined
@@ -61,16 +59,16 @@ export type NewSubmissionController = {
 	readonly NewSubmission_UpdateMortgageFromIntegratedLos: (
 		applicationId: number,
 		credentialId: string,
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
-	readonly NewSubmission_ParseDu: () => Observable<AsyncData<Error, LELodasoftApiModelsMortgageParseDuViewModel>>;
+	readonly NewSubmission_ParseDu: () => Observable<LELodasoftApiModelsMortgageParseDuViewModel>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly NewSubmission_ProcessSubmission: (parameters: {
 		body: LELodasoftApiModelsMortgageProcessDuViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftApiModelsMortgageProcessDuResponseModel>>;
+	}) => Observable<LELodasoftApiModelsMortgageProcessDuResponseModel>;
 };
 
 export const newSubmissionController = asks(
@@ -92,17 +90,7 @@ export const newSubmissionController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsMortgageLosLoanSearchResponseModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsMortgageLosLoanSearchResponseModelIO));
 		},
 
 		NewSubmission_ImportFromLos: (credentialId, losIdentifier) => {
@@ -113,17 +101,7 @@ export const newSubmissionController = asks(
 					)}/${encodeURIComponent(string.encode(losIdentifier).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsMortgageParseDuViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsMortgageParseDuViewModelIO));
 		},
 
 		NewSubmission_CreateMortgageInIntegratedLos: (credentialId, applicationId) => {
@@ -134,13 +112,7 @@ export const newSubmissionController = asks(
 					)}/${encodeURIComponent(number.encode(applicationId).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		NewSubmission_UpdateMortgageFromIntegratedLos: (applicationId, credentialId) => {
@@ -151,13 +123,7 @@ export const newSubmissionController = asks(
 					)}/${encodeURIComponent(number.encode(applicationId).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		NewSubmission_ParseDu: () => {
@@ -166,17 +132,7 @@ export const newSubmissionController = asks(
 					url: `/api/new-submission/parse-du`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsMortgageParseDuViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsMortgageParseDuViewModelIO));
 		},
 
 		NewSubmission_ProcessSubmission: parameters => {
@@ -189,17 +145,7 @@ export const newSubmissionController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsMortgageProcessDuResponseModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsMortgageProcessDuResponseModelIO));
 		},
 	}),
 );

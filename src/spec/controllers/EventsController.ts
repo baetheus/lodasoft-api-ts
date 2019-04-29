@@ -1,16 +1,14 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsEventsEventViewModel,
 	LELodasoftCommonModelsEventsEventViewModelIO,
 } from '../definitions/LELodasoftCommonModelsEventsEventViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { partial, number, boolean, array, string, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type EventsController = {
 	/**
@@ -18,41 +16,33 @@ export type EventsController = {
 	 */
 	readonly Events_PostNewEvent: (parameters: {
 		body: LELodasoftCommonModelsEventsEventViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsEventsEventViewModel>>;
+	}) => Observable<LELodasoftCommonModelsEventsEventViewModel>;
 
 	/**
 	 * @param { number } eventid undefined
 	 * @param { number } delay undefined
 	 * @param { boolean } allday undefined
 	 */
-	readonly Events_PostDropEvent: (
-		eventid: number,
-		delay: number,
-		allday: boolean,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly Events_PostDropEvent: (eventid: number, delay: number, allday: boolean) => Observable<unknown>;
 
 	/**
 	 * @param { number } eventid undefined
 	 * @param { number } delay undefined
 	 * @param { boolean } addDays undefined
 	 */
-	readonly Events_PostResizeEvent: (
-		eventid: number,
-		delay: number,
-		addDays: boolean,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly Events_PostResizeEvent: (eventid: number, delay: number, addDays: boolean) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Events_UpdateEvent: (parameters: {
 		body: LELodasoftCommonModelsEventsEventViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsEventsEventViewModel>>;
+	}) => Observable<LELodasoftCommonModelsEventsEventViewModel>;
 
 	/**
 	 * @param { number } eventId undefined
 	 */
-	readonly Events_DeleteEvent: (eventId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Events_DeleteEvent: (eventId: number) => Observable<unknown>;
 
 	/**
 	 * Get all events
@@ -60,7 +50,7 @@ export type EventsController = {
 	 */
 	readonly Events_GetAllEvents: (parameters: {
 		query?: { filterdate: Option<string>; applicationId: Option<number>; leadId: Option<number> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsEventsEventViewModel>>>;
+	}) => Observable<Array<LELodasoftCommonModelsEventsEventViewModel>>;
 
 	/**
 	 * @param { number } companyId undefined
@@ -71,17 +61,17 @@ export type EventsController = {
 		companyId: number,
 		userId: string,
 		isAdmin: boolean,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsEventsEventViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsEventsEventViewModel>>;
 
 	/**
 	 * @param { object } parameters
 	 */
-	readonly Events_PostRemoveListEvent: (parameters: { body: Array<number> }) => Observable<AsyncData<Error, boolean>>;
+	readonly Events_PostRemoveListEvent: (parameters: { body: Array<number> }) => Observable<boolean>;
 
 	/**
 	 * @param { string } userId undefined
 	 */
-	readonly Events_GetUserName: (userId: string) => Observable<AsyncData<Error, string>>;
+	readonly Events_GetUserName: (userId: string) => Observable<string>;
 };
 
 export const eventsController = asks(
@@ -96,17 +86,7 @@ export const eventsController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsEventsEventViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsEventsEventViewModelIO));
 		},
 
 		Events_PostDropEvent: (eventid, delay, allday) => {
@@ -119,13 +99,7 @@ export const eventsController = asks(
 					)}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Events_PostResizeEvent: (eventid, delay, addDays) => {
@@ -138,13 +112,7 @@ export const eventsController = asks(
 					)}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Events_UpdateEvent: parameters => {
@@ -157,17 +125,7 @@ export const eventsController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsEventsEventViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsEventsEventViewModelIO));
 		},
 
 		Events_DeleteEvent: eventId => {
@@ -176,13 +134,7 @@ export const eventsController = asks(
 					url: `/api/Events/DeleteEvent/${encodeURIComponent(number.encode(eventId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Events_GetAllEvents: parameters => {
@@ -200,17 +152,7 @@ export const eventsController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsEventsEventViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsEventsEventViewModelIO)));
 		},
 
 		Events_GetAllEventScheduling: (companyId, userId, isAdmin) => {
@@ -223,17 +165,7 @@ export const eventsController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsEventsEventViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsEventsEventViewModelIO)));
 		},
 
 		Events_PostRemoveListEvent: parameters => {
@@ -246,11 +178,7 @@ export const eventsController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(boolean.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(boolean));
 		},
 
 		Events_GetUserName: userId => {
@@ -259,11 +187,7 @@ export const eventsController = asks(
 					url: `/api/Events/UserName/${encodeURIComponent(string.encode(userId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(string.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(string));
 		},
 	}),
 );

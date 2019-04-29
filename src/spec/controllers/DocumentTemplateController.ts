@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsConfigurationAddDocumentTemplatePagesViewModel,
 	LELodasoftCommonModelsConfigurationAddDocumentTemplatePagesViewModelIO,
@@ -15,51 +15,45 @@ import {
 	LELodasoftCommonModelsConfigurationDocumentTemplateViewModel,
 	LELodasoftCommonModelsConfigurationDocumentTemplateViewModelIO,
 } from '../definitions/LELodasoftCommonModelsConfigurationDocumentTemplateViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { string, array, number, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type DocumentTemplateController = {
-	readonly DocumentTemplate_GetApplicationGlobalMergeFieldKeys: () => Observable<AsyncData<Error, Array<string>>>;
+	readonly DocumentTemplate_GetApplicationGlobalMergeFieldKeys: () => Observable<Array<string>>;
 
-	readonly DocumentTemplate_GetLeadGlobalMergeFieldKeys: () => Observable<AsyncData<Error, Array<string>>>;
+	readonly DocumentTemplate_GetLeadGlobalMergeFieldKeys: () => Observable<Array<string>>;
 
 	readonly DocumentTemplate_GetAllDocumentTemplates: () => Observable<
-		AsyncData<Error, Array<LELodasoftCommonModelsConfigurationDocumentTemplateViewModel>>
+		Array<LELodasoftCommonModelsConfigurationDocumentTemplateViewModel>
 	>;
 
-	readonly DocumentTemplate_InsertDocumentTemplate: () => Observable<AsyncData<Error, unknown>>;
+	readonly DocumentTemplate_InsertDocumentTemplate: () => Observable<unknown>;
 
 	/**
 	 * @param { number } documentTemplateId undefined
 	 */
 	readonly DocumentTemplate_GetDocumentTemplateById: (
 		documentTemplateId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationDocumentTemplateViewModel>>;
+	) => Observable<LELodasoftCommonModelsConfigurationDocumentTemplateViewModel>;
 
 	/**
 	 * @param { number } documentTemplateId undefined
 	 */
-	readonly DocumentTemplate_UpdateDocumentTemplate: (
-		documentTemplateId: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly DocumentTemplate_UpdateDocumentTemplate: (documentTemplateId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } documentTemplateId undefined
 	 */
-	readonly DocumentTemplate_DeleteDocumentTemplate: (
-		documentTemplateId: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly DocumentTemplate_DeleteDocumentTemplate: (documentTemplateId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } documentTemplateId undefined
 	 */
 	readonly DocumentTemplate_GetDocumentTemplateFieldsById: (
 		documentTemplateId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModel>>;
 
 	/**
 	 * @param { number } documentTemplateFieldId undefined
@@ -68,14 +62,14 @@ export type DocumentTemplateController = {
 	readonly DocumentTemplate_UpdateDocumentTemplateField: (
 		documentTemplateFieldId: number,
 		parameters: { body: LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModel },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { number } documentTemplateId undefined
 	 */
 	readonly DocumentTemplate_GetDocumentTemplatePagesById: (
 		documentTemplateId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsConfigurationDocumentTemplatePageViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsConfigurationDocumentTemplatePageViewModel>>;
 
 	/**
 	 * @param { number } documentTemplateId undefined
@@ -84,14 +78,12 @@ export type DocumentTemplateController = {
 	readonly DocumentTemplate_UpsertDocumentTemplatePages: (
 		documentTemplateId: number,
 		parameters: { body: LELodasoftCommonModelsConfigurationAddDocumentTemplatePagesViewModel },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { number } documentTemplatePageId undefined
 	 */
-	readonly DocumentTemplate_DeleteDocumentTemplatePage: (
-		documentTemplatePageId: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly DocumentTemplate_DeleteDocumentTemplatePage: (documentTemplatePageId: number) => Observable<unknown>;
 };
 
 export const documentTemplateController = asks(
@@ -102,17 +94,7 @@ export const documentTemplateController = asks(
 					url: `/api/configuration/document-templates/app-global-merge-field-keys`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(string)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(string)));
 		},
 
 		DocumentTemplate_GetLeadGlobalMergeFieldKeys: () => {
@@ -121,17 +103,7 @@ export const documentTemplateController = asks(
 					url: `/api/configuration/document-templates/lead-global-merge-field-keys`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(string)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(string)));
 		},
 
 		DocumentTemplate_GetAllDocumentTemplates: () => {
@@ -140,17 +112,7 @@ export const documentTemplateController = asks(
 					url: `/api/configuration/document-templates/templates`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsConfigurationDocumentTemplateViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationDocumentTemplateViewModelIO)));
 		},
 
 		DocumentTemplate_InsertDocumentTemplate: () => {
@@ -159,13 +121,7 @@ export const documentTemplateController = asks(
 					url: `/api/configuration/document-templates/templates`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		DocumentTemplate_GetDocumentTemplateById: documentTemplateId => {
@@ -176,17 +132,7 @@ export const documentTemplateController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationDocumentTemplateViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationDocumentTemplateViewModelIO));
 		},
 
 		DocumentTemplate_UpdateDocumentTemplate: documentTemplateId => {
@@ -197,13 +143,7 @@ export const documentTemplateController = asks(
 					)}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		DocumentTemplate_DeleteDocumentTemplate: documentTemplateId => {
@@ -214,13 +154,7 @@ export const documentTemplateController = asks(
 					)}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		DocumentTemplate_GetDocumentTemplateFieldsById: documentTemplateId => {
@@ -231,17 +165,7 @@ export const documentTemplateController = asks(
 					)}/fields`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModelIO)));
 		},
 
 		DocumentTemplate_UpdateDocumentTemplateField: (documentTemplateFieldId, parameters) => {
@@ -258,13 +182,7 @@ export const documentTemplateController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		DocumentTemplate_GetDocumentTemplatePagesById: documentTemplateId => {
@@ -275,17 +193,7 @@ export const documentTemplateController = asks(
 					)}/pages`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsConfigurationDocumentTemplatePageViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationDocumentTemplatePageViewModelIO)));
 		},
 
 		DocumentTemplate_UpsertDocumentTemplatePages: (documentTemplateId, parameters) => {
@@ -302,13 +210,7 @@ export const documentTemplateController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		DocumentTemplate_DeleteDocumentTemplatePage: documentTemplatePageId => {
@@ -319,13 +221,7 @@ export const documentTemplateController = asks(
 					)}/delete`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

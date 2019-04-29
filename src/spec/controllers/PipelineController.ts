@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftApiModelsAdminPipelineApplicationCounts,
 	LELodasoftApiModelsAdminPipelineApplicationCountsIO,
@@ -11,11 +11,10 @@ import {
 	LELodasoftCommonModelsPipelinePipelineApplicationView,
 	LELodasoftCommonModelsPipelinePipelineApplicationViewIO,
 } from '../definitions/LELodasoftCommonModelsPipelinePipelineApplicationView';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { array, partial, boolean, type } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type PipelineController = {
 	/**
@@ -24,13 +23,13 @@ export type PipelineController = {
 	 */
 	readonly Pipeline_GetAppsByLoanStatusId: (parameters: {
 		body: LELodasoftApiModelsAdminPipelineFilterCriteria;
-	}) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsPipelinePipelineApplicationView>>>;
+	}) => Observable<Array<LELodasoftCommonModelsPipelinePipelineApplicationView>>;
 
 	/**
 	 * Get Application counts by loan status and by loan purpose
 	 */
 	readonly Pipeline_GetCountApplicationbyLoanStatus: () => Observable<
-		AsyncData<Error, LELodasoftApiModelsAdminPipelineApplicationCounts>
+		LELodasoftApiModelsAdminPipelineApplicationCounts
 	>;
 
 	/**
@@ -39,7 +38,7 @@ export type PipelineController = {
 	 */
 	readonly Pipeline_GetAllApplicationsForInternalContact: (parameters: {
 		query: { archive: boolean };
-	}) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsPipelinePipelineApplicationView>>>;
+	}) => Observable<Array<LELodasoftCommonModelsPipelinePipelineApplicationView>>;
 };
 
 export const pipelineController = asks(
@@ -54,17 +53,7 @@ export const pipelineController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsPipelinePipelineApplicationViewIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsPipelinePipelineApplicationViewIO)));
 		},
 
 		Pipeline_GetCountApplicationbyLoanStatus: () => {
@@ -73,17 +62,7 @@ export const pipelineController = asks(
 					url: `/api/Pipeline/GetCountApplicationByFilterTypes`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsAdminPipelineApplicationCountsIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsAdminPipelineApplicationCountsIO));
 		},
 
 		Pipeline_GetAllApplicationsForInternalContact: parameters => {
@@ -95,17 +74,7 @@ export const pipelineController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsPipelinePipelineApplicationViewIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsPipelinePipelineApplicationViewIO)));
 		},
 	}),
 );

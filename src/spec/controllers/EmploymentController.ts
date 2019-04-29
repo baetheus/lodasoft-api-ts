@@ -1,13 +1,12 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModel,
 	LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModel';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { partial, number, boolean } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type EmploymentController = {
 	/**
@@ -15,12 +14,12 @@ export type EmploymentController = {
 	 */
 	readonly Employment_UpsertEmploymentInfo: (parameters: {
 		body: LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModel>;
 
 	/**
 	 * @param { number } employmentId undefined
 	 */
-	readonly Employment_DeleteEmploymentInfo: (employmentId: number) => Observable<AsyncData<Error, boolean>>;
+	readonly Employment_DeleteEmploymentInfo: (employmentId: number) => Observable<boolean>;
 };
 
 export const employmentController = asks(
@@ -37,17 +36,7 @@ export const employmentController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModelIO));
 		},
 
 		Employment_DeleteEmploymentInfo: employmentId => {
@@ -56,11 +45,7 @@ export const employmentController = asks(
 					url: `/api/Employment/${encodeURIComponent(number.encode(employmentId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(boolean.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(boolean));
 		},
 	}),
 );

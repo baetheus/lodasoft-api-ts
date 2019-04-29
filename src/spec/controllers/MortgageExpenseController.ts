@@ -1,14 +1,12 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgageExpenseViewModel,
 	LELodasoftCommonModelsMortgageExpenseViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageExpenseViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type MortgageExpenseController = {
 	/**
@@ -16,7 +14,7 @@ export type MortgageExpenseController = {
 	 */
 	readonly MortgageExpense_GetExpenseById: (
 		expenseId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageExpenseViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageExpenseViewModel>;
 
 	/**
 	 * @param { number } expenseId undefined
@@ -25,19 +23,19 @@ export type MortgageExpenseController = {
 	readonly MortgageExpense_UpdateExpense: (
 		expenseId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageExpenseViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageExpenseViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageExpenseViewModel>;
 
 	/**
 	 * @param { number } expenseId undefined
 	 */
-	readonly MortgageExpense_DeleteExpense: (expenseId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly MortgageExpense_DeleteExpense: (expenseId: number) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly MortgageExpense_InsertExpense: (parameters: {
 		body: LELodasoftCommonModelsMortgageExpenseViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageExpenseViewModel>>;
+	}) => Observable<LELodasoftCommonModelsMortgageExpenseViewModel>;
 };
 
 export const mortgageExpenseController = asks(
@@ -48,17 +46,7 @@ export const mortgageExpenseController = asks(
 					url: `/api/mortgage/expenses/${encodeURIComponent(number.encode(expenseId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageExpenseViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageExpenseViewModelIO));
 		},
 
 		MortgageExpense_UpdateExpense: (expenseId, parameters) => {
@@ -71,17 +59,7 @@ export const mortgageExpenseController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageExpenseViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageExpenseViewModelIO));
 		},
 
 		MortgageExpense_DeleteExpense: expenseId => {
@@ -90,13 +68,7 @@ export const mortgageExpenseController = asks(
 					url: `/api/mortgage/expenses/${encodeURIComponent(number.encode(expenseId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageExpense_InsertExpense: parameters => {
@@ -109,17 +81,7 @@ export const mortgageExpenseController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageExpenseViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageExpenseViewModelIO));
 		},
 	}),
 );

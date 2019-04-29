@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftThirdPartyTheWorkNumberModelsVerificationRequest,
 	LELodasoftThirdPartyTheWorkNumberModelsVerificationRequestIO,
@@ -7,11 +7,10 @@ import {
 	LELodasoftThirdPartyTheWorkNumberModelsVerificationResponse,
 	LELodasoftThirdPartyTheWorkNumberModelsVerificationResponseIO,
 } from '../definitions/LELodasoftThirdPartyTheWorkNumberModelsVerificationResponse';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type TheWorkNumberController = {
 	/**
@@ -20,7 +19,7 @@ export type TheWorkNumberController = {
 	 */
 	readonly TheWorkNumber_RequestVerification: (parameters: {
 		body: LELodasoftThirdPartyTheWorkNumberModelsVerificationRequest;
-	}) => Observable<AsyncData<Error, LELodasoftThirdPartyTheWorkNumberModelsVerificationResponse>>;
+	}) => Observable<LELodasoftThirdPartyTheWorkNumberModelsVerificationResponse>;
 };
 
 export const theWorkNumberController = asks(
@@ -37,17 +36,7 @@ export const theWorkNumberController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftThirdPartyTheWorkNumberModelsVerificationResponseIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftThirdPartyTheWorkNumberModelsVerificationResponseIO));
 		},
 	}),
 );

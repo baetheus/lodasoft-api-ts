@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsReportPipelineMetricsRequest,
 	LELodasoftCommonModelsReportPipelineMetricsRequestIO,
@@ -15,11 +15,10 @@ import {
 	LELodasoftDataAccessModelsReportTaskMetricsModel,
 	LELodasoftDataAccessModelsReportTaskMetricsModelIO,
 } from '../definitions/LELodasoftDataAccessModelsReportTaskMetricsModel';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type ReportController = {
 	/**
@@ -28,7 +27,7 @@ export type ReportController = {
 	 */
 	readonly Report_GetTaskMetrics: (parameters: {
 		body: LELodasoftCommonModelsReportTaskMetricsRequest;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessModelsReportTaskMetricsModel>>;
+	}) => Observable<LELodasoftDataAccessModelsReportTaskMetricsModel>;
 
 	/**
 	 * Get Pipeline Metrics
@@ -36,7 +35,7 @@ export type ReportController = {
 	 */
 	readonly Report_GetPipelineMetrics: (parameters: {
 		body: LELodasoftCommonModelsReportPipelineMetricsRequest;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessModelsReportPipelineMetricsModel>>;
+	}) => Observable<LELodasoftDataAccessModelsReportPipelineMetricsModel>;
 };
 
 export const reportController = asks(
@@ -51,17 +50,7 @@ export const reportController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessModelsReportTaskMetricsModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessModelsReportTaskMetricsModelIO));
 		},
 
 		Report_GetPipelineMetrics: parameters => {
@@ -74,17 +63,7 @@ export const reportController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessModelsReportPipelineMetricsModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessModelsReportPipelineMetricsModelIO));
 		},
 	}),
 );

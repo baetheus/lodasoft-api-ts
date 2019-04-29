@@ -1,68 +1,59 @@
-import { AsyncData, fromEither } from '@nll/dux';
-import { asks } from 'fp-ts/lib/Reader';
-import { array, number, partial, string } from 'io-ts';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
-  LELodasoftApiControllersInitializeFormFreeRequest,
-  LELodasoftApiControllersInitializeFormFreeRequestIO,
+	LELodasoftApiControllersInitializeFormFreeRequest,
+	LELodasoftApiControllersInitializeFormFreeRequestIO,
 } from '../definitions/LELodasoftApiControllersInitializeFormFreeRequest';
 import {
-  LELodasoftApiModelsBorrowerApplicationViewModel,
-  LELodasoftApiModelsBorrowerApplicationViewModelIO,
+	LELodasoftApiModelsBorrowerApplicationViewModel,
+	LELodasoftApiModelsBorrowerApplicationViewModelIO,
 } from '../definitions/LELodasoftApiModelsBorrowerApplicationViewModel';
 import {
-  LELodasoftApiModelsOnlineAppFeatureFlags,
-  LELodasoftApiModelsOnlineAppFeatureFlagsIO,
+	LELodasoftApiModelsOnlineAppFeatureFlags,
+	LELodasoftApiModelsOnlineAppFeatureFlagsIO,
 } from '../definitions/LELodasoftApiModelsOnlineAppFeatureFlags';
 import {
-  LELodasoftCommonModelsConfigurationApplicationViewModel,
-  LELodasoftCommonModelsConfigurationApplicationViewModelIO,
+	LELodasoftCommonModelsConfigurationApplicationViewModel,
+	LELodasoftCommonModelsConfigurationApplicationViewModelIO,
 } from '../definitions/LELodasoftCommonModelsConfigurationApplicationViewModel';
 import {
-  LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModel,
-  LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO,
+	LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModel,
+	LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO,
 } from '../definitions/LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModel';
 import {
-  LELodasoftCommonModelsConfigurationWizardWizardConfigViewModel,
-  LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO,
+	LELodasoftCommonModelsConfigurationWizardWizardConfigViewModel,
+	LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO,
 } from '../definitions/LELodasoftCommonModelsConfigurationWizardWizardConfigViewModel';
 import {
-  LELodasoftCommonModelsLoanLoanDocTaskViewModel,
-  LELodasoftCommonModelsLoanLoanDocTaskViewModelIO,
-} from '../definitions/LELodasoftCommonModelsLoanLoanDocTaskViewModel';
-import {
-  LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageRequest,
-  LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageRequestIO,
+	LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageRequest,
+	LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageRequestIO,
 } from '../definitions/LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageRequest';
 import {
-  LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponse,
-  LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponseIO,
+	LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponse,
+	LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponseIO,
 } from '../definitions/LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponse';
 import {
-  LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModel,
-  LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModelIO,
+	LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModel,
+	LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModel';
 import {
-  LELodasoftDataAccessDbModelsConfigurationLoanTypeModel,
-  LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO,
+	LELodasoftDataAccessDbModelsConfigurationLoanTypeModel,
+	LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationLoanTypeModel';
 import {
-  LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse,
-  LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO,
+	LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse,
+	LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO,
 } from '../definitions/LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse';
-import { unknownType } from '../utils/utils';
+import { decodeAndMap, unknownType } from '../utils/utils';
+import { asks } from 'fp-ts/lib/Reader';
+import { number, array, string, partial } from 'io-ts';
+import { Observable } from 'rxjs';
 
 export type OnlineAppController = {
 	/**
 	 * Get feature flags for Online App
 	 * @param { number } loanId - loan id
 	 */
-	readonly OnlineApp_GetFeatureFlags: (
-		loanId: number,
-	) => Observable<AsyncData<Error, LELodasoftApiModelsOnlineAppFeatureFlags>>;
+	readonly OnlineApp_GetFeatureFlags: (loanId: number) => Observable<LELodasoftApiModelsOnlineAppFeatureFlags>;
 
 	/**
 	 * Get loan types for online application
@@ -70,7 +61,7 @@ export type OnlineAppController = {
 	 */
 	readonly OnlineApp_GetLoanTypes: (
 		loanId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationLoanTypeModel>>>;
+	) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationLoanTypeModel>>;
 
 	/**
 	 * Get application view model
@@ -78,7 +69,7 @@ export type OnlineAppController = {
 	 */
 	readonly OnlineApp_GetApplicationViewModel: (
 		loanId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationApplicationViewModel>>;
+	) => Observable<LELodasoftCommonModelsConfigurationApplicationViewModel>;
 
 	/**
 	 * Update Loan type on an application
@@ -88,7 +79,7 @@ export type OnlineAppController = {
 	readonly OnlineApp_UpdateLoanType: (
 		loanId: number,
 		loanTypeId: number,
-	) => Observable<AsyncData<Error, LELodasoftApiModelsBorrowerApplicationViewModel>>;
+	) => Observable<LELodasoftApiModelsBorrowerApplicationViewModel>;
 
 	/**
 	 * Update online application status
@@ -96,7 +87,7 @@ export type OnlineAppController = {
 	 */
 	readonly OnlineApp_GetStatus: (
 		loanId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModel>>;
+	) => Observable<LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModel>;
 
 	/**
 	 * Update online application status
@@ -108,13 +99,13 @@ export type OnlineAppController = {
 		loanId: number,
 		mortgageId: number,
 		currentStatusId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModel>>;
+	) => Observable<LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModel>;
 
 	/**
 	 * Submit Online Application
 	 * @param { number } loanId - loan / application id
 	 */
-	readonly OnlineApp_SubmitOnlineApp: (loanId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly OnlineApp_SubmitOnlineApp: (loanId: number) => Observable<unknown>;
 
 	/**
 	 * @param { string } companyGuid undefined
@@ -123,15 +114,7 @@ export type OnlineAppController = {
 	readonly OnlineApp_CreateBorrowerAccountAndMortgage: (
 		companyGuid: string,
 		parameters: { body: LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageRequest },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponse>>;
-
-	/**
-	 * Add Online Application Task for Application
-	 * @param { number } loanId - loan / application id
-	 */
-	readonly OnlineApp_AddOnlineApplicationTask: (
-		loanId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLoanLoanDocTaskViewModel>>;
+	) => Observable<LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponse>;
 
 	/**
 	 * @deprecated
@@ -139,7 +122,7 @@ export type OnlineAppController = {
 	 */
 	readonly OnlineApp_GetAllWizardConfigs: (
 		companyGuid: string,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsConfigurationWizardWizardConfigViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsConfigurationWizardWizardConfigViewModel>>;
 
 	/**
 	 * @deprecated
@@ -149,7 +132,7 @@ export type OnlineAppController = {
 	readonly OnlineApp_GetExtractedWizardConfigById: (
 		companyGuid: string,
 		wizardConfigId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModel>>;
+	) => Observable<LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModel>;
 
 	/**
 	 * @deprecated
@@ -159,7 +142,7 @@ export type OnlineAppController = {
 	readonly OnlineApp_InitializeFormFreeByCompanyGuid: (
 		companyGuid: string,
 		parameters: { body: LELodasoftApiControllersInitializeFormFreeRequest },
-	) => Observable<AsyncData<Error, LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse>>;
+	) => Observable<LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse>;
 
 	/**
 	 * Initialize Form Free for Online Application (authed). This will link the request to the loanid and the primary borrower on that loan.
@@ -169,7 +152,7 @@ export type OnlineAppController = {
 	readonly OnlineApp_InitializeFormFree: (
 		loanId: number,
 		parameters: { body: LELodasoftApiControllersInitializeFormFreeRequest },
-	) => Observable<AsyncData<Error, LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse>>;
+	) => Observable<LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse>;
 
 	/**
 	 * Initialize Form Free for Online Application (authed). This will link the request to the loanid and the borrowerId passed.
@@ -179,17 +162,14 @@ export type OnlineAppController = {
 	readonly OnlineApp_InitializeFormFreeForBorrower: (
 		loanId: number,
 		borrowerId: number,
-	) => Observable<AsyncData<Error, LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse>>;
+	) => Observable<LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse>;
 
 	/**
 	 * Initialize Form Free for Online Application (authed). This will link the request to the loanid and the borrowerId passed.
 	 * @param { number } loanId - the loan id
 	 * @param { number } borrowerId - id of the borrower to initialize form free for
 	 */
-	readonly OnlineApp_MarkFormFreeForBorrowerComplete: (
-		loanId: number,
-		borrowerId: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly OnlineApp_MarkFormFreeForBorrowerComplete: (loanId: number, borrowerId: number) => Observable<unknown>;
 };
 
 export const onlineAppController = asks(
@@ -200,17 +180,7 @@ export const onlineAppController = asks(
 					url: `/api/online-app/feature-flags/${encodeURIComponent(number.encode(loanId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsOnlineAppFeatureFlagsIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsOnlineAppFeatureFlagsIO));
 		},
 
 		OnlineApp_GetLoanTypes: loanId => {
@@ -219,17 +189,7 @@ export const onlineAppController = asks(
 					url: `/api/online-app/loantypes/${encodeURIComponent(number.encode(loanId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO)));
 		},
 
 		OnlineApp_GetApplicationViewModel: loanId => {
@@ -238,17 +198,7 @@ export const onlineAppController = asks(
 					url: `/api/online-app/get-application/${encodeURIComponent(number.encode(loanId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationApplicationViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationApplicationViewModelIO));
 		},
 
 		OnlineApp_UpdateLoanType: (loanId, loanTypeId) => {
@@ -259,17 +209,7 @@ export const onlineAppController = asks(
 					)}/${encodeURIComponent(number.encode(loanTypeId).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsBorrowerApplicationViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsBorrowerApplicationViewModelIO));
 		},
 
 		OnlineApp_GetStatus: loanId => {
@@ -278,17 +218,7 @@ export const onlineAppController = asks(
 					url: `/api/online-app/status/${encodeURIComponent(number.encode(loanId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModelIO));
 		},
 
 		OnlineApp_UpdateStatus: (loanId, mortgageId, currentStatusId) => {
@@ -301,17 +231,7 @@ export const onlineAppController = asks(
 					)}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModelIO));
 		},
 
 		OnlineApp_SubmitOnlineApp: loanId => {
@@ -320,13 +240,7 @@ export const onlineAppController = asks(
 					url: `/api/online-app/submit-app/${encodeURIComponent(number.encode(loanId).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		OnlineApp_CreateBorrowerAccountAndMortgage: (companyGuid, parameters) => {
@@ -343,36 +257,7 @@ export const onlineAppController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponseIO.decode(
-									value,
-								).mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
-		},
-
-		OnlineApp_AddOnlineApplicationTask: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/online-app/add-online-app-task/${encodeURIComponent(number.encode(loanId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLoanLoanDocTaskViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponseIO));
 		},
 
 		OnlineApp_GetAllWizardConfigs: companyGuid => {
@@ -381,17 +266,7 @@ export const onlineAppController = asks(
 					url: `/api/online-app/${encodeURIComponent(string.encode(companyGuid).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO)));
 		},
 
 		OnlineApp_GetExtractedWizardConfigById: (companyGuid, wizardConfigId) => {
@@ -402,17 +277,7 @@ export const onlineAppController = asks(
 					)}/${encodeURIComponent(number.encode(wizardConfigId).toString())}/extracted`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO.decode(
-									value,
-								).mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO));
 		},
 
 		OnlineApp_InitializeFormFreeByCompanyGuid: (companyGuid, parameters) => {
@@ -427,17 +292,7 @@ export const onlineAppController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO));
 		},
 
 		OnlineApp_InitializeFormFree: (loanId, parameters) => {
@@ -450,17 +305,7 @@ export const onlineAppController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO));
 		},
 
 		OnlineApp_InitializeFormFreeForBorrower: (loanId, borrowerId) => {
@@ -471,17 +316,7 @@ export const onlineAppController = asks(
 					)}/${encodeURIComponent(number.encode(borrowerId).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO));
 		},
 
 		OnlineApp_MarkFormFreeForBorrowerComplete: (loanId, borrowerId) => {
@@ -492,13 +327,7 @@ export const onlineAppController = asks(
 					)}/${encodeURIComponent(number.encode(borrowerId).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

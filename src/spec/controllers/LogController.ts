@@ -1,14 +1,12 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftApiControllersLogControllerLogModel,
 	LELodasoftApiControllersLogControllerLogModelIO,
 } from '../definitions/LELodasoftApiControllersLogControllerLogModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { array, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type LogController = {
 	/**
@@ -16,14 +14,14 @@ export type LogController = {
 	 */
 	readonly Log_Log: (parameters: {
 		body: Array<LELodasoftApiControllersLogControllerLogModel>;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Log_LogBatchAuthed: (parameters: {
 		body: Array<LELodasoftApiControllersLogControllerLogModel>;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 };
 
 export const logController = asks(
@@ -40,13 +38,7 @@ export const logController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Log_LogBatchAuthed: parameters => {
@@ -61,13 +53,7 @@ export const logController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

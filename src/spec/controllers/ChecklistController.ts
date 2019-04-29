@@ -1,13 +1,12 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsAdminChecklistAnswerViewModel,
 	LELodasoftCommonModelsAdminChecklistAnswerViewModelIO,
 } from '../definitions/LELodasoftCommonModelsAdminChecklistAnswerViewModel';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, array, type, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type ChecklistController = {
 	/**
@@ -18,7 +17,7 @@ export type ChecklistController = {
 	readonly Checklist_GetAllByLoanForChecklist: (
 		checklistId: number,
 		parameters: { query: { loanId: number } },
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminChecklistAnswerViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsAdminChecklistAnswerViewModel>>;
 
 	/**
 	 * Insert an answer to a checklist
@@ -26,7 +25,7 @@ export type ChecklistController = {
 	 */
 	readonly Checklist_InsertChecklistAnswer: (parameters: {
 		body: LELodasoftCommonModelsAdminChecklistAnswerViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsAdminChecklistAnswerViewModel>>;
+	}) => Observable<LELodasoftCommonModelsAdminChecklistAnswerViewModel>;
 };
 
 export const checklistController = asks(
@@ -40,17 +39,7 @@ export const checklistController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminChecklistAnswerViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminChecklistAnswerViewModelIO)));
 		},
 
 		Checklist_InsertChecklistAnswer: parameters => {
@@ -63,17 +52,7 @@ export const checklistController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAdminChecklistAnswerViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAdminChecklistAnswerViewModelIO));
 		},
 	}),
 );

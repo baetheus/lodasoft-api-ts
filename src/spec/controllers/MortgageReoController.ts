@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgageAddressViewModel,
 	LELodasoftCommonModelsMortgageAddressViewModelIO,
@@ -7,20 +7,16 @@ import {
 	LELodasoftCommonModelsMortgageReoViewModel,
 	LELodasoftCommonModelsMortgageReoViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageReoViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type MortgageReoController = {
 	/**
 	 * @param { number } reoId undefined
 	 */
-	readonly MortgageReo_GetReoById: (
-		reoId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageReoViewModel>>;
+	readonly MortgageReo_GetReoById: (reoId: number) => Observable<LELodasoftCommonModelsMortgageReoViewModel>;
 
 	/**
 	 * @param { number } reoId undefined
@@ -29,19 +25,19 @@ export type MortgageReoController = {
 	readonly MortgageReo_UpdateReo: (
 		reoId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageReoViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageReoViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageReoViewModel>;
 
 	/**
 	 * @param { number } reoId undefined
 	 */
-	readonly MortgageReo_DeleteReo: (reoId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly MortgageReo_DeleteReo: (reoId: number) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly MortgageReo_InsertReo: (parameters: {
 		body: LELodasoftCommonModelsMortgageReoViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageReoViewModel>>;
+	}) => Observable<LELodasoftCommonModelsMortgageReoViewModel>;
 
 	/**
 	 * @param { number } reoId undefined
@@ -50,7 +46,7 @@ export type MortgageReoController = {
 	readonly MortgageReo_InsertAddress: (
 		reoId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageAddressViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageAddressViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageAddressViewModel>;
 };
 
 export const mortgageReoController = asks(
@@ -61,17 +57,7 @@ export const mortgageReoController = asks(
 					url: `/api/mortgage/reos/${encodeURIComponent(number.encode(reoId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageReoViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageReoViewModelIO));
 		},
 
 		MortgageReo_UpdateReo: (reoId, parameters) => {
@@ -84,17 +70,7 @@ export const mortgageReoController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageReoViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageReoViewModelIO));
 		},
 
 		MortgageReo_DeleteReo: reoId => {
@@ -103,13 +79,7 @@ export const mortgageReoController = asks(
 					url: `/api/mortgage/reos/${encodeURIComponent(number.encode(reoId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageReo_InsertReo: parameters => {
@@ -122,17 +92,7 @@ export const mortgageReoController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageReoViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageReoViewModelIO));
 		},
 
 		MortgageReo_InsertAddress: (reoId, parameters) => {
@@ -145,17 +105,7 @@ export const mortgageReoController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageAddressViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
 		},
 	}),
 );

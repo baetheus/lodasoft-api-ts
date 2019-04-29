@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsLeadsLeadCampaignViewModel,
 	LELodasoftCommonModelsLeadsLeadCampaignViewModelIO,
@@ -43,14 +43,12 @@ import {
 	LELodasoftDataAccessModelsTaskCountModel,
 	LELodasoftDataAccessModelsTaskCountModelIO,
 } from '../definitions/LELodasoftDataAccessModelsTaskCountModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { array, boolean, number, string, type, partial } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type LeadController = {
 	/**
@@ -63,21 +61,19 @@ export type LeadController = {
 			dateInsertedStart: Option<string>;
 			dateInsertedEnd: Option<string>;
 		};
-	}) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsLeadsLeadViewModel>>>;
+	}) => Observable<Array<LELodasoftCommonModelsLeadsLeadViewModel>>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Lead_GetAllUnassignedLeads: (parameters: {
 		query?: { showArchived: Option<boolean> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsLeadsLeadViewModel>>>;
+	}) => Observable<Array<LELodasoftCommonModelsLeadsLeadViewModel>>;
 
 	/**
 	 * @param { number } leadId undefined
 	 */
-	readonly Lead_GetLeadById: (
-		leadId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadViewModel>>;
+	readonly Lead_GetLeadById: (leadId: number) => Observable<LELodasoftCommonModelsLeadsLeadViewModel>;
 
 	/**
 	 * @param { number } leadId undefined
@@ -86,44 +82,41 @@ export type LeadController = {
 	readonly Lead_UpdateLead: (
 		leadId: number,
 		parameters: { body: LELodasoftCommonModelsLeadsLeadViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadViewModel>>;
+	) => Observable<LELodasoftCommonModelsLeadsLeadViewModel>;
 
 	/**
 	 * @param { number } leadId undefined
 	 */
-	readonly Lead_DeleteLead: (leadId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Lead_DeleteLead: (leadId: number) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Lead_InsertLead: (parameters: {
 		body: LELodasoftCommonModelsLeadsLeadViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadViewModel>>;
+	}) => Observable<LELodasoftCommonModelsLeadsLeadViewModel>;
 
 	/**
 	 * @param { number } leadId undefined
 	 * @param { number } referralSourceType undefined
 	 */
-	readonly Lead_ConvertLeadToBorrower: (
-		leadId: number,
-		referralSourceType: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly Lead_ConvertLeadToBorrower: (leadId: number, referralSourceType: number) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Lead_ImportListUserForCompany: (parameters: {
 		query?: { companyId: Option<number> };
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadViewModel>>;
+	}) => Observable<LELodasoftCommonModelsLeadsLeadViewModel>;
 
-	readonly Lead_ExportLeads: () => Observable<AsyncData<Error, unknown>>;
+	readonly Lead_ExportLeads: () => Observable<unknown>;
 
 	/**
 	 * @param { number } leadId undefined
 	 */
 	readonly Lead_GetLeadEventsByLeadId: (
 		leadId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsLeadsLeadEventViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsLeadsLeadEventViewModel>>;
 
 	/**
 	 * @param { number } leadId undefined
@@ -132,14 +125,12 @@ export type LeadController = {
 	readonly Lead_InsertLeadEvent: (
 		leadId: number,
 		parameters: { body: LELodasoftCommonModelsLeadsLeadEventViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadEventViewModel>>;
+	) => Observable<LELodasoftCommonModelsLeadsLeadEventViewModel>;
 
 	/**
 	 * @param { number } leadEventId undefined
 	 */
-	readonly Lead_GetLeadEventById: (
-		leadEventId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadEventViewModel>>;
+	readonly Lead_GetLeadEventById: (leadEventId: number) => Observable<LELodasoftCommonModelsLeadsLeadEventViewModel>;
 
 	/**
 	 * @param { number } leadEventId undefined
@@ -148,19 +139,19 @@ export type LeadController = {
 	readonly Lead_UpdateLeadEvent: (
 		leadEventId: number,
 		parameters: { body: LELodasoftCommonModelsLeadsLeadEventViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadEventViewModel>>;
+	) => Observable<LELodasoftCommonModelsLeadsLeadEventViewModel>;
 
 	/**
 	 * @param { number } leadEventId undefined
 	 */
-	readonly Lead_DeleteLeadEvent: (leadEventId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Lead_DeleteLeadEvent: (leadEventId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } leadId undefined
 	 */
 	readonly Lead_GetLeadEmploymentsByLeadId: (
 		leadId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsLeadsLeadEmploymentViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsLeadsLeadEmploymentViewModel>>;
 
 	/**
 	 * @param { number } leadId undefined
@@ -169,14 +160,14 @@ export type LeadController = {
 	readonly Lead_InsertLeadEmployment: (
 		leadId: number,
 		parameters: { body: LELodasoftCommonModelsLeadsLeadEmploymentViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadEmploymentViewModel>>;
+	) => Observable<LELodasoftCommonModelsLeadsLeadEmploymentViewModel>;
 
 	/**
 	 * @param { number } leadEmploymentId undefined
 	 */
 	readonly Lead_GetLeadEmploymentById: (
 		leadEmploymentId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadEmploymentViewModel>>;
+	) => Observable<LELodasoftCommonModelsLeadsLeadEmploymentViewModel>;
 
 	/**
 	 * @param { number } leadEmploymentId undefined
@@ -185,19 +176,19 @@ export type LeadController = {
 	readonly Lead_UpdateLeadEmployment: (
 		leadEmploymentId: number,
 		parameters: { body: LELodasoftCommonModelsLeadsLeadEmploymentViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadEmploymentViewModel>>;
+	) => Observable<LELodasoftCommonModelsLeadsLeadEmploymentViewModel>;
 
 	/**
 	 * @param { number } leadEmploymentId undefined
 	 */
-	readonly Lead_DeleteLeadEmployment: (leadEmploymentId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Lead_DeleteLeadEmployment: (leadEmploymentId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } leadId undefined
 	 */
 	readonly Lead_GetLeadCreditsByLeadId: (
 		leadId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsLeadsLeadCreditViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsLeadsLeadCreditViewModel>>;
 
 	/**
 	 * @param { number } leadId undefined
@@ -206,14 +197,14 @@ export type LeadController = {
 	readonly Lead_InsertLeadCredit: (
 		leadId: number,
 		parameters: { body: LELodasoftCommonModelsLeadsLeadCreditViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadCreditViewModel>>;
+	) => Observable<LELodasoftCommonModelsLeadsLeadCreditViewModel>;
 
 	/**
 	 * @param { number } leadCreditId undefined
 	 */
 	readonly Lead_GetLeadCreditById: (
 		leadCreditId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadCreditViewModel>>;
+	) => Observable<LELodasoftCommonModelsLeadsLeadCreditViewModel>;
 
 	/**
 	 * @param { number } leadCreditId undefined
@@ -222,30 +213,28 @@ export type LeadController = {
 	readonly Lead_UpdateLeadCredit: (
 		leadCreditId: number,
 		parameters: { body: LELodasoftCommonModelsLeadsLeadCreditViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadCreditViewModel>>;
+	) => Observable<LELodasoftCommonModelsLeadsLeadCreditViewModel>;
 
 	/**
 	 * @param { number } leadCreditId undefined
 	 */
-	readonly Lead_DeleteLeadCredit: (leadCreditId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Lead_DeleteLeadCredit: (leadCreditId: number) => Observable<unknown>;
 
-	readonly Lead_GetAllLeadCampaigns: () => Observable<
-		AsyncData<Error, Array<LELodasoftCommonModelsLeadsLeadCampaignViewModel>>
-	>;
+	readonly Lead_GetAllLeadCampaigns: () => Observable<Array<LELodasoftCommonModelsLeadsLeadCampaignViewModel>>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Lead_InsertLeadCampaign: (parameters: {
 		body: LELodasoftCommonModelsLeadsLeadCampaignViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadCampaignViewModel>>;
+	}) => Observable<LELodasoftCommonModelsLeadsLeadCampaignViewModel>;
 
 	/**
 	 * @param { number } leadCampaignId undefined
 	 */
 	readonly Lead_GetLeadCampaignById: (
 		leadCampaignId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadCampaignViewModel>>;
+	) => Observable<LELodasoftCommonModelsLeadsLeadCampaignViewModel>;
 
 	/**
 	 * @param { number } leadCampaignId undefined
@@ -254,37 +243,33 @@ export type LeadController = {
 	readonly Lead_UpdateLeadCampaign: (
 		leadCampaignId: number,
 		parameters: { body: LELodasoftCommonModelsLeadsLeadCampaignViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadCampaignViewModel>>;
+	) => Observable<LELodasoftCommonModelsLeadsLeadCampaignViewModel>;
 
 	/**
 	 * @param { number } leadCampaignId undefined
 	 */
-	readonly Lead_DeleteLeadCampaign: (leadCampaignId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Lead_DeleteLeadCampaign: (leadCampaignId: number) => Observable<unknown>;
 
-	readonly Lead_GetAllLeadLists: () => Observable<
-		AsyncData<Error, Array<LELodasoftCommonModelsLeadsLeadListViewModel>>
-	>;
+	readonly Lead_GetAllLeadLists: () => Observable<Array<LELodasoftCommonModelsLeadsLeadListViewModel>>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Lead_InsertLeadList: (parameters: {
 		body: LELodasoftCommonModelsLeadsLeadListViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadListViewModel>>;
+	}) => Observable<LELodasoftCommonModelsLeadsLeadListViewModel>;
 
 	/**
 	 * @param { number } leadId undefined
 	 */
 	readonly Lead_GetLeadListsByLeadId: (
 		leadId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsLeadsLeadListViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsLeadsLeadListViewModel>>;
 
 	/**
 	 * @param { number } leadListId undefined
 	 */
-	readonly Lead_GetLeadListById: (
-		leadListId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadListViewModel>>;
+	readonly Lead_GetLeadListById: (leadListId: number) => Observable<LELodasoftCommonModelsLeadsLeadListViewModel>;
 
 	/**
 	 * @param { number } leadListId undefined
@@ -293,66 +278,64 @@ export type LeadController = {
 	readonly Lead_UpdateLeadList: (
 		leadListId: number,
 		parameters: { body: LELodasoftCommonModelsLeadsLeadListViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsLeadListViewModel>>;
+	) => Observable<LELodasoftCommonModelsLeadsLeadListViewModel>;
 
 	/**
 	 * @param { number } leadListId undefined
 	 */
-	readonly Lead_DeleteLeadList: (leadListId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Lead_DeleteLeadList: (leadListId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } leadListId undefined
 	 */
 	readonly Lead_GetLeadsByLeadListId: (
 		leadListId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsLeadsLeadViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsLeadsLeadViewModel>>;
 
 	/**
 	 * @param { number } leadListId undefined
 	 * @param { number } leadId undefined
 	 */
-	readonly Lead_AddLeadToLeadList: (leadListId: number, leadId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Lead_AddLeadToLeadList: (leadListId: number, leadId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } leadListId undefined
 	 * @param { number } leadId undefined
 	 */
-	readonly Lead_RemoveLeadFromLeadList: (leadListId: number, leadId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Lead_RemoveLeadFromLeadList: (leadListId: number, leadId: number) => Observable<unknown>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Lead_GetLeadMilestonesReport: (parameters: {
 		query?: { campaignId: Option<number>; dateCreatedStart: Option<string>; dateCreatedEnd: Option<string> };
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsReportsLeadMilestonesReportResponse>>;
+	}) => Observable<LELodasoftCommonModelsLeadsReportsLeadMilestonesReportResponse>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Lead_GetLeadPerformanceReport: (parameters: {
 		query?: { campaignId: Option<number>; dateCreatedStart: Option<string>; dateCreatedEnd: Option<string> };
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsReportsLeadPerformanceReportResponse>>;
+	}) => Observable<LELodasoftCommonModelsLeadsReportsLeadPerformanceReportResponse>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Lead_GetLeadPerformanceReportDetail: (parameters: {
 		query?: { campaignId: Option<number>; dateCreatedStart: Option<string>; dateCreatedEnd: Option<string> };
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsReportsLeadPerformanceReportDetailResponse>>;
+	}) => Observable<LELodasoftCommonModelsLeadsReportsLeadPerformanceReportDetailResponse>;
 
 	/**
 	 * @param { object } [parameters]
 	 */
 	readonly Lead_GetLeadStatusReport: (parameters: {
 		query?: { CampaignId: Option<number>; DateCreatedStart: Option<string>; DateCreatedEnd: Option<string> };
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsLeadsReportsLeadStatusReportResponse>>;
+	}) => Observable<LELodasoftCommonModelsLeadsReportsLeadStatusReportResponse>;
 
 	/**
 	 * @param { number } leadId undefined
 	 */
-	readonly Lead_GetTaskCountByLeadId: (
-		leadId: number,
-	) => Observable<AsyncData<Error, LELodasoftDataAccessModelsTaskCountModel>>;
+	readonly Lead_GetTaskCountByLeadId: (leadId: number) => Observable<LELodasoftDataAccessModelsTaskCountModel>;
 };
 
 export const leadController = asks(
@@ -373,17 +356,7 @@ export const leadController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsLeadsLeadViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadViewModelIO)));
 		},
 
 		Lead_GetAllUnassignedLeads: parameters => {
@@ -397,17 +370,7 @@ export const leadController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsLeadsLeadViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadViewModelIO)));
 		},
 
 		Lead_GetLeadById: leadId => {
@@ -416,17 +379,7 @@ export const leadController = asks(
 					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadViewModelIO));
 		},
 
 		Lead_UpdateLead: (leadId, parameters) => {
@@ -439,17 +392,7 @@ export const leadController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadViewModelIO));
 		},
 
 		Lead_DeleteLead: leadId => {
@@ -458,13 +401,7 @@ export const leadController = asks(
 					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_InsertLead: parameters => {
@@ -477,17 +414,7 @@ export const leadController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadViewModelIO));
 		},
 
 		Lead_ConvertLeadToBorrower: (leadId, referralSourceType) => {
@@ -498,13 +425,7 @@ export const leadController = asks(
 					)}/convert/${encodeURIComponent(number.encode(referralSourceType).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_ImportListUserForCompany: parameters => {
@@ -518,17 +439,7 @@ export const leadController = asks(
 					method: 'POST',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadViewModelIO));
 		},
 
 		Lead_ExportLeads: () => {
@@ -537,13 +448,7 @@ export const leadController = asks(
 					url: `/api/leads/export-leads`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_GetLeadEventsByLeadId: leadId => {
@@ -552,17 +457,7 @@ export const leadController = asks(
 					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/events`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsLeadsLeadEventViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadEventViewModelIO)));
 		},
 
 		Lead_InsertLeadEvent: (leadId, parameters) => {
@@ -575,17 +470,7 @@ export const leadController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadEventViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEventViewModelIO));
 		},
 
 		Lead_GetLeadEventById: leadEventId => {
@@ -594,17 +479,7 @@ export const leadController = asks(
 					url: `/api/leads/events/${encodeURIComponent(number.encode(leadEventId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadEventViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEventViewModelIO));
 		},
 
 		Lead_UpdateLeadEvent: (leadEventId, parameters) => {
@@ -617,17 +492,7 @@ export const leadController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadEventViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEventViewModelIO));
 		},
 
 		Lead_DeleteLeadEvent: leadEventId => {
@@ -636,13 +501,7 @@ export const leadController = asks(
 					url: `/api/leads/events/${encodeURIComponent(number.encode(leadEventId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_GetLeadEmploymentsByLeadId: leadId => {
@@ -651,17 +510,7 @@ export const leadController = asks(
 					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/employments`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO)));
 		},
 
 		Lead_InsertLeadEmployment: (leadId, parameters) => {
@@ -674,17 +523,7 @@ export const leadController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO));
 		},
 
 		Lead_GetLeadEmploymentById: leadEmploymentId => {
@@ -693,17 +532,7 @@ export const leadController = asks(
 					url: `/api/leads/employments/${encodeURIComponent(number.encode(leadEmploymentId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO));
 		},
 
 		Lead_UpdateLeadEmployment: (leadEmploymentId, parameters) => {
@@ -716,17 +545,7 @@ export const leadController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO));
 		},
 
 		Lead_DeleteLeadEmployment: leadEmploymentId => {
@@ -735,13 +554,7 @@ export const leadController = asks(
 					url: `/api/leads/employments/${encodeURIComponent(number.encode(leadEmploymentId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_GetLeadCreditsByLeadId: leadId => {
@@ -750,17 +563,7 @@ export const leadController = asks(
 					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/credits`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsLeadsLeadCreditViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadCreditViewModelIO)));
 		},
 
 		Lead_InsertLeadCredit: (leadId, parameters) => {
@@ -773,17 +576,7 @@ export const leadController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadCreditViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCreditViewModelIO));
 		},
 
 		Lead_GetLeadCreditById: leadCreditId => {
@@ -792,17 +585,7 @@ export const leadController = asks(
 					url: `/api/leads/credits/${encodeURIComponent(number.encode(leadCreditId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadCreditViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCreditViewModelIO));
 		},
 
 		Lead_UpdateLeadCredit: (leadCreditId, parameters) => {
@@ -815,17 +598,7 @@ export const leadController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadCreditViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCreditViewModelIO));
 		},
 
 		Lead_DeleteLeadCredit: leadCreditId => {
@@ -834,13 +607,7 @@ export const leadController = asks(
 					url: `/api/leads/credits/${encodeURIComponent(number.encode(leadCreditId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_GetAllLeadCampaigns: () => {
@@ -849,17 +616,7 @@ export const leadController = asks(
 					url: `/api/leads/campaigns`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsLeadsLeadCampaignViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadCampaignViewModelIO)));
 		},
 
 		Lead_InsertLeadCampaign: parameters => {
@@ -872,17 +629,7 @@ export const leadController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadCampaignViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCampaignViewModelIO));
 		},
 
 		Lead_GetLeadCampaignById: leadCampaignId => {
@@ -891,17 +638,7 @@ export const leadController = asks(
 					url: `/api/leads/campaigns/${encodeURIComponent(number.encode(leadCampaignId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadCampaignViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCampaignViewModelIO));
 		},
 
 		Lead_UpdateLeadCampaign: (leadCampaignId, parameters) => {
@@ -914,17 +651,7 @@ export const leadController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadCampaignViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCampaignViewModelIO));
 		},
 
 		Lead_DeleteLeadCampaign: leadCampaignId => {
@@ -933,13 +660,7 @@ export const leadController = asks(
 					url: `/api/leads/campaigns/${encodeURIComponent(number.encode(leadCampaignId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_GetAllLeadLists: () => {
@@ -948,17 +669,7 @@ export const leadController = asks(
 					url: `/api/leads/lists`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsLeadsLeadListViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadListViewModelIO)));
 		},
 
 		Lead_InsertLeadList: parameters => {
@@ -971,17 +682,7 @@ export const leadController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadListViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadListViewModelIO));
 		},
 
 		Lead_GetLeadListsByLeadId: leadId => {
@@ -990,17 +691,7 @@ export const leadController = asks(
 					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/lists`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsLeadsLeadListViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadListViewModelIO)));
 		},
 
 		Lead_GetLeadListById: leadListId => {
@@ -1009,17 +700,7 @@ export const leadController = asks(
 					url: `/api/leads/lists/${encodeURIComponent(number.encode(leadListId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadListViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadListViewModelIO));
 		},
 
 		Lead_UpdateLeadList: (leadListId, parameters) => {
@@ -1032,17 +713,7 @@ export const leadController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsLeadListViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadListViewModelIO));
 		},
 
 		Lead_DeleteLeadList: leadListId => {
@@ -1051,13 +722,7 @@ export const leadController = asks(
 					url: `/api/leads/lists/${encodeURIComponent(number.encode(leadListId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_GetLeadsByLeadListId: leadListId => {
@@ -1066,17 +731,7 @@ export const leadController = asks(
 					url: `/api/leads/lists/${encodeURIComponent(number.encode(leadListId).toString())}/leads`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsLeadsLeadViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadViewModelIO)));
 		},
 
 		Lead_AddLeadToLeadList: (leadListId, leadId) => {
@@ -1087,13 +742,7 @@ export const leadController = asks(
 					)}/leads/${encodeURIComponent(number.encode(leadId).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_RemoveLeadFromLeadList: (leadListId, leadId) => {
@@ -1104,13 +753,7 @@ export const leadController = asks(
 					)}/leads/${encodeURIComponent(number.encode(leadId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_GetLeadMilestonesReport: parameters => {
@@ -1128,17 +771,7 @@ export const leadController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsReportsLeadMilestonesReportResponseIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsReportsLeadMilestonesReportResponseIO));
 		},
 
 		Lead_GetLeadPerformanceReport: parameters => {
@@ -1156,17 +789,7 @@ export const leadController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsReportsLeadPerformanceReportResponseIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsReportsLeadPerformanceReportResponseIO));
 		},
 
 		Lead_GetLeadPerformanceReportDetail: parameters => {
@@ -1184,17 +807,7 @@ export const leadController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsReportsLeadPerformanceReportDetailResponseIO.decode(
-									value,
-								).mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsReportsLeadPerformanceReportDetailResponseIO));
 		},
 
 		Lead_GetLeadStatusReport: parameters => {
@@ -1212,17 +825,7 @@ export const leadController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLeadsReportsLeadStatusReportResponseIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsReportsLeadStatusReportResponseIO));
 		},
 
 		Lead_GetTaskCountByLeadId: leadId => {
@@ -1231,17 +834,7 @@ export const leadController = asks(
 					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/GetTaskCountByLeadId`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessModelsTaskCountModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessModelsTaskCountModelIO));
 		},
 	}),
 );

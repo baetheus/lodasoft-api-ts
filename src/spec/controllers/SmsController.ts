@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsConfigurationSendTestSmsRequest,
 	LELodasoftCommonModelsConfigurationSendTestSmsRequestIO,
@@ -23,12 +23,10 @@ import {
 	LELodasoftDataAccessModelsAdminBorrowerBorrowerDto,
 	LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO,
 } from '../definitions/LELodasoftDataAccessModelsAdminBorrowerBorrowerDto';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { partial, array, string } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type SmsController = {
 	/**
@@ -36,33 +34,31 @@ export type SmsController = {
 	 */
 	readonly Sms_SendTestSms: (parameters: {
 		body: LELodasoftCommonModelsConfigurationSendTestSmsRequest;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
-	readonly Sms_SendSms: (parameters: {
-		body: LELodasoftCommonModelsMessageSendSmsViewModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	readonly Sms_SendSms: (parameters: { body: LELodasoftCommonModelsMessageSendSmsViewModel }) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Sms_GetBetween: (parameters: {
 		body: LELodasoftCommonModelsMessageSendSmsBetweenModel;
-	}) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsMessageSmsHistoryViewModel>>>;
+	}) => Observable<Array<LELodasoftCommonModelsMessageSmsHistoryViewModel>>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Sms_GetBorrowerInfo: (parameters: {
 		body: LELodasoftCommonModelsMessageSmsSearchBorrowerRequest;
-	}) => Observable<AsyncData<Error, Array<LELodasoftDataAccessModelsAdminBorrowerBorrowerDto>>>;
+	}) => Observable<Array<LELodasoftDataAccessModelsAdminBorrowerBorrowerDto>>;
 
 	/**
 	 * @param { string } companyGuid undefined
 	 */
-	readonly Sms_ReceiveSms: (companyGuid: string) => Observable<AsyncData<Error, unknown>>;
+	readonly Sms_ReceiveSms: (companyGuid: string) => Observable<unknown>;
 };
 
 export const smsController = asks(
@@ -79,13 +75,7 @@ export const smsController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Sms_SendSms: parameters => {
@@ -98,13 +88,7 @@ export const smsController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Sms_GetBetween: parameters => {
@@ -117,17 +101,7 @@ export const smsController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsMessageSmsHistoryViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsMessageSmsHistoryViewModelIO)));
 		},
 
 		Sms_GetBorrowerInfo: parameters => {
@@ -142,17 +116,7 @@ export const smsController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO)));
 		},
 
 		Sms_ReceiveSms: companyGuid => {
@@ -161,13 +125,7 @@ export const smsController = asks(
 					url: `/api/Sms/receive-sms/${encodeURIComponent(string.encode(companyGuid).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

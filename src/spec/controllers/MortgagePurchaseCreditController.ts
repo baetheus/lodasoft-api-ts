@@ -1,14 +1,12 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgagePurchaseCreditViewModel,
 	LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgagePurchaseCreditViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type MortgagePurchaseCreditController = {
 	/**
@@ -16,7 +14,7 @@ export type MortgagePurchaseCreditController = {
 	 */
 	readonly MortgagePurchaseCredit_GetPurchaseCreditById: (
 		purchaseCreditId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgagePurchaseCreditViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgagePurchaseCreditViewModel>;
 
 	/**
 	 * @param { number } purchaseCreditId undefined
@@ -25,21 +23,19 @@ export type MortgagePurchaseCreditController = {
 	readonly MortgagePurchaseCredit_UpdatePurchaseCredit: (
 		purchaseCreditId: number,
 		parameters: { body: LELodasoftCommonModelsMortgagePurchaseCreditViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgagePurchaseCreditViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgagePurchaseCreditViewModel>;
 
 	/**
 	 * @param { number } purchaseCreditId undefined
 	 */
-	readonly MortgagePurchaseCredit_DeletePurchaseCredit: (
-		purchaseCreditId: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly MortgagePurchaseCredit_DeletePurchaseCredit: (purchaseCreditId: number) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly MortgagePurchaseCredit_InsertPurchaseCredit: (parameters: {
 		body: LELodasoftCommonModelsMortgagePurchaseCreditViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgagePurchaseCreditViewModel>>;
+	}) => Observable<LELodasoftCommonModelsMortgagePurchaseCreditViewModel>;
 };
 
 export const mortgagePurchaseCreditController = asks(
@@ -52,17 +48,7 @@ export const mortgagePurchaseCreditController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO));
 		},
 
 		MortgagePurchaseCredit_UpdatePurchaseCredit: (purchaseCreditId, parameters) => {
@@ -79,17 +65,7 @@ export const mortgagePurchaseCreditController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO));
 		},
 
 		MortgagePurchaseCredit_DeletePurchaseCredit: purchaseCreditId => {
@@ -100,13 +76,7 @@ export const mortgagePurchaseCreditController = asks(
 					)}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		MortgagePurchaseCredit_InsertPurchaseCredit: parameters => {
@@ -121,17 +91,7 @@ export const mortgagePurchaseCreditController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO));
 		},
 	}),
 );

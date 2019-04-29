@@ -43,6 +43,7 @@ export type LELodasoftCommonModelsLeadsProviderModelsLodasoftLead = {
 	internalNotes: Option<string>;
 	leadSource: Option<string>;
 	tags: Option<Array<string>>;
+	referralSource: Option<number>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsLodasoftLeadIO = type({
 	borrowerInfo: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsBorrowerInfoIO),
@@ -61,4 +62,5 @@ export const LELodasoftCommonModelsLeadsProviderModelsLodasoftLeadIO = type({
 	internalNotes: createOptionFromNullable(string),
 	leadSource: createOptionFromNullable(string),
 	tags: createOptionFromNullable(array(string)),
+	referralSource: createOptionFromNullable(number),
 });

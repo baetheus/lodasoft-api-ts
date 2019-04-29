@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftApiModelsAddExternalLoginBindingModel,
 	LELodasoftApiModelsAddExternalLoginBindingModelIO,
@@ -52,130 +52,118 @@ import {
 	LELodasoftApiModelsVerifyCodeModel,
 	LELodasoftApiModelsVerifyCodeModelIO,
 } from '../definitions/LELodasoftApiModelsVerifyCodeModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { boolean, type, partial, string, array } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type AccountController = {
-	readonly Account_GetUserInfo: () => Observable<AsyncData<Error, LELodasoftApiModelsUserInfoViewModel>>;
+	readonly Account_GetUserInfo: () => Observable<LELodasoftApiModelsUserInfoViewModel>;
 
-	readonly Account_GetUserData: () => Observable<AsyncData<Error, LELodasoftApiModelsUserData>>;
+	readonly Account_GetUserData: () => Observable<LELodasoftApiModelsUserData>;
 
 	/**
 	 * @param { object } parameters
 	 */
-	readonly Account_UpdateTwoFactor: (parameters: {
-		query: { twoFactor: boolean };
-	}) => Observable<AsyncData<Error, unknown>>;
+	readonly Account_UpdateTwoFactor: (parameters: { query: { twoFactor: boolean } }) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Account_PostUpdatePhone: (parameters: {
 		query: { phone: string; areacode: string };
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Account_ConfirmUpdatePhone: (parameters: {
 		query: { phone: string; areacode: string; code: string };
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Account_ValidateAccount: (parameters: {
 		body: LELodasoftApiModelsLoginBindingModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
-	readonly Account_SendCode: (parameters: {
-		body: LELodasoftApiModelsLoginBindingModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	readonly Account_SendCode: (parameters: { body: LELodasoftApiModelsLoginBindingModel }) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
-	readonly Account_VerifyCode: (parameters: {
-		body: LELodasoftApiModelsVerifyCodeModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	readonly Account_VerifyCode: (parameters: { body: LELodasoftApiModelsVerifyCodeModel }) => Observable<unknown>;
 
-	readonly Account_GetSendCodeExternal: () => Observable<AsyncData<Error, unknown>>;
+	readonly Account_GetSendCodeExternal: () => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
-	readonly Account_GetVerifyCodeExternal: (parameters: {
-		query: { code: string };
-	}) => Observable<AsyncData<Error, unknown>>;
+	readonly Account_GetVerifyCodeExternal: (parameters: { query: { code: string } }) => Observable<unknown>;
 
-	readonly Account_GetLoginExternal: () => Observable<AsyncData<Error, unknown>>;
+	readonly Account_GetLoginExternal: () => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
-	readonly Account_Login: (parameters: {
-		body: LELodasoftApiModelsLoginBindingModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	readonly Account_Login: (parameters: { body: LELodasoftApiModelsLoginBindingModel }) => Observable<unknown>;
 
-	readonly Account_Logout: () => Observable<AsyncData<Error, unknown>>;
+	readonly Account_Logout: () => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Account_GetManageInfo: (parameters: {
 		query: { returnUrl: string; generateState: Option<boolean> };
-	}) => Observable<AsyncData<Error, LELodasoftApiModelsManageInfoViewModel>>;
+	}) => Observable<LELodasoftApiModelsManageInfoViewModel>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Account_ChangePassword: (parameters: {
 		body: LELodasoftApiModelsChangePasswordBindingModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Account_SetPassword: (parameters: {
 		body: LELodasoftApiModelsSetPasswordBindingModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Account_AddExternalLogin: (parameters: {
 		body: LELodasoftApiModelsAddExternalLoginBindingModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Account_RemoveLogin: (parameters: {
 		body: LELodasoftApiModelsRemoveLoginBindingModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Account_GetExternalLogin: (parameters: {
 		query: { provider: string; error: Option<string> };
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Account_GetExternalLogins: (parameters: {
 		query: { returnUrl: string; generateState: Option<boolean> };
-	}) => Observable<AsyncData<Error, Array<LELodasoftApiModelsExternalLoginViewModel>>>;
+	}) => Observable<Array<LELodasoftApiModelsExternalLoginViewModel>>;
 
 	/**
 	 * @param { object } parameters
@@ -183,28 +171,26 @@ export type AccountController = {
 	readonly Account_Register: (parameters: {
 		query?: { token: Option<string> };
 		body: LELodasoftApiModelsRegisterBindingModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
-	readonly Account_GetConfirmEmail: (parameters: {
-		query: { userId: string; code: string };
-	}) => Observable<AsyncData<Error, unknown>>;
+	readonly Account_GetConfirmEmail: (parameters: { query: { userId: string; code: string } }) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Account_ForgotPassword: (parameters: {
 		body: LELodasoftApiModelsForgotPasswordBindingModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Account_ResetPassword: (parameters: {
 		body: LELodasoftApiModelsResetPasswordBindingModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -212,7 +198,7 @@ export type AccountController = {
 	readonly Account_RegisterExternal: (parameters: {
 		query?: { token: Option<string> };
 		body: LELodasoftApiModelsRegisterExternalBindingModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 };
 
 export const accountController = asks(
@@ -223,17 +209,7 @@ export const accountController = asks(
 					url: `/api/Account/UserInfo`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsUserInfoViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsUserInfoViewModelIO));
 		},
 
 		Account_GetUserData: () => {
@@ -242,15 +218,7 @@ export const accountController = asks(
 					url: `/api/Account/UserData`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsUserDataIO.decode(value).mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsUserDataIO));
 		},
 
 		Account_UpdateTwoFactor: parameters => {
@@ -262,13 +230,7 @@ export const accountController = asks(
 					method: 'POST',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_PostUpdatePhone: parameters => {
@@ -280,13 +242,7 @@ export const accountController = asks(
 					method: 'POST',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_ConfirmUpdatePhone: parameters => {
@@ -300,13 +256,7 @@ export const accountController = asks(
 					method: 'POST',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_ValidateAccount: parameters => {
@@ -319,13 +269,7 @@ export const accountController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_SendCode: parameters => {
@@ -338,13 +282,7 @@ export const accountController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_VerifyCode: parameters => {
@@ -357,13 +295,7 @@ export const accountController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_GetSendCodeExternal: () => {
@@ -372,13 +304,7 @@ export const accountController = asks(
 					url: `/api/Account/SendCodeExternal`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_GetVerifyCodeExternal: parameters => {
@@ -390,13 +316,7 @@ export const accountController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_GetLoginExternal: () => {
@@ -405,13 +325,7 @@ export const accountController = asks(
 					url: `/api/Account/LoginExternal`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_Login: parameters => {
@@ -424,13 +338,7 @@ export const accountController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_Logout: () => {
@@ -439,13 +347,7 @@ export const accountController = asks(
 					url: `/api/Account/Logout`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_GetManageInfo: parameters => {
@@ -459,17 +361,7 @@ export const accountController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsManageInfoViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsManageInfoViewModelIO));
 		},
 
 		Account_ChangePassword: parameters => {
@@ -482,13 +374,7 @@ export const accountController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_SetPassword: parameters => {
@@ -501,13 +387,7 @@ export const accountController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_AddExternalLogin: parameters => {
@@ -520,13 +400,7 @@ export const accountController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_RemoveLogin: parameters => {
@@ -539,13 +413,7 @@ export const accountController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_GetExternalLogin: parameters => {
@@ -559,13 +427,7 @@ export const accountController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_GetExternalLogins: parameters => {
@@ -579,17 +441,7 @@ export const accountController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftApiModelsExternalLoginViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftApiModelsExternalLoginViewModelIO)));
 		},
 
 		Account_Register: parameters => {
@@ -605,13 +457,7 @@ export const accountController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_GetConfirmEmail: parameters => {
@@ -623,13 +469,7 @@ export const accountController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_ForgotPassword: parameters => {
@@ -642,13 +482,7 @@ export const accountController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_ResetPassword: parameters => {
@@ -661,13 +495,7 @@ export const accountController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Account_RegisterExternal: parameters => {
@@ -683,13 +511,7 @@ export const accountController = asks(
 					query: encoded.query,
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

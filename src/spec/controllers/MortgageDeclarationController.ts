@@ -1,14 +1,12 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgageDeclarationViewModel,
 	LELodasoftCommonModelsMortgageDeclarationViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageDeclarationViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type MortgageDeclarationController = {
 	/**
@@ -16,7 +14,7 @@ export type MortgageDeclarationController = {
 	 */
 	readonly MortgageDeclaration_GetDeclarationById: (
 		declarationId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageDeclarationViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageDeclarationViewModel>;
 
 	/**
 	 * @param { number } declarationId undefined
@@ -25,19 +23,19 @@ export type MortgageDeclarationController = {
 	readonly MortgageDeclaration_UpdateDeclaration: (
 		declarationId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageDeclarationViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageDeclarationViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageDeclarationViewModel>;
 
 	/**
 	 * @param { number } declarationId undefined
 	 */
-	readonly MortgageDeclaration_DeleteDeclaration: (declarationId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly MortgageDeclaration_DeleteDeclaration: (declarationId: number) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly MortgageDeclaration_InsertDeclaration: (parameters: {
 		body: LELodasoftCommonModelsMortgageDeclarationViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageDeclarationViewModel>>;
+	}) => Observable<LELodasoftCommonModelsMortgageDeclarationViewModel>;
 };
 
 export const mortgageDeclarationController = asks(
@@ -48,17 +46,7 @@ export const mortgageDeclarationController = asks(
 					url: `/api/mortgage/declarations/${encodeURIComponent(number.encode(declarationId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageDeclarationViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageDeclarationViewModelIO));
 		},
 
 		MortgageDeclaration_UpdateDeclaration: (declarationId, parameters) => {
@@ -71,17 +59,7 @@ export const mortgageDeclarationController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageDeclarationViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageDeclarationViewModelIO));
 		},
 
 		MortgageDeclaration_DeleteDeclaration: declarationId => {
@@ -90,13 +68,7 @@ export const mortgageDeclarationController = asks(
 					url: `/api/mortgage/declarations/${encodeURIComponent(number.encode(declarationId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageDeclaration_InsertDeclaration: parameters => {
@@ -109,17 +81,7 @@ export const mortgageDeclarationController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageDeclarationViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageDeclarationViewModelIO));
 		},
 	}),
 );

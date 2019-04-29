@@ -1,14 +1,12 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgageMortgageTermViewModel,
 	LELodasoftCommonModelsMortgageMortgageTermViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageMortgageTermViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type MortgageTermController = {
 	/**
@@ -16,7 +14,7 @@ export type MortgageTermController = {
 	 */
 	readonly MortgageTerm_GetMortgageTermById: (
 		mortgageTermId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageMortgageTermViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageMortgageTermViewModel>;
 
 	/**
 	 * @param { number } mortgageTermId undefined
@@ -25,12 +23,12 @@ export type MortgageTermController = {
 	readonly MortgageTerm_UpdateMortgageTerm: (
 		mortgageTermId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageMortgageTermViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageMortgageTermViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageMortgageTermViewModel>;
 
 	/**
 	 * @param { number } mortgageTermId undefined
 	 */
-	readonly MortgageTerm_DeleteMortgageTerm: (mortgageTermId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly MortgageTerm_DeleteMortgageTerm: (mortgageTermId: number) => Observable<unknown>;
 };
 
 export const mortgageTermController = asks(
@@ -41,17 +39,7 @@ export const mortgageTermController = asks(
 					url: `/api/mortgage/mortgageterms/${encodeURIComponent(number.encode(mortgageTermId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageMortgageTermViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageMortgageTermViewModelIO));
 		},
 
 		MortgageTerm_UpdateMortgageTerm: (mortgageTermId, parameters) => {
@@ -64,17 +52,7 @@ export const mortgageTermController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageMortgageTermViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageMortgageTermViewModelIO));
 		},
 
 		MortgageTerm_DeleteMortgageTerm: mortgageTermId => {
@@ -83,13 +61,7 @@ export const mortgageTermController = asks(
 					url: `/api/mortgage/mortgageterms/${encodeURIComponent(number.encode(mortgageTermId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftApiModelsAgentAgentFull,
 	LELodasoftApiModelsAgentAgentFullIO,
@@ -23,24 +23,20 @@ import {
 	LELodasoftCommonModelsPipelinePipelineApplicationView,
 	LELodasoftCommonModelsPipelinePipelineApplicationViewIO,
 } from '../definitions/LELodasoftCommonModelsPipelinePipelineApplicationView';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { array, number, boolean, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type AgentController = {
-	readonly Agent_GetAllAgent: () => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminAgentViewModel>>>;
+	readonly Agent_GetAllAgent: () => Observable<Array<LELodasoftCommonModelsAdminAgentViewModel>>;
 
-	readonly Agent_GetAllReferralSources: () => Observable<
-		AsyncData<Error, Array<LELodasoftApiModelsAgentReferralSourceModel>>
-	>;
+	readonly Agent_GetAllReferralSources: () => Observable<Array<LELodasoftApiModelsAgentReferralSourceModel>>;
 
 	/**
 	 * @param { number } id undefined
 	 */
-	readonly Agent_GetAgentbyId: (id: number) => Observable<AsyncData<Error, LELodasoftApiModelsAgentAgentFull>>;
+	readonly Agent_GetAgentbyId: (id: number) => Observable<LELodasoftApiModelsAgentAgentFull>;
 
 	/**
 	 * @param { boolean } sendInvite undefined
@@ -49,49 +45,45 @@ export type AgentController = {
 	readonly Agent_UpsertAgent: (
 		sendInvite: boolean,
 		parameters: { body: LELodasoftApiModelsAgentAgentFull },
-	) => Observable<AsyncData<Error, LELodasoftApiModelsAgentAgentFull>>;
+	) => Observable<LELodasoftApiModelsAgentAgentFull>;
 
 	/**
 	 * @param { number } agentId undefined
 	 */
-	readonly Agent_InviteAgent: (agentId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Agent_InviteAgent: (agentId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } agentId undefined
 	 */
-	readonly Agent_DeleteAgent: (agentId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Agent_DeleteAgent: (agentId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } agentId undefined
 	 */
 	readonly Agent_GetAllApplicationInfo: (
 		agentId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsPipelinePipelineApplicationView>>>;
+	) => Observable<Array<LELodasoftCommonModelsPipelinePipelineApplicationView>>;
 
-	readonly Agent_GetAllAgentLists: () => Observable<
-		AsyncData<Error, Array<LELodasoftCommonModelsAdminAgentListViewModel>>
-	>;
+	readonly Agent_GetAllAgentLists: () => Observable<Array<LELodasoftCommonModelsAdminAgentListViewModel>>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly Agent_InsertAgentList: (parameters: {
 		body: LELodasoftCommonModelsAdminAgentListViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsAdminAgentListViewModel>>;
+	}) => Observable<LELodasoftCommonModelsAdminAgentListViewModel>;
 
 	/**
 	 * @param { number } agentId undefined
 	 */
 	readonly Agent_GetAgentListsByAgentId: (
 		agentId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminAgentListViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsAdminAgentListViewModel>>;
 
 	/**
 	 * @param { number } agentListId undefined
 	 */
-	readonly Agent_GetAgentListById: (
-		agentListId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsAdminAgentListViewModel>>;
+	readonly Agent_GetAgentListById: (agentListId: number) => Observable<LELodasoftCommonModelsAdminAgentListViewModel>;
 
 	/**
 	 * @param { number } agentListId undefined
@@ -100,34 +92,31 @@ export type AgentController = {
 	readonly Agent_UpdateAgentList: (
 		agentListId: number,
 		parameters: { body: LELodasoftCommonModelsAdminAgentListViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsAdminAgentListViewModel>>;
+	) => Observable<LELodasoftCommonModelsAdminAgentListViewModel>;
 
 	/**
 	 * @param { number } agentListId undefined
 	 */
-	readonly Agent_DeleteAgentList: (agentListId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Agent_DeleteAgentList: (agentListId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } agentListId undefined
 	 */
 	readonly Agent_GetAgentsByAgentListId: (
 		agentListId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminAgentViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsAdminAgentViewModel>>;
 
 	/**
 	 * @param { number } agentListId undefined
 	 * @param { number } agentId undefined
 	 */
-	readonly Agent_AddAgentToAgentList: (agentListId: number, agentId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Agent_AddAgentToAgentList: (agentListId: number, agentId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } agentListId undefined
 	 * @param { number } agentId undefined
 	 */
-	readonly Agent_RemoveAgentFromAgentList: (
-		agentListId: number,
-		agentId: number,
-	) => Observable<AsyncData<Error, unknown>>;
+	readonly Agent_RemoveAgentFromAgentList: (agentListId: number, agentId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } agentId undefined
@@ -136,14 +125,12 @@ export type AgentController = {
 	readonly Agent_AddAgentNote: (
 		agentId: number,
 		parameters: { body: LELodasoftCommonModelsAdminAgentNoteViewModel },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { number } agentId undefined
 	 */
-	readonly Agent_GetAgentNotes: (
-		agentId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminAgentNoteViewModel>>>;
+	readonly Agent_GetAgentNotes: (agentId: number) => Observable<Array<LELodasoftCommonModelsAdminAgentNoteViewModel>>;
 };
 
 export const agentController = asks(
@@ -154,17 +141,7 @@ export const agentController = asks(
 					url: `/api/Agent/AllAgent`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminAgentViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAgentViewModelIO)));
 		},
 
 		Agent_GetAllReferralSources: () => {
@@ -173,17 +150,7 @@ export const agentController = asks(
 					url: `/api/Agent/AllReferralSources`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftApiModelsAgentReferralSourceModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftApiModelsAgentReferralSourceModelIO)));
 		},
 
 		Agent_GetAgentbyId: id => {
@@ -192,17 +159,7 @@ export const agentController = asks(
 					url: `/api/Agent/GetAgent/${encodeURIComponent(number.encode(id).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsAgentAgentFullIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsAgentAgentFullIO));
 		},
 
 		Agent_UpsertAgent: (sendInvite, parameters) => {
@@ -215,17 +172,7 @@ export const agentController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsAgentAgentFullIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsAgentAgentFullIO));
 		},
 
 		Agent_InviteAgent: agentId => {
@@ -234,13 +181,7 @@ export const agentController = asks(
 					url: `/api/Agent/InviteAgent/${encodeURIComponent(number.encode(agentId).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Agent_DeleteAgent: agentId => {
@@ -249,13 +190,7 @@ export const agentController = asks(
 					url: `/api/Agent/DeleteAgent/${encodeURIComponent(number.encode(agentId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Agent_GetAllApplicationInfo: agentId => {
@@ -264,17 +199,7 @@ export const agentController = asks(
 					url: `/api/Agent/${encodeURIComponent(number.encode(agentId).toString())}/GetAllApplicationInfo`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsPipelinePipelineApplicationViewIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsPipelinePipelineApplicationViewIO)));
 		},
 
 		Agent_GetAllAgentLists: () => {
@@ -283,17 +208,7 @@ export const agentController = asks(
 					url: `/api/Agent/lists`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminAgentListViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAgentListViewModelIO)));
 		},
 
 		Agent_InsertAgentList: parameters => {
@@ -306,17 +221,7 @@ export const agentController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAdminAgentListViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAdminAgentListViewModelIO));
 		},
 
 		Agent_GetAgentListsByAgentId: agentId => {
@@ -325,17 +230,7 @@ export const agentController = asks(
 					url: `/api/Agent/${encodeURIComponent(number.encode(agentId).toString())}/lists`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminAgentListViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAgentListViewModelIO)));
 		},
 
 		Agent_GetAgentListById: agentListId => {
@@ -344,17 +239,7 @@ export const agentController = asks(
 					url: `/api/Agent/lists/${encodeURIComponent(number.encode(agentListId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAdminAgentListViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAdminAgentListViewModelIO));
 		},
 
 		Agent_UpdateAgentList: (agentListId, parameters) => {
@@ -367,17 +252,7 @@ export const agentController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAdminAgentListViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAdminAgentListViewModelIO));
 		},
 
 		Agent_DeleteAgentList: agentListId => {
@@ -386,13 +261,7 @@ export const agentController = asks(
 					url: `/api/Agent/lists/${encodeURIComponent(number.encode(agentListId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Agent_GetAgentsByAgentListId: agentListId => {
@@ -401,17 +270,7 @@ export const agentController = asks(
 					url: `/api/Agent/lists/${encodeURIComponent(number.encode(agentListId).toString())}/agents`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminAgentViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAgentViewModelIO)));
 		},
 
 		Agent_AddAgentToAgentList: (agentListId, agentId) => {
@@ -422,13 +281,7 @@ export const agentController = asks(
 					)}/agents/${encodeURIComponent(number.encode(agentId).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Agent_RemoveAgentFromAgentList: (agentListId, agentId) => {
@@ -439,13 +292,7 @@ export const agentController = asks(
 					)}/agents/${encodeURIComponent(number.encode(agentId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Agent_AddAgentNote: (agentId, parameters) => {
@@ -458,13 +305,7 @@ export const agentController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Agent_GetAgentNotes: agentId => {
@@ -473,17 +314,7 @@ export const agentController = asks(
 					url: `/api/Agent/${encodeURIComponent(number.encode(agentId).toString())}/notes`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminAgentNoteViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAgentNoteViewModelIO)));
 		},
 	}),
 );

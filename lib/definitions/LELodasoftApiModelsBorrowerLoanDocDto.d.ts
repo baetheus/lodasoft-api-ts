@@ -1,0 +1,46 @@
+import { LELodasoftDataAccessModelsAdminBorrowerFileDto } from '../definitions/LELodasoftDataAccessModelsAdminBorrowerFileDto';
+import { Option } from 'fp-ts/lib/Option';
+export declare type LELodasoftApiModelsBorrowerLoanDocDto = {
+    loanDocId: Option<number>;
+    description: Option<string>;
+    documentTypeId: Option<number>;
+    applicationId: Option<number>;
+    dateView: Option<Date>;
+    dateDownload: Option<Date>;
+    dateCreate: Option<Date>;
+    expirationDate: Option<Date>;
+    fileName: Option<string>;
+    note: Option<string>;
+    condition: Option<boolean>;
+    borrowerID: Option<number>;
+    userId: Option<number>;
+    active: Option<boolean>;
+    uploadFiles: Option<Array<LELodasoftDataAccessModelsAdminBorrowerFileDto>>;
+};
+export declare const LELodasoftApiModelsBorrowerLoanDocDtoIO: import("io-ts").TypeC<{
+    loanDocId: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    description: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    documentTypeId: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    applicationId: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    dateView: import("io-ts-types").OptionFromNullableC<import("io-ts-types").DateFromISOStringC>;
+    dateDownload: import("io-ts-types").OptionFromNullableC<import("io-ts-types").DateFromISOStringC>;
+    dateCreate: import("io-ts-types").OptionFromNullableC<import("io-ts-types").DateFromISOStringC>;
+    expirationDate: import("io-ts-types").OptionFromNullableC<import("io-ts-types").DateFromISOStringC>;
+    fileName: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    note: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    condition: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    borrowerID: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    userId: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    active: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    uploadFiles: import("io-ts-types").OptionFromNullableC<import("io-ts").ArrayC<import("io-ts").TypeC<{
+        guid: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+        loanDocId: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+        fileName: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+        note: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+        borrowerNote: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+        condition: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+        createDate: import("io-ts-types").OptionFromNullableC<import("io-ts-types").DateFromISOStringC>;
+        expirationDate: import("io-ts-types").OptionFromNullableC<import("io-ts-types").DateFromISOStringC>;
+        active: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    }>>>;
+}>;

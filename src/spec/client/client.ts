@@ -1,6 +1,5 @@
 import { Observable } from 'rxjs';
-import { Errors, mixed } from 'io-ts';
-import { AsyncData } from '@nll/dux';
+import { mixed } from 'io-ts';
 
 export type TAPIRequest = {
 	url: string;
@@ -13,16 +12,5 @@ export type TFullAPIRequest = TAPIRequest & {
 };
 
 export type TAPIClient = {
-	readonly request: (request: TFullAPIRequest) => Observable<AsyncData<Error, mixed>>;
+	readonly request: (request: TFullAPIRequest) => Observable<mixed>;
 };
-
-export class ResponseValiationError extends Error {
-	static create(errors: Errors): ResponseValiationError {
-		return new ResponseValiationError(errors);
-	}
-
-	constructor(readonly errors: Errors) {
-		super('ResponseValiationError');
-		Object.setPrototypeOf(this, ResponseValiationError);
-	}
-}

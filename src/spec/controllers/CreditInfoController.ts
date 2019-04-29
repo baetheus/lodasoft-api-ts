@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsLoanCreditViewModel,
 	LELodasoftCommonModelsLoanCreditViewModelIO,
@@ -15,12 +15,10 @@ import {
 	LELodasoftDataAccessDbModelsConfigurationCreditModel,
 	LELodasoftDataAccessDbModelsConfigurationCreditModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationCreditModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { partial, number, array } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type CreditInfoController = {
 	/**
@@ -29,7 +27,7 @@ export type CreditInfoController = {
 	 */
 	readonly CreditInfo_PullCreditReport: (parameters: {
 		body: LELodasoftCommonModelsThirdPartyCreditCreditRequestModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsThirdPartyCreditCreditResponseModel>>;
+	}) => Observable<LELodasoftCommonModelsThirdPartyCreditCreditResponseModel>;
 
 	/**
 	 * Get Credit Report History
@@ -37,19 +35,19 @@ export type CreditInfoController = {
 	 */
 	readonly CreditInfo_PullCreditReportHistory: (
 		loanId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsLoanCreditViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsLoanCreditViewModel>>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly CreditInfo_UpsertCreditInfo: (parameters: {
 		body: LELodasoftCommonModelsLoanCreditViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsConfigurationCreditModel>>;
+	}) => Observable<LELodasoftDataAccessDbModelsConfigurationCreditModel>;
 
 	/**
 	 * @param { number } creditInfoId undefined
 	 */
-	readonly CreditInfo_DeleteCreditModel: (creditInfoId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly CreditInfo_DeleteCreditModel: (creditInfoId: number) => Observable<unknown>;
 };
 
 export const creditInfoController = asks(
@@ -66,17 +64,7 @@ export const creditInfoController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsThirdPartyCreditCreditResponseModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsThirdPartyCreditCreditResponseModelIO));
 		},
 
 		CreditInfo_PullCreditReportHistory: loanId => {
@@ -85,17 +73,7 @@ export const creditInfoController = asks(
 					url: `/api/CreditInfo/history/${encodeURIComponent(number.encode(loanId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsLoanCreditViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsLoanCreditViewModelIO)));
 		},
 
 		CreditInfo_UpsertCreditInfo: parameters => {
@@ -108,17 +86,7 @@ export const creditInfoController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsConfigurationCreditModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationCreditModelIO));
 		},
 
 		CreditInfo_DeleteCreditModel: creditInfoId => {
@@ -127,13 +95,7 @@ export const creditInfoController = asks(
 					url: `/api/CreditInfo/${encodeURIComponent(number.encode(creditInfoId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

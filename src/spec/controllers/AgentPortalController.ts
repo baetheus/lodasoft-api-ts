@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftApiModelsForgotPasswordBindingModel,
 	LELodasoftApiModelsForgotPasswordBindingModelIO,
@@ -60,17 +60,19 @@ import {
 	LELodasoftCommonModelsSharedReferralModelIO,
 } from '../definitions/LELodasoftCommonModelsSharedReferralModel';
 import {
+	LELodasoftCommonModelsSharedReferralView,
+	LELodasoftCommonModelsSharedReferralViewIO,
+} from '../definitions/LELodasoftCommonModelsSharedReferralView';
+import {
 	LELodasoftCommonModelsSharedRegisterModel,
 	LELodasoftCommonModelsSharedRegisterModelIO,
 } from '../definitions/LELodasoftCommonModelsSharedRegisterModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { partial, boolean, array, number, string, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type AgentPortalController = {
 	/**
@@ -78,57 +80,53 @@ export type AgentPortalController = {
 	 */
 	readonly AgentPortal_ConfirmRegistrationToken: (parameters: {
 		body: LELodasoftCommonModelsSharedConfirmRegisterRequestModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsSharedRegisterModel>>;
+	}) => Observable<LELodasoftCommonModelsSharedRegisterModel>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly AgentPortal_ConfirmRegistration: (parameters: {
 		body: LELodasoftCommonModelsSharedRegisterModel;
-	}) => Observable<AsyncData<Error, boolean>>;
+	}) => Observable<boolean>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly AgentPortal_SendEmailResetPassword: (parameters: {
 		body: LELodasoftApiModelsForgotPasswordBindingModel;
-	}) => Observable<AsyncData<Error, boolean>>;
+	}) => Observable<boolean>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly AgentPortal_ResetPassword: (parameters: {
 		body: LELodasoftApiModelsResetPasswordBindingModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
-	readonly AgentPortal_GetApplicationsForUser: () => Observable<
-		AsyncData<Error, Array<LELodasoftCommonModelsSharedApplicationView>>
-	>;
+	readonly AgentPortal_GetApplicationsForUser: () => Observable<Array<LELodasoftCommonModelsSharedApplicationView>>;
 
-	readonly AgentPortal_GetPortalContent: () => Observable<
-		AsyncData<Error, LELodasoftApiModelsSharedPortalContentViewModel>
-	>;
+	readonly AgentPortal_GetReferralsForUser: () => Observable<Array<LELodasoftCommonModelsSharedReferralView>>;
+
+	readonly AgentPortal_GetPortalContent: () => Observable<LELodasoftApiModelsSharedPortalContentViewModel>;
 
 	/**
 	 * @param { number } appId undefined
 	 */
 	readonly AgentPortal_GetLoanDataForAppId: (
 		appId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsSharedApplicationView>>;
+	) => Observable<LELodasoftCommonModelsSharedApplicationView>;
 
 	/**
 	 * @param { number } appId undefined
 	 */
-	readonly AgentPortal_GetTasksforAppId: (
-		appId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsSharedPortalTasks>>;
+	readonly AgentPortal_GetTasksforAppId: (appId: number) => Observable<LELodasoftCommonModelsSharedPortalTasks>;
 
 	/**
 	 * @param { number } appId undefined
 	 */
 	readonly AgentPortal_GetPrequalDetail: (
 		appId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsAdminPrequalDetailViewModel>>;
+	) => Observable<LELodasoftCommonModelsAdminPrequalDetailViewModel>;
 
 	/**
 	 * @param { number } appId undefined
@@ -137,21 +135,21 @@ export type AgentPortalController = {
 	readonly AgentPortal_GeneratePrequalLetter: (
 		appId: number,
 		parameters: { body: LELodasoftCommonModelsSharedGeneratePrequalLetterRequest },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsSharedGeneratePrequalLetterResponse>>;
+	) => Observable<LELodasoftCommonModelsSharedGeneratePrequalLetterResponse>;
 
 	/**
 	 * @param { number } appId undefined
 	 */
 	readonly AgentPortal_GetAgentContactInfoForApplication: (
 		appId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsAgentPortalAgentContact>>;
+	) => Observable<LELodasoftCommonModelsAgentPortalAgentContact>;
 
 	/**
 	 * @param { number } taskId undefined
 	 */
 	readonly AgentPortal_ProgressTaskStatus: (
 		taskId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLoanLoanDocTaskViewModel>>;
+	) => Observable<LELodasoftCommonModelsLoanLoanDocTaskViewModel>;
 
 	/**
 	 * @param { number } taskId undefined
@@ -162,27 +160,25 @@ export type AgentPortalController = {
 		taskId: number,
 		borrowerNote: string,
 		parameters: { query?: { progressStatus: Option<boolean> } },
-	) => Observable<AsyncData<Error, boolean>>;
+	) => Observable<boolean>;
 
-	readonly AgentPortal_GetReferralAgents: () => Observable<
-		AsyncData<Error, Array<LELodasoftCommonModelsSharedReferralAgent>>
-	>;
+	readonly AgentPortal_GetReferralAgents: () => Observable<Array<LELodasoftCommonModelsSharedReferralAgent>>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly AgentPortal_ReferAFriend: (parameters: {
 		body: LELodasoftCommonModelsSharedReferralModel;
-	}) => Observable<AsyncData<Error, boolean>>;
+	}) => Observable<boolean>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly AgentPortal_RequestACallback: (parameters: {
 		body: LELodasoftCommonModelsSharedCallbackModel;
-	}) => Observable<AsyncData<Error, boolean>>;
+	}) => Observable<boolean>;
 
-	readonly AgentPortal_GetLiveData: () => Observable<AsyncData<Error, LELodasoftCommonModelsSharedPortalLiveData>>;
+	readonly AgentPortal_GetLiveData: () => Observable<LELodasoftCommonModelsSharedPortalLiveData>;
 };
 
 export const agentPortalController = asks(
@@ -199,17 +195,7 @@ export const agentPortalController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsSharedRegisterModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsSharedRegisterModelIO));
 		},
 
 		AgentPortal_ConfirmRegistration: parameters => {
@@ -222,11 +208,7 @@ export const agentPortalController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(boolean.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(boolean));
 		},
 
 		AgentPortal_SendEmailResetPassword: parameters => {
@@ -239,11 +221,7 @@ export const agentPortalController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(boolean.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(boolean));
 		},
 
 		AgentPortal_ResetPassword: parameters => {
@@ -256,13 +234,7 @@ export const agentPortalController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		AgentPortal_GetApplicationsForUser: () => {
@@ -271,17 +243,16 @@ export const agentPortalController = asks(
 					url: `/api/AgentPortal/GetApplicationsForUser`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsSharedApplicationViewIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsSharedApplicationViewIO)));
+		},
+
+		AgentPortal_GetReferralsForUser: () => {
+			return e.apiClient
+				.request({
+					url: `/api/AgentPortal/GetReferralsForUser`,
+					method: 'GET',
+				})
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsSharedReferralViewIO)));
 		},
 
 		AgentPortal_GetPortalContent: () => {
@@ -290,17 +261,7 @@ export const agentPortalController = asks(
 					url: `/api/AgentPortal/GetPortalContent`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsSharedPortalContentViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsSharedPortalContentViewModelIO));
 		},
 
 		AgentPortal_GetLoanDataForAppId: appId => {
@@ -309,17 +270,7 @@ export const agentPortalController = asks(
 					url: `/api/AgentPortal/GetLoanDataForAppId/${encodeURIComponent(number.encode(appId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsSharedApplicationViewIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsSharedApplicationViewIO));
 		},
 
 		AgentPortal_GetTasksforAppId: appId => {
@@ -328,17 +279,7 @@ export const agentPortalController = asks(
 					url: `/api/AgentPortal/GetTasksForAppId/${encodeURIComponent(number.encode(appId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsSharedPortalTasksIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsSharedPortalTasksIO));
 		},
 
 		AgentPortal_GetPrequalDetail: appId => {
@@ -349,17 +290,7 @@ export const agentPortalController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAdminPrequalDetailViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAdminPrequalDetailViewModelIO));
 		},
 
 		AgentPortal_GeneratePrequalLetter: (appId, parameters) => {
@@ -376,17 +307,7 @@ export const agentPortalController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsSharedGeneratePrequalLetterResponseIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsSharedGeneratePrequalLetterResponseIO));
 		},
 
 		AgentPortal_GetAgentContactInfoForApplication: appId => {
@@ -397,17 +318,7 @@ export const agentPortalController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAgentPortalAgentContactIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAgentPortalAgentContactIO));
 		},
 
 		AgentPortal_ProgressTaskStatus: taskId => {
@@ -416,17 +327,7 @@ export const agentPortalController = asks(
 					url: `/api/AgentPortal/ProgressTaskStatus/${encodeURIComponent(number.encode(taskId).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLoanLoanDocTaskViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO));
 		},
 
 		AgentPortal_UploadDocument: (taskId, borrowerNote, parameters) => {
@@ -442,11 +343,7 @@ export const agentPortalController = asks(
 					method: 'POST',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(boolean.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(boolean));
 		},
 
 		AgentPortal_GetReferralAgents: () => {
@@ -455,17 +352,7 @@ export const agentPortalController = asks(
 					url: `/api/AgentPortal/ReferralAgents`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsSharedReferralAgentIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsSharedReferralAgentIO)));
 		},
 
 		AgentPortal_ReferAFriend: parameters => {
@@ -478,11 +365,7 @@ export const agentPortalController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(boolean.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(boolean));
 		},
 
 		AgentPortal_RequestACallback: parameters => {
@@ -495,11 +378,7 @@ export const agentPortalController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(boolean.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(boolean));
 		},
 
 		AgentPortal_GetLiveData: () => {
@@ -508,17 +387,7 @@ export const agentPortalController = asks(
 					url: `/api/AgentPortal/LiveData`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsSharedPortalLiveDataIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsSharedPortalLiveDataIO));
 		},
 	}),
 );

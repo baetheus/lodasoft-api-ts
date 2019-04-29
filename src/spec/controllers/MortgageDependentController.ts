@@ -1,14 +1,12 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgageDependentViewModel,
 	LELodasoftCommonModelsMortgageDependentViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageDependentViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type MortgageDependentController = {
 	/**
@@ -16,7 +14,7 @@ export type MortgageDependentController = {
 	 */
 	readonly MortgageDependent_GetDependentById: (
 		dependentId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageDependentViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageDependentViewModel>;
 
 	/**
 	 * @param { number } dependentId undefined
@@ -25,19 +23,19 @@ export type MortgageDependentController = {
 	readonly MortgageDependent_UpdateDependent: (
 		dependentId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageDependentViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageDependentViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageDependentViewModel>;
 
 	/**
 	 * @param { number } dependentId undefined
 	 */
-	readonly MortgageDependent_DeleteDependent: (dependentId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly MortgageDependent_DeleteDependent: (dependentId: number) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly MortgageDependent_InsertDependent: (parameters: {
 		body: LELodasoftCommonModelsMortgageDependentViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageDependentViewModel>>;
+	}) => Observable<LELodasoftCommonModelsMortgageDependentViewModel>;
 };
 
 export const mortgageDependentController = asks(
@@ -48,17 +46,7 @@ export const mortgageDependentController = asks(
 					url: `/api/mortgage/dependents/${encodeURIComponent(number.encode(dependentId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageDependentViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageDependentViewModelIO));
 		},
 
 		MortgageDependent_UpdateDependent: (dependentId, parameters) => {
@@ -71,17 +59,7 @@ export const mortgageDependentController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageDependentViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageDependentViewModelIO));
 		},
 
 		MortgageDependent_DeleteDependent: dependentId => {
@@ -90,13 +68,7 @@ export const mortgageDependentController = asks(
 					url: `/api/mortgage/dependents/${encodeURIComponent(number.encode(dependentId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageDependent_InsertDependent: parameters => {
@@ -109,17 +81,7 @@ export const mortgageDependentController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageDependentViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageDependentViewModelIO));
 		},
 	}),
 );

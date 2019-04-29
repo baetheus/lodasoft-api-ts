@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgageAddressViewModel,
 	LELodasoftCommonModelsMortgageAddressViewModelIO,
@@ -7,12 +7,10 @@ import {
 	LELodasoftCommonModelsMortgageLiabilityViewModel,
 	LELodasoftCommonModelsMortgageLiabilityViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageLiabilityViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type MortgageLiabilityController = {
 	/**
@@ -20,7 +18,7 @@ export type MortgageLiabilityController = {
 	 */
 	readonly MortgageLiability_GetLiabilityById: (
 		liabilityId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageLiabilityViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageLiabilityViewModel>;
 
 	/**
 	 * @param { number } liabilityId undefined
@@ -29,19 +27,19 @@ export type MortgageLiabilityController = {
 	readonly MortgageLiability_UpdateLiability: (
 		liabilityId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageLiabilityViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageLiabilityViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageLiabilityViewModel>;
 
 	/**
 	 * @param { number } liabilityId undefined
 	 */
-	readonly MortgageLiability_DeleteLiability: (liabilityId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly MortgageLiability_DeleteLiability: (liabilityId: number) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly MortgageLiability_InsertLiability: (parameters: {
 		body: LELodasoftCommonModelsMortgageLiabilityViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageLiabilityViewModel>>;
+	}) => Observable<LELodasoftCommonModelsMortgageLiabilityViewModel>;
 
 	/**
 	 * @param { number } liabilityId undefined
@@ -50,7 +48,7 @@ export type MortgageLiabilityController = {
 	readonly MortgageLiability_InsertAddress: (
 		liabilityId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageAddressViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageAddressViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageAddressViewModel>;
 };
 
 export const mortgageLiabilityController = asks(
@@ -61,17 +59,7 @@ export const mortgageLiabilityController = asks(
 					url: `/api/mortgage/liabilities/${encodeURIComponent(number.encode(liabilityId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageLiabilityViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageLiabilityViewModelIO));
 		},
 
 		MortgageLiability_UpdateLiability: (liabilityId, parameters) => {
@@ -84,17 +72,7 @@ export const mortgageLiabilityController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageLiabilityViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageLiabilityViewModelIO));
 		},
 
 		MortgageLiability_DeleteLiability: liabilityId => {
@@ -103,13 +81,7 @@ export const mortgageLiabilityController = asks(
 					url: `/api/mortgage/liabilities/${encodeURIComponent(number.encode(liabilityId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageLiability_InsertLiability: parameters => {
@@ -122,17 +94,7 @@ export const mortgageLiabilityController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageLiabilityViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageLiabilityViewModelIO));
 		},
 
 		MortgageLiability_InsertAddress: (liabilityId, parameters) => {
@@ -147,17 +109,7 @@ export const mortgageLiabilityController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageAddressViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
 		},
 	}),
 );

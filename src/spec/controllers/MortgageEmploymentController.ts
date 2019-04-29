@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgageAddressViewModel,
 	LELodasoftCommonModelsMortgageAddressViewModelIO,
@@ -7,12 +7,10 @@ import {
 	LELodasoftCommonModelsMortgageEmploymentViewModel,
 	LELodasoftCommonModelsMortgageEmploymentViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageEmploymentViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type MortgageEmploymentController = {
 	/**
@@ -20,7 +18,7 @@ export type MortgageEmploymentController = {
 	 */
 	readonly MortgageEmployment_GetEmploymentById: (
 		employmentId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageEmploymentViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageEmploymentViewModel>;
 
 	/**
 	 * @param { number } employmentId undefined
@@ -29,19 +27,19 @@ export type MortgageEmploymentController = {
 	readonly MortgageEmployment_UpdateEmployment: (
 		employmentId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageEmploymentViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageEmploymentViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageEmploymentViewModel>;
 
 	/**
 	 * @param { number } employmentId undefined
 	 */
-	readonly MortgageEmployment_DeleteEmployment: (employmentId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly MortgageEmployment_DeleteEmployment: (employmentId: number) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly MortgageEmployment_InsertEmployment: (parameters: {
 		body: LELodasoftCommonModelsMortgageEmploymentViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageEmploymentViewModel>>;
+	}) => Observable<LELodasoftCommonModelsMortgageEmploymentViewModel>;
 
 	/**
 	 * @param { number } employmentId undefined
@@ -50,7 +48,7 @@ export type MortgageEmploymentController = {
 	readonly MortgageEmployment_InsertAddress: (
 		employmentId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageAddressViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageAddressViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageAddressViewModel>;
 };
 
 export const mortgageEmploymentController = asks(
@@ -61,17 +59,7 @@ export const mortgageEmploymentController = asks(
 					url: `/api/mortgage/employments/${encodeURIComponent(number.encode(employmentId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageEmploymentViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmploymentViewModelIO));
 		},
 
 		MortgageEmployment_UpdateEmployment: (employmentId, parameters) => {
@@ -84,17 +72,7 @@ export const mortgageEmploymentController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageEmploymentViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmploymentViewModelIO));
 		},
 
 		MortgageEmployment_DeleteEmployment: employmentId => {
@@ -103,13 +81,7 @@ export const mortgageEmploymentController = asks(
 					url: `/api/mortgage/employments/${encodeURIComponent(number.encode(employmentId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageEmployment_InsertEmployment: parameters => {
@@ -122,17 +94,7 @@ export const mortgageEmploymentController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageEmploymentViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmploymentViewModelIO));
 		},
 
 		MortgageEmployment_InsertAddress: (employmentId, parameters) => {
@@ -147,17 +109,7 @@ export const mortgageEmploymentController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageAddressViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
 		},
 	}),
 );

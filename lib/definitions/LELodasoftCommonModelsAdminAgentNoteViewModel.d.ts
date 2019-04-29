@@ -1,0 +1,31 @@
+import { Option } from 'fp-ts/lib/Option';
+export declare type LELodasoftCommonModelsAdminAgentNoteViewModel = {
+    messageId: Option<number>;
+    agentId: Option<number>;
+    userId: Option<string>;
+    content: Option<string>;
+    postTime: Option<Date>;
+    userFirstName: Option<string>;
+    userLastName: Option<string>;
+    userAvatar: Option<string>;
+    companyId: Option<number>;
+    insertedBy: Option<string>;
+    dateInserted: Option<Date>;
+    updatedBy: Option<string>;
+    dateUpdated: Option<Date>;
+};
+export declare const LELodasoftCommonModelsAdminAgentNoteViewModelIO: import("io-ts").TypeC<{
+    messageId: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    agentId: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    userId: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    content: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    postTime: import("io-ts-types").OptionFromNullableC<import("io-ts-types").DateFromISOStringC>;
+    userFirstName: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    userLastName: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    userAvatar: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    companyId: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    insertedBy: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    dateInserted: import("io-ts-types").OptionFromNullableC<import("io-ts-types").DateFromISOStringC>;
+    updatedBy: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    dateUpdated: import("io-ts-types").OptionFromNullableC<import("io-ts-types").DateFromISOStringC>;
+}>;

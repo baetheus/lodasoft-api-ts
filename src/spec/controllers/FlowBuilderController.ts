@@ -1,14 +1,13 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
-import {
-	LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel,
-	LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO,
-} from '../definitions/LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
 import { asks } from 'fp-ts/lib/Reader';
-import { array, number, string, type, partial } from 'io-ts';
+import { array, number, partial, string, type } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+
+import { TAPIClient } from '../client/client';
+import {
+  LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel,
+  LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO,
+} from '../definitions/LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel';
+import { decodeAndMap, unknownType } from '../utils/utils';
 
 export type FlowBuilderController = {
 	/**
@@ -16,21 +15,19 @@ export type FlowBuilderController = {
 	 */
 	readonly FlowBuilder_GetFlowsFiltered: (parameters: {
 		query: { companyIdFilter: number; flowTypeFilter: string };
-	}) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel>>>;
+	}) => Observable<Array<LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel>>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly FlowBuilder_InsertFlow: (parameters: {
 		body: LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel>>;
+	}) => Observable<LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel>;
 
 	/**
 	 * @param { number } flowId undefined
 	 */
-	readonly FlowBuilder_GetFlow: (
-		flowId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel>>;
+	readonly FlowBuilder_GetFlow: (flowId: number) => Observable<LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel>;
 
 	/**
 	 * @param { number } flowId undefined
@@ -39,19 +36,19 @@ export type FlowBuilderController = {
 	readonly FlowBuilder_UpdateFlow: (
 		flowId: number,
 		parameters: { body: LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel>>;
+	) => Observable<LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel>;
 
 	/**
 	 * @param { number } flowId undefined
 	 */
-	readonly FlowBuilder_DeleteFlow: (flowId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly FlowBuilder_DeleteFlow: (flowId: number) => Observable<unknown>;
 
 	/**
 	 * @param { string } flowguid undefined
 	 */
 	readonly FlowBuilder_GetFlowByGuid: (
 		flowguid: string,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel>>;
+	) => Observable<LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel>;
 
 	/**
 	 * @param { string } flowGuid undefined
@@ -60,19 +57,19 @@ export type FlowBuilderController = {
 	readonly FlowBuilder_UpdateFlowByGuid: (
 		flowGuid: string,
 		parameters: { body: LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel>>;
+	) => Observable<LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel>;
 
 	/**
 	 * @param { string } flowGuid undefined
 	 */
-	readonly FlowBuilder_DeleteFlowByGuid: (flowGuid: string) => Observable<AsyncData<Error, unknown>>;
+	readonly FlowBuilder_DeleteFlowByGuid: (flowGuid: string) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly FlowBuilder_InsertFlowByGuid: (parameters: {
 		body: LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel>>;
+	}) => Observable<LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel>;
 };
 
 export const flowBuilderController = asks(
@@ -88,17 +85,7 @@ export const flowBuilderController = asks(
 					method: 'GET',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO)));
 		},
 
 		FlowBuilder_InsertFlow: parameters => {
@@ -113,17 +100,7 @@ export const flowBuilderController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
 		},
 
 		FlowBuilder_GetFlow: flowId => {
@@ -132,17 +109,7 @@ export const flowBuilderController = asks(
 					url: `/api/flow-builder/${encodeURIComponent(number.encode(flowId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
 		},
 
 		FlowBuilder_UpdateFlow: (flowId, parameters) => {
@@ -157,17 +124,7 @@ export const flowBuilderController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
 		},
 
 		FlowBuilder_DeleteFlow: flowId => {
@@ -176,13 +133,7 @@ export const flowBuilderController = asks(
 					url: `/api/flow-builder/${encodeURIComponent(number.encode(flowId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		FlowBuilder_GetFlowByGuid: flowguid => {
@@ -191,17 +142,7 @@ export const flowBuilderController = asks(
 					url: `/api/flow-builder/by-guid/${encodeURIComponent(string.encode(flowguid).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
 		},
 
 		FlowBuilder_UpdateFlowByGuid: (flowGuid, parameters) => {
@@ -216,17 +157,7 @@ export const flowBuilderController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
 		},
 
 		FlowBuilder_DeleteFlowByGuid: flowGuid => {
@@ -235,13 +166,7 @@ export const flowBuilderController = asks(
 					url: `/api/flow-builder/by-guid/${encodeURIComponent(string.encode(flowGuid).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		FlowBuilder_InsertFlowByGuid: parameters => {
@@ -256,17 +181,7 @@ export const flowBuilderController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
 		},
 	}),
 );

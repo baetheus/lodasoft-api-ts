@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftApiModelsBorrowerApplicationViewModel,
 	LELodasoftApiModelsBorrowerApplicationViewModelIO,
@@ -35,17 +35,13 @@ import {
 	LELodasoftDataAccessModelsAdminBorrowerBorrowerDto,
 	LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO,
 } from '../definitions/LELodasoftDataAccessModelsAdminBorrowerBorrowerDto';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { array, boolean, partial, number } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type BorrowerController = {
-	readonly Borrower_GetAllBorrower: () => Observable<
-		AsyncData<Error, Array<LELodasoftDataAccessModelsAdminBorrowerBorrowerDto>>
-	>;
+	readonly Borrower_GetAllBorrower: () => Observable<Array<LELodasoftDataAccessModelsAdminBorrowerBorrowerDto>>;
 
 	/**
 	 * @param { boolean } sendInvite undefined
@@ -54,12 +50,12 @@ export type BorrowerController = {
 	readonly Borrower_UpsertBorrower: (
 		sendInvite: boolean,
 		parameters: { body: LELodasoftApiModelsBorrowerBorrowerFull },
-	) => Observable<AsyncData<Error, LELodasoftApiModelsBorrowerBorrowerFull>>;
+	) => Observable<LELodasoftApiModelsBorrowerBorrowerFull>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
-	readonly Borrower_InviteBorrower: (borrowerId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Borrower_InviteBorrower: (borrowerId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } borrowerId undefined
@@ -68,12 +64,12 @@ export type BorrowerController = {
 	readonly Borrower_GetBorrower: (
 		borrowerId: number,
 		isAdmin: boolean,
-	) => Observable<AsyncData<Error, LELodasoftApiModelsBorrowerBorrowerFull>>;
+	) => Observable<LELodasoftApiModelsBorrowerBorrowerFull>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
-	readonly Borrower_DeleteBorrower: (borrowerId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly Borrower_DeleteBorrower: (borrowerId: number) => Observable<unknown>;
 
 	/**
 	 * @param { number } borrowerId undefined
@@ -84,14 +80,14 @@ export type BorrowerController = {
 		borrowerId: number,
 		shouldSendCoBorrInvite: boolean,
 		parameters: { body: LELodasoftApiModelsBorrowerNewApplicationRequest },
-	) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsAdminApplicationModel>>;
+	) => Observable<LELodasoftDataAccessDbModelsAdminApplicationModel>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
 	readonly Borrower_GetAllApplicationInfo: (
 		borrowerId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftApiModelsBorrowerApplicationViewModel>>>;
+	) => Observable<Array<LELodasoftApiModelsBorrowerApplicationViewModel>>;
 
 	/**
 	 * @param { number } borrowerId undefined
@@ -100,21 +96,19 @@ export type BorrowerController = {
 	readonly Borrower_UpsertApplicationInfo: (
 		borrowerId: number,
 		parameters: { body: LELodasoftApiModelsBorrowerUpsertApplicationInfoView },
-	) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsAdminLoanDocTaskModel>>;
+	) => Observable<LELodasoftDataAccessDbModelsAdminLoanDocTaskModel>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
 	readonly Borrower_AllEmploymentInfo: (
 		borrowerId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModel>>>;
+	) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModel>>;
 
 	/**
 	 * @param { number } borrowerId undefined
 	 */
-	readonly Borrower_AllCreditInfo: (
-		borrowerId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLoanCreditViewModel>>;
+	readonly Borrower_AllCreditInfo: (borrowerId: number) => Observable<LELodasoftCommonModelsLoanCreditViewModel>;
 };
 
 export const borrowerController = asks(
@@ -125,17 +119,7 @@ export const borrowerController = asks(
 					url: `/api/Borrower/AllBorrower`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO)));
 		},
 
 		Borrower_UpsertBorrower: (sendInvite, parameters) => {
@@ -148,17 +132,7 @@ export const borrowerController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsBorrowerBorrowerFullIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsBorrowerBorrowerFullIO));
 		},
 
 		Borrower_InviteBorrower: borrowerId => {
@@ -167,13 +141,7 @@ export const borrowerController = asks(
 					url: `/api/Borrower/InviteBorrower/${encodeURIComponent(number.encode(borrowerId).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Borrower_GetBorrower: (borrowerId, isAdmin) => {
@@ -184,17 +152,7 @@ export const borrowerController = asks(
 					)}/${encodeURIComponent(boolean.encode(isAdmin).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsBorrowerBorrowerFullIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsBorrowerBorrowerFullIO));
 		},
 
 		Borrower_DeleteBorrower: borrowerId => {
@@ -203,13 +161,7 @@ export const borrowerController = asks(
 					url: `/api/Borrower/${encodeURIComponent(number.encode(borrowerId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		Borrower_AddNewApplication: (borrowerId, shouldSendCoBorrInvite, parameters) => {
@@ -224,17 +176,7 @@ export const borrowerController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsAdminApplicationModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminApplicationModelIO));
 		},
 
 		Borrower_GetAllApplicationInfo: borrowerId => {
@@ -245,17 +187,7 @@ export const borrowerController = asks(
 					)}/GetAllApplicationInfo`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftApiModelsBorrowerApplicationViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerApplicationViewModelIO)));
 		},
 
 		Borrower_UpsertApplicationInfo: (borrowerId, parameters) => {
@@ -272,17 +204,7 @@ export const borrowerController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsAdminLoanDocTaskModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminLoanDocTaskModelIO));
 		},
 
 		Borrower_AllEmploymentInfo: borrowerId => {
@@ -291,17 +213,7 @@ export const borrowerController = asks(
 					url: `/api/Borrower/${encodeURIComponent(number.encode(borrowerId).toString())}/AllEmploymentInfo`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModelIO)));
 		},
 
 		Borrower_AllCreditInfo: borrowerId => {
@@ -310,17 +222,7 @@ export const borrowerController = asks(
 					url: `/api/Borrower/${encodeURIComponent(number.encode(borrowerId).toString())}/AllCreditInfo`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLoanCreditViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLoanCreditViewModelIO));
 		},
 	}),
 );

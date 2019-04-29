@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftApiControllersInitializeFormFreeRequest,
 	LELodasoftApiControllersInitializeFormFreeRequestIO,
@@ -87,14 +87,12 @@ import {
 	LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse,
 	LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO,
 } from '../definitions/LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { string, partial, boolean, array, number, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type BorrowerPortalController = {
 	/**
@@ -106,50 +104,46 @@ export type BorrowerPortalController = {
 		companyGuid: string,
 		userGuid: string,
 		parameters: { body: LELodasoftCommonModelsSharedCreateAccountModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsSharedCreateAccountResponseModel>>;
+	) => Observable<LELodasoftCommonModelsSharedCreateAccountResponseModel>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly BorrowerPortal_ConfirmRegistrationToken: (parameters: {
 		body: LELodasoftCommonModelsSharedConfirmRegisterRequestModel;
-	}) => Observable<AsyncData<Error, LELodasoftCommonModelsSharedRegisterModel>>;
+	}) => Observable<LELodasoftCommonModelsSharedRegisterModel>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly BorrowerPortal_ConfirmRegistration: (parameters: {
 		body: LELodasoftCommonModelsSharedRegisterModel;
-	}) => Observable<AsyncData<Error, boolean>>;
+	}) => Observable<boolean>;
 
 	readonly BorrowerPortal_GetApplicationsForUser: () => Observable<
-		AsyncData<Error, Array<LELodasoftCommonModelsSharedApplicationView>>
+		Array<LELodasoftCommonModelsSharedApplicationView>
 	>;
 
-	readonly BorrowerPortal_GetPortalContent: () => Observable<
-		AsyncData<Error, LELodasoftApiModelsSharedPortalContentViewModel>
-	>;
+	readonly BorrowerPortal_GetPortalContent: () => Observable<LELodasoftApiModelsSharedPortalContentViewModel>;
 
 	/**
 	 * @param { number } appId undefined
 	 */
 	readonly BorrowerPortal_GetLoanDataForAppId: (
 		appId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsSharedApplicationView>>;
+	) => Observable<LELodasoftCommonModelsSharedApplicationView>;
 
 	/**
 	 * @param { number } appId undefined
 	 */
-	readonly BorrowerPortal_GetTasksforAppId: (
-		appId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsSharedPortalTasks>>;
+	readonly BorrowerPortal_GetTasksforAppId: (appId: number) => Observable<LELodasoftCommonModelsSharedPortalTasks>;
 
 	/**
 	 * @param { number } appId undefined
 	 */
 	readonly BorrowerPortal_GetPrequalDetail: (
 		appId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsAdminPrequalDetailViewModel>>;
+	) => Observable<LELodasoftCommonModelsAdminPrequalDetailViewModel>;
 
 	/**
 	 * @param { number } appId undefined
@@ -158,56 +152,56 @@ export type BorrowerPortalController = {
 	readonly BorrowerPortal_GeneratePrequalLetter: (
 		appId: number,
 		parameters: { body: LELodasoftCommonModelsSharedGeneratePrequalLetterRequest },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsSharedGeneratePrequalLetterResponse>>;
+	) => Observable<LELodasoftCommonModelsSharedGeneratePrequalLetterResponse>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly BorrowerPortal_SendEmailResetPassword: (parameters: {
 		body: LELodasoftApiModelsForgotPasswordBindingModel;
-	}) => Observable<AsyncData<Error, boolean>>;
+	}) => Observable<boolean>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly BorrowerPortal_ResetPassword: (parameters: {
 		body: LELodasoftApiModelsResetPasswordBindingModel;
-	}) => Observable<AsyncData<Error, unknown>>;
+	}) => Observable<unknown>;
 
 	/**
 	 * @param { number } appId undefined
 	 */
 	readonly BorrowerPortal_GetBorrowerContactInfoForApplication: (
 		appId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsBorrowerPortalBorrowerContact>>;
+	) => Observable<LELodasoftCommonModelsBorrowerPortalBorrowerContact>;
 
 	/**
 	 * @param { number } applicationId undefined
 	 */
 	readonly BorrowerPortal_GetMessages: (
 		applicationId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminMessageViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsAdminMessageViewModel>>;
 
 	/**
 	 * @param { number } loanDocTaskId undefined
 	 */
 	readonly BorrowerPortal_GetTaskMessages: (
 		loanDocTaskId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminMessageViewModel>>>;
+	) => Observable<Array<LELodasoftCommonModelsAdminMessageViewModel>>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly BorrowerPortal_PostMessage: (parameters: {
 		body: LELodasoftApiModelsBorrowerPortalBorrowerMessageModel;
-	}) => Observable<AsyncData<Error, boolean>>;
+	}) => Observable<boolean>;
 
 	/**
 	 * @param { number } taskId undefined
 	 */
 	readonly BorrowerPortal_ProgressTaskStatus: (
 		taskId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsLoanLoanDocTaskViewModel>>;
+	) => Observable<LELodasoftCommonModelsLoanLoanDocTaskViewModel>;
 
 	/**
 	 * @param { number } taskId undefined
@@ -218,36 +212,32 @@ export type BorrowerPortalController = {
 		taskId: number,
 		borrowerNote: string,
 		parameters: { query?: { progressStatus: Option<boolean> } },
-	) => Observable<AsyncData<Error, boolean>>;
+	) => Observable<boolean>;
 
-	readonly BorrowerPortal_GetReferralAgents: () => Observable<
-		AsyncData<Error, Array<LELodasoftCommonModelsSharedReferralAgent>>
-	>;
+	readonly BorrowerPortal_GetReferralAgents: () => Observable<Array<LELodasoftCommonModelsSharedReferralAgent>>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly BorrowerPortal_ReferAFriend: (parameters: {
 		body: LELodasoftCommonModelsSharedReferralModel;
-	}) => Observable<AsyncData<Error, boolean>>;
+	}) => Observable<boolean>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly BorrowerPortal_RequestACallback: (parameters: {
 		body: LELodasoftCommonModelsSharedCallbackModel;
-	}) => Observable<AsyncData<Error, boolean>>;
+	}) => Observable<boolean>;
 
 	/**
 	 * @param { object } parameters
 	 */
 	readonly BorrowerPortal_InitializeFormFree: (parameters: {
 		body: LELodasoftApiControllersInitializeFormFreeRequest;
-	}) => Observable<AsyncData<Error, LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse>>;
+	}) => Observable<LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse>;
 
-	readonly BorrowerPortal_GetUrgentLiveData: () => Observable<
-		AsyncData<Error, LELodasoftCommonModelsSharedPortalLiveData>
-	>;
+	readonly BorrowerPortal_GetUrgentLiveData: () => Observable<LELodasoftCommonModelsSharedPortalLiveData>;
 };
 
 export const borrowerPortalController = asks(
@@ -264,17 +254,7 @@ export const borrowerPortalController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsSharedCreateAccountResponseModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsSharedCreateAccountResponseModelIO));
 		},
 
 		BorrowerPortal_ConfirmRegistrationToken: parameters => {
@@ -289,17 +269,7 @@ export const borrowerPortalController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsSharedRegisterModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsSharedRegisterModelIO));
 		},
 
 		BorrowerPortal_ConfirmRegistration: parameters => {
@@ -312,11 +282,7 @@ export const borrowerPortalController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(boolean.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(boolean));
 		},
 
 		BorrowerPortal_GetApplicationsForUser: () => {
@@ -325,17 +291,7 @@ export const borrowerPortalController = asks(
 					url: `/api/BorrowerPortal/GetApplicationsForUser`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsSharedApplicationViewIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsSharedApplicationViewIO)));
 		},
 
 		BorrowerPortal_GetPortalContent: () => {
@@ -344,17 +300,7 @@ export const borrowerPortalController = asks(
 					url: `/api/BorrowerPortal/GetPortalContent`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftApiModelsSharedPortalContentViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftApiModelsSharedPortalContentViewModelIO));
 		},
 
 		BorrowerPortal_GetLoanDataForAppId: appId => {
@@ -365,17 +311,7 @@ export const borrowerPortalController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsSharedApplicationViewIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsSharedApplicationViewIO));
 		},
 
 		BorrowerPortal_GetTasksforAppId: appId => {
@@ -384,17 +320,7 @@ export const borrowerPortalController = asks(
 					url: `/api/BorrowerPortal/GetTasksforAppId/${encodeURIComponent(number.encode(appId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsSharedPortalTasksIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsSharedPortalTasksIO));
 		},
 
 		BorrowerPortal_GetPrequalDetail: appId => {
@@ -405,17 +331,7 @@ export const borrowerPortalController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsAdminPrequalDetailViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsAdminPrequalDetailViewModelIO));
 		},
 
 		BorrowerPortal_GeneratePrequalLetter: (appId, parameters) => {
@@ -432,17 +348,7 @@ export const borrowerPortalController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsSharedGeneratePrequalLetterResponseIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsSharedGeneratePrequalLetterResponseIO));
 		},
 
 		BorrowerPortal_SendEmailResetPassword: parameters => {
@@ -455,11 +361,7 @@ export const borrowerPortalController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(boolean.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(boolean));
 		},
 
 		BorrowerPortal_ResetPassword: parameters => {
@@ -472,13 +374,7 @@ export const borrowerPortalController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		BorrowerPortal_GetBorrowerContactInfoForApplication: appId => {
@@ -489,17 +385,7 @@ export const borrowerPortalController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsBorrowerPortalBorrowerContactIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsBorrowerPortalBorrowerContactIO));
 		},
 
 		BorrowerPortal_GetMessages: applicationId => {
@@ -510,17 +396,7 @@ export const borrowerPortalController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminMessageViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
 		},
 
 		BorrowerPortal_GetTaskMessages: loanDocTaskId => {
@@ -531,17 +407,7 @@ export const borrowerPortalController = asks(
 					)}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminMessageViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
 		},
 
 		BorrowerPortal_PostMessage: parameters => {
@@ -556,11 +422,7 @@ export const borrowerPortalController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(boolean.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(boolean));
 		},
 
 		BorrowerPortal_ProgressTaskStatus: taskId => {
@@ -571,17 +433,7 @@ export const borrowerPortalController = asks(
 					)}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsLoanLoanDocTaskViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO));
 		},
 
 		BorrowerPortal_UploadDocument: (taskId, borrowerNote, parameters) => {
@@ -597,11 +449,7 @@ export const borrowerPortalController = asks(
 					method: 'POST',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(boolean.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(boolean));
 		},
 
 		BorrowerPortal_GetReferralAgents: () => {
@@ -610,17 +458,7 @@ export const borrowerPortalController = asks(
 					url: `/api/BorrowerPortal/ReferralAgents`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsSharedReferralAgentIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsSharedReferralAgentIO)));
 		},
 
 		BorrowerPortal_ReferAFriend: parameters => {
@@ -633,11 +471,7 @@ export const borrowerPortalController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(boolean.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(boolean));
 		},
 
 		BorrowerPortal_RequestACallback: parameters => {
@@ -650,11 +484,7 @@ export const borrowerPortalController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(boolean.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(boolean));
 		},
 
 		BorrowerPortal_InitializeFormFree: parameters => {
@@ -667,17 +497,7 @@ export const borrowerPortalController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO));
 		},
 
 		BorrowerPortal_GetUrgentLiveData: () => {
@@ -686,17 +506,7 @@ export const borrowerPortalController = asks(
 					url: `/api/BorrowerPortal/LiveData`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsSharedPortalLiveDataIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsSharedPortalLiveDataIO));
 		},
 	}),
 );

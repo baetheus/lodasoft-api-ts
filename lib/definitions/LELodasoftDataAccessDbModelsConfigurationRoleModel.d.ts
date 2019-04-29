@@ -1,0 +1,37 @@
+import { Option } from 'fp-ts/lib/Option';
+export declare type LELodasoftDataAccessDbModelsConfigurationRoleModel = {
+    roleId: Option<number>;
+    roleName: Option<string>;
+    isLoanContact: Option<boolean>;
+    order: Option<number>;
+    allowAccessAllLoans: Option<boolean>;
+    allowBorrowerAssignment: Option<boolean>;
+    showOnPortals: Option<boolean>;
+    showNewSubmissionForm: Option<boolean>;
+    bulkEditTasks: Option<boolean>;
+    readOnlyTasks: Option<boolean>;
+    useForCreditMonitoring: Option<boolean>;
+    companyId: Option<number>;
+    insertedBy: Option<string>;
+    dateInserted: Option<Date>;
+    updatedBy: Option<string>;
+    dateUpdated: Option<Date>;
+};
+export declare const LELodasoftDataAccessDbModelsConfigurationRoleModelIO: import("io-ts").TypeC<{
+    roleId: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    roleName: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    isLoanContact: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    order: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    allowAccessAllLoans: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    allowBorrowerAssignment: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    showOnPortals: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    showNewSubmissionForm: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    bulkEditTasks: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    readOnlyTasks: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    useForCreditMonitoring: import("io-ts-types").OptionFromNullableC<import("io-ts").BooleanC>;
+    companyId: import("io-ts-types").OptionFromNullableC<import("io-ts").NumberC>;
+    insertedBy: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    dateInserted: import("io-ts-types").OptionFromNullableC<import("io-ts-types").DateFromISOStringC>;
+    updatedBy: import("io-ts-types").OptionFromNullableC<import("io-ts").StringC>;
+    dateUpdated: import("io-ts-types").OptionFromNullableC<import("io-ts-types").DateFromISOStringC>;
+}>;

@@ -1,0 +1,1 @@
+{"version":3,"file":"LELodasoftCommonModelsSharedConfirmRegisterRequestModel.js","sourceRoot":"","sources":["../../src/spec/definitions/LELodasoftCommonModelsSharedConfirmRegisterRequestModel.ts"],"names":[],"mappings":";;AACA,+BAAqC;AACrC,2CAAuD;AAM1C,QAAA,yDAAyD,GAAG,YAAI,CAAC;IAC7E,QAAQ,EAAE,sCAAwB,CAAC,cAAM,CAAC;IAC1C,KAAK,EAAE,sCAAwB,CAAC,cAAM,CAAC;CACvC,CAAC,CAAC"}

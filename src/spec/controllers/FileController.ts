@@ -1,4 +1,4 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftApiModelsFileExportDocumentModel,
 	LELodasoftApiModelsFileExportDocumentModelIO,
@@ -19,36 +19,28 @@ import {
 	LELodasoftDataAccessModelsAdminBorrowerFileDto,
 	LELodasoftDataAccessModelsAdminBorrowerFileDtoIO,
 } from '../definitions/LELodasoftDataAccessModelsAdminBorrowerFileDto';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { string, array, number, boolean, type, partial } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type FileController = {
 	/**
 	 * @param { string } guid undefined
 	 */
-	readonly File_TrackingFile: (
-		guid: string,
-	) => Observable<AsyncData<Error, Array<LELodasoftCommonModelsAdminTrackingViewModel>>>;
+	readonly File_TrackingFile: (guid: string) => Observable<Array<LELodasoftCommonModelsAdminTrackingViewModel>>;
 
 	/**
 	 * @param { string } guid undefined
 	 */
-	readonly File_GetDocFile: (
-		guid: string,
-	) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsAdminDocFileModel>>;
+	readonly File_GetDocFile: (guid: string) => Observable<LELodasoftDataAccessDbModelsAdminDocFileModel>;
 
 	/**
 	 * @param { string } guid undefined
 	 */
-	readonly File_RemoveFile: (
-		guid: string,
-	) => Observable<AsyncData<Error, LELodasoftDataAccessDbModelsAdminDocFileModel>>;
+	readonly File_RemoveFile: (guid: string) => Observable<LELodasoftDataAccessDbModelsAdminDocFileModel>;
 
 	/**
 	 * @param { number } taskId undefined
@@ -57,33 +49,31 @@ export type FileController = {
 	readonly File_UpsertFileFromTask: (
 		taskId: number,
 		parameters: { query?: { autoTransition: Option<boolean> } },
-	) => Observable<AsyncData<Error, LELodasoftDataAccessModelsAdminBorrowerFileDto>>;
+	) => Observable<LELodasoftDataAccessModelsAdminBorrowerFileDto>;
 
 	/**
 	 * @param { number } loanDocId undefined
 	 */
 	readonly File_UpsertFileFromLoanDoc: (
 		loanDocId: number,
-	) => Observable<AsyncData<Error, LELodasoftDataAccessModelsAdminBorrowerFileDto>>;
+	) => Observable<LELodasoftDataAccessModelsAdminBorrowerFileDto>;
 
 	/**
 	 * @param { number } appId undefined
 	 */
-	readonly File_GetFileForExport: (
-		appId: number,
-	) => Observable<AsyncData<Error, Array<LELodasoftApiModelsFileExportDocumentModel>>>;
+	readonly File_GetFileForExport: (appId: number) => Observable<Array<LELodasoftApiModelsFileExportDocumentModel>>;
 
 	/**
 	 * @param { string } fileGuid undefined
 	 * @param { string } downloadUserId undefined
 	 */
-	readonly File_DownloadFile: (fileGuid: string, downloadUserId: string) => Observable<AsyncData<Error, unknown>>;
+	readonly File_DownloadFile: (fileGuid: string, downloadUserId: string) => Observable<unknown>;
 
 	/**
 	 * @param { string } fileGuid undefined
 	 * @param { string } userId undefined
 	 */
-	readonly File_ViewFile: (fileGuid: string, userId: string) => Observable<AsyncData<Error, unknown>>;
+	readonly File_ViewFile: (fileGuid: string, userId: string) => Observable<unknown>;
 
 	/**
 	 * @param { boolean } asPDF undefined
@@ -92,12 +82,12 @@ export type FileController = {
 	readonly File_ExportFile: (
 		asPDF: boolean,
 		parameters: { body: LELodasoftCommonModelsLoanExportDocFilesRequest },
-	) => Observable<AsyncData<Error, unknown>>;
+	) => Observable<unknown>;
 
 	/**
 	 * @param { string } fileGuid undefined
 	 */
-	readonly File_ConvertToPdf: (fileGuid: string) => Observable<AsyncData<Error, string>>;
+	readonly File_ConvertToPdf: (fileGuid: string) => Observable<string>;
 };
 
 export const fileController = asks(
@@ -108,17 +98,7 @@ export const fileController = asks(
 					url: `/api/File/TrackingFile/${encodeURIComponent(string.encode(guid).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftCommonModelsAdminTrackingViewModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminTrackingViewModelIO)));
 		},
 
 		File_GetDocFile: guid => {
@@ -127,17 +107,7 @@ export const fileController = asks(
 					url: `/api/File/GetDocFile/${encodeURIComponent(string.encode(guid).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsAdminDocFileModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminDocFileModelIO));
 		},
 
 		File_RemoveFile: guid => {
@@ -146,17 +116,7 @@ export const fileController = asks(
 					url: `/api/File/RemoveFile/${encodeURIComponent(string.encode(guid).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessDbModelsAdminDocFileModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminDocFileModelIO));
 		},
 
 		File_UpsertFileFromTask: (taskId, parameters) => {
@@ -170,17 +130,7 @@ export const fileController = asks(
 					method: 'POST',
 					query: encoded.query,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessModelsAdminBorrowerFileDtoIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessModelsAdminBorrowerFileDtoIO));
 		},
 
 		File_UpsertFileFromLoanDoc: loanDocId => {
@@ -189,17 +139,7 @@ export const fileController = asks(
 					url: `/api/File/UpsertFileFromLoanDoc/${encodeURIComponent(number.encode(loanDocId).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftDataAccessModelsAdminBorrowerFileDtoIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftDataAccessModelsAdminBorrowerFileDtoIO));
 		},
 
 		File_GetFileForExport: appId => {
@@ -208,17 +148,7 @@ export const fileController = asks(
 					url: `/api/File/GetFileForExport/${encodeURIComponent(number.encode(appId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								array(LELodasoftApiModelsFileExportDocumentModelIO)
-									.decode(value)
-									.mapLeft(ResponseValiationError.create),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(array(LELodasoftApiModelsFileExportDocumentModelIO)));
 		},
 
 		File_DownloadFile: (fileGuid, downloadUserId) => {
@@ -229,13 +159,7 @@ export const fileController = asks(
 					)}/${encodeURIComponent(string.encode(downloadUserId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		File_ViewFile: (fileGuid, userId) => {
@@ -246,13 +170,7 @@ export const fileController = asks(
 					)}/${encodeURIComponent(string.encode(userId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		File_ExportFile: (asPDF, parameters) => {
@@ -265,13 +183,7 @@ export const fileController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 
 		File_ConvertToPdf: fileGuid => {
@@ -280,11 +192,7 @@ export const fileController = asks(
 					url: `/api/File/convert-to-pdf/${encodeURIComponent(string.encode(fileGuid).toString())}`,
 					method: 'POST',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value => fromEither(string.decode(value).mapLeft(ResponseValiationError.create))),
-					),
-				);
+				.pipe(decodeAndMap(string));
 		},
 	}),
 );

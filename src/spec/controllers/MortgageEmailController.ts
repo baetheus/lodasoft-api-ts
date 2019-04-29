@@ -1,22 +1,18 @@
-import { ResponseValiationError, TAPIClient } from '../client/client';
+import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgageEmailViewModel,
 	LELodasoftCommonModelsMortgageEmailViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageEmailViewModel';
-import { unknownType } from '../utils/utils';
-import { fromEither, AsyncData } from '@nll/dux';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export type MortgageEmailController = {
 	/**
 	 * @param { number } emailId undefined
 	 */
-	readonly MortgageEmail_GetEmailById: (
-		emailId: number,
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageEmailViewModel>>;
+	readonly MortgageEmail_GetEmailById: (emailId: number) => Observable<LELodasoftCommonModelsMortgageEmailViewModel>;
 
 	/**
 	 * @param { number } emailId undefined
@@ -25,12 +21,12 @@ export type MortgageEmailController = {
 	readonly MortgageEmail_UpdateEmail: (
 		emailId: number,
 		parameters: { body: LELodasoftCommonModelsMortgageEmailViewModel },
-	) => Observable<AsyncData<Error, LELodasoftCommonModelsMortgageEmailViewModel>>;
+	) => Observable<LELodasoftCommonModelsMortgageEmailViewModel>;
 
 	/**
 	 * @param { number } emailId undefined
 	 */
-	readonly MortgageEmail_DeleteEmail: (emailId: number) => Observable<AsyncData<Error, unknown>>;
+	readonly MortgageEmail_DeleteEmail: (emailId: number) => Observable<unknown>;
 };
 
 export const mortgageEmailController = asks(
@@ -41,17 +37,7 @@ export const mortgageEmailController = asks(
 					url: `/api/mortgage/emails/${encodeURIComponent(number.encode(emailId).toString())}`,
 					method: 'GET',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageEmailViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmailViewModelIO));
 		},
 
 		MortgageEmail_UpdateEmail: (emailId, parameters) => {
@@ -64,17 +50,7 @@ export const mortgageEmailController = asks(
 
 					body: encoded.body,
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(
-								LELodasoftCommonModelsMortgageEmailViewModelIO.decode(value).mapLeft(
-									ResponseValiationError.create,
-								),
-							),
-						),
-					),
-				);
+				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmailViewModelIO));
 		},
 
 		MortgageEmail_DeleteEmail: emailId => {
@@ -83,13 +59,7 @@ export const mortgageEmailController = asks(
 					url: `/api/mortgage/emails/${encodeURIComponent(number.encode(emailId).toString())}`,
 					method: 'DELETE',
 				})
-				.pipe(
-					map(data =>
-						data.chain(value =>
-							fromEither(unknownType.decode(value).mapLeft(ResponseValiationError.create)),
-						),
-					),
-				);
+				.pipe(decodeAndMap(unknownType));
 		},
 	}),
 );
