@@ -1344,19 +1344,17 @@ export type AdminController = {
 };
 
 export const adminController = asks(
-	(e: { apiClient: TAPIClient }): AdminController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): AdminController => ({
 		Admin_GetAllByCompanyId: parameters => {
 			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/GetAllProductByCompanyId`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationProductModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/GetAllProductByCompanyId`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationProductModelIO)));
 		},
 
 		Admin_GetProductById: (productId, parameters) => {
@@ -1364,13 +1362,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/GetProductById/${encodeURIComponent(number.encode(productId).toString())}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationProductModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/GetProductById/${encodeURIComponent(number.encode(productId).toString())}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationProductModelIO));
 		},
 
 		Admin_UpdateProduct: parameters => {
@@ -1379,14 +1375,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationProductModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateProduct`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateProduct`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertProduct: parameters => {
@@ -1395,14 +1389,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationProductModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertProduct`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertProduct`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_DeleteProduct: (id, parameters) => {
@@ -1410,13 +1402,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteProduct/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteProduct/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllQuestion: parameters => {
@@ -1424,13 +1414,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllQuestion`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationQuestionModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllQuestion`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationQuestionModelIO)));
 		},
 
 		Admin_UpdateQuestion: parameters => {
@@ -1439,14 +1427,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationQuestionModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateQuestion`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateQuestion`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertQuestion: parameters => {
@@ -1455,14 +1441,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationQuestionModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertQuestion`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertQuestion`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_DeleteQuestion: (id, parameters) => {
@@ -1470,13 +1454,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteQuestion/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteQuestion/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_QuestionAnswerGroupByQuestion: parameters => {
@@ -1484,13 +1466,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/QuestionAnswerGroupByQuestion`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/QuestionAnswerGroupByQuestion`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllQuestionAnswer: (questionId, parameters) => {
@@ -1498,13 +1478,13 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllQuestionAnswer/${encodeURIComponent(number.encode(questionId).toString())}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsAdminQuestionTaskAnswerDtoIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllQuestionAnswer/${encodeURIComponent(
+					number.encode(questionId).toString(),
+				)}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsAdminQuestionTaskAnswerDtoIO)));
 		},
 
 		Admin_UpdateQuestionAnswer: parameters => {
@@ -1513,14 +1493,12 @@ export const adminController = asks(
 				body: LELodasoftApiModelsAdminQuestionTaskAnswerDtoIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateQuestionAnswer`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateQuestionAnswer`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertQuestionAnswer: parameters => {
@@ -1529,14 +1507,12 @@ export const adminController = asks(
 				body: LELodasoftApiModelsAdminQuestionTaskAnswerDtoIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertQuestionAnswer`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertQuestionAnswer`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_DeleteQuestionAnswer: (id, parameters) => {
@@ -1544,13 +1520,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteQuestionAnswer/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteQuestionAnswer/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllQATaskModel: parameters => {
@@ -1558,13 +1532,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllQATaskModel`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationQATaskModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllQATaskModel`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationQATaskModelIO)));
 		},
 
 		Admin_UpdateQATaskModel: parameters => {
@@ -1573,14 +1545,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationQATaskModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateQATaskModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateQATaskModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertQATaskModel: parameters => {
@@ -1589,14 +1559,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationQATaskModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertQATaskModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationQATaskModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertQATaskModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationQATaskModelIO));
 		},
 
 		Admin_DeleteQATaskModel: (id, parameters) => {
@@ -1604,13 +1572,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteQATaskModel/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteQATaskModel/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllCheckListItem: parameters => {
@@ -1618,13 +1584,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllCheckListItem`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationChecklistItemModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllCheckListItem`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationChecklistItemModelIO)));
 		},
 
 		Admin_UpdateCheckListItem: parameters => {
@@ -1633,14 +1597,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationChecklistItemModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateCheckListItem`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateCheckListItem`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertCheckListItem: parameters => {
@@ -1649,14 +1611,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationChecklistItemModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertCheckListItem`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationChecklistItemModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertCheckListItem`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationChecklistItemModelIO));
 		},
 
 		Admin_DeleteCheckListItem: (id, parameters) => {
@@ -1664,13 +1624,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteCheckListItem/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteCheckListItem/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetSetupReferenceByTemplateCompany_CompanyId: (TemplateCompanyId, parameters) => {
@@ -1678,15 +1636,13 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/GetSetupReferenceByTemplateCompany_CompanyId/${encodeURIComponent(
-						number.encode(TemplateCompanyId).toString(),
-					)}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationSetupReferenceModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/GetSetupReferenceByTemplateCompany_CompanyId/${encodeURIComponent(
+					number.encode(TemplateCompanyId).toString(),
+				)}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationSetupReferenceModelIO)));
 		},
 
 		Admin_UpsertSetupReference: parameters => {
@@ -1695,14 +1651,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationSetupReferenceModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpsertSetupReference`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationSetupReferenceModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpsertSetupReference`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationSetupReferenceModelIO));
 		},
 
 		Admin_GetPageResource: (page, parameters) => {
@@ -1710,35 +1664,29 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/PageResource/${encodeURIComponent(string.encode(page).toString())}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/PageResource/${encodeURIComponent(string.encode(page).toString())}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetProfile: userId => {
-			return e.apiClient
-				.request({
-					url: `/api/Admin/Profile/${encodeURIComponent(string.encode(userId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsUserProfileModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/Profile/${encodeURIComponent(string.encode(userId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftApiModelsUserProfileModelIO));
 		},
 
 		Admin_PostSaveProfile: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsUserProfileModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/SaveProfile`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/SaveProfile`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_WizardEverythingElse: parameters => {
@@ -1746,47 +1694,39 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/WizardEverythingElse`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/WizardEverythingElse`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetCurrentReleaseNotes: parameters => {
 			const encoded = partial({ query: type({ releaseNotesVersion: string }) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/CurrentReleaseNotes`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsReleaseNotesReleaseNotesViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/CurrentReleaseNotes`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsReleaseNotesReleaseNotesViewModelIO));
 		},
 
 		Admin_ViewedReleaseNotes: parameters => {
 			const encoded = partial({ query: type({ releaseNotesVersion: string }) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/ViewedReleaseNotes`,
-					method: 'POST',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/ViewedReleaseNotes`,
+				method: 'POST',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetReleaseNotes: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllReleaseNotes`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsReleaseNotesReleaseNotesViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllReleaseNotes`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsReleaseNotesReleaseNotesViewModelIO)));
 		},
 
 		Admin_InsertReleaseNotes: parameters => {
@@ -1794,14 +1734,12 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/ReleaseNotes`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/ReleaseNotes`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsReleaseNotesReleaseNotesViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsReleaseNotesReleaseNotesViewModelIO));
 		},
 
 		Admin_UpdateReleaseNotes: (id, parameters) => {
@@ -1809,23 +1747,19 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/ReleaseNotes/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/ReleaseNotes/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsReleaseNotesReleaseNotesViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsReleaseNotesReleaseNotesViewModelIO));
 		},
 
 		Admin_DeleteReleaseNotes: id => {
-			return e.apiClient
-				.request({
-					url: `/api/Admin/ReleaseNotes/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/ReleaseNotes/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetPermissionMenu: parameters => {
@@ -1833,22 +1767,18 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/PermissionMenu`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsAdminPermissionMenuIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/PermissionMenu`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftApiModelsAdminPermissionMenuIO));
 		},
 
 		Admin_GetAllTable: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllTable`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(dictionary(string, dictionary(string, string))));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllTable`,
+				method: 'GET',
+			}).pipe(decodeAndMap(dictionary(string, dictionary(string, string))));
 		},
 
 		Admin_GetAllUserModel: parameters => {
@@ -1856,13 +1786,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllUserModel`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsAdminUser_View_AdminPageIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllUserModel`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsAdminUser_View_AdminPageIO)));
 		},
 
 		Admin_UpdateUserModel: parameters => {
@@ -1871,14 +1799,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsUserProfileIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateUserModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateUserModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertUserModel: parameters => {
@@ -1887,14 +1813,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsUserProfileIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertUserModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsUserProfileIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertUserModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsUserProfileIO));
 		},
 
 		Admin_DeleteUserModel: (id, parameters) => {
@@ -1902,22 +1826,18 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteUserModel/${encodeURIComponent(string.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(string));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteUserModel/${encodeURIComponent(string.encode(id).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(string));
 		},
 
 		Admin_GetAllCompanyModel: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllCompanyModel`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllCompanyModel`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO)));
 		},
 
 		Admin_UpdateCompanyModel: parameters => {
@@ -1926,14 +1846,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationCompanyModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateCompanyModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateCompanyModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertCompanyModel: parameters => {
@@ -1941,23 +1859,19 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertCompanyModel`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertCompanyModel`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO));
 		},
 
 		Admin_DeleteCompanyModel: id => {
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteCompanyModel/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteCompanyModel/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetCheckRegister: parameters => {
@@ -1965,14 +1879,12 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/CheckRegister`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/CheckRegister`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_DeleteInvite: (userId, parameters) => {
@@ -1980,13 +1892,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteInvite/${encodeURIComponent(string.encode(userId).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteInvite/${encodeURIComponent(string.encode(userId).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_ResendInvite: (userId, parameters) => {
@@ -1994,13 +1904,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/ResendInvite/${encodeURIComponent(string.encode(userId).toString())}`,
-					method: 'POST',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/ResendInvite/${encodeURIComponent(string.encode(userId).toString())}`,
+				method: 'POST',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InviteUser: parameters => {
@@ -2009,14 +1917,12 @@ export const adminController = asks(
 				body: LELodasoftApiModelsAdminInviteViewModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InviteUser`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsUserProfileIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InviteUser`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsUserProfileIO));
 		},
 
 		Admin_GetAllInvite: parameters => {
@@ -2024,13 +1930,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllInvite`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsAdminInviteViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllInvite`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsAdminInviteViewModelIO)));
 		},
 
 		Admin_ImportListUserForCompany: parameters => {
@@ -2038,13 +1942,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/ImportListUserForCompany`,
-					method: 'POST',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsAdminInviteViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/ImportListUserForCompany`,
+				method: 'POST',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftApiModelsAdminInviteViewModelIO));
 		},
 
 		Admin_GetAllRoleModel: parameters => {
@@ -2052,13 +1954,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllRoleModel`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationRoleModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllRoleModel`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationRoleModelIO)));
 		},
 
 		Admin_UpdateRoleModel: parameters => {
@@ -2067,14 +1967,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationRoleModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateRoleModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateRoleModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertRoleModel: parameters => {
@@ -2083,14 +1981,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationRoleModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertRoleModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationRoleModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertRoleModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationRoleModelIO));
 		},
 
 		Admin_DeleteRoleModel: (id, parameters) => {
@@ -2098,13 +1994,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteRoleModel/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteRoleModel/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateRoleOrder: parameters => {
@@ -2113,14 +2007,12 @@ export const adminController = asks(
 				body: array(unknownType),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateRoleOrder`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateRoleOrder`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetCompanyAndRoleAndUserAligment: parameters => {
@@ -2128,13 +2020,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/CompanyAndRoleAndUserForAligment`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/CompanyAndRoleAndUserForAligment`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllAlignmentModel: parameters => {
@@ -2142,13 +2032,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllAlignmentModel`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllAlignmentModel`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateAlignmentModel: parameters => {
@@ -2157,14 +2045,12 @@ export const adminController = asks(
 				body: unknownType,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateAlignmentModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateAlignmentModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertAlignmentModel: parameters => {
@@ -2173,14 +2059,12 @@ export const adminController = asks(
 				body: unknownType,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertAlignmentModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertAlignmentModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_DeleteAlignmentModel: (groupnumber, parameters) => {
@@ -2188,13 +2072,13 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteAlignmentModel/${encodeURIComponent(string.encode(groupnumber).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteAlignmentModel/${encodeURIComponent(
+					string.encode(groupnumber).toString(),
+				)}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllLeadStatusModel: parameters => {
@@ -2202,13 +2086,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllLeadStatusModel`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllLeadStatusModel`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)));
 		},
 
 		Admin_GetLeadStatus: (leadStatusId, parameters) => {
@@ -2216,13 +2098,13 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/GetLeadStatus/${encodeURIComponent(number.encode(leadStatusId).toString())}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/GetLeadStatus/${encodeURIComponent(
+					number.encode(leadStatusId).toString(),
+				)}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetLeadStatusByLoanPurposeId: (LoanPurposeId, parameters) => {
@@ -2230,15 +2112,13 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/GetLeadStatusByLoanPurposeId/${encodeURIComponent(
-						number.encode(LoanPurposeId).toString(),
-					)}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/GetLeadStatusByLoanPurposeId/${encodeURIComponent(
+					number.encode(LoanPurposeId).toString(),
+				)}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)));
 		},
 
 		Admin_UpdateLeadStatusModel: parameters => {
@@ -2247,14 +2127,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateLeadStatusModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateLeadStatusModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertLeadStatusModel: parameters => {
@@ -2263,14 +2141,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertLeadStatusModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertLeadStatusModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO));
 		},
 
 		Admin_SaveAssociateLeadStatus: (loanStatusId, loanPurposeId, associate, parameters) => {
@@ -2278,17 +2154,15 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/SaveAssociateLeadStatus/${encodeURIComponent(
-						number.encode(loanPurposeId).toString(),
-					)}/${encodeURIComponent(number.encode(loanStatusId).toString())}/${encodeURIComponent(
-						string.encode(associate).toString(),
-					)}`,
-					method: 'POST',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/SaveAssociateLeadStatus/${encodeURIComponent(
+					number.encode(loanPurposeId).toString(),
+				)}/${encodeURIComponent(number.encode(loanStatusId).toString())}/${encodeURIComponent(
+					string.encode(associate).toString(),
+				)}`,
+				method: 'POST',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
 		},
 
 		Admin_SaveLeadStatusFlow: parameters => {
@@ -2297,14 +2171,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/SaveLeadStatusFlow`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/SaveLeadStatusFlow`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
 		},
 
 		Admin_DeleteLeadStatusModel: (id, parameters) => {
@@ -2312,13 +2184,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteLeadStatusModel/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteLeadStatusModel/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateLeadOrder: parameters => {
@@ -2327,14 +2197,12 @@ export const adminController = asks(
 				body: array(unknownType),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateLeadOrder`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateLeadOrder`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllLoanStatusModel: parameters => {
@@ -2342,13 +2210,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllLoanStatusModel`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllLoanStatusModel`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)));
 		},
 
 		Admin_GetLoanStatus: (loanStatusId, parameters) => {
@@ -2356,13 +2222,13 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/GetLoanStatus/${encodeURIComponent(number.encode(loanStatusId).toString())}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/GetLoanStatus/${encodeURIComponent(
+					number.encode(loanStatusId).toString(),
+				)}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetLoanStatusByLoanTypeId: (LoanPurposeId, parameters) => {
@@ -2370,15 +2236,13 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/GetLoanStatusByLoanPurposeId/${encodeURIComponent(
-						number.encode(LoanPurposeId).toString(),
-					)}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/GetLoanStatusByLoanPurposeId/${encodeURIComponent(
+					number.encode(LoanPurposeId).toString(),
+				)}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)));
 		},
 
 		Admin_UpdateLoanStatusModel: parameters => {
@@ -2387,14 +2251,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateLoanStatusModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateLoanStatusModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertLoanStatusModel: parameters => {
@@ -2403,14 +2265,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertLoanStatusModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertLoanStatusModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO));
 		},
 
 		Admin_SaveAssociateLoanStatus: (loanPurposeId, loanStatusId, associate, parameters) => {
@@ -2418,17 +2278,15 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/SaveAssociateLoanStatus/${encodeURIComponent(
-						number.encode(loanPurposeId).toString(),
-					)}/${encodeURIComponent(number.encode(loanStatusId).toString())}/${encodeURIComponent(
-						string.encode(associate).toString(),
-					)}`,
-					method: 'POST',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/SaveAssociateLoanStatus/${encodeURIComponent(
+					number.encode(loanPurposeId).toString(),
+				)}/${encodeURIComponent(number.encode(loanStatusId).toString())}/${encodeURIComponent(
+					string.encode(associate).toString(),
+				)}`,
+				method: 'POST',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
 		},
 
 		Admin_SaveLoanStatusFlow: parameters => {
@@ -2437,14 +2295,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/SaveLoanStatusFlow`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/SaveLoanStatusFlow`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
 		},
 
 		Admin_DeleteLoanStatusModel: (id, parameters) => {
@@ -2452,13 +2308,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteLoanStatusModel/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteLoanStatusModel/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateLoanOrder: parameters => {
@@ -2470,14 +2324,12 @@ export const adminController = asks(
 				body: array(unknownType),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateLoanOrder`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateLoanOrder`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllLoanTypeModel: parameters => {
@@ -2485,13 +2337,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllLoanTypeModel`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllLoanTypeModel`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO)));
 		},
 
 		Admin_UpdateLoanTypeModel: parameters => {
@@ -2500,14 +2350,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateLoanTypeModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateLoanTypeModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertLoanTypeModel: parameters => {
@@ -2516,14 +2364,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertLoanTypeModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertLoanTypeModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO));
 		},
 
 		Admin_DeleteLoanTypeModel: (id, parameters) => {
@@ -2531,13 +2377,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteLoanTypeModel/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteLoanTypeModel/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateLoanTypeOrder: parameters => {
@@ -2546,14 +2390,12 @@ export const adminController = asks(
 				body: array(unknownType),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateLoanTypeOrder`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateLoanTypeOrder`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllLoanPurposeModel: parameters => {
@@ -2561,13 +2403,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllLoanPurposeModel`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanPurposeModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllLoanPurposeModel`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanPurposeModelIO)));
 		},
 
 		Admin_UpdateLoanPurposeModel: parameters => {
@@ -2576,14 +2416,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationLoanPurposeModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateLoanPurposeModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateLoanPurposeModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertLoanPurposeModel: parameters => {
@@ -2592,14 +2430,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationLoanPurposeModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertLoanPurposeModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanPurposeModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertLoanPurposeModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanPurposeModelIO));
 		},
 
 		Admin_DeleteLoanPurposeModel: (id, parameters) => {
@@ -2607,13 +2443,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteLoanPurposeModel/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteLoanPurposeModel/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateLoanPurposeOrder: parameters => {
@@ -2622,14 +2456,12 @@ export const adminController = asks(
 				body: array(unknownType),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateLoanPurposeOrder`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateLoanPurposeOrder`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllLeadStatusAssociations: parameters => {
@@ -2637,13 +2469,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/GetAllLeadStatusAssociations`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/GetAllLeadStatusAssociations`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO)));
 		},
 
 		Admin_GetAllLeadStatusAssociationsByLoanPurpose: (loanPurposeId, parameters) => {
@@ -2651,15 +2481,13 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/GetAllLeadStatusAssociationsByLoanPurpose/${encodeURIComponent(
-						number.encode(loanPurposeId).toString(),
-					)}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/GetAllLeadStatusAssociationsByLoanPurpose/${encodeURIComponent(
+					number.encode(loanPurposeId).toString(),
+				)}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO)));
 		},
 
 		Admin_UpdateLeadStatusAssociation: parameters => {
@@ -2668,14 +2496,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateLeadStatusAssociation`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateLeadStatusAssociation`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_DeleteLeadStatusAssociation: (id, parameters) => {
@@ -2683,13 +2509,13 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteLeadStatusAssociation/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteLeadStatusAssociation/${encodeURIComponent(
+					number.encode(id).toString(),
+				)}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertLeadStatusAssociation: parameters => {
@@ -2698,14 +2524,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertLeadStatusAssociation`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertLeadStatusAssociation`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
 		},
 
 		Admin_UpdateLeadStatusFlowOrder: (loanPurposeId, parameters) => {
@@ -2714,16 +2538,14 @@ export const adminController = asks(
 				body: array(unknownType),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateLeadStatusFlowOrder/${encodeURIComponent(
-						number.encode(loanPurposeId).toString(),
-					)}`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateLeadStatusFlowOrder/${encodeURIComponent(
+					number.encode(loanPurposeId).toString(),
+				)}`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllLoanStatusAssociations: parameters => {
@@ -2731,13 +2553,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/GetAllLoanStatusAssociations`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/GetAllLoanStatusAssociations`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO)));
 		},
 
 		Admin_GetAllLoanStatusAssociationsByLoanPurpose: (loanPurposeId, parameters) => {
@@ -2745,15 +2565,13 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/GetAllLoanStatusAssociationsByLoanPurpose/${encodeURIComponent(
-						number.encode(loanPurposeId).toString(),
-					)}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/GetAllLoanStatusAssociationsByLoanPurpose/${encodeURIComponent(
+					number.encode(loanPurposeId).toString(),
+				)}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO)));
 		},
 
 		Admin_UpdateLoanStatusAssociation: parameters => {
@@ -2762,14 +2580,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateLoanStatusAssociation`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateLoanStatusAssociation`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_DeleteLoanStatusAssociation: (id, parameters) => {
@@ -2777,13 +2593,13 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteLoanStatusAssociation/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteLoanStatusAssociation/${encodeURIComponent(
+					number.encode(id).toString(),
+				)}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertLoanStatusAssociation: parameters => {
@@ -2792,14 +2608,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertLoanStatusAssociation`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertLoanStatusAssociation`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO));
 		},
 
 		Admin_UpdateLoanStatusFlowOrder: (loanPurposeId, parameters) => {
@@ -2808,16 +2622,14 @@ export const adminController = asks(
 				body: array(unknownType),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateLoanStatusFlowOrder/${encodeURIComponent(
-						number.encode(loanPurposeId).toString(),
-					)}`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateLoanStatusFlowOrder/${encodeURIComponent(
+					number.encode(loanPurposeId).toString(),
+				)}`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllTaskModel: parameters => {
@@ -2825,13 +2637,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllTaskModel`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationTaskViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllTaskModel`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationTaskViewModelIO)));
 		},
 
 		Admin_GetLeadAllTaskModel: parameters => {
@@ -2839,13 +2649,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/GetLeadAllTaskModel`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationTaskViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/GetLeadAllTaskModel`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationTaskViewModelIO)));
 		},
 
 		Admin_GetTaskById: (taskId, parameters) => {
@@ -2853,13 +2661,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/GetTaskById/${encodeURIComponent(number.encode(taskId).toString())}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/GetTaskById/${encodeURIComponent(number.encode(taskId).toString())}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateTaskModel: parameters => {
@@ -2868,14 +2674,12 @@ export const adminController = asks(
 				body: LELodasoftCommonModelsConfigurationTaskViewModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateTaskModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateTaskModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateTaskSubTask: (taskId, subTasks, parameters) => {
@@ -2883,15 +2687,13 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateTaskSubTask/${encodeURIComponent(
-						number.encode(taskId).toString(),
-					)}/${encodeURIComponent(string.encode(subTasks).toString())}`,
-					method: 'POST',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateTaskSubTask/${encodeURIComponent(
+					number.encode(taskId).toString(),
+				)}/${encodeURIComponent(string.encode(subTasks).toString())}`,
+				method: 'POST',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertTaskModel: parameters => {
@@ -2900,14 +2702,12 @@ export const adminController = asks(
 				body: LELodasoftCommonModelsConfigurationTaskViewModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertTaskModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationTaskViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertTaskModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationTaskViewModelIO));
 		},
 
 		Admin_InsertTaskModelFromTemplate: (templateCompanyId, templateTaskId, parameters) => {
@@ -2916,16 +2716,14 @@ export const adminController = asks(
 				body: LELodasoftCommonModelsConfigurationTaskViewModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertTaskModelFromTemplate/${encodeURIComponent(
-						number.encode(templateCompanyId).toString(),
-					)}/${encodeURIComponent(number.encode(templateTaskId).toString())}`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationTaskViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertTaskModelFromTemplate/${encodeURIComponent(
+					number.encode(templateCompanyId).toString(),
+				)}/${encodeURIComponent(number.encode(templateTaskId).toString())}`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationTaskViewModelIO));
 		},
 
 		Admin_DeleteTaskModel: (id, parameters) => {
@@ -2933,22 +2731,18 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteTaskModel/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteTaskModel/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetGlobalEmailMergeFieldsModel: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllGlobalEmailMergeFieldsModel`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllGlobalEmailMergeFieldsModel`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModelIO)));
 		},
 
 		Admin_UpdateGlobalEmailMergeFieldsModel: parameters => {
@@ -2956,14 +2750,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateGlobalEmailMergeFieldsModel`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateGlobalEmailMergeFieldsModel`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertGlobalEmailMergeFieldsModel: parameters => {
@@ -2971,25 +2763,21 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertGlobalEmailMergeFieldsModel`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertGlobalEmailMergeFieldsModel`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModelIO));
 		},
 
 		Admin_DeleteGlobalEmailMergeFieldsModel: id => {
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteGlobalEmailMergeFieldsModel/${encodeURIComponent(
-						number.encode(id).toString(),
-					)}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteGlobalEmailMergeFieldsModel/${encodeURIComponent(
+					number.encode(id).toString(),
+				)}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllEmailCampaignTriggerModel: parameters => {
@@ -2997,13 +2785,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllEmailCampaignTriggerModel`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsAdminGetAllEmailCampaignTriggerIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllEmailCampaignTriggerModel`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsAdminGetAllEmailCampaignTriggerIO)));
 		},
 
 		Admin_UpdateEmailCampaignTriggerModel: parameters => {
@@ -3012,14 +2798,12 @@ export const adminController = asks(
 				body: LELodasoftApiModelsAdminEmailCampaignTriggerModelViewIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateEmailCampaignTriggerModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateEmailCampaignTriggerModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertEmailCampaignTrigger: parameters => {
@@ -3028,14 +2812,12 @@ export const adminController = asks(
 				body: LELodasoftApiModelsAdminEmailCampaignTriggerModelViewIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertEmailCampaignTrigger`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsAdminEmailCampaignTriggerModelViewIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertEmailCampaignTrigger`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftApiModelsAdminEmailCampaignTriggerModelViewIO));
 		},
 
 		Admin_InsertChildEmailCampaignTrigger: parameters => {
@@ -3044,14 +2826,12 @@ export const adminController = asks(
 				body: LELodasoftApiModelsAdminEmailCampaignTriggerModelViewIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertChildEmailCampaignTrigger`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsAdminEmailCampaignTriggerModelViewIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertChildEmailCampaignTrigger`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftApiModelsAdminEmailCampaignTriggerModelViewIO));
 		},
 
 		Admin_DeleteEmailCampaignTriggerModel: (id, parameters) => {
@@ -3059,15 +2839,13 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteEmailCampaignTriggerModel/${encodeURIComponent(
-						number.encode(id).toString(),
-					)}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteEmailCampaignTriggerModel/${encodeURIComponent(
+					number.encode(id).toString(),
+				)}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllTaskCategoryModel: parameters => {
@@ -3075,13 +2853,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllTaskCategoryModel`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllTaskCategoryModel`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO)));
 		},
 
 		Admin_InsertTaskCategoryModel: parameters => {
@@ -3090,14 +2866,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertTaskCategoryModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertTaskCategoryModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO));
 		},
 
 		Admin_DeleteTaskCategoryModel: (id, parameters) => {
@@ -3105,13 +2879,13 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteTaskCategoryModel/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteTaskCategoryModel/${encodeURIComponent(
+					number.encode(id).toString(),
+				)}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateTaskCategoryModel: parameters => {
@@ -3120,14 +2894,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateTaskCategoryModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateTaskCategoryModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateTaskCategoryOrder: parameters => {
@@ -3136,14 +2908,12 @@ export const adminController = asks(
 				body: array(unknownType),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateTaskCategoryOrder`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateTaskCategoryOrder`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetCustomTaskModelByType: (taskType, parameters) => {
@@ -3151,15 +2921,13 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/GetCustomTaskModelByType/${encodeURIComponent(
-						string.encode(taskType).toString(),
-					)}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationCustomTaskModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/GetCustomTaskModelByType/${encodeURIComponent(
+					string.encode(taskType).toString(),
+				)}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationCustomTaskModelIO)));
 		},
 
 		Admin_InsertCustomTaskModel: parameters => {
@@ -3168,14 +2936,12 @@ export const adminController = asks(
 				body: LELodasoftCommonModelsConfigurationCustomTaskViewModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertCustomTaskModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationCustomTaskViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertCustomTaskModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationCustomTaskViewModelIO));
 		},
 
 		Admin_DeleteCustomTaskModel: (id, parameters) => {
@@ -3183,13 +2949,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteCustomTaskModel/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteCustomTaskModel/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateCustomTaskModel: parameters => {
@@ -3198,14 +2962,12 @@ export const adminController = asks(
 				body: LELodasoftCommonModelsConfigurationCustomTaskViewModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateCustomTaskModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateCustomTaskModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllDocumentModel: (dbOnly, parameters) => {
@@ -3213,13 +2975,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllDocumentModel/${encodeURIComponent(boolean.encode(dbOnly).toString())}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationDocumentTypeModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllDocumentModel/${encodeURIComponent(boolean.encode(dbOnly).toString())}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationDocumentTypeModelIO)));
 		},
 
 		Admin_UpdateDocumentModel: parameters => {
@@ -3228,14 +2988,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationDocumentTypeModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateDocumentModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateDocumentModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertDocumentModel: parameters => {
@@ -3244,14 +3002,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationDocumentTypeModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertDocumentModel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationDocumentTypeModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertDocumentModel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationDocumentTypeModelIO));
 		},
 
 		Admin_DeleteDocumentModel: (id, parameters) => {
@@ -3259,13 +3015,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteDocumentModel/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteDocumentModel/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateDocumentOrder: parameters => {
@@ -3274,14 +3028,12 @@ export const adminController = asks(
 				body: array(unknownType),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateDocumentOrder`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateDocumentOrder`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllAgentType: parameters => {
@@ -3289,13 +3041,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllAgentType`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationAgentTypeModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllAgentType`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationAgentTypeModelIO)));
 		},
 
 		Admin_UpdateAgentType: parameters => {
@@ -3304,14 +3054,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationAgentTypeModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateAgentType`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateAgentType`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertAgentType: parameters => {
@@ -3320,14 +3068,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsConfigurationAgentTypeModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertAgentType`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationAgentTypeModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertAgentType`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationAgentTypeModelIO));
 		},
 
 		Admin_DeleteAgentType: (id, parameters) => {
@@ -3335,13 +3081,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteAgentType/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteAgentType/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_UpdateAgentTypeOrder: parameters => {
@@ -3350,14 +3094,12 @@ export const adminController = asks(
 				body: array(unknownType),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateAgentTypeOrder`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateAgentTypeOrder`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllLender: parameters => {
@@ -3365,13 +3107,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllLender`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsAdminLenderModelViewIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllLender`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsAdminLenderModelViewIO)));
 		},
 
 		Admin_UpdateLender: parameters => {
@@ -3380,14 +3120,12 @@ export const adminController = asks(
 				body: LELodasoftApiModelsAdminLenderModelViewIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateLender`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateLender`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertLender: parameters => {
@@ -3396,14 +3134,12 @@ export const adminController = asks(
 				body: LELodasoftApiModelsAdminLenderModelViewIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertLender`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsAdminLenderModelViewIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertLender`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftApiModelsAdminLenderModelViewIO));
 		},
 
 		Admin_DeleteLender: (id, parameters) => {
@@ -3411,13 +3147,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteLender/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteLender/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_GetAllStackingOrder: parameters => {
@@ -3425,13 +3159,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllStackingOrder`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsAdminStackingOrderModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllStackingOrder`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsAdminStackingOrderModelIO)));
 		},
 
 		Admin_GetStackingOrderInfo: (id, parameters) => {
@@ -3439,13 +3171,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/StackingOrderInfo/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminStackingOrderModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/StackingOrderInfo/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminStackingOrderModelIO));
 		},
 
 		Admin_UpdateStackingOrder: parameters => {
@@ -3454,14 +3184,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsAdminStackingOrderModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateStackingOrder`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateStackingOrder`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_InsertStackingOrder: parameters => {
@@ -3470,14 +3198,12 @@ export const adminController = asks(
 				body: LELodasoftDataAccessDbModelsAdminStackingOrderModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/InsertStackingOrder`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminStackingOrderModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/InsertStackingOrder`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminStackingOrderModelIO));
 		},
 
 		Admin_DeleteStackingOrder: (id, parameters) => {
@@ -3485,13 +3211,11 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/DeleteStackingOrder/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/DeleteStackingOrder/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_PostSaveOrgChart: parameters => {
@@ -3500,14 +3224,12 @@ export const adminController = asks(
 				body: array(LELodasoftApiModelsAdminOrgChartModelIO),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/SaveOrgChart`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/SaveOrgChart`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_SaveSystemLevel: parameters => {
@@ -3516,14 +3238,12 @@ export const adminController = asks(
 				body: LELodasoftApiModelsAdminSystemLevelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/SaveSystemLevel`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsAdminSystemLevelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/SaveSystemLevel`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftApiModelsAdminSystemLevelIO));
 		},
 
 		Admin_GetSystemLevel: parameters => {
@@ -3531,22 +3251,20 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/GetSystemLevel`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsAdminSystemLevelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/GetSystemLevel`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftApiModelsAdminSystemLevelIO));
 		},
 
 		Admin_GetExportFileNaming: companyId => {
-			return e.apiClient
-				.request({
-					url: `/api/Admin/GetExportFileNaming/${encodeURIComponent(number.encode(companyId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationConfigurationModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/GetExportFileNaming/${encodeURIComponent(
+					number.encode(companyId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationConfigurationModelIO));
 		},
 
 		Admin_UpdateCheckList: (CheckListItemId, parameters) => {
@@ -3555,14 +3273,14 @@ export const adminController = asks(
 				body: array(LELodasoftDataAccessDbModelsConfigurationChecklistModelIO),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/UpdateCheckList/${encodeURIComponent(number.encode(CheckListItemId).toString())}`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/UpdateCheckList/${encodeURIComponent(
+					number.encode(CheckListItemId).toString(),
+				)}`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Admin_AllCheckList: (CheckListItemId, parameters) => {
@@ -3570,13 +3288,13 @@ export const adminController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Admin/AllCheckList/${encodeURIComponent(number.encode(CheckListItemId).toString())}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Admin/AllCheckList/${encodeURIComponent(
+					number.encode(CheckListItemId).toString(),
+				)}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

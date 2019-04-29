@@ -42,54 +42,46 @@ export type CommonController = {
 };
 
 export const commonController = asks(
-	(e: { apiClient: TAPIClient }): CommonController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): CommonController => ({
 		Common_InsertDocExpire: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Common/InsertDocExpire`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Common/InsertDocExpire`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Common_GetTaskStatusAlert: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Common/GetTaskStatusAlert`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsAdminAlertModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Common/GetTaskStatusAlert`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsAdminAlertModelIO)));
 		},
 
 		Common_GetAlerts: alertTypeId => {
-			return e.apiClient
-				.request({
-					url: `/api/Common/GetAlerts/${encodeURIComponent(string.encode(alertTypeId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAlertViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Common/GetAlerts/${encodeURIComponent(string.encode(alertTypeId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAlertViewModelIO)));
 		},
 
 		Common_ClearAlert: alertId => {
-			return e.apiClient
-				.request({
-					url: `/api/Common/ClearAlert/${encodeURIComponent(number.encode(alertId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Common/ClearAlert/${encodeURIComponent(number.encode(alertId).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Common_SendAnonymous: (toUserId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsAdminNotificationViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Common/send-notification/${encodeURIComponent(string.encode(toUserId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Common/send-notification/${encodeURIComponent(
+					string.encode(toUserId).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

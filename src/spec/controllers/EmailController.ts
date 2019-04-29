@@ -72,89 +72,77 @@ export type EmailController = {
 };
 
 export const emailController = asks(
-	(e: { apiClient: TAPIClient }): EmailController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): EmailController => ({
 		Email_SendTestEmail: parameters => {
 			const encoded = partial({ body: LELodasoftDataAccessDbModelsSharedEmailServiceModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Email/SendTestEmail`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Email/SendTestEmail`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Email_AutoDiscoverExchangeUrl: parameters => {
 			const encoded = partial({ body: LELodasoftDataAccessDbModelsSharedEmailServiceModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Email/AutoDiscoverExchangeUrl`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Email/AutoDiscoverExchangeUrl`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(string));
+				body: encoded.body,
+			}).pipe(decodeAndMap(string));
 		},
 
 		Email_GetEmailsSentToBorrower: borrowerId => {
-			return e.apiClient
-				.request({
-					url: `/api/Email/GetEmailsSentToBorrower/${encodeURIComponent(
-						number.encode(borrowerId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Email/GetEmailsSentToBorrower/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)));
 		},
 
 		Email_GetEmailsSentForApp: appId => {
-			return e.apiClient
-				.request({
-					url: `/api/Email/GetEmailsSentForApp/${encodeURIComponent(number.encode(appId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Email/GetEmailsSentForApp/${encodeURIComponent(number.encode(appId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)));
 		},
 
 		Email_GetEmailsSentForLead: leadId => {
-			return e.apiClient
-				.request({
-					url: `/api/Email/GetEmailsSentForLead/${encodeURIComponent(number.encode(leadId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Email/GetEmailsSentForLead/${encodeURIComponent(
+					number.encode(leadId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)));
 		},
 
 		Email_GetEmailsSentToAgent: agentId => {
-			return e.apiClient
-				.request({
-					url: `/api/Email/GetEmailsSentToAgent/${encodeURIComponent(number.encode(agentId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Email/GetEmailsSentToAgent/${encodeURIComponent(
+					number.encode(agentId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)));
 		},
 
 		Email_SetEmailPriorityToRetry: messageId => {
-			return e.apiClient
-				.request({
-					url: `/api/Email/SetEmailPriorityToRetry/${encodeURIComponent(
-						number.encode(messageId).toString(),
-					)}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMessageMessageViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Email/SetEmailPriorityToRetry/${encodeURIComponent(
+					number.encode(messageId).toString(),
+				)}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMessageMessageViewModelIO));
 		},
 
 		Email_GetFailedEmailsSentByUser: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Email/GetFailedEmailsSentByUser`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Email/GetFailedEmailsSentByUser`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMessageMessageHistoryViewModelIO)));
 		},
 	}),
 );

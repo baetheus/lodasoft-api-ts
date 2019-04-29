@@ -52,16 +52,14 @@ export type MortgageTransactionDetailController = {
 };
 
 export const mortgageTransactionDetailController = asks(
-	(e: { apiClient: TAPIClient }): MortgageTransactionDetailController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): MortgageTransactionDetailController => ({
 		MortgageTransactionDetail_GetTransactionDetailById: transactionDetailId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/transactiondetails/${encodeURIComponent(
-						number.encode(transactionDetailId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageTransactionDetailViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/transactiondetails/${encodeURIComponent(
+					number.encode(transactionDetailId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageTransactionDetailViewModelIO));
 		},
 
 		MortgageTransactionDetail_UpdateTransactionDetail: (transactionDetailId, parameters) => {
@@ -69,38 +67,32 @@ export const mortgageTransactionDetailController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/transactiondetails/${encodeURIComponent(
-						number.encode(transactionDetailId).toString(),
-					)}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/transactiondetails/${encodeURIComponent(
+					number.encode(transactionDetailId).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageTransactionDetailViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageTransactionDetailViewModelIO));
 		},
 
 		MortgageTransactionDetail_DeleteTransactionDetail: transactionDetailId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/transactiondetails/${encodeURIComponent(
-						number.encode(transactionDetailId).toString(),
-					)}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/transactiondetails/${encodeURIComponent(
+					number.encode(transactionDetailId).toString(),
+				)}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageTransactionDetail_GetPurchaseCreditsByTransactionDetailId: transactionDetailId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/transactiondetails/${encodeURIComponent(
-						number.encode(transactionDetailId).toString(),
-					)}/purchasecredits`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/transactiondetails/${encodeURIComponent(
+					number.encode(transactionDetailId).toString(),
+				)}/purchasecredits`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO)));
 		},
 
 		MortgageTransactionDetail_InsertPurchaseCredit: (transactionDetailId, parameters) => {
@@ -108,16 +100,14 @@ export const mortgageTransactionDetailController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/transactiondetails/${encodeURIComponent(
-						number.encode(transactionDetailId).toString(),
-					)}/purchasecredits`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/transactiondetails/${encodeURIComponent(
+					number.encode(transactionDetailId).toString(),
+				)}/purchasecredits`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO));
 		},
 	}),
 );

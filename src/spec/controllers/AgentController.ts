@@ -134,187 +134,153 @@ export type AgentController = {
 };
 
 export const agentController = asks(
-	(e: { apiClient: TAPIClient }): AgentController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): AgentController => ({
 		Agent_GetAllAgent: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Agent/AllAgent`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAgentViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/AllAgent`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAgentViewModelIO)));
 		},
 
 		Agent_GetAllReferralSources: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Agent/AllReferralSources`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsAgentReferralSourceModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/AllReferralSources`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsAgentReferralSourceModelIO)));
 		},
 
 		Agent_GetAgentbyId: id => {
-			return e.apiClient
-				.request({
-					url: `/api/Agent/GetAgent/${encodeURIComponent(number.encode(id).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsAgentAgentFullIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/GetAgent/${encodeURIComponent(number.encode(id).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftApiModelsAgentAgentFullIO));
 		},
 
 		Agent_UpsertAgent: (sendInvite, parameters) => {
 			const encoded = partial({ body: LELodasoftApiModelsAgentAgentFullIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Agent/UpsertAgent/${encodeURIComponent(boolean.encode(sendInvite).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/UpsertAgent/${encodeURIComponent(boolean.encode(sendInvite).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsAgentAgentFullIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftApiModelsAgentAgentFullIO));
 		},
 
 		Agent_InviteAgent: agentId => {
-			return e.apiClient
-				.request({
-					url: `/api/Agent/InviteAgent/${encodeURIComponent(number.encode(agentId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/InviteAgent/${encodeURIComponent(number.encode(agentId).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Agent_DeleteAgent: agentId => {
-			return e.apiClient
-				.request({
-					url: `/api/Agent/DeleteAgent/${encodeURIComponent(number.encode(agentId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/DeleteAgent/${encodeURIComponent(number.encode(agentId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Agent_GetAllApplicationInfo: agentId => {
-			return e.apiClient
-				.request({
-					url: `/api/Agent/${encodeURIComponent(number.encode(agentId).toString())}/GetAllApplicationInfo`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsPipelinePipelineApplicationViewIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/${encodeURIComponent(
+					number.encode(agentId).toString(),
+				)}/GetAllApplicationInfo`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsPipelinePipelineApplicationViewIO)));
 		},
 
 		Agent_GetAllAgentLists: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Agent/lists`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAgentListViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/lists`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAgentListViewModelIO)));
 		},
 
 		Agent_InsertAgentList: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsAdminAgentListViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Agent/lists`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/lists`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAdminAgentListViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAdminAgentListViewModelIO));
 		},
 
 		Agent_GetAgentListsByAgentId: agentId => {
-			return e.apiClient
-				.request({
-					url: `/api/Agent/${encodeURIComponent(number.encode(agentId).toString())}/lists`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAgentListViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/${encodeURIComponent(number.encode(agentId).toString())}/lists`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAgentListViewModelIO)));
 		},
 
 		Agent_GetAgentListById: agentListId => {
-			return e.apiClient
-				.request({
-					url: `/api/Agent/lists/${encodeURIComponent(number.encode(agentListId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAdminAgentListViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/lists/${encodeURIComponent(number.encode(agentListId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAdminAgentListViewModelIO));
 		},
 
 		Agent_UpdateAgentList: (agentListId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsAdminAgentListViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Agent/lists/${encodeURIComponent(number.encode(agentListId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/lists/${encodeURIComponent(number.encode(agentListId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAdminAgentListViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAdminAgentListViewModelIO));
 		},
 
 		Agent_DeleteAgentList: agentListId => {
-			return e.apiClient
-				.request({
-					url: `/api/Agent/lists/${encodeURIComponent(number.encode(agentListId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/lists/${encodeURIComponent(number.encode(agentListId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Agent_GetAgentsByAgentListId: agentListId => {
-			return e.apiClient
-				.request({
-					url: `/api/Agent/lists/${encodeURIComponent(number.encode(agentListId).toString())}/agents`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAgentViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/lists/${encodeURIComponent(number.encode(agentListId).toString())}/agents`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAgentViewModelIO)));
 		},
 
 		Agent_AddAgentToAgentList: (agentListId, agentId) => {
-			return e.apiClient
-				.request({
-					url: `/api/Agent/lists/${encodeURIComponent(
-						number.encode(agentListId).toString(),
-					)}/agents/${encodeURIComponent(number.encode(agentId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/lists/${encodeURIComponent(
+					number.encode(agentListId).toString(),
+				)}/agents/${encodeURIComponent(number.encode(agentId).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Agent_RemoveAgentFromAgentList: (agentListId, agentId) => {
-			return e.apiClient
-				.request({
-					url: `/api/Agent/lists/${encodeURIComponent(
-						number.encode(agentListId).toString(),
-					)}/agents/${encodeURIComponent(number.encode(agentId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/lists/${encodeURIComponent(
+					number.encode(agentListId).toString(),
+				)}/agents/${encodeURIComponent(number.encode(agentId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Agent_AddAgentNote: (agentId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsAdminAgentNoteViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Agent/${encodeURIComponent(number.encode(agentId).toString())}/note`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/${encodeURIComponent(number.encode(agentId).toString())}/note`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Agent_GetAgentNotes: agentId => {
-			return e.apiClient
-				.request({
-					url: `/api/Agent/${encodeURIComponent(number.encode(agentId).toString())}/notes`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAgentNoteViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Agent/${encodeURIComponent(number.encode(agentId).toString())}/notes`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAgentNoteViewModelIO)));
 		},
 	}),
 );

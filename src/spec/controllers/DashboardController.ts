@@ -62,20 +62,18 @@ export type DashboardController = {
 };
 
 export const dashboardController = asks(
-	(e: { apiClient: TAPIClient }): DashboardController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): DashboardController => ({
 		Dashboard_GetTaskCountsbyFilterCriteria: parameters => {
 			const encoded = partial({
 				body: LELodasoftApiControllersDashboardControllerDashboardFilterCriteriaIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Dashboard/GetTaskCountsbyFilterCriteria`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Dashboard/GetTaskCountsbyFilterCriteria`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessModelsTaskCountModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessModelsTaskCountModelIO));
 		},
 
 		Dashboard_GetTaskByFilterbyFilterCriteria: (filter, parameters) => {
@@ -83,56 +81,48 @@ export const dashboardController = asks(
 				body: LELodasoftApiControllersDashboardControllerDashboardFilterCriteriaIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Dashboard/GetTaskByFilterbyFilterCriteria/${encodeURIComponent(
-						number.encode(filter).toString(),
-					)}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Dashboard/GetTaskByFilterbyFilterCriteria/${encodeURIComponent(
+					number.encode(filter).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO)));
+				body: encoded.body,
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO)));
 		},
 
 		Dashboard_GetTaskCounts: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Dashboard/GetTaskCounts`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessModelsTaskCountModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Dashboard/GetTaskCounts`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftDataAccessModelsTaskCountModelIO));
 		},
 
 		Dashboard_GetTaskByFilter: filter => {
-			return e.apiClient
-				.request({
-					url: `/api/Dashboard/GetTaskByFilter/${encodeURIComponent(number.encode(filter).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Dashboard/GetTaskByFilter/${encodeURIComponent(
+					number.encode(filter).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO)));
 		},
 
 		Dashboard_GetTaskByFilterInApp: (filter, appId) => {
-			return e.apiClient
-				.request({
-					url: `/api/Dashboard/GetTaskByFilterInApp/${encodeURIComponent(
-						number.encode(filter).toString(),
-					)}/${encodeURIComponent(number.encode(appId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Dashboard/GetTaskByFilterInApp/${encodeURIComponent(
+					number.encode(filter).toString(),
+				)}/${encodeURIComponent(number.encode(appId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO)));
 		},
 
 		Dashboard_GetTaskByFilterInLead: (filter, leadId) => {
-			return e.apiClient
-				.request({
-					url: `/api/Dashboard/GetTaskByFilterInLead/${encodeURIComponent(
-						number.encode(filter).toString(),
-					)}/${encodeURIComponent(number.encode(leadId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Dashboard/GetTaskByFilterInLead/${encodeURIComponent(
+					number.encode(filter).toString(),
+				)}/${encodeURIComponent(number.encode(leadId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO)));
 		},
 	}),
 );

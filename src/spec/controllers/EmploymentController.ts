@@ -23,29 +23,25 @@ export type EmploymentController = {
 };
 
 export const employmentController = asks(
-	(e: { apiClient: TAPIClient }): EmploymentController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): EmploymentController => ({
 		Employment_UpsertEmploymentInfo: parameters => {
 			const encoded = partial({ body: LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModelIO }).encode(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Employment/UpsertEmploymentInfo`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Employment/UpsertEmploymentInfo`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModelIO));
 		},
 
 		Employment_DeleteEmploymentInfo: employmentId => {
-			return e.apiClient
-				.request({
-					url: `/api/Employment/${encodeURIComponent(number.encode(employmentId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(boolean));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Employment/${encodeURIComponent(number.encode(employmentId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(boolean));
 		},
 	}),
 );

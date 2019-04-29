@@ -75,66 +75,56 @@ export type EventsController = {
 };
 
 export const eventsController = asks(
-	(e: { apiClient: TAPIClient }): EventsController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): EventsController => ({
 		Events_PostNewEvent: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsEventsEventViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Events/NewEvent`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Events/NewEvent`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsEventsEventViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsEventsEventViewModelIO));
 		},
 
 		Events_PostDropEvent: (eventid, delay, allday) => {
-			return e.apiClient
-				.request({
-					url: `/api/Events/DropEvent/${encodeURIComponent(
-						number.encode(eventid).toString(),
-					)}/${encodeURIComponent(number.encode(delay).toString())}/${encodeURIComponent(
-						boolean.encode(allday).toString(),
-					)}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Events/DropEvent/${encodeURIComponent(
+					number.encode(eventid).toString(),
+				)}/${encodeURIComponent(number.encode(delay).toString())}/${encodeURIComponent(
+					boolean.encode(allday).toString(),
+				)}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Events_PostResizeEvent: (eventid, delay, addDays) => {
-			return e.apiClient
-				.request({
-					url: `/api/Events/ResizeEvent/${encodeURIComponent(
-						number.encode(eventid).toString(),
-					)}/${encodeURIComponent(number.encode(delay).toString())}/${encodeURIComponent(
-						boolean.encode(addDays).toString(),
-					)}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Events/ResizeEvent/${encodeURIComponent(
+					number.encode(eventid).toString(),
+				)}/${encodeURIComponent(number.encode(delay).toString())}/${encodeURIComponent(
+					boolean.encode(addDays).toString(),
+				)}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Events_UpdateEvent: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsEventsEventViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Events/UpdateEvent`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Events/UpdateEvent`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsEventsEventViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsEventsEventViewModelIO));
 		},
 
 		Events_DeleteEvent: eventId => {
-			return e.apiClient
-				.request({
-					url: `/api/Events/DeleteEvent/${encodeURIComponent(number.encode(eventId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Events/DeleteEvent/${encodeURIComponent(number.encode(eventId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Events_GetAllEvents: parameters => {
@@ -146,48 +136,40 @@ export const eventsController = asks(
 				}),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Events/AllEvents`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsEventsEventViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Events/AllEvents`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsEventsEventViewModelIO)));
 		},
 
 		Events_GetAllEventScheduling: (companyId, userId, isAdmin) => {
-			return e.apiClient
-				.request({
-					url: `/api/Events/AllEventScheduling/${encodeURIComponent(
-						number.encode(companyId).toString(),
-					)}/${encodeURIComponent(string.encode(userId).toString())}/${encodeURIComponent(
-						boolean.encode(isAdmin).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsEventsEventViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Events/AllEventScheduling/${encodeURIComponent(
+					number.encode(companyId).toString(),
+				)}/${encodeURIComponent(string.encode(userId).toString())}/${encodeURIComponent(
+					boolean.encode(isAdmin).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsEventsEventViewModelIO)));
 		},
 
 		Events_PostRemoveListEvent: parameters => {
 			const encoded = partial({ body: array(number) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Events/RemoveListEvent`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Events/RemoveListEvent`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(boolean));
+				body: encoded.body,
+			}).pipe(decodeAndMap(boolean));
 		},
 
 		Events_GetUserName: userId => {
-			return e.apiClient
-				.request({
-					url: `/api/Events/UserName/${encodeURIComponent(string.encode(userId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(string));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Events/UserName/${encodeURIComponent(string.encode(userId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(string));
 		},
 	}),
 );

@@ -30,36 +30,30 @@ export type MortgageEmailController = {
 };
 
 export const mortgageEmailController = asks(
-	(e: { apiClient: TAPIClient }): MortgageEmailController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): MortgageEmailController => ({
 		MortgageEmail_GetEmailById: emailId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/emails/${encodeURIComponent(number.encode(emailId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmailViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/emails/${encodeURIComponent(number.encode(emailId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmailViewModelIO));
 		},
 
 		MortgageEmail_UpdateEmail: (emailId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageEmailViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/emails/${encodeURIComponent(number.encode(emailId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/emails/${encodeURIComponent(number.encode(emailId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmailViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmailViewModelIO));
 		},
 
 		MortgageEmail_DeleteEmail: emailId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/emails/${encodeURIComponent(number.encode(emailId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/emails/${encodeURIComponent(number.encode(emailId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

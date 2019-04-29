@@ -39,31 +39,27 @@ export type ReportController = {
 };
 
 export const reportController = asks(
-	(e: { apiClient: TAPIClient }): ReportController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): ReportController => ({
 		Report_GetTaskMetrics: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsReportTaskMetricsRequestIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Report/GetTaskMetrics`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Report/GetTaskMetrics`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessModelsReportTaskMetricsModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessModelsReportTaskMetricsModelIO));
 		},
 
 		Report_GetPipelineMetrics: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsReportPipelineMetricsRequestIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Report/GetPipelineMetrics`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Report/GetPipelineMetrics`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessModelsReportPipelineMetricsModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessModelsReportPipelineMetricsModelIO));
 		},
 	}),
 );

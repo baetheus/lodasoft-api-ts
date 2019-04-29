@@ -42,39 +42,33 @@ export type PipelineController = {
 };
 
 export const pipelineController = asks(
-	(e: { apiClient: TAPIClient }): PipelineController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): PipelineController => ({
 		Pipeline_GetAppsByLoanStatusId: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsAdminPipelineFilterCriteriaIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Pipeline/GetAppsByLoanStatusId`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Pipeline/GetAppsByLoanStatusId`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsPipelinePipelineApplicationViewIO)));
+				body: encoded.body,
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsPipelinePipelineApplicationViewIO)));
 		},
 
 		Pipeline_GetCountApplicationbyLoanStatus: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Pipeline/GetCountApplicationByFilterTypes`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsAdminPipelineApplicationCountsIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Pipeline/GetCountApplicationByFilterTypes`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftApiModelsAdminPipelineApplicationCountsIO));
 		},
 
 		Pipeline_GetAllApplicationsForInternalContact: parameters => {
 			const encoded = partial({ query: type({ archive: boolean }) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Pipeline/GetAllApplicationsForInternalContact`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsPipelinePipelineApplicationViewIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Pipeline/GetAllApplicationsForInternalContact`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsPipelinePipelineApplicationViewIO)));
 		},
 	}),
 );

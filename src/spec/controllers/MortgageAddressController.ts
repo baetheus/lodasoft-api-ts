@@ -1,13 +1,12 @@
+import { TAPIClient } from '../client/client';
+import {
+	LELodasoftCommonModelsMortgageAddressViewModel,
+	LELodasoftCommonModelsMortgageAddressViewModelIO,
+} from '../definitions/LELodasoftCommonModelsMortgageAddressViewModel';
+import { decodeAndMap, unknownType } from '../utils/utils';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, partial } from 'io-ts';
 import { Observable } from 'rxjs';
-
-import { TAPIClient } from '../client/client';
-import {
-  LELodasoftCommonModelsMortgageAddressViewModel,
-  LELodasoftCommonModelsMortgageAddressViewModelIO,
-} from '../definitions/LELodasoftCommonModelsMortgageAddressViewModel';
-import { decodeAndMap, unknownType } from '../utils/utils';
 
 export type MortgageAddressController = {
 	/**
@@ -33,36 +32,30 @@ export type MortgageAddressController = {
 };
 
 export const mortgageAddressController = asks(
-	(e: { apiClient: TAPIClient }): MortgageAddressController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): MortgageAddressController => ({
 		MortgageAddress_GetAddressById: addressId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/addresses/${encodeURIComponent(number.encode(addressId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/addresses/${encodeURIComponent(number.encode(addressId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
 		},
 
 		MortgageAddress_UpdateAddress: (addressId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageAddressViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/addresses/${encodeURIComponent(number.encode(addressId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/addresses/${encodeURIComponent(number.encode(addressId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
 		},
 
 		MortgageAddress_DeleteAddress: addressId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/addresses/${encodeURIComponent(number.encode(addressId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/addresses/${encodeURIComponent(number.encode(addressId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

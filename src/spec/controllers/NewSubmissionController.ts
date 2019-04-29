@@ -72,7 +72,7 @@ export type NewSubmissionController = {
 };
 
 export const newSubmissionController = asks(
-	(e: { apiClient: TAPIClient }): NewSubmissionController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): NewSubmissionController => ({
 		NewSubmission_LosLoanSearch: (credentialId, parameters) => {
 			const encoded = partial({
 				query: type({
@@ -82,70 +82,58 @@ export const newSubmissionController = asks(
 				}),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/new-submission/los-loan-search/${encodeURIComponent(
-						number.encode(credentialId).toString(),
-					)}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsMortgageLosLoanSearchResponseModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/new-submission/los-loan-search/${encodeURIComponent(
+					number.encode(credentialId).toString(),
+				)}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftApiModelsMortgageLosLoanSearchResponseModelIO));
 		},
 
 		NewSubmission_ImportFromLos: (credentialId, losIdentifier) => {
-			return e.apiClient
-				.request({
-					url: `/api/new-submission/import-from-los/${encodeURIComponent(
-						number.encode(credentialId).toString(),
-					)}/${encodeURIComponent(string.encode(losIdentifier).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsMortgageParseDuViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/new-submission/import-from-los/${encodeURIComponent(
+					number.encode(credentialId).toString(),
+				)}/${encodeURIComponent(string.encode(losIdentifier).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftApiModelsMortgageParseDuViewModelIO));
 		},
 
 		NewSubmission_CreateMortgageInIntegratedLos: (credentialId, applicationId) => {
-			return e.apiClient
-				.request({
-					url: `/api/new-submission/create-in-integrated-los/${encodeURIComponent(
-						number.encode(credentialId).toString(),
-					)}/${encodeURIComponent(number.encode(applicationId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/new-submission/create-in-integrated-los/${encodeURIComponent(
+					number.encode(credentialId).toString(),
+				)}/${encodeURIComponent(number.encode(applicationId).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		NewSubmission_UpdateMortgageFromIntegratedLos: (applicationId, credentialId) => {
-			return e.apiClient
-				.request({
-					url: `/api/new-submission/update-from-integrated-los/${encodeURIComponent(
-						string.encode(credentialId).toString(),
-					)}/${encodeURIComponent(number.encode(applicationId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/new-submission/update-from-integrated-los/${encodeURIComponent(
+					string.encode(credentialId).toString(),
+				)}/${encodeURIComponent(number.encode(applicationId).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		NewSubmission_ParseDu: () => {
-			return e.apiClient
-				.request({
-					url: `/api/new-submission/parse-du`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsMortgageParseDuViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/new-submission/parse-du`,
+				method: 'POST',
+			}).pipe(decodeAndMap(LELodasoftApiModelsMortgageParseDuViewModelIO));
 		},
 
 		NewSubmission_ProcessSubmission: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsMortgageProcessDuViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/new-submission/process-submission`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/new-submission/process-submission`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsMortgageProcessDuResponseModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftApiModelsMortgageProcessDuResponseModelIO));
 		},
 	}),
 );

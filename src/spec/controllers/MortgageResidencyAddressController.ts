@@ -52,16 +52,14 @@ export type MortgageResidencyAddressController = {
 };
 
 export const mortgageResidencyAddressController = asks(
-	(e: { apiClient: TAPIClient }): MortgageResidencyAddressController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): MortgageResidencyAddressController => ({
 		MortgageResidencyAddress_GetResidencyAddressById: residencyAddressId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/residencyaddresses/${encodeURIComponent(
-						number.encode(residencyAddressId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageResidencyAddressViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/residencyaddresses/${encodeURIComponent(
+					number.encode(residencyAddressId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageResidencyAddressViewModelIO));
 		},
 
 		MortgageResidencyAddress_UpdateResidencyAddress: (residencyAddressId, parameters) => {
@@ -69,27 +67,23 @@ export const mortgageResidencyAddressController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/residencyaddresses/${encodeURIComponent(
-						number.encode(residencyAddressId).toString(),
-					)}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/residencyaddresses/${encodeURIComponent(
+					number.encode(residencyAddressId).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageResidencyAddressViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageResidencyAddressViewModelIO));
 		},
 
 		MortgageResidencyAddress_DeleteResidencyAddress: residencyAddressId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/residencyaddresses/${encodeURIComponent(
-						number.encode(residencyAddressId).toString(),
-					)}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/residencyaddresses/${encodeURIComponent(
+					number.encode(residencyAddressId).toString(),
+				)}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageResidencyAddress_InsertResidencyAddress: parameters => {
@@ -97,29 +91,25 @@ export const mortgageResidencyAddressController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/residencyaddresses`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/residencyaddresses`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageResidencyAddressViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageResidencyAddressViewModelIO));
 		},
 
 		MortgageResidencyAddress_InsertAddress: (residencyAddressId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageAddressViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/residencyaddresses/${encodeURIComponent(
-						number.encode(residencyAddressId).toString(),
-					)}/address`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/residencyaddresses/${encodeURIComponent(
+					number.encode(residencyAddressId).toString(),
+				)}/address`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
 		},
 	}),
 );

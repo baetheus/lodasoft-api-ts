@@ -39,49 +39,41 @@ export type MortgageDependentController = {
 };
 
 export const mortgageDependentController = asks(
-	(e: { apiClient: TAPIClient }): MortgageDependentController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): MortgageDependentController => ({
 		MortgageDependent_GetDependentById: dependentId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/dependents/${encodeURIComponent(number.encode(dependentId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageDependentViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/dependents/${encodeURIComponent(number.encode(dependentId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageDependentViewModelIO));
 		},
 
 		MortgageDependent_UpdateDependent: (dependentId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageDependentViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/dependents/${encodeURIComponent(number.encode(dependentId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/dependents/${encodeURIComponent(number.encode(dependentId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageDependentViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageDependentViewModelIO));
 		},
 
 		MortgageDependent_DeleteDependent: dependentId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/dependents/${encodeURIComponent(number.encode(dependentId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/dependents/${encodeURIComponent(number.encode(dependentId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageDependent_InsertDependent: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageDependentViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/dependents`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/dependents`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageDependentViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageDependentViewModelIO));
 		},
 	}),
 );

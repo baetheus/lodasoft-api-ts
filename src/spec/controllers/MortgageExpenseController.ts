@@ -39,49 +39,41 @@ export type MortgageExpenseController = {
 };
 
 export const mortgageExpenseController = asks(
-	(e: { apiClient: TAPIClient }): MortgageExpenseController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): MortgageExpenseController => ({
 		MortgageExpense_GetExpenseById: expenseId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/expenses/${encodeURIComponent(number.encode(expenseId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageExpenseViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/expenses/${encodeURIComponent(number.encode(expenseId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageExpenseViewModelIO));
 		},
 
 		MortgageExpense_UpdateExpense: (expenseId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageExpenseViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/expenses/${encodeURIComponent(number.encode(expenseId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/expenses/${encodeURIComponent(number.encode(expenseId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageExpenseViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageExpenseViewModelIO));
 		},
 
 		MortgageExpense_DeleteExpense: expenseId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/expenses/${encodeURIComponent(number.encode(expenseId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/expenses/${encodeURIComponent(number.encode(expenseId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageExpense_InsertExpense: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageExpenseViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/expenses`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/expenses`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageExpenseViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageExpenseViewModelIO));
 		},
 	}),
 );

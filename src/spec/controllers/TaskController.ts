@@ -138,166 +138,142 @@ export type TaskController = {
 };
 
 export const taskController = asks(
-	(e: { apiClient: TAPIClient }): TaskController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): TaskController => ({
 		Task_UpsertLoanDocTask: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsBorrowerLoanDocTaskUpsertModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Task/UpsertLoanDocTask`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Task/UpsertLoanDocTask`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminLoanDocTaskModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminLoanDocTaskModelIO));
 		},
 
 		Task_GetLoanDocTask: loanDocTaskId => {
-			return e.apiClient
-				.request({
-					url: `/api/Task/${encodeURIComponent(number.encode(loanDocTaskId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Task/${encodeURIComponent(number.encode(loanDocTaskId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO));
 		},
 
 		Task_TrackingFile: loanDocTaskId => {
-			return e.apiClient
-				.request({
-					url: `/api/Task/tracking/${encodeURIComponent(number.encode(loanDocTaskId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminTrackingViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Task/tracking/${encodeURIComponent(number.encode(loanDocTaskId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminTrackingViewModelIO)));
 		},
 
 		Task_AddTaskNote: (loandoctaskid, parameters) => {
 			const encoded = partial({ body: LELodasoftApiControllersTaskNoteModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Task/${encodeURIComponent(number.encode(loandoctaskid).toString())}/AddTaskNote`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Task/${encodeURIComponent(number.encode(loandoctaskid).toString())}/AddTaskNote`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(tvoid));
+				body: encoded.body,
+			}).pipe(decodeAndMap(tvoid));
 		},
 
 		Task_UpdateFollowUp: (loandoctaskid, parameters) => {
 			const encoded = partial({ query: type({ followup: string }) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Task/${encodeURIComponent(number.encode(loandoctaskid).toString())}/UpdateFollowUp`,
-					method: 'POST',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(tvoid));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Task/${encodeURIComponent(
+					number.encode(loandoctaskid).toString(),
+				)}/UpdateFollowUp`,
+				method: 'POST',
+				query: encoded.query,
+			}).pipe(decodeAndMap(tvoid));
 		},
 
 		Task_UpdateFollowUpBulk: parameters => {
 			const encoded = partial({ query: type({ followup: string }), body: array(number) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Task/UpdateFollowUpBulk`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Task/UpdateFollowUpBulk`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Task_SetTaskStatus: (loandoctaskId, status) => {
-			return e.apiClient
-				.request({
-					url: `/api/Task/${encodeURIComponent(
-						number.encode(loandoctaskId).toString(),
-					)}/SetTaskStatus/${encodeURIComponent(string.encode(status).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(tvoid));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Task/${encodeURIComponent(
+					number.encode(loandoctaskId).toString(),
+				)}/SetTaskStatus/${encodeURIComponent(string.encode(status).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(tvoid));
 		},
 
 		Task_SetConditionStatus: (loandoctaskId, status) => {
-			return e.apiClient
-				.request({
-					url: `/api/Task/${encodeURIComponent(
-						number.encode(loandoctaskId).toString(),
-					)}/SetConditionStatus/${encodeURIComponent(number.encode(status).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminLoanDocTaskModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Task/${encodeURIComponent(
+					number.encode(loandoctaskId).toString(),
+				)}/SetConditionStatus/${encodeURIComponent(number.encode(status).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminLoanDocTaskModelIO));
 		},
 
 		Task_ChangeResponsibleMultiTasks: (userId, parameters) => {
 			const encoded = partial({ body: array(number) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Task/ChangeResponsibleMultiTasks/${encodeURIComponent(
-						string.encode(userId).toString(),
-					)}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Task/ChangeResponsibleMultiTasks/${encodeURIComponent(
+					string.encode(userId).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(tvoid));
+				body: encoded.body,
+			}).pipe(decodeAndMap(tvoid));
 		},
 
 		Task_DeleteLoanDocTask: loandoctaskid => {
-			return e.apiClient
-				.request({
-					url: `/api/Task/${encodeURIComponent(number.encode(loandoctaskid).toString())}/DeleteLoanDocTask`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(tvoid));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Task/${encodeURIComponent(
+					number.encode(loandoctaskid).toString(),
+				)}/DeleteLoanDocTask`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(tvoid));
 		},
 
 		Task_DeleteMultiTasks: parameters => {
 			const encoded = partial({ body: array(number) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Task/DeleteMultiTasks`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Task/DeleteMultiTasks`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(tvoid));
+				body: encoded.body,
+			}).pipe(decodeAndMap(tvoid));
 		},
 
 		Task_GetTaskDashboardViewById: loandoctaskid => {
-			return e.apiClient
-				.request({
-					url: `/api/Task/${encodeURIComponent(
-						number.encode(loandoctaskid).toString(),
-					)}/GetTaskDashboardViewById`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Task/${encodeURIComponent(
+					number.encode(loandoctaskid).toString(),
+				)}/GetTaskDashboardViewById`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO));
 		},
 
 		Task_DownloadTemplateFile: (taskTypeId, currentUserId) => {
-			return e.apiClient
-				.request({
-					url: `/api/Task/DownloadTemplateFile/${encodeURIComponent(
-						string.encode(taskTypeId).toString(),
-					)}/${encodeURIComponent(string.encode(currentUserId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Task/DownloadTemplateFile/${encodeURIComponent(
+					string.encode(taskTypeId).toString(),
+				)}/${encodeURIComponent(string.encode(currentUserId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Task_ViewTemplateFile: (taskTypeId, currentUserId) => {
-			return e.apiClient
-				.request({
-					url: `/api/Task/ViewTemplateFile/${encodeURIComponent(
-						string.encode(taskTypeId).toString(),
-					)}/${encodeURIComponent(string.encode(currentUserId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Task/ViewTemplateFile/${encodeURIComponent(
+					string.encode(taskTypeId).toString(),
+				)}/${encodeURIComponent(string.encode(currentUserId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

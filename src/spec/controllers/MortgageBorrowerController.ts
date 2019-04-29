@@ -279,14 +279,12 @@ export type MortgageBorrowerController = {
 };
 
 export const mortgageBorrowerController = asks(
-	(e: { apiClient: TAPIClient }): MortgageBorrowerController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): MortgageBorrowerController => ({
 		MortgageBorrower_GetBorrowerById: borrowerId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO));
 		},
 
 		MortgageBorrower_UpdateBorrower: (borrowerId, parameters) => {
@@ -294,23 +292,19 @@ export const mortgageBorrowerController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO));
 		},
 
 		MortgageBorrower_DeleteBorrower: borrowerId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageBorrower_InsertBorrower: parameters => {
@@ -318,169 +312,153 @@ export const mortgageBorrowerController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO));
 		},
 
 		MortgageBorrower_GetAssetsByBorrowerId: borrowerId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/assets`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageAssetViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/assets`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageAssetViewModelIO)));
 		},
 
 		MortgageBorrower_InsertAsset: (borrowerId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageAssetViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/assets`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/assets`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageAssetViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageAssetViewModelIO));
 		},
 
 		MortgageBorrower_GetDeclarationsByBorrowerId: borrowerId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(
-						number.encode(borrowerId).toString(),
-					)}/declarations`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageDeclarationViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/declarations`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageDeclarationViewModelIO)));
 		},
 
 		MortgageBorrower_InsertDeclaration: (borrowerId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageDeclarationViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(
-						number.encode(borrowerId).toString(),
-					)}/declarations`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/declarations`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageDeclarationViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageDeclarationViewModelIO));
 		},
 
 		MortgageBorrower_GetDependentsByBorrowerId: borrowerId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(
-						number.encode(borrowerId).toString(),
-					)}/dependents`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageDependentViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/dependents`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageDependentViewModelIO)));
 		},
 
 		MortgageBorrower_InsertDependent: (borrowerId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageDependentViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(
-						number.encode(borrowerId).toString(),
-					)}/dependents`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/dependents`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageDependentViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageDependentViewModelIO));
 		},
 
 		MortgageBorrower_GetEmailsByBorrowerId: borrowerId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/emails`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageEmailViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/emails`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageEmailViewModelIO)));
 		},
 
 		MortgageBorrower_InsertEmail: (borrowerId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageEmailViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/emails`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/emails`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmailViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmailViewModelIO));
 		},
 
 		MortgageBorrower_GetEmploymentsByBorrowerId: borrowerId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(
-						number.encode(borrowerId).toString(),
-					)}/employments`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageEmploymentViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/employments`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageEmploymentViewModelIO)));
 		},
 
 		MortgageBorrower_InsertEmployment: (borrowerId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageEmploymentViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(
-						number.encode(borrowerId).toString(),
-					)}/employments`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/employments`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmploymentViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmploymentViewModelIO));
 		},
 
 		MortgageBorrower_GetExpensesByBorrowerId: borrowerId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/expenses`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageExpenseViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/expenses`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageExpenseViewModelIO)));
 		},
 
 		MortgageBorrower_InsertExpense: (borrowerId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageExpenseViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/expenses`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/expenses`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageExpenseViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageExpenseViewModelIO));
 		},
 
 		MortgageBorrower_GetGovernmentMonitorsByBorrowerId: borrowerId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(
-						number.encode(borrowerId).toString(),
-					)}/governmentmonitors`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/governmentmonitors`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO)));
 		},
 
 		MortgageBorrower_InsertGovernmentMonitor: (borrowerId, parameters) => {
@@ -488,119 +466,111 @@ export const mortgageBorrowerController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(
-						number.encode(borrowerId).toString(),
-					)}/governmentmonitors`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/governmentmonitors`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO));
 		},
 
 		MortgageBorrower_GetIncomesByBorrowerId: borrowerId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/incomes`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageIncomeViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/incomes`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageIncomeViewModelIO)));
 		},
 
 		MortgageBorrower_InsertIncome: (borrowerId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageIncomeViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/incomes`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/incomes`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageIncomeViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageIncomeViewModelIO));
 		},
 
 		MortgageBorrower_GetLiabilitiesByBorrowerId: borrowerId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(
-						number.encode(borrowerId).toString(),
-					)}/liabilities`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageLiabilityViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/liabilities`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageLiabilityViewModelIO)));
 		},
 
 		MortgageBorrower_InsertLiability: (borrowerId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageLiabilityViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(
-						number.encode(borrowerId).toString(),
-					)}/liabilities`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/liabilities`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageLiabilityViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageLiabilityViewModelIO));
 		},
 
 		MortgageBorrower_GetPhonesByBorrowerId: borrowerId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/phones`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgagePhoneViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/phones`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMortgagePhoneViewModelIO)));
 		},
 
 		MortgageBorrower_InsertPhone: (borrowerId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgagePhoneViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/phones`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/phones`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgagePhoneViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgagePhoneViewModelIO));
 		},
 
 		MortgageBorrower_GetReosByBorrowerId: borrowerId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/reos`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageReoViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/reos`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageReoViewModelIO)));
 		},
 
 		MortgageBorrower_InsertReo: (borrowerId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageReoViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}/reos`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/reos`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageReoViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageReoViewModelIO));
 		},
 
 		MortgageBorrower_GetResidencyAddressesByBorrowerId: borrowerId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(
-						number.encode(borrowerId).toString(),
-					)}/residencyaddresses`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageResidencyAddressViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/residencyaddresses`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMortgageResidencyAddressViewModelIO)));
 		},
 
 		MortgageBorrower_InsertResidencyAddress: (borrowerId, parameters) => {
@@ -608,16 +578,14 @@ export const mortgageBorrowerController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/borrowers/${encodeURIComponent(
-						number.encode(borrowerId).toString(),
-					)}/residencyaddresses`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/residencyaddresses`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageResidencyAddressViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageResidencyAddressViewModelIO));
 		},
 	}),
 );

@@ -1,13 +1,12 @@
-import { asks } from 'fp-ts/lib/Reader';
-import { array, number, partial, string, type } from 'io-ts';
-import { Observable } from 'rxjs';
-
 import { TAPIClient } from '../client/client';
 import {
-  LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel,
-  LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO,
+	LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel,
+	LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO,
 } from '../definitions/LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel';
 import { decodeAndMap, unknownType } from '../utils/utils';
+import { asks } from 'fp-ts/lib/Reader';
+import { array, number, string, type, partial } from 'io-ts';
+import { Observable } from 'rxjs';
 
 export type FlowBuilderController = {
 	/**
@@ -73,19 +72,17 @@ export type FlowBuilderController = {
 };
 
 export const flowBuilderController = asks(
-	(e: { apiClient: TAPIClient }): FlowBuilderController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): FlowBuilderController => ({
 		FlowBuilder_GetFlowsFiltered: parameters => {
 			const encoded = partial({ query: type({ companyIdFilter: number, flowTypeFilter: string }) }).encode(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/flow-builder`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/flow-builder`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO)));
 		},
 
 		FlowBuilder_InsertFlow: parameters => {
@@ -93,23 +90,19 @@ export const flowBuilderController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/flow-builder`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/flow-builder`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
 		},
 
 		FlowBuilder_GetFlow: flowId => {
-			return e.apiClient
-				.request({
-					url: `/api/flow-builder/${encodeURIComponent(number.encode(flowId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/flow-builder/${encodeURIComponent(number.encode(flowId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
 		},
 
 		FlowBuilder_UpdateFlow: (flowId, parameters) => {
@@ -117,32 +110,26 @@ export const flowBuilderController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/flow-builder/${encodeURIComponent(number.encode(flowId).toString())}`,
-					method: 'PUT',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/flow-builder/${encodeURIComponent(number.encode(flowId).toString())}`,
+				method: 'PUT',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
 		},
 
 		FlowBuilder_DeleteFlow: flowId => {
-			return e.apiClient
-				.request({
-					url: `/api/flow-builder/${encodeURIComponent(number.encode(flowId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/flow-builder/${encodeURIComponent(number.encode(flowId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		FlowBuilder_GetFlowByGuid: flowguid => {
-			return e.apiClient
-				.request({
-					url: `/api/flow-builder/by-guid/${encodeURIComponent(string.encode(flowguid).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/flow-builder/by-guid/${encodeURIComponent(string.encode(flowguid).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
 		},
 
 		FlowBuilder_UpdateFlowByGuid: (flowGuid, parameters) => {
@@ -150,23 +137,19 @@ export const flowBuilderController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/flow-builder/by-guid/${encodeURIComponent(string.encode(flowGuid).toString())}`,
-					method: 'PUT',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/flow-builder/by-guid/${encodeURIComponent(string.encode(flowGuid).toString())}`,
+				method: 'PUT',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
 		},
 
 		FlowBuilder_DeleteFlowByGuid: flowGuid => {
-			return e.apiClient
-				.request({
-					url: `/api/flow-builder/by-guid/${encodeURIComponent(string.encode(flowGuid).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/flow-builder/by-guid/${encodeURIComponent(string.encode(flowGuid).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		FlowBuilder_InsertFlowByGuid: parameters => {
@@ -174,14 +157,12 @@ export const flowBuilderController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/flow-builder/by-guid`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/flow-builder/by-guid`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO));
 		},
 	}),
 );

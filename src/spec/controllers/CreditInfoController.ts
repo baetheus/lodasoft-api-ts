@@ -51,51 +51,43 @@ export type CreditInfoController = {
 };
 
 export const creditInfoController = asks(
-	(e: { apiClient: TAPIClient }): CreditInfoController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): CreditInfoController => ({
 		CreditInfo_PullCreditReport: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsThirdPartyCreditCreditRequestModelIO }).encode(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/CreditInfo/pull-report`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/CreditInfo/pull-report`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsThirdPartyCreditCreditResponseModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsThirdPartyCreditCreditResponseModelIO));
 		},
 
 		CreditInfo_PullCreditReportHistory: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/CreditInfo/history/${encodeURIComponent(number.encode(loanId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsLoanCreditViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/CreditInfo/history/${encodeURIComponent(number.encode(loanId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsLoanCreditViewModelIO)));
 		},
 
 		CreditInfo_UpsertCreditInfo: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsLoanCreditViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/CreditInfo/UpsertCreditInfo`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/CreditInfo/UpsertCreditInfo`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationCreditModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsConfigurationCreditModelIO));
 		},
 
 		CreditInfo_DeleteCreditModel: creditInfoId => {
-			return e.apiClient
-				.request({
-					url: `/api/CreditInfo/${encodeURIComponent(number.encode(creditInfoId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/CreditInfo/${encodeURIComponent(number.encode(creditInfoId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

@@ -18,18 +18,16 @@ export type GeneratedDocumentController = {
 };
 
 export const generatedDocumentController = asks(
-	(e: { apiClient: TAPIClient }): GeneratedDocumentController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): GeneratedDocumentController => ({
 		GeneratedDocument_GenerateDocument: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsAdminGenerateDocumentRequestIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/admin/generated-documents`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/admin/generated-documents`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(string));
+				body: encoded.body,
+			}).pipe(decodeAndMap(string));
 		},
 	}),
 );

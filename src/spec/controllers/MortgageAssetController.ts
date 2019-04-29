@@ -50,62 +50,52 @@ export type MortgageAssetController = {
 };
 
 export const mortgageAssetController = asks(
-	(e: { apiClient: TAPIClient }): MortgageAssetController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): MortgageAssetController => ({
 		MortgageAsset_GetAssetById: assetId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/assets/${encodeURIComponent(number.encode(assetId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageAssetViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/assets/${encodeURIComponent(number.encode(assetId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageAssetViewModelIO));
 		},
 
 		MortgageAsset_UpdateAsset: (assetId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageAssetViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/assets/${encodeURIComponent(number.encode(assetId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/assets/${encodeURIComponent(number.encode(assetId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageAssetViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageAssetViewModelIO));
 		},
 
 		MortgageAsset_DeleteAsset: assetId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/assets/${encodeURIComponent(number.encode(assetId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/assets/${encodeURIComponent(number.encode(assetId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageAsset_InsertAsset: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageAssetViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/assets`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/assets`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageAssetViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageAssetViewModelIO));
 		},
 
 		MortgageAsset_InsertAddress: (assetId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageAddressViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/assets/${encodeURIComponent(number.encode(assetId).toString())}/address`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/assets/${encodeURIComponent(number.encode(assetId).toString())}/address`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
 		},
 	}),
 );

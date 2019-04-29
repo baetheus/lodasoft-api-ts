@@ -78,34 +78,32 @@ export type PublicAPIController = {
 };
 
 export const publicAPIController = asks(
-	(e: { apiClient: TAPIClient }): PublicAPIController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): PublicAPIController => ({
 		PublicAPI_GetUserListPrimaryRole: companyGuid => {
-			return e.apiClient
-				.request({
-					url: `/api/PublicApi/GetUserListPrimaryRole/${encodeURIComponent(
-						string.encode(companyGuid).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsPublicApiUserViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/PublicApi/GetUserListPrimaryRole/${encodeURIComponent(
+					string.encode(companyGuid).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsPublicApiUserViewModelIO)));
 		},
 
 		PublicAPI_GetUserList: companyGuid => {
-			return e.apiClient
-				.request({
-					url: `/api/PublicApi/GetUserList/${encodeURIComponent(string.encode(companyGuid).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(dictionary(string, string)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/PublicApi/GetUserList/${encodeURIComponent(
+					string.encode(companyGuid).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(dictionary(string, string)));
 		},
 
 		PublicAPI_GetLoanPurposes: companyGuid => {
-			return e.apiClient
-				.request({
-					url: `/api/PublicApi/GetLoanPurposes/${encodeURIComponent(string.encode(companyGuid).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(dictionary(string, string)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/PublicApi/GetLoanPurposes/${encodeURIComponent(
+					string.encode(companyGuid).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(dictionary(string, string)));
 		},
 
 		PublicAPI_PostLodasoftLead: (companyGuid, parameters) => {
@@ -113,14 +111,12 @@ export const publicAPIController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/PublicApi/PostLead/${encodeURIComponent(string.encode(companyGuid).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/PublicApi/PostLead/${encodeURIComponent(string.encode(companyGuid).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		PublicAPI_PostBestReferralLead: (companyGuid, userId, parameters) => {
@@ -128,42 +124,36 @@ export const publicAPIController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/PublicApi/PostBestReferralLead/${encodeURIComponent(
-						string.encode(companyGuid).toString(),
-					)}/${encodeURIComponent(string.encode(userId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/PublicApi/PostBestReferralLead/${encodeURIComponent(
+					string.encode(companyGuid).toString(),
+				)}/${encodeURIComponent(string.encode(userId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		PublicAPI_PostZillowLead: (companyGuid, userId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsLeadsProviderModelsZillowLeadIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/PublicApi/PostZillowLead/${encodeURIComponent(
-						string.encode(companyGuid).toString(),
-					)}/${encodeURIComponent(string.encode(userId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/PublicApi/PostZillowLead/${encodeURIComponent(
+					string.encode(companyGuid).toString(),
+				)}/${encodeURIComponent(string.encode(userId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		PublicAPI_PostLendingTreeLeadAsync: (companyGuid, userId) => {
-			return e.apiClient
-				.request({
-					url: `/api/PublicApi/PostLendingTreeLead/${encodeURIComponent(
-						string.encode(companyGuid).toString(),
-					)}/${encodeURIComponent(string.encode(userId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/PublicApi/PostLendingTreeLead/${encodeURIComponent(
+					string.encode(companyGuid).toString(),
+				)}/${encodeURIComponent(string.encode(userId).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

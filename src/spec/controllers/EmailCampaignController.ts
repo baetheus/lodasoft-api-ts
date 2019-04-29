@@ -97,86 +97,72 @@ export type EmailCampaignController = {
 };
 
 export const emailCampaignController = asks(
-	(e: { apiClient: TAPIClient }): EmailCampaignController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): EmailCampaignController => ({
 		EmailCampaign_GetAllEmailCampaigns: () => {
-			return e.apiClient
-				.request({
-					url: `/api/admin/email-campaigns/campaigns`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminEmailCampaignViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/admin/email-campaigns/campaigns`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminEmailCampaignViewModelIO)));
 		},
 
 		EmailCampaign_InsertEmailCampaign: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsAdminEmailCampaignViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/admin/email-campaigns/campaigns`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/admin/email-campaigns/campaigns`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailCampaignViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailCampaignViewModelIO));
 		},
 
 		EmailCampaign_GetEmailCampaignById: emailCampaignId => {
-			return e.apiClient
-				.request({
-					url: `/api/admin/email-campaigns/campaigns/${encodeURIComponent(
-						number.encode(emailCampaignId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailCampaignViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/admin/email-campaigns/campaigns/${encodeURIComponent(
+					number.encode(emailCampaignId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailCampaignViewModelIO));
 		},
 
 		EmailCampaign_UpdateEmailCampaign: (emailCampaignId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsAdminEmailCampaignViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/admin/email-campaigns/campaigns/${encodeURIComponent(
-						number.encode(emailCampaignId).toString(),
-					)}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/admin/email-campaigns/campaigns/${encodeURIComponent(
+					number.encode(emailCampaignId).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailCampaignViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailCampaignViewModelIO));
 		},
 
 		EmailCampaign_DeleteEmailCampaign: emailCampaignId => {
-			return e.apiClient
-				.request({
-					url: `/api/admin/email-campaigns/campaigns/${encodeURIComponent(
-						number.encode(emailCampaignId).toString(),
-					)}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/admin/email-campaigns/campaigns/${encodeURIComponent(
+					number.encode(emailCampaignId).toString(),
+				)}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		EmailCampaign_GetAllEmailTemplates: () => {
-			return e.apiClient
-				.request({
-					url: `/api/admin/email-campaigns/templates`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminEmailTemplateViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/admin/email-campaigns/templates`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminEmailTemplateViewModelIO)));
 		},
 
 		EmailCampaign_InsertEmailTemplate: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsAdminEmailTemplateViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/admin/email-campaigns/templates`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/admin/email-campaigns/templates`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailTemplateViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailTemplateViewModelIO));
 		},
 
 		EmailCampaign_GetAllManualEmailTemplates: parameters => {
@@ -184,13 +170,11 @@ export const emailCampaignController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/admin/email-campaigns/manual-templates`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminEmailTemplateViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/admin/email-campaigns/manual-templates`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminEmailTemplateViewModelIO)));
 		},
 
 		EmailCampaign_GetManualEmailTemplateById: (emailTemplateId, parameters) => {
@@ -198,52 +182,44 @@ export const emailCampaignController = asks(
 				query: type({ loanId: createOptionFromNullable(number), leadId: createOptionFromNullable(number) }),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/admin/email-campaigns/manual-templates/${encodeURIComponent(
-						number.encode(emailTemplateId).toString(),
-					)}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailTemplateViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/admin/email-campaigns/manual-templates/${encodeURIComponent(
+					number.encode(emailTemplateId).toString(),
+				)}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailTemplateViewModelIO));
 		},
 
 		EmailCampaign_GetEmailTemplateById: emailTemplateId => {
-			return e.apiClient
-				.request({
-					url: `/api/admin/email-campaigns/templates/${encodeURIComponent(
-						number.encode(emailTemplateId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailTemplateViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/admin/email-campaigns/templates/${encodeURIComponent(
+					number.encode(emailTemplateId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailTemplateViewModelIO));
 		},
 
 		EmailCampaign_UpdateEmailTemplate: (emailTemplateId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsAdminEmailTemplateViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/admin/email-campaigns/templates/${encodeURIComponent(
-						number.encode(emailTemplateId).toString(),
-					)}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/admin/email-campaigns/templates/${encodeURIComponent(
+					number.encode(emailTemplateId).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailTemplateViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAdminEmailTemplateViewModelIO));
 		},
 
 		EmailCampaign_DeleteEmailTemplate: emailTemplateId => {
-			return e.apiClient
-				.request({
-					url: `/api/admin/email-campaigns/templates/${encodeURIComponent(
-						number.encode(emailTemplateId).toString(),
-					)}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/admin/email-campaigns/templates/${encodeURIComponent(
+					number.encode(emailTemplateId).toString(),
+				)}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

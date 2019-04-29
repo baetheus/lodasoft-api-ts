@@ -39,49 +39,41 @@ export type MortgageIncomeController = {
 };
 
 export const mortgageIncomeController = asks(
-	(e: { apiClient: TAPIClient }): MortgageIncomeController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): MortgageIncomeController => ({
 		MortgageIncome_GetIncomeById: incomeId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/incomes/${encodeURIComponent(number.encode(incomeId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageIncomeViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/incomes/${encodeURIComponent(number.encode(incomeId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageIncomeViewModelIO));
 		},
 
 		MortgageIncome_UpdateIncome: (incomeId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageIncomeViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/incomes/${encodeURIComponent(number.encode(incomeId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/incomes/${encodeURIComponent(number.encode(incomeId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageIncomeViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageIncomeViewModelIO));
 		},
 
 		MortgageIncome_DeleteIncome: incomeId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/incomes/${encodeURIComponent(number.encode(incomeId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/incomes/${encodeURIComponent(number.encode(incomeId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageIncome_InsertIncome: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageIncomeViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/incomes`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/incomes`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageIncomeViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageIncomeViewModelIO));
 		},
 	}),
 );

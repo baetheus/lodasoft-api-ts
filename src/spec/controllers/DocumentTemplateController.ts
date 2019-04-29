@@ -87,85 +87,69 @@ export type DocumentTemplateController = {
 };
 
 export const documentTemplateController = asks(
-	(e: { apiClient: TAPIClient }): DocumentTemplateController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): DocumentTemplateController => ({
 		DocumentTemplate_GetApplicationGlobalMergeFieldKeys: () => {
-			return e.apiClient
-				.request({
-					url: `/api/configuration/document-templates/app-global-merge-field-keys`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(string)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/configuration/document-templates/app-global-merge-field-keys`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(string)));
 		},
 
 		DocumentTemplate_GetLeadGlobalMergeFieldKeys: () => {
-			return e.apiClient
-				.request({
-					url: `/api/configuration/document-templates/lead-global-merge-field-keys`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(string)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/configuration/document-templates/lead-global-merge-field-keys`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(string)));
 		},
 
 		DocumentTemplate_GetAllDocumentTemplates: () => {
-			return e.apiClient
-				.request({
-					url: `/api/configuration/document-templates/templates`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationDocumentTemplateViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/configuration/document-templates/templates`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationDocumentTemplateViewModelIO)));
 		},
 
 		DocumentTemplate_InsertDocumentTemplate: () => {
-			return e.apiClient
-				.request({
-					url: `/api/configuration/document-templates/templates`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/configuration/document-templates/templates`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		DocumentTemplate_GetDocumentTemplateById: documentTemplateId => {
-			return e.apiClient
-				.request({
-					url: `/api/configuration/document-templates/templates/${encodeURIComponent(
-						number.encode(documentTemplateId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationDocumentTemplateViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/configuration/document-templates/templates/${encodeURIComponent(
+					number.encode(documentTemplateId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationDocumentTemplateViewModelIO));
 		},
 
 		DocumentTemplate_UpdateDocumentTemplate: documentTemplateId => {
-			return e.apiClient
-				.request({
-					url: `/api/configuration/document-templates/templates/${encodeURIComponent(
-						number.encode(documentTemplateId).toString(),
-					)}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/configuration/document-templates/templates/${encodeURIComponent(
+					number.encode(documentTemplateId).toString(),
+				)}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		DocumentTemplate_DeleteDocumentTemplate: documentTemplateId => {
-			return e.apiClient
-				.request({
-					url: `/api/configuration/document-templates/templates/${encodeURIComponent(
-						number.encode(documentTemplateId).toString(),
-					)}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/configuration/document-templates/templates/${encodeURIComponent(
+					number.encode(documentTemplateId).toString(),
+				)}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		DocumentTemplate_GetDocumentTemplateFieldsById: documentTemplateId => {
-			return e.apiClient
-				.request({
-					url: `/api/configuration/document-templates/templates/${encodeURIComponent(
-						number.encode(documentTemplateId).toString(),
-					)}/fields`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/configuration/document-templates/templates/${encodeURIComponent(
+					number.encode(documentTemplateId).toString(),
+				)}/fields`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModelIO)));
 		},
 
 		DocumentTemplate_UpdateDocumentTemplateField: (documentTemplateFieldId, parameters) => {
@@ -173,27 +157,23 @@ export const documentTemplateController = asks(
 				body: LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/configuration/document-templates/fields/${encodeURIComponent(
-						number.encode(documentTemplateFieldId).toString(),
-					)}/update`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/configuration/document-templates/fields/${encodeURIComponent(
+					number.encode(documentTemplateFieldId).toString(),
+				)}/update`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		DocumentTemplate_GetDocumentTemplatePagesById: documentTemplateId => {
-			return e.apiClient
-				.request({
-					url: `/api/configuration/document-templates/templates/${encodeURIComponent(
-						number.encode(documentTemplateId).toString(),
-					)}/pages`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationDocumentTemplatePageViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/configuration/document-templates/templates/${encodeURIComponent(
+					number.encode(documentTemplateId).toString(),
+				)}/pages`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationDocumentTemplatePageViewModelIO)));
 		},
 
 		DocumentTemplate_UpsertDocumentTemplatePages: (documentTemplateId, parameters) => {
@@ -201,27 +181,23 @@ export const documentTemplateController = asks(
 				body: LELodasoftCommonModelsConfigurationAddDocumentTemplatePagesViewModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/configuration/document-templates/templates/${encodeURIComponent(
-						number.encode(documentTemplateId).toString(),
-					)}/pages`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/configuration/document-templates/templates/${encodeURIComponent(
+					number.encode(documentTemplateId).toString(),
+				)}/pages`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		DocumentTemplate_DeleteDocumentTemplatePage: documentTemplatePageId => {
-			return e.apiClient
-				.request({
-					url: `/api/configuration/document-templates/pages/${encodeURIComponent(
-						number.encode(documentTemplatePageId).toString(),
-					)}/delete`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/configuration/document-templates/pages/${encodeURIComponent(
+					number.encode(documentTemplatePageId).toString(),
+				)}/delete`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

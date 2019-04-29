@@ -241,20 +241,18 @@ export type BorrowerPortalController = {
 };
 
 export const borrowerPortalController = asks(
-	(e: { apiClient: TAPIClient }): BorrowerPortalController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): BorrowerPortalController => ({
 		BorrowerPortal_CreateAccount: (companyGuid, userGuid, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsSharedCreateAccountModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/CreateAccount/${encodeURIComponent(
-						string.encode(companyGuid).toString(),
-					)}/${encodeURIComponent(string.encode(userGuid).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/CreateAccount/${encodeURIComponent(
+					string.encode(companyGuid).toString(),
+				)}/${encodeURIComponent(string.encode(userGuid).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsSharedCreateAccountResponseModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsSharedCreateAccountResponseModelIO));
 		},
 
 		BorrowerPortal_ConfirmRegistrationToken: parameters => {
@@ -262,76 +260,64 @@ export const borrowerPortalController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/ConfirmRegistrationToken`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/ConfirmRegistrationToken`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsSharedRegisterModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsSharedRegisterModelIO));
 		},
 
 		BorrowerPortal_ConfirmRegistration: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsSharedRegisterModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/ConfirmRegistration`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/ConfirmRegistration`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(boolean));
+				body: encoded.body,
+			}).pipe(decodeAndMap(boolean));
 		},
 
 		BorrowerPortal_GetApplicationsForUser: () => {
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/GetApplicationsForUser`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsSharedApplicationViewIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/GetApplicationsForUser`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsSharedApplicationViewIO)));
 		},
 
 		BorrowerPortal_GetPortalContent: () => {
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/GetPortalContent`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsSharedPortalContentViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/GetPortalContent`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftApiModelsSharedPortalContentViewModelIO));
 		},
 
 		BorrowerPortal_GetLoanDataForAppId: appId => {
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/GetLoanDataForAppId/${encodeURIComponent(
-						number.encode(appId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsSharedApplicationViewIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/GetLoanDataForAppId/${encodeURIComponent(
+					number.encode(appId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsSharedApplicationViewIO));
 		},
 
 		BorrowerPortal_GetTasksforAppId: appId => {
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/GetTasksforAppId/${encodeURIComponent(number.encode(appId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsSharedPortalTasksIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/GetTasksforAppId/${encodeURIComponent(
+					number.encode(appId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsSharedPortalTasksIO));
 		},
 
 		BorrowerPortal_GetPrequalDetail: appId => {
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/GetPrequalDetailForAppId/${encodeURIComponent(
-						number.encode(appId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAdminPrequalDetailViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/GetPrequalDetailForAppId/${encodeURIComponent(
+					number.encode(appId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAdminPrequalDetailViewModelIO));
 		},
 
 		BorrowerPortal_GeneratePrequalLetter: (appId, parameters) => {
@@ -339,75 +325,63 @@ export const borrowerPortalController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/GeneratePrequalLetterForAppId/${encodeURIComponent(
-						number.encode(appId).toString(),
-					)}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/GeneratePrequalLetterForAppId/${encodeURIComponent(
+					number.encode(appId).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsSharedGeneratePrequalLetterResponseIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsSharedGeneratePrequalLetterResponseIO));
 		},
 
 		BorrowerPortal_SendEmailResetPassword: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsForgotPasswordBindingModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/SendEmailResetPassword`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/SendEmailResetPassword`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(boolean));
+				body: encoded.body,
+			}).pipe(decodeAndMap(boolean));
 		},
 
 		BorrowerPortal_ResetPassword: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsResetPasswordBindingModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/ResetPassword`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/ResetPassword`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		BorrowerPortal_GetBorrowerContactInfoForApplication: appId => {
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/GetBorrowerContactInfoForApplication/${encodeURIComponent(
-						number.encode(appId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsBorrowerPortalBorrowerContactIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/GetBorrowerContactInfoForApplication/${encodeURIComponent(
+					number.encode(appId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsBorrowerPortalBorrowerContactIO));
 		},
 
 		BorrowerPortal_GetMessages: applicationId => {
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/GetMessages/${encodeURIComponent(
-						number.encode(applicationId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/GetMessages/${encodeURIComponent(
+					number.encode(applicationId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
 		},
 
 		BorrowerPortal_GetTaskMessages: loanDocTaskId => {
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/GetTaskMessages/${encodeURIComponent(
-						number.encode(loanDocTaskId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/GetTaskMessages/${encodeURIComponent(
+					number.encode(loanDocTaskId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
 		},
 
 		BorrowerPortal_PostMessage: parameters => {
@@ -415,25 +389,21 @@ export const borrowerPortalController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/PostMessage`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/PostMessage`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(boolean));
+				body: encoded.body,
+			}).pipe(decodeAndMap(boolean));
 		},
 
 		BorrowerPortal_ProgressTaskStatus: taskId => {
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/ProgressTaskStatus/${encodeURIComponent(
-						number.encode(taskId).toString(),
-					)}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/ProgressTaskStatus/${encodeURIComponent(
+					number.encode(taskId).toString(),
+				)}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO));
 		},
 
 		BorrowerPortal_UploadDocument: (taskId, borrowerNote, parameters) => {
@@ -441,72 +411,60 @@ export const borrowerPortalController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/UploadDocument/${encodeURIComponent(
-						number.encode(taskId).toString(),
-					)}/${encodeURIComponent(string.encode(borrowerNote).toString())}`,
-					method: 'POST',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(boolean));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/UploadDocument/${encodeURIComponent(
+					number.encode(taskId).toString(),
+				)}/${encodeURIComponent(string.encode(borrowerNote).toString())}`,
+				method: 'POST',
+				query: encoded.query,
+			}).pipe(decodeAndMap(boolean));
 		},
 
 		BorrowerPortal_GetReferralAgents: () => {
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/ReferralAgents`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsSharedReferralAgentIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/ReferralAgents`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsSharedReferralAgentIO)));
 		},
 
 		BorrowerPortal_ReferAFriend: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsSharedReferralModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/ReferAFriend`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/ReferAFriend`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(boolean));
+				body: encoded.body,
+			}).pipe(decodeAndMap(boolean));
 		},
 
 		BorrowerPortal_RequestACallback: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsSharedCallbackModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/RequestACallback`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/RequestACallback`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(boolean));
+				body: encoded.body,
+			}).pipe(decodeAndMap(boolean));
 		},
 
 		BorrowerPortal_InitializeFormFree: parameters => {
 			const encoded = partial({ body: LELodasoftApiControllersInitializeFormFreeRequestIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/InitializeFormFree`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/InitializeFormFree`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO));
 		},
 
 		BorrowerPortal_GetUrgentLiveData: () => {
-			return e.apiClient
-				.request({
-					url: `/api/BorrowerPortal/LiveData`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsSharedPortalLiveDataIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/BorrowerPortal/LiveData`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsSharedPortalLiveDataIO));
 		},
 	}),
 );

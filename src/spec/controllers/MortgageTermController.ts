@@ -32,36 +32,36 @@ export type MortgageTermController = {
 };
 
 export const mortgageTermController = asks(
-	(e: { apiClient: TAPIClient }): MortgageTermController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): MortgageTermController => ({
 		MortgageTerm_GetMortgageTermById: mortgageTermId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/mortgageterms/${encodeURIComponent(number.encode(mortgageTermId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageMortgageTermViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/mortgageterms/${encodeURIComponent(
+					number.encode(mortgageTermId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageMortgageTermViewModelIO));
 		},
 
 		MortgageTerm_UpdateMortgageTerm: (mortgageTermId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageMortgageTermViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/mortgageterms/${encodeURIComponent(number.encode(mortgageTermId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/mortgageterms/${encodeURIComponent(
+					number.encode(mortgageTermId).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageMortgageTermViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageMortgageTermViewModelIO));
 		},
 
 		MortgageTerm_DeleteMortgageTerm: mortgageTermId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/mortgageterms/${encodeURIComponent(number.encode(mortgageTermId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/mortgageterms/${encodeURIComponent(
+					number.encode(mortgageTermId).toString(),
+				)}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

@@ -339,7 +339,7 @@ export type LeadController = {
 };
 
 export const leadController = asks(
-	(e: { apiClient: TAPIClient }): LeadController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): LeadController => ({
 		Lead_GetAllLeads: parameters => {
 			const encoded = partial({
 				query: type({
@@ -350,13 +350,11 @@ export const leadController = asks(
 				}),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/all`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/all`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadViewModelIO)));
 		},
 
 		Lead_GetAllUnassignedLeads: parameters => {
@@ -364,68 +362,56 @@ export const leadController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/unassigned`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/unassigned`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadViewModelIO)));
 		},
 
 		Lead_GetLeadById: leadId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/${encodeURIComponent(number.encode(leadId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadViewModelIO));
 		},
 
 		Lead_UpdateLead: (leadId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsLeadsLeadViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/${encodeURIComponent(number.encode(leadId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadViewModelIO));
 		},
 
 		Lead_DeleteLead: leadId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/${encodeURIComponent(number.encode(leadId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_InsertLead: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsLeadsLeadViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadViewModelIO));
 		},
 
 		Lead_ConvertLeadToBorrower: (leadId, referralSourceType) => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/${encodeURIComponent(
-						number.encode(leadId).toString(),
-					)}/convert/${encodeURIComponent(number.encode(referralSourceType).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/${encodeURIComponent(
+					number.encode(leadId).toString(),
+				)}/convert/${encodeURIComponent(number.encode(referralSourceType).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_ImportListUserForCompany: parameters => {
@@ -433,327 +419,271 @@ export const leadController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/import-leads`,
-					method: 'POST',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/import-leads`,
+				method: 'POST',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadViewModelIO));
 		},
 
 		Lead_ExportLeads: () => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/export-leads`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/export-leads`,
+				method: 'GET',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_GetLeadEventsByLeadId: leadId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/events`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadEventViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/events`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadEventViewModelIO)));
 		},
 
 		Lead_InsertLeadEvent: (leadId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsLeadsLeadEventViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/events`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/events`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEventViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEventViewModelIO));
 		},
 
 		Lead_GetLeadEventById: leadEventId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/events/${encodeURIComponent(number.encode(leadEventId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEventViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/events/${encodeURIComponent(number.encode(leadEventId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEventViewModelIO));
 		},
 
 		Lead_UpdateLeadEvent: (leadEventId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsLeadsLeadEventViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/events/${encodeURIComponent(number.encode(leadEventId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/events/${encodeURIComponent(number.encode(leadEventId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEventViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEventViewModelIO));
 		},
 
 		Lead_DeleteLeadEvent: leadEventId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/events/${encodeURIComponent(number.encode(leadEventId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/events/${encodeURIComponent(number.encode(leadEventId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_GetLeadEmploymentsByLeadId: leadId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/employments`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/employments`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO)));
 		},
 
 		Lead_InsertLeadEmployment: (leadId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/employments`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/employments`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO));
 		},
 
 		Lead_GetLeadEmploymentById: leadEmploymentId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/employments/${encodeURIComponent(number.encode(leadEmploymentId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/employments/${encodeURIComponent(
+					number.encode(leadEmploymentId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO));
 		},
 
 		Lead_UpdateLeadEmployment: (leadEmploymentId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/employments/${encodeURIComponent(number.encode(leadEmploymentId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/employments/${encodeURIComponent(
+					number.encode(leadEmploymentId).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO));
 		},
 
 		Lead_DeleteLeadEmployment: leadEmploymentId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/employments/${encodeURIComponent(number.encode(leadEmploymentId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/employments/${encodeURIComponent(
+					number.encode(leadEmploymentId).toString(),
+				)}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_GetLeadCreditsByLeadId: leadId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/credits`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadCreditViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/credits`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadCreditViewModelIO)));
 		},
 
 		Lead_InsertLeadCredit: (leadId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsLeadsLeadCreditViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/credits`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/credits`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCreditViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCreditViewModelIO));
 		},
 
 		Lead_GetLeadCreditById: leadCreditId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/credits/${encodeURIComponent(number.encode(leadCreditId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCreditViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/credits/${encodeURIComponent(number.encode(leadCreditId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCreditViewModelIO));
 		},
 
 		Lead_UpdateLeadCredit: (leadCreditId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsLeadsLeadCreditViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/credits/${encodeURIComponent(number.encode(leadCreditId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/credits/${encodeURIComponent(number.encode(leadCreditId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCreditViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCreditViewModelIO));
 		},
 
 		Lead_DeleteLeadCredit: leadCreditId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/credits/${encodeURIComponent(number.encode(leadCreditId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/credits/${encodeURIComponent(number.encode(leadCreditId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_GetAllLeadCampaigns: () => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/campaigns`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadCampaignViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/campaigns`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadCampaignViewModelIO)));
 		},
 
 		Lead_InsertLeadCampaign: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsLeadsLeadCampaignViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/campaigns`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/campaigns`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCampaignViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCampaignViewModelIO));
 		},
 
 		Lead_GetLeadCampaignById: leadCampaignId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/campaigns/${encodeURIComponent(number.encode(leadCampaignId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCampaignViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/campaigns/${encodeURIComponent(number.encode(leadCampaignId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCampaignViewModelIO));
 		},
 
 		Lead_UpdateLeadCampaign: (leadCampaignId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsLeadsLeadCampaignViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/campaigns/${encodeURIComponent(number.encode(leadCampaignId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/campaigns/${encodeURIComponent(number.encode(leadCampaignId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCampaignViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadCampaignViewModelIO));
 		},
 
 		Lead_DeleteLeadCampaign: leadCampaignId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/campaigns/${encodeURIComponent(number.encode(leadCampaignId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/campaigns/${encodeURIComponent(number.encode(leadCampaignId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_GetAllLeadLists: () => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/lists`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadListViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/lists`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadListViewModelIO)));
 		},
 
 		Lead_InsertLeadList: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsLeadsLeadListViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/lists`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/lists`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadListViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadListViewModelIO));
 		},
 
 		Lead_GetLeadListsByLeadId: leadId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/lists`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadListViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/lists`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadListViewModelIO)));
 		},
 
 		Lead_GetLeadListById: leadListId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/lists/${encodeURIComponent(number.encode(leadListId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadListViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/lists/${encodeURIComponent(number.encode(leadListId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadListViewModelIO));
 		},
 
 		Lead_UpdateLeadList: (leadListId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsLeadsLeadListViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/lists/${encodeURIComponent(number.encode(leadListId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/lists/${encodeURIComponent(number.encode(leadListId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadListViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsLeadListViewModelIO));
 		},
 
 		Lead_DeleteLeadList: leadListId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/lists/${encodeURIComponent(number.encode(leadListId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/lists/${encodeURIComponent(number.encode(leadListId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_GetLeadsByLeadListId: leadListId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/lists/${encodeURIComponent(number.encode(leadListId).toString())}/leads`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/lists/${encodeURIComponent(number.encode(leadListId).toString())}/leads`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsLeadsLeadViewModelIO)));
 		},
 
 		Lead_AddLeadToLeadList: (leadListId, leadId) => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/lists/${encodeURIComponent(
-						number.encode(leadListId).toString(),
-					)}/leads/${encodeURIComponent(number.encode(leadId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/lists/${encodeURIComponent(
+					number.encode(leadListId).toString(),
+				)}/leads/${encodeURIComponent(number.encode(leadId).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_RemoveLeadFromLeadList: (leadListId, leadId) => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/lists/${encodeURIComponent(
-						number.encode(leadListId).toString(),
-					)}/leads/${encodeURIComponent(number.encode(leadId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/lists/${encodeURIComponent(
+					number.encode(leadListId).toString(),
+				)}/leads/${encodeURIComponent(number.encode(leadId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Lead_GetLeadMilestonesReport: parameters => {
@@ -765,13 +695,11 @@ export const leadController = asks(
 				}),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/reports/milestones`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsReportsLeadMilestonesReportResponseIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/reports/milestones`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsReportsLeadMilestonesReportResponseIO));
 		},
 
 		Lead_GetLeadPerformanceReport: parameters => {
@@ -783,13 +711,11 @@ export const leadController = asks(
 				}),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/reports/performance`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsReportsLeadPerformanceReportResponseIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/reports/performance`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsReportsLeadPerformanceReportResponseIO));
 		},
 
 		Lead_GetLeadPerformanceReportDetail: parameters => {
@@ -801,13 +727,11 @@ export const leadController = asks(
 				}),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/reports/performance-detail`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsReportsLeadPerformanceReportDetailResponseIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/reports/performance-detail`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsReportsLeadPerformanceReportDetailResponseIO));
 		},
 
 		Lead_GetLeadStatusReport: parameters => {
@@ -819,22 +743,20 @@ export const leadController = asks(
 				}),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/leads/reports/status`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLeadsReportsLeadStatusReportResponseIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/reports/status`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLeadsReportsLeadStatusReportResponseIO));
 		},
 
 		Lead_GetTaskCountByLeadId: leadId => {
-			return e.apiClient
-				.request({
-					url: `/api/leads/${encodeURIComponent(number.encode(leadId).toString())}/GetTaskCountByLeadId`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessModelsTaskCountModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/${encodeURIComponent(
+					number.encode(leadId).toString(),
+				)}/GetTaskCountByLeadId`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftDataAccessModelsTaskCountModelIO));
 		},
 	}),
 );

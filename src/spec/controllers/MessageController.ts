@@ -109,146 +109,124 @@ export type MessageController = {
 };
 
 export const messageController = asks(
-	(e: { apiClient: TAPIClient }): MessageController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): MessageController => ({
 		Message_GetBorrowerMessages: applicationId => {
-			return e.apiClient
-				.request({
-					url: `/api/Message/GetBorrowerMessages/${encodeURIComponent(
-						number.encode(applicationId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Message/GetBorrowerMessages/${encodeURIComponent(
+					number.encode(applicationId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
 		},
 
 		Message_GetInternalMessages: applicationId => {
-			return e.apiClient
-				.request({
-					url: `/api/Message/GetInternalMessages/${encodeURIComponent(
-						number.encode(applicationId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Message/GetInternalMessages/${encodeURIComponent(
+					number.encode(applicationId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
 		},
 
 		Message_GetBorrowerTaskMessages: loanDocTaskId => {
-			return e.apiClient
-				.request({
-					url: `/api/Message/GetBorrowerTaskMessages/${encodeURIComponent(
-						number.encode(loanDocTaskId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Message/GetBorrowerTaskMessages/${encodeURIComponent(
+					number.encode(loanDocTaskId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
 		},
 
 		Message_GetInternalTaskMessages: loanDocTaskId => {
-			return e.apiClient
-				.request({
-					url: `/api/Message/GetInternalTaskMessages/${encodeURIComponent(
-						number.encode(loanDocTaskId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Message/GetInternalTaskMessages/${encodeURIComponent(
+					number.encode(loanDocTaskId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminMessageViewModelIO)));
 		},
 
 		Message_GetMessageCountSinceLastReply: applicationId => {
-			return e.apiClient
-				.request({
-					url: `/api/Message/GetMessageCountSinceLastReply/${encodeURIComponent(
-						number.encode(applicationId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(number));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Message/GetMessageCountSinceLastReply/${encodeURIComponent(
+					number.encode(applicationId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(number));
 		},
 
 		Message_PostInternalMessage: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsAdminMessageViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Message/PostInternalMessage`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Message/PostInternalMessage`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAdminMessageViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAdminMessageViewModelIO));
 		},
 
 		Message_PostBorrowerMessage: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsAdminMessageViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Message/PostBorrowerMessage`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Message/PostBorrowerMessage`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAdminMessageViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAdminMessageViewModelIO));
 		},
 
 		Message_InsertLeadEmailIntoQueue: (appendEmailSignature, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMessageMessageViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Message/InsertLeadEmailIntoQueue/${encodeURIComponent(
-						boolean.encode(appendEmailSignature).toString(),
-					)}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Message/InsertLeadEmailIntoQueue/${encodeURIComponent(
+					boolean.encode(appendEmailSignature).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Message_InsertLeadSMSIntoQueue: (appendSMSSignature, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMessageMessageViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Message/InsertLeadSMSIntoQueue/${encodeURIComponent(
-						boolean.encode(appendSMSSignature).toString(),
-					)}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Message/InsertLeadSMSIntoQueue/${encodeURIComponent(
+					boolean.encode(appendSMSSignature).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Message_InsertLoanEmailIntoQueue: (appendEmailSignature, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMessageMessageViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Message/InsertLoanEmailIntoQueue/${encodeURIComponent(
-						boolean.encode(appendEmailSignature).toString(),
-					)}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Message/InsertLoanEmailIntoQueue/${encodeURIComponent(
+					boolean.encode(appendEmailSignature).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Message_InsertLoanSMSIntoQueue: (appendSMSSignature, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMessageMessageViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Message/InsertLoanSMSIntoQueue/${encodeURIComponent(
-						boolean.encode(appendSMSSignature).toString(),
-					)}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Message/InsertLoanSMSIntoQueue/${encodeURIComponent(
+					boolean.encode(appendSMSSignature).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

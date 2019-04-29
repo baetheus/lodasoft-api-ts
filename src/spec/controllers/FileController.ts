@@ -91,32 +91,26 @@ export type FileController = {
 };
 
 export const fileController = asks(
-	(e: { apiClient: TAPIClient }): FileController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): FileController => ({
 		File_TrackingFile: guid => {
-			return e.apiClient
-				.request({
-					url: `/api/File/TrackingFile/${encodeURIComponent(string.encode(guid).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminTrackingViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/File/TrackingFile/${encodeURIComponent(string.encode(guid).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminTrackingViewModelIO)));
 		},
 
 		File_GetDocFile: guid => {
-			return e.apiClient
-				.request({
-					url: `/api/File/GetDocFile/${encodeURIComponent(string.encode(guid).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminDocFileModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/File/GetDocFile/${encodeURIComponent(string.encode(guid).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminDocFileModelIO));
 		},
 
 		File_RemoveFile: guid => {
-			return e.apiClient
-				.request({
-					url: `/api/File/RemoveFile/${encodeURIComponent(string.encode(guid).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminDocFileModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/File/RemoveFile/${encodeURIComponent(string.encode(guid).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminDocFileModelIO));
 		},
 
 		File_UpsertFileFromTask: (taskId, parameters) => {
@@ -124,75 +118,63 @@ export const fileController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/File/UpsertFileFromTask/${encodeURIComponent(number.encode(taskId).toString())}`,
-					method: 'POST',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessModelsAdminBorrowerFileDtoIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/File/UpsertFileFromTask/${encodeURIComponent(number.encode(taskId).toString())}`,
+				method: 'POST',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftDataAccessModelsAdminBorrowerFileDtoIO));
 		},
 
 		File_UpsertFileFromLoanDoc: loanDocId => {
-			return e.apiClient
-				.request({
-					url: `/api/File/UpsertFileFromLoanDoc/${encodeURIComponent(number.encode(loanDocId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessModelsAdminBorrowerFileDtoIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/File/UpsertFileFromLoanDoc/${encodeURIComponent(
+					number.encode(loanDocId).toString(),
+				)}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(LELodasoftDataAccessModelsAdminBorrowerFileDtoIO));
 		},
 
 		File_GetFileForExport: appId => {
-			return e.apiClient
-				.request({
-					url: `/api/File/GetFileForExport/${encodeURIComponent(number.encode(appId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsFileExportDocumentModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/File/GetFileForExport/${encodeURIComponent(number.encode(appId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsFileExportDocumentModelIO)));
 		},
 
 		File_DownloadFile: (fileGuid, downloadUserId) => {
-			return e.apiClient
-				.request({
-					url: `/api/File/DownloadFile/${encodeURIComponent(
-						string.encode(fileGuid).toString(),
-					)}/${encodeURIComponent(string.encode(downloadUserId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/File/DownloadFile/${encodeURIComponent(
+					string.encode(fileGuid).toString(),
+				)}/${encodeURIComponent(string.encode(downloadUserId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		File_ViewFile: (fileGuid, userId) => {
-			return e.apiClient
-				.request({
-					url: `/api/File/ViewFile/${encodeURIComponent(
-						string.encode(fileGuid).toString(),
-					)}/${encodeURIComponent(string.encode(userId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/File/ViewFile/${encodeURIComponent(
+					string.encode(fileGuid).toString(),
+				)}/${encodeURIComponent(string.encode(userId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		File_ExportFile: (asPDF, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsLoanExportDocFilesRequestIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/File/ExportFile/${encodeURIComponent(boolean.encode(asPDF).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/File/ExportFile/${encodeURIComponent(boolean.encode(asPDF).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		File_ConvertToPdf: fileGuid => {
-			return e.apiClient
-				.request({
-					url: `/api/File/convert-to-pdf/${encodeURIComponent(string.encode(fileGuid).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(string));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/File/convert-to-pdf/${encodeURIComponent(string.encode(fileGuid).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(string));
 		},
 	}),
 );

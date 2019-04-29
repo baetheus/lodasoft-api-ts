@@ -50,62 +50,52 @@ export type MortgageReoController = {
 };
 
 export const mortgageReoController = asks(
-	(e: { apiClient: TAPIClient }): MortgageReoController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): MortgageReoController => ({
 		MortgageReo_GetReoById: reoId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/reos/${encodeURIComponent(number.encode(reoId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageReoViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/reos/${encodeURIComponent(number.encode(reoId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageReoViewModelIO));
 		},
 
 		MortgageReo_UpdateReo: (reoId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageReoViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/reos/${encodeURIComponent(number.encode(reoId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/reos/${encodeURIComponent(number.encode(reoId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageReoViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageReoViewModelIO));
 		},
 
 		MortgageReo_DeleteReo: reoId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/reos/${encodeURIComponent(number.encode(reoId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/reos/${encodeURIComponent(number.encode(reoId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageReo_InsertReo: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageReoViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/reos`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/reos`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageReoViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageReoViewModelIO));
 		},
 
 		MortgageReo_InsertAddress: (reoId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageAddressViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/reos/${encodeURIComponent(number.encode(reoId).toString())}/address`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/reos/${encodeURIComponent(number.encode(reoId).toString())}/address`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
 		},
 	}),
 );

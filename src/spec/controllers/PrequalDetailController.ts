@@ -25,30 +25,26 @@ export type PrequalDetailController = {
 };
 
 export const prequalDetailController = asks(
-	(e: { apiClient: TAPIClient }): PrequalDetailController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): PrequalDetailController => ({
 		PrequalDetail_GetPrequalDetail: parameters => {
 			const encoded = partial({ query: type({ applicationId: number }) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/admin/prequal-detail`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAdminPrequalDetailViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/admin/prequal-detail`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAdminPrequalDetailViewModelIO));
 		},
 
 		PrequalDetail_UpsertPrequalDetail: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsAdminPrequalDetailViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/admin/prequal-detail`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/admin/prequal-detail`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAdminPrequalDetailViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAdminPrequalDetailViewModelIO));
 		},
 	}),
 );

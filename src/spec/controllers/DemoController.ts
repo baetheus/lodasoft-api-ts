@@ -18,18 +18,16 @@ export type DemoController = {
 };
 
 export const demoController = asks(
-	(e: { apiClient: TAPIClient }): DemoController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): DemoController => ({
 		Demo_RequestDemo: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsDemoRequestDemoViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/demo/request`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/demo/request`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

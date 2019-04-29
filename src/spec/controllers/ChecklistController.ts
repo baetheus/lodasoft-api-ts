@@ -29,30 +29,26 @@ export type ChecklistController = {
 };
 
 export const checklistController = asks(
-	(e: { apiClient: TAPIClient }): ChecklistController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): ChecklistController => ({
 		Checklist_GetAllByLoanForChecklist: (checklistId, parameters) => {
 			const encoded = partial({ query: type({ loanId: number }) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/checklist/answers/${encodeURIComponent(number.encode(checklistId).toString())}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminChecklistAnswerViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/checklist/answers/${encodeURIComponent(number.encode(checklistId).toString())}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminChecklistAnswerViewModelIO)));
 		},
 
 		Checklist_InsertChecklistAnswer: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsAdminChecklistAnswerViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/checklist/answers`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/checklist/answers`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAdminChecklistAnswerViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAdminChecklistAnswerViewModelIO));
 		},
 	}),
 );

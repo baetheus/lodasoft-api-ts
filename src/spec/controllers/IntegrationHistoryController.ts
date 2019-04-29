@@ -12,16 +12,14 @@ export type IntegrationHistoryController = {
 };
 
 export const integrationHistoryController = asks(
-	(e: { apiClient: TAPIClient }): IntegrationHistoryController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): IntegrationHistoryController => ({
 		IntegrationHistory_GetDocument: integrationHistoryId => {
-			return e.apiClient
-				.request({
-					url: `/api/integration-history/${encodeURIComponent(
-						number.encode(integrationHistoryId).toString(),
-					)}/document`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/integration-history/${encodeURIComponent(
+					number.encode(integrationHistoryId).toString(),
+				)}/document`,
+				method: 'GET',
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

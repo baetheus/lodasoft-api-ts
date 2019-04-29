@@ -52,64 +52,60 @@ export type MortgageEmploymentController = {
 };
 
 export const mortgageEmploymentController = asks(
-	(e: { apiClient: TAPIClient }): MortgageEmploymentController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): MortgageEmploymentController => ({
 		MortgageEmployment_GetEmploymentById: employmentId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/employments/${encodeURIComponent(number.encode(employmentId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmploymentViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/employments/${encodeURIComponent(
+					number.encode(employmentId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmploymentViewModelIO));
 		},
 
 		MortgageEmployment_UpdateEmployment: (employmentId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageEmploymentViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/employments/${encodeURIComponent(number.encode(employmentId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/employments/${encodeURIComponent(
+					number.encode(employmentId).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmploymentViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmploymentViewModelIO));
 		},
 
 		MortgageEmployment_DeleteEmployment: employmentId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/employments/${encodeURIComponent(number.encode(employmentId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/employments/${encodeURIComponent(
+					number.encode(employmentId).toString(),
+				)}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageEmployment_InsertEmployment: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageEmploymentViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/employments`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/employments`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmploymentViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageEmploymentViewModelIO));
 		},
 
 		MortgageEmployment_InsertAddress: (employmentId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageAddressViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/employments/${encodeURIComponent(
-						number.encode(employmentId).toString(),
-					)}/address`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/employments/${encodeURIComponent(
+					number.encode(employmentId).toString(),
+				)}/address`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
 		},
 	}),
 );

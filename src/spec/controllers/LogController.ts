@@ -25,20 +25,18 @@ export type LogController = {
 };
 
 export const logController = asks(
-	(e: { apiClient: TAPIClient }): LogController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): LogController => ({
 		Log_Log: parameters => {
 			const encoded = partial({ body: array(LELodasoftApiControllersLogControllerLogModelIO) }).encode(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/log/batch`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/log/batch`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Log_LogBatchAuthed: parameters => {
@@ -46,14 +44,12 @@ export const logController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/log/batch-authed`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/log/batch-authed`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

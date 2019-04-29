@@ -30,36 +30,30 @@ export type MortgagePhoneController = {
 };
 
 export const mortgagePhoneController = asks(
-	(e: { apiClient: TAPIClient }): MortgagePhoneController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): MortgagePhoneController => ({
 		MortgagePhone_GetPhoneById: phoneId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/phones/${encodeURIComponent(number.encode(phoneId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgagePhoneViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/phones/${encodeURIComponent(number.encode(phoneId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgagePhoneViewModelIO));
 		},
 
 		MortgagePhone_UpdatePhone: (phoneId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgagePhoneViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/phones/${encodeURIComponent(number.encode(phoneId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/phones/${encodeURIComponent(number.encode(phoneId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgagePhoneViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgagePhoneViewModelIO));
 		},
 
 		MortgagePhone_DeletePhone: phoneId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/phones/${encodeURIComponent(number.encode(phoneId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/phones/${encodeURIComponent(number.encode(phoneId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

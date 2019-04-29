@@ -202,47 +202,39 @@ export type AccountController = {
 };
 
 export const accountController = asks(
-	(e: { apiClient: TAPIClient }): AccountController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): AccountController => ({
 		Account_GetUserInfo: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Account/UserInfo`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsUserInfoViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/UserInfo`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftApiModelsUserInfoViewModelIO));
 		},
 
 		Account_GetUserData: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Account/UserData`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsUserDataIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/UserData`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftApiModelsUserDataIO));
 		},
 
 		Account_UpdateTwoFactor: parameters => {
 			const encoded = partial({ query: type({ twoFactor: boolean }) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/UpdateTwoFactor`,
-					method: 'POST',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/UpdateTwoFactor`,
+				method: 'POST',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_PostUpdatePhone: parameters => {
 			const encoded = partial({ query: type({ phone: string, areacode: string }) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/UpdatePhone`,
-					method: 'POST',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/UpdatePhone`,
+				method: 'POST',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_ConfirmUpdatePhone: parameters => {
@@ -250,104 +242,86 @@ export const accountController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/ConfirmUpdatePhone`,
-					method: 'POST',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/ConfirmUpdatePhone`,
+				method: 'POST',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_ValidateAccount: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsLoginBindingModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/ValidateAccount`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/ValidateAccount`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_SendCode: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsLoginBindingModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/SendCode`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/SendCode`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_VerifyCode: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsVerifyCodeModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/VerifyCode`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/VerifyCode`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_GetSendCodeExternal: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Account/SendCodeExternal`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/SendCodeExternal`,
+				method: 'GET',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_GetVerifyCodeExternal: parameters => {
 			const encoded = partial({ query: type({ code: string }) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/VerifyCodeExternal`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/VerifyCodeExternal`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_GetLoginExternal: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Account/LoginExternal`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/LoginExternal`,
+				method: 'GET',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_Login: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsLoginBindingModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/Login`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/Login`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_Logout: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Account/Logout`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/Logout`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_GetManageInfo: parameters => {
@@ -355,65 +329,55 @@ export const accountController = asks(
 				query: type({ returnUrl: string, generateState: createOptionFromNullable(boolean) }),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/ManageInfo`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsManageInfoViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/ManageInfo`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(LELodasoftApiModelsManageInfoViewModelIO));
 		},
 
 		Account_ChangePassword: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsChangePasswordBindingModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/ChangePassword`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/ChangePassword`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_SetPassword: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsSetPasswordBindingModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/SetPassword`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/SetPassword`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_AddExternalLogin: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsAddExternalLoginBindingModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/AddExternalLogin`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/AddExternalLogin`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_RemoveLogin: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsRemoveLoginBindingModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/RemoveLogin`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/RemoveLogin`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_GetExternalLogin: parameters => {
@@ -421,13 +385,11 @@ export const accountController = asks(
 				query: type({ provider: string, error: createOptionFromNullable(string) }),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/ExternalLogin`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/ExternalLogin`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_GetExternalLogins: parameters => {
@@ -435,13 +397,11 @@ export const accountController = asks(
 				query: type({ returnUrl: string, generateState: createOptionFromNullable(boolean) }),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/ExternalLogins`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsExternalLoginViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/ExternalLogins`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsExternalLoginViewModelIO)));
 		},
 
 		Account_Register: parameters => {
@@ -450,52 +410,44 @@ export const accountController = asks(
 				body: LELodasoftApiModelsRegisterBindingModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/Register`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/Register`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_GetConfirmEmail: parameters => {
 			const encoded = partial({ query: type({ userId: string, code: string }) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/ConfirmEmail`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/ConfirmEmail`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_ForgotPassword: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsForgotPasswordBindingModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/ForgotPassword`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/ForgotPassword`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_ResetPassword: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsResetPasswordBindingModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/ResetPassword`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/ResetPassword`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Account_RegisterExternal: parameters => {
@@ -504,14 +456,12 @@ export const accountController = asks(
 				body: LELodasoftApiModelsRegisterExternalBindingModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Account/RegisterExternal`,
-					method: 'POST',
-					query: encoded.query,
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Account/RegisterExternal`,
+				method: 'POST',
+				query: encoded.query,
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

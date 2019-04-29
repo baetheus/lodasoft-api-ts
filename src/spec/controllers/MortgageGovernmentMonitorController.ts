@@ -1,13 +1,12 @@
-import { asks } from 'fp-ts/lib/Reader';
-import { number, partial } from 'io-ts';
-import { Observable } from 'rxjs';
-
 import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgageGovernmentMonitorViewModel,
 	LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageGovernmentMonitorViewModel';
 import { decodeAndMap, unknownType } from '../utils/utils';
+import { asks } from 'fp-ts/lib/Reader';
+import { number, partial } from 'io-ts';
+import { Observable } from 'rxjs';
 
 export type MortgageGovernmentMonitorController = {
 	/**
@@ -40,16 +39,14 @@ export type MortgageGovernmentMonitorController = {
 };
 
 export const mortgageGovernmentMonitorController = asks(
-	(e: { apiClient: TAPIClient }): MortgageGovernmentMonitorController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): MortgageGovernmentMonitorController => ({
 		MortgageGovernmentMonitor_GetGovernmentMonitorById: governmentMonitorId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/governmentmonitors/${encodeURIComponent(
-						number.encode(governmentMonitorId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/governmentmonitors/${encodeURIComponent(
+					number.encode(governmentMonitorId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO));
 		},
 
 		MortgageGovernmentMonitor_UpdateGovernmentMonitor: (governmentMonitorId, parameters) => {
@@ -57,27 +54,23 @@ export const mortgageGovernmentMonitorController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/governmentmonitors/${encodeURIComponent(
-						number.encode(governmentMonitorId).toString(),
-					)}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/governmentmonitors/${encodeURIComponent(
+					number.encode(governmentMonitorId).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO));
 		},
 
 		MortgageGovernmentMonitor_DeleteGovernmentMonitor: governmentMonitorId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/governmentmonitors/${encodeURIComponent(
-						number.encode(governmentMonitorId).toString(),
-					)}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/governmentmonitors/${encodeURIComponent(
+					number.encode(governmentMonitorId).toString(),
+				)}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageGovernmentMonitor_InsertGovernmentMonitor: parameters => {
@@ -85,14 +78,12 @@ export const mortgageGovernmentMonitorController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/governmentmonitors`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/governmentmonitors`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO));
 		},
 	}),
 );

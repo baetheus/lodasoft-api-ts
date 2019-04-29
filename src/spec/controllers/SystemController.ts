@@ -15,14 +15,12 @@ export type SystemController = {
 };
 
 export const systemController = asks(
-	(e: { apiClient: TAPIClient }): SystemController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): SystemController => ({
 		System_GetVersion: () => {
-			return e.apiClient
-				.request({
-					url: `/api/System/Version`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsSystemVersionResultIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/System/Version`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftApiModelsSystemVersionResultIO));
 		},
 	}),
 );

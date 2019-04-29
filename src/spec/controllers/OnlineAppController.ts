@@ -173,74 +173,62 @@ export type OnlineAppController = {
 };
 
 export const onlineAppController = asks(
-	(e: { apiClient: TAPIClient }): OnlineAppController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): OnlineAppController => ({
 		OnlineApp_GetFeatureFlags: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/online-app/feature-flags/${encodeURIComponent(number.encode(loanId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsOnlineAppFeatureFlagsIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/feature-flags/${encodeURIComponent(number.encode(loanId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftApiModelsOnlineAppFeatureFlagsIO));
 		},
 
 		OnlineApp_GetLoanTypes: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/online-app/loantypes/${encodeURIComponent(number.encode(loanId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/loantypes/${encodeURIComponent(number.encode(loanId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO)));
 		},
 
 		OnlineApp_GetApplicationViewModel: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/online-app/get-application/${encodeURIComponent(number.encode(loanId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationApplicationViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/get-application/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationApplicationViewModelIO));
 		},
 
 		OnlineApp_UpdateLoanType: (loanId, loanTypeId) => {
-			return e.apiClient
-				.request({
-					url: `/api/online-app/loantype/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/${encodeURIComponent(number.encode(loanTypeId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsBorrowerApplicationViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/loantype/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/${encodeURIComponent(number.encode(loanTypeId).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(LELodasoftApiModelsBorrowerApplicationViewModelIO));
 		},
 
 		OnlineApp_GetStatus: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/online-app/status/${encodeURIComponent(number.encode(loanId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/status/${encodeURIComponent(number.encode(loanId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModelIO));
 		},
 
 		OnlineApp_UpdateStatus: (loanId, mortgageId, currentStatusId) => {
-			return e.apiClient
-				.request({
-					url: `/api/online-app/status/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/${encodeURIComponent(number.encode(mortgageId).toString())}/${encodeURIComponent(
-						number.encode(currentStatusId).toString(),
-					)}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/status/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/${encodeURIComponent(number.encode(mortgageId).toString())}/${encodeURIComponent(
+					number.encode(currentStatusId).toString(),
+				)}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModelIO));
 		},
 
 		OnlineApp_SubmitOnlineApp: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/online-app/submit-app/${encodeURIComponent(number.encode(loanId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/submit-app/${encodeURIComponent(number.encode(loanId).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		OnlineApp_CreateBorrowerAccountAndMortgage: (companyGuid, parameters) => {
@@ -248,86 +236,74 @@ export const onlineAppController = asks(
 				body: LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageRequestIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/online-app/${encodeURIComponent(
-						string.encode(companyGuid).toString(),
-					)}/CreateBorrowerAndApplication`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/${encodeURIComponent(
+					string.encode(companyGuid).toString(),
+				)}/CreateBorrowerAndApplication`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponseIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponseIO));
 		},
 
 		OnlineApp_GetAllWizardConfigs: companyGuid => {
-			return e.apiClient
-				.request({
-					url: `/api/online-app/${encodeURIComponent(string.encode(companyGuid).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/${encodeURIComponent(string.encode(companyGuid).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO)));
 		},
 
 		OnlineApp_GetExtractedWizardConfigById: (companyGuid, wizardConfigId) => {
-			return e.apiClient
-				.request({
-					url: `/api/online-app/${encodeURIComponent(
-						string.encode(companyGuid).toString(),
-					)}/${encodeURIComponent(number.encode(wizardConfigId).toString())}/extracted`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/${encodeURIComponent(
+					string.encode(companyGuid).toString(),
+				)}/${encodeURIComponent(number.encode(wizardConfigId).toString())}/extracted`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO));
 		},
 
 		OnlineApp_InitializeFormFreeByCompanyGuid: (companyGuid, parameters) => {
 			const encoded = partial({ body: LELodasoftApiControllersInitializeFormFreeRequestIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/online-app/${encodeURIComponent(
-						string.encode(companyGuid).toString(),
-					)}/InitializeFormFree`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/${encodeURIComponent(
+					string.encode(companyGuid).toString(),
+				)}/InitializeFormFree`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO));
 		},
 
 		OnlineApp_InitializeFormFree: (loanId, parameters) => {
 			const encoded = partial({ body: LELodasoftApiControllersInitializeFormFreeRequestIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/online-app/InitializeFormFree/${encodeURIComponent(number.encode(loanId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/InitializeFormFree/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO));
 		},
 
 		OnlineApp_InitializeFormFreeForBorrower: (loanId, borrowerId) => {
-			return e.apiClient
-				.request({
-					url: `/api/online-app/InitializeFormFreeForBorrower/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/${encodeURIComponent(number.encode(borrowerId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/InitializeFormFreeForBorrower/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/${encodeURIComponent(number.encode(borrowerId).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO));
 		},
 
 		OnlineApp_MarkFormFreeForBorrowerComplete: (loanId, borrowerId) => {
-			return e.apiClient
-				.request({
-					url: `/api/online-app/MarkFormFreeForBorrowerComplete/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/${encodeURIComponent(number.encode(borrowerId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/MarkFormFreeForBorrowerComplete/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/${encodeURIComponent(number.encode(borrowerId).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

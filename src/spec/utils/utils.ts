@@ -1,5 +1,5 @@
 import { Either } from 'fp-ts/lib/Either';
-import { identity, success, Type, ValidationError } from 'io-ts';
+import { Type, success, identity, ValidationError } from 'io-ts';
 import { PathReporter } from 'io-ts/lib/PathReporter';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

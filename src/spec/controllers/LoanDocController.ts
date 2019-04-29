@@ -62,60 +62,50 @@ export type LoanDocController = {
 };
 
 export const loanDocController = asks(
-	(e: { apiClient: TAPIClient }): LoanDocController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): LoanDocController => ({
 		LoanDoc_Get: loanDocId => {
-			return e.apiClient
-				.request({
-					url: `/api/LoanDoc/${encodeURIComponent(number.encode(loanDocId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminLoanDocModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/LoanDoc/${encodeURIComponent(number.encode(loanDocId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminLoanDocModelIO));
 		},
 
 		LoanDoc_ChangeDocumentTypeOfLoanDoc: (loanDocId, documentTypeId) => {
-			return e.apiClient
-				.request({
-					url: `/api/LoanDoc/${encodeURIComponent(
-						number.encode(loanDocId).toString(),
-					)}/ChangeDocumentType/${encodeURIComponent(number.encode(documentTypeId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(tvoid));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/LoanDoc/${encodeURIComponent(
+					number.encode(loanDocId).toString(),
+				)}/ChangeDocumentType/${encodeURIComponent(number.encode(documentTypeId).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(tvoid));
 		},
 
 		LoanDoc_RemoveLoanDoc: loanDocId => {
-			return e.apiClient
-				.request({
-					url: `/api/LoanDoc/${encodeURIComponent(number.encode(loanDocId).toString())}/RemoveLoanDoc`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(tvoid));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/LoanDoc/${encodeURIComponent(number.encode(loanDocId).toString())}/RemoveLoanDoc`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(tvoid));
 		},
 
 		LoanDoc_UpsertFile: (loanDocId, parameters) => {
 			const encoded = partial({ body: LELodasoftDataAccessDbModelsAdminDocFileModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/LoanDoc/${encodeURIComponent(number.encode(loanDocId).toString())}/UpsertFile`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/LoanDoc/${encodeURIComponent(number.encode(loanDocId).toString())}/UpsertFile`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessModelsAdminBorrowerFileDtoIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessModelsAdminBorrowerFileDtoIO));
 		},
 
 		LoanDoc_MergeDocFiles: (loanDocId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsLoanMergeDocFilesRequestIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/LoanDoc/${encodeURIComponent(number.encode(loanDocId).toString())}/MergeDocFiles`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/LoanDoc/${encodeURIComponent(number.encode(loanDocId).toString())}/MergeDocFiles`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(tvoid));
+				body: encoded.body,
+			}).pipe(decodeAndMap(tvoid));
 		},
 	}),
 );

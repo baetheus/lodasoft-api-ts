@@ -301,14 +301,12 @@ export type WizardController = {
 };
 
 export const wizardController = asks(
-	(e: { apiClient: TAPIClient }): WizardController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): WizardController => ({
 		Wizard_GetAllWizardConfigs: () => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO)));
 		},
 
 		Wizard_UpsertWizardConfig: parameters => {
@@ -316,41 +314,35 @@ export const wizardController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO));
 		},
 
 		Wizard_GetWizardConfigById: wizardConfigId => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO));
 		},
 
 		Wizard_DeleteWizardConfig: wizardConfigId => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Wizard_GetExtractedWizardConfigById: wizardConfigId => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/extracted`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/extracted`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO));
 		},
 
 		Wizard_UpsertExtractedWizardConfig: parameters => {
@@ -358,23 +350,21 @@ export const wizardController = asks(
 				body: LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/extracted`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/extracted`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO));
 		},
 
 		Wizard_GetDataIdListByWizardConfigId: wizardConfigId => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/dataids`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardDataIdViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/dataids`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardDataIdViewModelIO)));
 		},
 
 		Wizard_UpsertDataIdAndDataByWizardConfigId: (wizardConfigId, parameters) => {
@@ -382,79 +372,71 @@ export const wizardController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/dataids`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/dataids`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardDataIdViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardDataIdViewModelIO));
 		},
 
 		Wizard_GetDataIdByWizardConfigId: (wizardConfigId, dataIdId) => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(
-						number.encode(wizardConfigId).toString(),
-					)}/dataids/${encodeURIComponent(number.encode(dataIdId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardDataIdViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/dataids/${encodeURIComponent(number.encode(dataIdId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardDataIdViewModelIO));
 		},
 
 		Wizard_DeleteDataIdByWizardConfigId: (wizardConfigId, dataIdId) => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(
-						number.encode(wizardConfigId).toString(),
-					)}/dataids/${encodeURIComponent(number.encode(dataIdId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/dataids/${encodeURIComponent(number.encode(dataIdId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Wizard_GetDataListByWizardConfigId: wizardConfigId => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/datas`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardDataViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/datas`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardDataViewModelIO)));
 		},
 
 		Wizard_GetDataByWizardConfigId: (wizardConfigId, dataId, parameters) => {
 			const encoded = partial({ query: type({ category: number }) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(
-						number.encode(wizardConfigId).toString(),
-					)}/datas/${encodeURIComponent(number.encode(dataId).toString())}`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardDataViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/datas/${encodeURIComponent(number.encode(dataId).toString())}`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardDataViewModelIO)));
 		},
 
 		Wizard_DeleteDataByWizardConfigId: (wizardConfigId, dataId) => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(
-						number.encode(wizardConfigId).toString(),
-					)}/datas/${encodeURIComponent(number.encode(dataId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/datas/${encodeURIComponent(number.encode(dataId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Wizard_GetGroupIdListByWizardConfigId: wizardConfigId => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/groupids`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/groupids`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO)));
 		},
 
 		Wizard_UpsertGroupIdAndGroupByWizardConfigId: (wizardConfigId, parameters) => {
@@ -462,107 +444,95 @@ export const wizardController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/groupids`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/groupids`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO));
 		},
 
 		Wizard_GetGroupIdByWizardConfigId: (wizardConfigId, groupIdId) => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(
-						number.encode(wizardConfigId).toString(),
-					)}/groupids/${encodeURIComponent(number.encode(groupIdId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/groupids/${encodeURIComponent(number.encode(groupIdId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO));
 		},
 
 		Wizard_DeleteGroupIdByWizardConfigId: (wizardConfigId, groupIdId) => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(
-						number.encode(wizardConfigId).toString(),
-					)}/groupids/${encodeURIComponent(number.encode(groupIdId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/groupids/${encodeURIComponent(number.encode(groupIdId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Wizard_GetGroupListByWizardConfigId: wizardConfigId => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/groups`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardGroupViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/groups`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardGroupViewModelIO)));
 		},
 
 		Wizard_GetGroupByWizardConfigId: (wizardConfigId, groupId) => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(
-						number.encode(wizardConfigId).toString(),
-					)}/groups/${encodeURIComponent(number.encode(groupId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardGroupViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/groups/${encodeURIComponent(number.encode(groupId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardGroupViewModelIO));
 		},
 
 		Wizard_DeleteGroupByWizardConfigId: (wizardConfigId, groupId) => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(
-						number.encode(wizardConfigId).toString(),
-					)}/groups/${encodeURIComponent(number.encode(groupId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/groups/${encodeURIComponent(number.encode(groupId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Wizard_GetValidListByWizardConfigId: wizardConfigId => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/valids`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardValidViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/valids`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardValidViewModelIO)));
 		},
 
 		Wizard_GetValidByWizardConfigId: (wizardConfigId, validId) => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(
-						number.encode(wizardConfigId).toString(),
-					)}/valids/${encodeURIComponent(number.encode(validId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardValidViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/valids/${encodeURIComponent(number.encode(validId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardValidViewModelIO));
 		},
 
 		Wizard_DeleteValidByWizardConfigId: (wizardConfigId, validId) => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(
-						number.encode(wizardConfigId).toString(),
-					)}/valids/${encodeURIComponent(number.encode(validId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/valids/${encodeURIComponent(number.encode(validId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Wizard_GetTreeListByWizardConfigId: wizardConfigId => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/tree`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardTreeViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/tree`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardTreeViewModelIO)));
 		},
 
 		Wizard_UpsertTreeByWizardConfigId: (wizardConfigId, parameters) => {
@@ -570,23 +540,21 @@ export const wizardController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/tree`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/tree`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardTreeViewModelIO)));
+				body: encoded.body,
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardTreeViewModelIO)));
 		},
 
 		Wizard_GetAllWizardQuestions: () => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/questions`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/questions`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO)));
 		},
 
 		Wizard_UpsertWizardQuestion: parameters => {
@@ -594,41 +562,39 @@ export const wizardController = asks(
 				body: LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO,
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/questions`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/questions`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO));
 		},
 
 		Wizard_GetWizardQuestionById: questionId => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/questions/${encodeURIComponent(number.encode(questionId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/questions/${encodeURIComponent(
+					number.encode(questionId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO));
 		},
 
 		Wizard_DeleteWizardQuestion: questionId => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/questions/${encodeURIComponent(number.encode(questionId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/questions/${encodeURIComponent(
+					number.encode(questionId).toString(),
+				)}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Wizard_GetWizardQuestionListByWizardConfigId: wizardConfigId => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/questions`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/questions`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO)));
 		},
 
 		Wizard_UpsertWizardQuestionDataByWizardConfigId: (wizardConfigId, parameters) => {
@@ -636,51 +602,45 @@ export const wizardController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(number.encode(wizardConfigId).toString())}/questions`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/questions`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsWizardModelsWizardQuestionDataViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftApiModelsWizardModelsWizardQuestionDataViewModelIO));
 		},
 
 		Wizard_GetWizardQuestionDataById: (wizardConfigId, questionId) => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(
-						number.encode(wizardConfigId).toString(),
-					)}/questions/${encodeURIComponent(number.encode(questionId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsWizardModelsWizardQuestionDataViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/questions/${encodeURIComponent(number.encode(questionId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftApiModelsWizardModelsWizardQuestionDataViewModelIO));
 		},
 
 		Wizard_DeleteWizardQuestionData: (wizardConfigId, questionId) => {
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/${encodeURIComponent(
-						number.encode(wizardConfigId).toString(),
-					)}/questions/${encodeURIComponent(number.encode(questionId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/${encodeURIComponent(
+					number.encode(wizardConfigId).toString(),
+				)}/questions/${encodeURIComponent(number.encode(questionId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Wizard_InitializeFormFree: (companyGuid, parameters) => {
 			const encoded = partial({ body: LELodasoftApiControllersInitializeFormFreeRequestIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/wizardconfigs/InitializeFormFree/${encodeURIComponent(
-						string.encode(companyGuid).toString(),
-					)}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/wizardconfigs/InitializeFormFree/${encodeURIComponent(
+					string.encode(companyGuid).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO));
 		},
 	}),
 );

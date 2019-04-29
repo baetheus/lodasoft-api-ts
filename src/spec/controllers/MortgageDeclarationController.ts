@@ -39,49 +39,47 @@ export type MortgageDeclarationController = {
 };
 
 export const mortgageDeclarationController = asks(
-	(e: { apiClient: TAPIClient }): MortgageDeclarationController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): MortgageDeclarationController => ({
 		MortgageDeclaration_GetDeclarationById: declarationId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/declarations/${encodeURIComponent(number.encode(declarationId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageDeclarationViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/declarations/${encodeURIComponent(
+					number.encode(declarationId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageDeclarationViewModelIO));
 		},
 
 		MortgageDeclaration_UpdateDeclaration: (declarationId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageDeclarationViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/declarations/${encodeURIComponent(number.encode(declarationId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/declarations/${encodeURIComponent(
+					number.encode(declarationId).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageDeclarationViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageDeclarationViewModelIO));
 		},
 
 		MortgageDeclaration_DeleteDeclaration: declarationId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/declarations/${encodeURIComponent(number.encode(declarationId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/declarations/${encodeURIComponent(
+					number.encode(declarationId).toString(),
+				)}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageDeclaration_InsertDeclaration: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageDeclarationViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/declarations`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/declarations`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageDeclarationViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageDeclarationViewModelIO));
 		},
 	}),
 );

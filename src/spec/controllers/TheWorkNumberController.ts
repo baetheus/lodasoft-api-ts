@@ -23,20 +23,18 @@ export type TheWorkNumberController = {
 };
 
 export const theWorkNumberController = asks(
-	(e: { apiClient: TAPIClient }): TheWorkNumberController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): TheWorkNumberController => ({
 		TheWorkNumber_RequestVerification: parameters => {
 			const encoded = partial({ body: LELodasoftThirdPartyTheWorkNumberModelsVerificationRequestIO }).encode(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/twn/verification`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/twn/verification`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftThirdPartyTheWorkNumberModelsVerificationResponseIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftThirdPartyTheWorkNumberModelsVerificationResponseIO));
 		},
 	}),
 );

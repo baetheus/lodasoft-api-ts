@@ -182,115 +182,99 @@ export type AgentPortalController = {
 };
 
 export const agentPortalController = asks(
-	(e: { apiClient: TAPIClient }): AgentPortalController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): AgentPortalController => ({
 		AgentPortal_ConfirmRegistrationToken: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsSharedConfirmRegisterRequestModelIO }).encode(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/ConfirmRegistrationToken`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/ConfirmRegistrationToken`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsSharedRegisterModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsSharedRegisterModelIO));
 		},
 
 		AgentPortal_ConfirmRegistration: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsSharedRegisterModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/ConfirmRegistration`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/ConfirmRegistration`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(boolean));
+				body: encoded.body,
+			}).pipe(decodeAndMap(boolean));
 		},
 
 		AgentPortal_SendEmailResetPassword: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsForgotPasswordBindingModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/SendEmailResetPassword`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/SendEmailResetPassword`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(boolean));
+				body: encoded.body,
+			}).pipe(decodeAndMap(boolean));
 		},
 
 		AgentPortal_ResetPassword: parameters => {
 			const encoded = partial({ body: LELodasoftApiModelsResetPasswordBindingModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/ResetPassword`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/ResetPassword`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		AgentPortal_GetApplicationsForUser: () => {
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/GetApplicationsForUser`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsSharedApplicationViewIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/GetApplicationsForUser`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsSharedApplicationViewIO)));
 		},
 
 		AgentPortal_GetReferralsForUser: () => {
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/GetReferralsForUser`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsSharedReferralViewIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/GetReferralsForUser`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsSharedReferralViewIO)));
 		},
 
 		AgentPortal_GetPortalContent: () => {
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/GetPortalContent`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsSharedPortalContentViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/GetPortalContent`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftApiModelsSharedPortalContentViewModelIO));
 		},
 
 		AgentPortal_GetLoanDataForAppId: appId => {
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/GetLoanDataForAppId/${encodeURIComponent(number.encode(appId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsSharedApplicationViewIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/GetLoanDataForAppId/${encodeURIComponent(
+					number.encode(appId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsSharedApplicationViewIO));
 		},
 
 		AgentPortal_GetTasksforAppId: appId => {
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/GetTasksForAppId/${encodeURIComponent(number.encode(appId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsSharedPortalTasksIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/GetTasksForAppId/${encodeURIComponent(
+					number.encode(appId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsSharedPortalTasksIO));
 		},
 
 		AgentPortal_GetPrequalDetail: appId => {
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/GetPrequalDetailForAppId/${encodeURIComponent(
-						number.encode(appId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAdminPrequalDetailViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/GetPrequalDetailForAppId/${encodeURIComponent(
+					number.encode(appId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAdminPrequalDetailViewModelIO));
 		},
 
 		AgentPortal_GeneratePrequalLetter: (appId, parameters) => {
@@ -298,36 +282,32 @@ export const agentPortalController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/GeneratePrequalLetterForAppId/${encodeURIComponent(
-						number.encode(appId).toString(),
-					)}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/GeneratePrequalLetterForAppId/${encodeURIComponent(
+					number.encode(appId).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsSharedGeneratePrequalLetterResponseIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsSharedGeneratePrequalLetterResponseIO));
 		},
 
 		AgentPortal_GetAgentContactInfoForApplication: appId => {
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/GetAgentContactInfoForApplication/${encodeURIComponent(
-						number.encode(appId).toString(),
-					)}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsAgentPortalAgentContactIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/GetAgentContactInfoForApplication/${encodeURIComponent(
+					number.encode(appId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsAgentPortalAgentContactIO));
 		},
 
 		AgentPortal_ProgressTaskStatus: taskId => {
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/ProgressTaskStatus/${encodeURIComponent(number.encode(taskId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/ProgressTaskStatus/${encodeURIComponent(
+					number.encode(taskId).toString(),
+				)}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO));
 		},
 
 		AgentPortal_UploadDocument: (taskId, borrowerNote, parameters) => {
@@ -335,59 +315,49 @@ export const agentPortalController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/UploadDocument/${encodeURIComponent(
-						number.encode(taskId).toString(),
-					)}/${encodeURIComponent(string.encode(borrowerNote).toString())}`,
-					method: 'POST',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(boolean));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/UploadDocument/${encodeURIComponent(
+					number.encode(taskId).toString(),
+				)}/${encodeURIComponent(string.encode(borrowerNote).toString())}`,
+				method: 'POST',
+				query: encoded.query,
+			}).pipe(decodeAndMap(boolean));
 		},
 
 		AgentPortal_GetReferralAgents: () => {
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/ReferralAgents`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsSharedReferralAgentIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/ReferralAgents`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsSharedReferralAgentIO)));
 		},
 
 		AgentPortal_ReferAFriend: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsSharedReferralModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/ReferAFriend`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/ReferAFriend`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(boolean));
+				body: encoded.body,
+			}).pipe(decodeAndMap(boolean));
 		},
 
 		AgentPortal_RequestACallback: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsSharedCallbackModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/RequestACallback`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/RequestACallback`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(boolean));
+				body: encoded.body,
+			}).pipe(decodeAndMap(boolean));
 		},
 
 		AgentPortal_GetLiveData: () => {
-			return e.apiClient
-				.request({
-					url: `/api/AgentPortal/LiveData`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsSharedPortalLiveDataIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/AgentPortal/LiveData`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsSharedPortalLiveDataIO));
 		},
 	}),
 );

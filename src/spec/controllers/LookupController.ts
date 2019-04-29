@@ -1,27 +1,26 @@
-import { Option } from 'fp-ts/lib/Option';
-import { asks } from 'fp-ts/lib/Reader';
-import { array, number, partial, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
-import { Observable } from 'rxjs';
-
 import { TAPIClient } from '../client/client';
 import {
-  LELodasoftApiModelsUserUserLookupView,
-  LELodasoftApiModelsUserUserLookupViewIO,
+	LELodasoftApiModelsUserUserLookupView,
+	LELodasoftApiModelsUserUserLookupViewIO,
 } from '../definitions/LELodasoftApiModelsUserUserLookupView';
 import {
-  LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModel,
-  LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModelIO,
+	LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModel,
+	LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModelIO,
 } from '../definitions/LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModel';
 import {
-  LELodasoftDataAccessDbModelsConfigurationLoanStatusModel,
-  LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO,
+	LELodasoftDataAccessDbModelsConfigurationLoanStatusModel,
+	LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationLoanStatusModel';
 import {
-  LELodasoftDataAccessDbModelsConfigurationRoleModel,
-  LELodasoftDataAccessDbModelsConfigurationRoleModelIO,
+	LELodasoftDataAccessDbModelsConfigurationRoleModel,
+	LELodasoftDataAccessDbModelsConfigurationRoleModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationRoleModel';
 import { decodeAndMap } from '../utils/utils';
+import { Option } from 'fp-ts/lib/Option';
+import { asks } from 'fp-ts/lib/Reader';
+import { array, number, type, partial } from 'io-ts';
+import { createOptionFromNullable } from 'io-ts-types';
+import { Observable } from 'rxjs';
 
 export type LookupController = {
 	/**
@@ -64,23 +63,19 @@ export type LookupController = {
 };
 
 export const lookupController = asks(
-	(e: { apiClient: TAPIClient }): LookupController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): LookupController => ({
 		Lookup_getAllRolesByCompanyId: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Lookup/getAllRoles`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationRoleModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Lookup/getAllRoles`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationRoleModelIO)));
 		},
 
 		Lookup_getAllUsers: () => {
-			return e.apiClient
-				.request({
-					url: `/api/Lookup/getAllUsers`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsUserUserLookupViewIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Lookup/getAllUsers`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsUserUserLookupViewIO)));
 		},
 
 		Lookup_GetLosProviders: parameters => {
@@ -88,35 +83,29 @@ export const lookupController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Lookup/get-los-providers`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Lookup/get-los-providers`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModelIO)));
 		},
 
 		Lookup_GetLoanStatusForLoanPurpose: (loanPurposeId, loanStatusId) => {
-			return e.apiClient
-				.request({
-					url: `/api/Lookup/GetLoanStatusForLoanPurpose/${encodeURIComponent(
-						number.encode(loanPurposeId).toString(),
-					)}/${encodeURIComponent(number.encode(loanStatusId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Lookup/GetLoanStatusForLoanPurpose/${encodeURIComponent(
+					number.encode(loanPurposeId).toString(),
+				)}/${encodeURIComponent(number.encode(loanStatusId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)));
 		},
 
 		Lookup_GetLeadStatusForLoanPurpose: (loanPurposeId, loanStatusId) => {
-			return e.apiClient
-				.request({
-					url: `/api/Lookup/GetLeadStatusForLoanPurpose/${encodeURIComponent(
-						number.encode(loanPurposeId).toString(),
-					)}/${encodeURIComponent(number.encode(loanStatusId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Lookup/GetLeadStatusForLoanPurpose/${encodeURIComponent(
+					number.encode(loanPurposeId).toString(),
+				)}/${encodeURIComponent(number.encode(loanStatusId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO)));
 		},
 	}),
 );

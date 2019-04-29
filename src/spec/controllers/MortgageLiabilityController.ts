@@ -52,64 +52,60 @@ export type MortgageLiabilityController = {
 };
 
 export const mortgageLiabilityController = asks(
-	(e: { apiClient: TAPIClient }): MortgageLiabilityController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): MortgageLiabilityController => ({
 		MortgageLiability_GetLiabilityById: liabilityId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/liabilities/${encodeURIComponent(number.encode(liabilityId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageLiabilityViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/liabilities/${encodeURIComponent(
+					number.encode(liabilityId).toString(),
+				)}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageLiabilityViewModelIO));
 		},
 
 		MortgageLiability_UpdateLiability: (liabilityId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageLiabilityViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/liabilities/${encodeURIComponent(number.encode(liabilityId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/liabilities/${encodeURIComponent(
+					number.encode(liabilityId).toString(),
+				)}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageLiabilityViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageLiabilityViewModelIO));
 		},
 
 		MortgageLiability_DeleteLiability: liabilityId => {
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/liabilities/${encodeURIComponent(number.encode(liabilityId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/liabilities/${encodeURIComponent(
+					number.encode(liabilityId).toString(),
+				)}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		MortgageLiability_InsertLiability: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageLiabilityViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/liabilities`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/liabilities`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageLiabilityViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageLiabilityViewModelIO));
 		},
 
 		MortgageLiability_InsertAddress: (liabilityId, parameters) => {
 			const encoded = partial({ body: LELodasoftCommonModelsMortgageAddressViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/mortgage/liabilities/${encodeURIComponent(
-						number.encode(liabilityId).toString(),
-					)}/address`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/mortgage/liabilities/${encodeURIComponent(
+					number.encode(liabilityId).toString(),
+				)}/address`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageAddressViewModelIO));
 		},
 	}),
 );

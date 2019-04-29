@@ -62,46 +62,40 @@ export type SmsController = {
 };
 
 export const smsController = asks(
-	(e: { apiClient: TAPIClient }): SmsController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): SmsController => ({
 		Sms_SendTestSms: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsConfigurationSendTestSmsRequestIO }).encode(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Sms/SendTestSms`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Sms/SendTestSms`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Sms_SendSms: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsMessageSendSmsViewModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Sms/send-sms`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Sms/send-sms`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Sms_GetBetween: parameters => {
 			const encoded = partial({ body: LELodasoftCommonModelsMessageSendSmsBetweenModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Sms/get-between`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Sms/get-between`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsMessageSmsHistoryViewModelIO)));
+				body: encoded.body,
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsMessageSmsHistoryViewModelIO)));
 		},
 
 		Sms_GetBorrowerInfo: parameters => {
@@ -109,23 +103,19 @@ export const smsController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Sms/get-borrower-info`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Sms/get-borrower-info`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO)));
+				body: encoded.body,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO)));
 		},
 
 		Sms_ReceiveSms: companyGuid => {
-			return e.apiClient
-				.request({
-					url: `/api/Sms/receive-sms/${encodeURIComponent(string.encode(companyGuid).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Sms/receive-sms/${encodeURIComponent(string.encode(companyGuid).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

@@ -29,35 +29,29 @@ export type ZipcodeController = {
 };
 
 export const zipcodeController = asks(
-	(e: { apiClient: TAPIClient }): ZipcodeController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): ZipcodeController => ({
 		Zipcode_ZipcodeLookup: zip => {
-			return e.apiClient
-				.request({
-					url: `/api/Zipcode/Lookup/${encodeURIComponent(string.encode(zip).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsZipcodeLookupResultIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Zipcode/Lookup/${encodeURIComponent(string.encode(zip).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsZipcodeLookupResultIO)));
 		},
 
 		Zipcode_ZipcodeLookuAnonymousp: zip => {
-			return e.apiClient
-				.request({
-					url: `/api/Zipcode/${encodeURIComponent(string.encode(zip).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsZipcodeLookupResultIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Zipcode/${encodeURIComponent(string.encode(zip).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsZipcodeLookupResultIO)));
 		},
 
 		Zipcode_Send: (toUserId, parameters) => {
 			const encoded = partial({ query: type({ message: string }) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Zipcode/send/${encodeURIComponent(string.encode(toUserId).toString())}`,
-					method: 'PUT',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Zipcode/send/${encodeURIComponent(string.encode(toUserId).toString())}`,
+				method: 'PUT',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

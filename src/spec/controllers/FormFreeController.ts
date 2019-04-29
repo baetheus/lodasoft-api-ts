@@ -63,7 +63,7 @@ export type FormFreeController = {
 };
 
 export const formFreeController = asks(
-	(e: { apiClient: TAPIClient }): FormFreeController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): FormFreeController => ({
 		FormFree_GetFormFreeHistory: parameters => {
 			const encoded = partial({
 				query: type({
@@ -73,42 +73,34 @@ export const formFreeController = asks(
 				}),
 			}).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/form-free/history`,
-					method: 'GET',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/form-free/history`,
+				method: 'GET',
+				query: encoded.query,
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO)));
 		},
 
 		FormFree_GetLiteAccountInfo: transactionId => {
-			return e.apiClient
-				.request({
-					url: `/api/form-free/${encodeURIComponent(string.encode(transactionId).toString())}/lite`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftThirdPartyFormFreeModelsLiteAccountInfoIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/form-free/${encodeURIComponent(string.encode(transactionId).toString())}/lite`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftThirdPartyFormFreeModelsLiteAccountInfoIO)));
 		},
 
 		FormFree_UpgradeVoaRequest: transactionId => {
-			return e.apiClient
-				.request({
-					url: `/api/form-free/${encodeURIComponent(string.encode(transactionId).toString())}/upgrade`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/form-free/${encodeURIComponent(string.encode(transactionId).toString())}/upgrade`,
+				method: 'POST',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO));
 		},
 
 		FormFree_LinkHistoryToBorrower: (historyId, borrowerId) => {
-			return e.apiClient
-				.request({
-					url: `/api/form-free/history/${encodeURIComponent(
-						number.encode(historyId).toString(),
-					)}/link-to-borrower/${encodeURIComponent(number.encode(borrowerId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/form-free/history/${encodeURIComponent(
+					number.encode(historyId).toString(),
+				)}/link-to-borrower/${encodeURIComponent(number.encode(borrowerId).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO)));
 		},
 
 		FormFree_InviteBorrower: (loanId, borrowerId, parameters) => {
@@ -116,15 +108,13 @@ export const formFreeController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/form-free/invite/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/${encodeURIComponent(number.encode(borrowerId).toString())}`,
-					method: 'POST',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/form-free/invite/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/${encodeURIComponent(number.encode(borrowerId).toString())}`,
+				method: 'POST',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 	}),
 );

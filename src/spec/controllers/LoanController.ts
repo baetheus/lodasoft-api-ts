@@ -356,132 +356,112 @@ export type LoanController = {
 };
 
 export const loanController = asks(
-	(e: { apiClient: TAPIClient }): LoanController => ({
+	(e: { API_CLIENT: TAPIClient; PREFIX: string }): LoanController => ({
 		Loan_GetBorrowersByLoanId: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/Borrowers`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/Borrowers`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO)));
 		},
 
 		Loan_GetBorrowerNotOwnedByLoan: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/BorrowersNotOwnedByLoan`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/BorrowersNotOwnedByLoan`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO)));
 		},
 
 		Loan_SelectBorrower: (loanId, borrowerId) => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/SelectBorrower/${encodeURIComponent(number.encode(borrowerId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/SelectBorrower/${encodeURIComponent(number.encode(borrowerId).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Loan_GetFirstBorrowerAddress: (loanId, borrowerId) => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/GetFirstBorrowerAddress/${encodeURIComponent(number.encode(borrowerId).toString())}`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/GetFirstBorrowerAddress/${encodeURIComponent(number.encode(borrowerId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Loan_SetBorrowerAsPrimaryOnLoan: (loanId, borrowerId) => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/SetBorrowerAsPrimaryOnLoan/${encodeURIComponent(number.encode(borrowerId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/SetBorrowerAsPrimaryOnLoan/${encodeURIComponent(number.encode(borrowerId).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Loan_SetAllowPrimaryToStatisfyFlagOnLoan: (loanId, borrowerId, allow) => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/SetAllowPrimaryToStatisfyFlagOnLoan/${encodeURIComponent(
-						number.encode(borrowerId).toString(),
-					)}/${encodeURIComponent(boolean.encode(allow).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/SetAllowPrimaryToStatisfyFlagOnLoan/${encodeURIComponent(
+					number.encode(borrowerId).toString(),
+				)}/${encodeURIComponent(boolean.encode(allow).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Loan_RemoveBorrowerFromLoan: (loanId, borrowerId) => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/RemoveBorrowerFromLoan/${encodeURIComponent(number.encode(borrowerId).toString())}`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/RemoveBorrowerFromLoan/${encodeURIComponent(number.encode(borrowerId).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Loan_AllExternalContacts: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/AllExternalContacts`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerExternalContactViewIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/AllExternalContacts`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerExternalContactViewIO)));
 		},
 
 		Loan_AllRemainExternalContacts: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/AllRemainExternalContacts`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAgentViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/AllRemainExternalContacts`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminAgentViewModelIO)));
 		},
 
 		Loan_SelectAgentForExternalContact: (loanId, agentId, parameters) => {
 			const encoded = partial({ query: type({ agentTypeId: number }) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/SelectAgentForExternalContact/${encodeURIComponent(number.encode(agentId).toString())}`,
-					method: 'POST',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(boolean));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/SelectAgentForExternalContact/${encodeURIComponent(number.encode(agentId).toString())}`,
+				method: 'POST',
+				query: encoded.query,
+			}).pipe(decodeAndMap(boolean));
 		},
 
 		Loan_RemoveAgentFromExternalContact: (loanId, agentId) => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/RemoveAgentFromExternalContact/${encodeURIComponent(number.encode(agentId).toString())}`,
-					method: 'DELETE',
-				})
-				.pipe(decodeAndMap(boolean));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/RemoveAgentFromExternalContact/${encodeURIComponent(number.encode(agentId).toString())}`,
+				method: 'DELETE',
+			}).pipe(decodeAndMap(boolean));
 		},
 
 		Loan_InternalContacts: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/InternalContacts`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/InternalContacts`,
+				method: 'GET',
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Loan_UpsertInternalContacts: (loanId, parameters) => {
@@ -489,23 +469,21 @@ export const loanController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/UpsertInternalContacts`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/UpsertInternalContacts`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsAdminInternalContactModelIO)));
+				body: encoded.body,
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsAdminInternalContactModelIO)));
 		},
 
 		Loan_CurrentLoanInfo: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/CurrentLoanInfo`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminCurrentLoanInfoModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/CurrentLoanInfo`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminCurrentLoanInfoModelIO));
 		},
 
 		Loan_UpsertCurrentLoanInfo: (loanId, parameters) => {
@@ -513,38 +491,36 @@ export const loanController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/UpsertCurrentLoanInfo`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/UpsertCurrentLoanInfo`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminCurrentLoanInfoModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminCurrentLoanInfoModelIO));
 		},
 
 		Loan_GetLoanCharacteristic: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/GetLoanCharacteristic`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsBorrowerLoanCharacteristicViewIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/GetLoanCharacteristic`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftApiModelsBorrowerLoanCharacteristicViewIO));
 		},
 
 		Loan_UpsertLoanCharacteristicPreview: (loanId, parameters) => {
 			const encoded = partial({ body: LELodasoftApiModelsBorrowerLoanCharacteristicViewIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/UpsertLoanCharacteristicPreview`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/UpsertLoanCharacteristicPreview`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO)));
+				body: encoded.body,
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO)));
 		},
 
 		Loan_UpsertLoanCharacteristic: (loanId, parameters) => {
@@ -552,23 +528,23 @@ export const loanController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/UpsertLoanCharacteristic`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/UpsertLoanCharacteristic`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Loan_GetBorrowerCharacteristics: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/GetBorrowerCharacteristics`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerBorrowerCharacteristicViewIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/GetBorrowerCharacteristics`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerBorrowerCharacteristicViewIO)));
 		},
 
 		Loan_UpsertBorrowerCharacteristicsPreview: (loanId, parameters) => {
@@ -576,16 +552,14 @@ export const loanController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/UpsertBorrowerCharacteristicsPreview`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/UpsertBorrowerCharacteristicsPreview`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO)));
+				body: encoded.body,
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO)));
 		},
 
 		Loan_UpsertBorrowerCharacteristics: (loanId, parameters) => {
@@ -593,69 +567,57 @@ export const loanController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/UpsertBorrowerCharacteristics`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/UpsertBorrowerCharacteristics`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerBorrowerCharacteristicViewIO)));
+				body: encoded.body,
+			}).pipe(decodeAndMap(array(LELodasoftApiModelsBorrowerBorrowerCharacteristicViewIO)));
 		},
 
 		Loan_GetAllLoanDocs: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/GetAllLoanDocs`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsAdminLoanDocModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/GetAllLoanDocs`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsAdminLoanDocModelIO)));
 		},
 
 		Loan_UpsertLoanDoc: (loanId, parameters) => {
 			const encoded = partial({ body: LELodasoftDataAccessDbModelsAdminLoanDocModelIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/UpsertLoanDoc`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/UpsertLoanDoc`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsBorrowerLoanDocDtoIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftApiModelsBorrowerLoanDocDtoIO));
 		},
 
 		Loan_GetAllDocFiles: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/GetAllDocFiles`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsLoanDocFileViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/GetAllDocFiles`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsLoanDocFileViewModelIO)));
 		},
 
 		Loan_GetTaskCountByApplicationID: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/GetTaskCountByApplicationID`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessModelsTaskCountModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/GetTaskCountByApplicationID`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftDataAccessModelsTaskCountModelIO));
 		},
 
 		Loan_GetAllLoanDocTaskConditions: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/GetAllLoanDocTaskConditions`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/GetAllLoanDocTaskConditions`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO)));
 		},
 
 		Loan_SaveFirstLoanStatusByLoanPurpose: (loanId, parameters) => {
@@ -663,16 +625,14 @@ export const loanController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/SaveFirstLoanStatusByLoanPurpose`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/SaveFirstLoanStatusByLoanPurpose`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Loan_UpdateLoanStatus: (loanId, loanStatusId, parameters) => {
@@ -680,99 +640,89 @@ export const loanController = asks(
 				parameters,
 			);
 
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(
-						number.encode(loanId).toString(),
-					)}/UpdateLoanStatus/${encodeURIComponent(number.encode(loanStatusId).toString())}`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/UpdateLoanStatus/${encodeURIComponent(number.encode(loanStatusId).toString())}`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Loan_ViewLoanStatusHistory: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/ViewLoanStatusHistory`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminTrackingViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/ViewLoanStatusHistory`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminTrackingViewModelIO)));
 		},
 
 		Loan_ViewLoanStatusHistory1: applicationId => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(applicationId).toString())}/GetActivityLogs`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(array(LELodasoftCommonModelsAdminActivityLogViewModelIO)));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(applicationId).toString(),
+				)}/GetActivityLogs`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftCommonModelsAdminActivityLogViewModelIO)));
 		},
 
 		Loan_SaveLoanInfo: (loanId, parameters) => {
 			const encoded = partial({ body: LELodasoftApiModelsBorrowerLoanInfoIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/SaveLoanInfo`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/SaveLoanInfo`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(unknownType));
+				body: encoded.body,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Loan_GetLoanInfo: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/GetLoanInfo`,
-					method: 'GET',
-				})
-				.pipe(decodeAndMap(LELodasoftApiModelsBorrowerNewApplicationRequestIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/GetLoanInfo`,
+				method: 'GET',
+			}).pipe(decodeAndMap(LELodasoftApiModelsBorrowerNewApplicationRequestIO));
 		},
 
 		Loan_DeActivateLoan: parameters => {
 			const encoded = partial({ query: type({ applicationId: number }) }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Loan/DeActivateLoan`,
-					method: 'DELETE',
-					query: encoded.query,
-				})
-				.pipe(decodeAndMap(unknownType));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/DeActivateLoan`,
+				method: 'DELETE',
+				query: encoded.query,
+			}).pipe(decodeAndMap(unknownType));
 		},
 
 		Loan_UpsertSubjectProperty: (loanId, parameters) => {
 			const encoded = partial({ body: LELodasoftApiModelsSharedAddressViewIO }).encode(parameters);
 
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/UpsertSubjectProperty`,
-					method: 'POST',
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/UpsertSubjectProperty`,
+				method: 'POST',
 
-					body: encoded.body,
-				})
-				.pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminApplicationModelIO));
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftDataAccessDbModelsAdminApplicationModelIO));
 		},
 
 		Loan_AddOnlineApplicationTask: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/add-online-app-task`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/add-online-app-task`,
+				method: 'POST',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO));
 		},
 
 		Loan_CheckForOnlineApplicationTask: loanId => {
-			return e.apiClient
-				.request({
-					url: `/api/Loan/${encodeURIComponent(number.encode(loanId).toString())}/check-for-online-app-task`,
-					method: 'POST',
-				})
-				.pipe(decodeAndMap(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO));
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/Loan/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/check-for-online-app-task`,
+				method: 'POST',
+			}).pipe(decodeAndMap(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO));
 		},
 	}),
 );
