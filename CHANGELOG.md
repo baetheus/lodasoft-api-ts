@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.2.0](https://github.com/baetheus/lodasoft-api-ts/compare/v0.1.1...v0.2.0) (2019-04-29)
+
+
+### Features
+
+* **build:** build down to minor changes ([bcb68da](https://github.com/baetheus/lodasoft-api-ts/commit/bcb68da))
+
+
+
 ## [0.1.1](https://github.com/baetheus/lodasoft-api-ts/compare/v0.1.0...v0.1.1) (2019-04-13)
 
 
