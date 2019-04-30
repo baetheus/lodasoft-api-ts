@@ -1,22 +1,12 @@
-import {
-	LELodasoftCommonModelsMortgageEmploymentViewModel,
-	LELodasoftCommonModelsMortgageEmploymentViewModelIO,
-} from '../definitions/LELodasoftCommonModelsMortgageEmploymentViewModel';
-import {
-	LELodasoftCommonModelsMortgageReoViewModel,
-	LELodasoftCommonModelsMortgageReoViewModelIO,
-} from '../definitions/LELodasoftCommonModelsMortgageReoViewModel';
 import { Option } from 'fp-ts/lib/Option';
-import { number, keyof, boolean, string, type } from 'io-ts';
+import { boolean, keyof, number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsMortgageIncomeViewModel = {
 	incomeId: Option<number>;
 	borrowerId: Option<number>;
 	employmentId: Option<number>;
-	employmentModel: Option<LELodasoftCommonModelsMortgageEmploymentViewModel>;
 	reoId: Option<number>;
-	reoModel: Option<LELodasoftCommonModelsMortgageReoViewModel>;
 	monthlyIncome: Option<number>;
 	typeOfIncome: Option<
 		| 'AlimonyChildSupport'
@@ -73,9 +63,7 @@ export const LELodasoftCommonModelsMortgageIncomeViewModelIO = type({
 	incomeId: createOptionFromNullable(number),
 	borrowerId: createOptionFromNullable(number),
 	employmentId: createOptionFromNullable(number),
-	employmentModel: createOptionFromNullable(LELodasoftCommonModelsMortgageEmploymentViewModelIO),
 	reoId: createOptionFromNullable(number),
-	reoModel: createOptionFromNullable(LELodasoftCommonModelsMortgageReoViewModelIO),
 	monthlyIncome: createOptionFromNullable(number),
 	typeOfIncome: createOptionFromNullable(
 		keyof({
