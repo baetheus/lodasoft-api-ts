@@ -1,8 +1,8 @@
 import { Either } from 'fp-ts/lib/Either';
 import { Type, success, identity, ValidationError } from 'io-ts';
-import { PathReporter } from 'io-ts/lib/PathReporter';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { failure } from 'io-ts/lib/PathReporter';
+import { Observable, of, throwError } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 
 export const unknownType = new (class UnknownType extends Type<unknown> {
 	readonly _tag: 'UnknownType' = 'UnknownType';
@@ -12,15 +12,11 @@ export const unknownType = new (class UnknownType extends Type<unknown> {
 	}
 })();
 
-export const throwValidation = <O>() =>
-	map<Either<ValidationError[], O>, O>(v =>
-		v.getOrElseL(() => {
-			throw new Error(PathReporter.report(v).join('\n'));
-		}),
-	);
+export const chainValidation = <O>(obs: Observable<Either<ValidationError[], O>>) =>
+	obs.pipe(mergeMap(v => v.fold(l => throwError(new Error(failure(l).join('\n'))), r => of(r))));
 
 export const decodeAndMap = <A, O = A, I = unknown>(t: Type<A, O, I>) => (obs: Observable<any>) =>
 	obs.pipe(
 		map(t.decode),
-		throwValidation(),
+		chainValidation,
 	);

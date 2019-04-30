@@ -4,20 +4,20 @@ import { Observable } from 'rxjs';
 
 import { TAPIClient } from '../client/client';
 import {
-  LELodasoftCommonModelsLeadsProviderModelsBestReferralLead,
-  LELodasoftCommonModelsLeadsProviderModelsBestReferralLeadIO,
+	LELodasoftCommonModelsLeadsProviderModelsBestReferralLead,
+	LELodasoftCommonModelsLeadsProviderModelsBestReferralLeadIO,
 } from '../definitions/LELodasoftCommonModelsLeadsProviderModelsBestReferralLead';
 import {
-  LELodasoftCommonModelsLeadsProviderModelsLodasoftLead,
-  LELodasoftCommonModelsLeadsProviderModelsLodasoftLeadIO,
+	LELodasoftCommonModelsLeadsProviderModelsLodasoftLead,
+	LELodasoftCommonModelsLeadsProviderModelsLodasoftLeadIO,
 } from '../definitions/LELodasoftCommonModelsLeadsProviderModelsLodasoftLead';
 import {
-  LELodasoftCommonModelsLeadsProviderModelsZillowLead,
-  LELodasoftCommonModelsLeadsProviderModelsZillowLeadIO,
+	LELodasoftCommonModelsLeadsProviderModelsZillowLead,
+	LELodasoftCommonModelsLeadsProviderModelsZillowLeadIO,
 } from '../definitions/LELodasoftCommonModelsLeadsProviderModelsZillowLead';
 import {
-  LELodasoftCommonModelsPublicApiUserViewModel,
-  LELodasoftCommonModelsPublicApiUserViewModelIO,
+	LELodasoftCommonModelsPublicApiUserViewModel,
+	LELodasoftCommonModelsPublicApiUserViewModelIO,
 } from '../definitions/LELodasoftCommonModelsPublicApiUserViewModel';
 import { decodeAndMap, unknownType } from '../utils/utils';
 
