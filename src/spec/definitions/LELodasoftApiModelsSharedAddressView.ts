@@ -10,9 +10,9 @@ export type LELodasoftApiModelsSharedAddressView = {
 	mailingZip: Option<string>;
 };
 export const LELodasoftApiModelsSharedAddressViewIO = type({
-	mailingStreet: createOptionFromNullable(string),
-	mailingPOBox: createOptionFromNullable(string),
-	mailingCity: createOptionFromNullable(string),
-	mailingState: createOptionFromNullable(string),
-	mailingZip: createOptionFromNullable(string),
+	mailingStreet: createOptionFromNullable(string, 'mailingStreet'),
+	mailingPOBox: createOptionFromNullable(string, 'mailingPOBox'),
+	mailingCity: createOptionFromNullable(string, 'mailingCity'),
+	mailingState: createOptionFromNullable(string, 'mailingState'),
+	mailingZip: createOptionFromNullable(string, 'mailingZip'),
 });

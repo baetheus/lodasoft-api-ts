@@ -14,13 +14,13 @@ export type LELodasoftCommonModelsSharedGeneratePrequalLetterRequest = {
 	interestRate: Option<number>;
 };
 export const LELodasoftCommonModelsSharedGeneratePrequalLetterRequestIO = type({
-	productDescription: createOptionFromNullable(string),
-	address: createOptionFromNullable(string),
-	city: createOptionFromNullable(string),
-	state: createOptionFromNullable(string),
-	zip: createOptionFromNullable(string),
-	loanAmount: createOptionFromNullable(number),
-	purchasePrice: createOptionFromNullable(number),
-	downPayment: createOptionFromNullable(number),
-	interestRate: createOptionFromNullable(number),
+	productDescription: createOptionFromNullable(string, 'productDescription'),
+	address: createOptionFromNullable(string, 'address'),
+	city: createOptionFromNullable(string, 'city'),
+	state: createOptionFromNullable(string, 'state'),
+	zip: createOptionFromNullable(string, 'zip'),
+	loanAmount: createOptionFromNullable(number, 'loanAmount'),
+	purchasePrice: createOptionFromNullable(number, 'purchasePrice'),
+	downPayment: createOptionFromNullable(number, 'downPayment'),
+	interestRate: createOptionFromNullable(number, 'interestRate'),
 });

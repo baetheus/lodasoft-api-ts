@@ -326,7 +326,7 @@ export const accountController = asks(
 
 		Account_GetManageInfo: parameters => {
 			const encoded = partial({
-				query: type({ returnUrl: string, generateState: createOptionFromNullable(boolean) }),
+				query: type({ returnUrl: string, generateState: createOptionFromNullable(boolean, 'generateState') }),
 			}).encode(parameters);
 
 			return e.API_CLIENT.request({
@@ -382,7 +382,7 @@ export const accountController = asks(
 
 		Account_GetExternalLogin: parameters => {
 			const encoded = partial({
-				query: type({ provider: string, error: createOptionFromNullable(string) }),
+				query: type({ provider: string, error: createOptionFromNullable(string, 'error') }),
 			}).encode(parameters);
 
 			return e.API_CLIENT.request({
@@ -394,7 +394,7 @@ export const accountController = asks(
 
 		Account_GetExternalLogins: parameters => {
 			const encoded = partial({
-				query: type({ returnUrl: string, generateState: createOptionFromNullable(boolean) }),
+				query: type({ returnUrl: string, generateState: createOptionFromNullable(boolean, 'generateState') }),
 			}).encode(parameters);
 
 			return e.API_CLIENT.request({
@@ -406,7 +406,7 @@ export const accountController = asks(
 
 		Account_Register: parameters => {
 			const encoded = partial({
-				query: type({ token: createOptionFromNullable(string) }),
+				query: type({ token: createOptionFromNullable(string, 'token') }),
 				body: LELodasoftApiModelsRegisterBindingModelIO,
 			}).encode(parameters);
 
@@ -452,7 +452,7 @@ export const accountController = asks(
 
 		Account_RegisterExternal: parameters => {
 			const encoded = partial({
-				query: type({ token: createOptionFromNullable(string) }),
+				query: type({ token: createOptionFromNullable(string, 'token') }),
 				body: LELodasoftApiModelsRegisterExternalBindingModelIO,
 			}).encode(parameters);
 

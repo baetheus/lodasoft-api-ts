@@ -12,11 +12,11 @@ export type LELodasoftCommonModelsSharedLoanContact = {
 	order: Option<number>;
 };
 export const LELodasoftCommonModelsSharedLoanContactIO = type({
-	userId: createOptionFromNullable(string),
-	name: createOptionFromNullable(string),
-	title: createOptionFromNullable(string),
-	phone: createOptionFromNullable(string),
-	email: createOptionFromNullable(string),
-	avatarUrl: createOptionFromNullable(string),
-	order: createOptionFromNullable(number),
+	userId: createOptionFromNullable(string, 'userId'),
+	name: createOptionFromNullable(string, 'name'),
+	title: createOptionFromNullable(string, 'title'),
+	phone: createOptionFromNullable(string, 'phone'),
+	email: createOptionFromNullable(string, 'email'),
+	avatarUrl: createOptionFromNullable(string, 'avatarUrl'),
+	order: createOptionFromNullable(number, 'order'),
 });

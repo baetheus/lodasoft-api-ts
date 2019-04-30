@@ -12,7 +12,7 @@ export type LELodasoftApiModelsRegisterExternalBindingModel = {
 export const LELodasoftApiModelsRegisterExternalBindingModelIO = type({
 	userName: string,
 	password: string,
-	confirmPassword: createOptionFromNullable(string),
+	confirmPassword: createOptionFromNullable(string, 'confirmPassword'),
 	provider: string,
 	externalAccessToken: string,
 });

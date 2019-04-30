@@ -9,8 +9,8 @@ export type LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactSender =
 	phoneNumber: Option<string>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactSenderIO = type({
-	emailAddress: createOptionFromNullable(string),
-	firstName: createOptionFromNullable(string),
-	lastName: createOptionFromNullable(string),
-	phoneNumber: createOptionFromNullable(string),
+	emailAddress: createOptionFromNullable(string, 'emailAddress'),
+	firstName: createOptionFromNullable(string, 'firstName'),
+	lastName: createOptionFromNullable(string, 'lastName'),
+	phoneNumber: createOptionFromNullable(string, 'phoneNumber'),
 });

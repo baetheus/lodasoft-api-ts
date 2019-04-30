@@ -11,10 +11,10 @@ export type LELodasoftCommonModelsLeadsReportsLeadPerformanceReportResponse = {
 	leadsConvertedCount: Option<number>;
 };
 export const LELodasoftCommonModelsLeadsReportsLeadPerformanceReportResponseIO = type({
-	newLeadsReceived: createOptionFromNullable(number),
-	contactAttemptsCount: createOptionFromNullable(number),
-	contactSuccessCount: createOptionFromNullable(number),
-	emailsSentCount: createOptionFromNullable(number),
-	uniqueLeadsContactedCount: createOptionFromNullable(number),
-	leadsConvertedCount: createOptionFromNullable(number),
+	newLeadsReceived: createOptionFromNullable(number, 'newLeadsReceived'),
+	contactAttemptsCount: createOptionFromNullable(number, 'contactAttemptsCount'),
+	contactSuccessCount: createOptionFromNullable(number, 'contactSuccessCount'),
+	emailsSentCount: createOptionFromNullable(number, 'emailsSentCount'),
+	uniqueLeadsContactedCount: createOptionFromNullable(number, 'uniqueLeadsContactedCount'),
+	leadsConvertedCount: createOptionFromNullable(number, 'leadsConvertedCount'),
 });

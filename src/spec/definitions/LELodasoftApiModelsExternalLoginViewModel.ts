@@ -8,7 +8,7 @@ export type LELodasoftApiModelsExternalLoginViewModel = {
 	state: Option<string>;
 };
 export const LELodasoftApiModelsExternalLoginViewModelIO = type({
-	name: createOptionFromNullable(string),
-	url: createOptionFromNullable(string),
-	state: createOptionFromNullable(string),
+	name: createOptionFromNullable(string, 'name'),
+	url: createOptionFromNullable(string, 'url'),
+	state: createOptionFromNullable(string, 'state'),
 });

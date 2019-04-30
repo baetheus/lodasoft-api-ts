@@ -34,8 +34,8 @@ export type LELodasoftCommonModelsSharedPortalTaskModel = {
 	allowUpload: Option<boolean>;
 };
 export const LELodasoftCommonModelsSharedPortalTaskModelIO = type({
-	taskId: createOptionFromNullable(number),
-	taskTypeId: createOptionFromNullable(string),
+	taskId: createOptionFromNullable(number, 'taskId'),
+	taskTypeId: createOptionFromNullable(string, 'taskTypeId'),
 	borrowerTaskType: createOptionFromNullable(
 		keyof({
 			RequestDocument: null,
@@ -47,20 +47,25 @@ export const LELodasoftCommonModelsSharedPortalTaskModelIO = type({
 			OnlineApplication: null,
 			DigitalAssetVerification: null,
 		}),
+		'borrowerTaskType',
 	),
-	description: createOptionFromNullable(string),
-	docType: createOptionFromNullable(string),
-	docSortOrder: createOptionFromNullable(number),
-	submittedDate: createOptionFromNullable(DateFromISOString),
-	approvedDate: createOptionFromNullable(DateFromISOString),
-	dueDate: createOptionFromNullable(DateFromISOString),
-	templateDocumentUrl: createOptionFromNullable(string),
-	borrowerId: createOptionFromNullable(number),
-	borrowerName: createOptionFromNullable(string),
-	borrowerFacingNote: createOptionFromNullable(string),
+	description: createOptionFromNullable(string, 'description'),
+	docType: createOptionFromNullable(string, 'docType'),
+	docSortOrder: createOptionFromNullable(number, 'docSortOrder'),
+	submittedDate: createOptionFromNullable(DateFromISOString, 'submittedDate'),
+	approvedDate: createOptionFromNullable(DateFromISOString, 'approvedDate'),
+	dueDate: createOptionFromNullable(DateFromISOString, 'dueDate'),
+	templateDocumentUrl: createOptionFromNullable(string, 'templateDocumentUrl'),
+	borrowerId: createOptionFromNullable(number, 'borrowerId'),
+	borrowerName: createOptionFromNullable(string, 'borrowerName'),
+	borrowerFacingNote: createOptionFromNullable(string, 'borrowerFacingNote'),
 	borrowerTaskStatus: createOptionFromNullable(
 		keyof({ Pending: null, Submitted: null, Rejected: null, Completed: null }),
+		'borrowerTaskStatus',
 	),
-	linkedDocuments: createOptionFromNullable(array(LELodasoftCommonModelsSharedPortalTaskDocumentIO)),
-	allowUpload: createOptionFromNullable(boolean),
+	linkedDocuments: createOptionFromNullable(
+		array(LELodasoftCommonModelsSharedPortalTaskDocumentIO),
+		'linkedDocuments',
+	),
+	allowUpload: createOptionFromNullable(boolean, 'allowUpload'),
 });

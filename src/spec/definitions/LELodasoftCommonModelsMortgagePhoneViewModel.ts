@@ -14,13 +14,13 @@ export type LELodasoftCommonModelsMortgagePhoneViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgagePhoneViewModelIO = type({
-	phoneId: createOptionFromNullable(number),
-	borrowerId: createOptionFromNullable(number),
-	phoneNumber: createOptionFromNullable(string),
-	typeOfPhone: createOptionFromNullable(keyof({ HomePhone: null, WorkPhone: null, CellPhone: null })),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	phoneId: createOptionFromNullable(number, 'phoneId'),
+	borrowerId: createOptionFromNullable(number, 'borrowerId'),
+	phoneNumber: createOptionFromNullable(string, 'phoneNumber'),
+	typeOfPhone: createOptionFromNullable(keyof({ HomePhone: null, WorkPhone: null, CellPhone: null }), 'typeOfPhone'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

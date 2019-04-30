@@ -8,7 +8,7 @@ export type LELodasoftCommonModelsMessageSendSmsViewModel = {
 	body: Option<string>;
 };
 export const LELodasoftCommonModelsMessageSendSmsViewModelIO = type({
-	from: createOptionFromNullable(string),
-	to: createOptionFromNullable(string),
-	body: createOptionFromNullable(string),
+	from: createOptionFromNullable(string, 'from'),
+	to: createOptionFromNullable(string, 'to'),
+	body: createOptionFromNullable(string, 'body'),
 });

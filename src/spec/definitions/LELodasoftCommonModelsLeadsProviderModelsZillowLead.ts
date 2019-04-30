@@ -42,11 +42,14 @@ export type LELodasoftCommonModelsLeadsProviderModelsZillowLead = {
 	quote: Option<LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactLoanQuote>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsZillowLeadIO = type({
-	type: createOptionFromNullable(keyof({ simple: null, quote: null, longForm: null, propertyPreapproval: null })),
-	id: createOptionFromNullable(string),
-	created: createOptionFromNullable(DateFromISOString),
-	source: createOptionFromNullable(string),
-	price: createOptionFromNullable(number),
+	type: createOptionFromNullable(
+		keyof({ simple: null, quote: null, longForm: null, propertyPreapproval: null }),
+		'type',
+	),
+	id: createOptionFromNullable(string, 'id'),
+	created: createOptionFromNullable(DateFromISOString, 'created'),
+	source: createOptionFromNullable(string, 'source'),
+	price: createOptionFromNullable(number, 'price'),
 	conciergeStatus: createOptionFromNullable(
 		keyof({
 			Transferred: null,
@@ -60,9 +63,13 @@ export const LELodasoftCommonModelsLeadsProviderModelsZillowLeadIO = type({
 			ConciergeUnsuccessful: null,
 			LenderMustCall: null,
 		}),
+		'conciergeStatus',
 	),
-	sender: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactSenderIO),
-	recipient: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactRecipientIO),
-	details: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactDetailsIO),
-	quote: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactLoanQuoteIO),
+	sender: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactSenderIO, 'sender'),
+	recipient: createOptionFromNullable(
+		LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactRecipientIO,
+		'recipient',
+	),
+	details: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactDetailsIO, 'details'),
+	quote: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactLoanQuoteIO, 'quote'),
 });

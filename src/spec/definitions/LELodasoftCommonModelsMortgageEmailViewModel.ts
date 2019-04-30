@@ -14,13 +14,13 @@ export type LELodasoftCommonModelsMortgageEmailViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageEmailViewModelIO = type({
-	emailId: createOptionFromNullable(number),
-	borrowerId: createOptionFromNullable(number),
-	emailAddress: createOptionFromNullable(string),
-	typeOfEmail: createOptionFromNullable(keyof({ PrimaryEmail: null, AdditionalEmail: null })),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	emailId: createOptionFromNullable(number, 'emailId'),
+	borrowerId: createOptionFromNullable(number, 'borrowerId'),
+	emailAddress: createOptionFromNullable(string, 'emailAddress'),
+	typeOfEmail: createOptionFromNullable(keyof({ PrimaryEmail: null, AdditionalEmail: null }), 'typeOfEmail'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

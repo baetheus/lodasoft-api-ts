@@ -13,8 +13,8 @@ export type LELodasoftCommonModelsConfigurationWizardGroupIdViewModel = {
 	groupList: Option<Array<LELodasoftCommonModelsConfigurationWizardGroupViewModel>>;
 };
 export const LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO = type({
-	id: createOptionFromNullable(number),
-	name: createOptionFromNullable(string),
-	propertyName: createOptionFromNullable(string),
-	groupList: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardGroupViewModelIO)),
+	id: createOptionFromNullable(number, 'id'),
+	name: createOptionFromNullable(string, 'name'),
+	propertyName: createOptionFromNullable(string, 'propertyName'),
+	groupList: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardGroupViewModelIO), 'groupList'),
 });

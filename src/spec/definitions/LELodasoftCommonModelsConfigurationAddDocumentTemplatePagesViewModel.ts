@@ -10,5 +10,5 @@ export type LELodasoftCommonModelsConfigurationAddDocumentTemplatePagesViewModel
 	pages: Option<Array<LELodasoftCommonModelsConfigurationDocumentTemplatePageViewModel>>;
 };
 export const LELodasoftCommonModelsConfigurationAddDocumentTemplatePagesViewModelIO = type({
-	pages: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationDocumentTemplatePageViewModelIO)),
+	pages: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationDocumentTemplatePageViewModelIO), 'pages'),
 });

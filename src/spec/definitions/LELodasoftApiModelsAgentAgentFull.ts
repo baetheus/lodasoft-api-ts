@@ -14,9 +14,9 @@ export type LELodasoftApiModelsAgentAgentFull = {
 	accountStatus: Option<'NotInvited' | 'Invited' | 'Live'>;
 };
 export const LELodasoftApiModelsAgentAgentFullIO = type({
-	agent: createOptionFromNullable(LELodasoftCommonModelsAdminAgentViewModelIO),
-	portalUserName: createOptionFromNullable(string),
-	agentTypeId: createOptionFromNullable(number),
-	isEdit: createOptionFromNullable(boolean),
-	accountStatus: createOptionFromNullable(keyof({ NotInvited: null, Invited: null, Live: null })),
+	agent: createOptionFromNullable(LELodasoftCommonModelsAdminAgentViewModelIO, 'agent'),
+	portalUserName: createOptionFromNullable(string, 'portalUserName'),
+	agentTypeId: createOptionFromNullable(number, 'agentTypeId'),
+	isEdit: createOptionFromNullable(boolean, 'isEdit'),
+	accountStatus: createOptionFromNullable(keyof({ NotInvited: null, Invited: null, Live: null }), 'accountStatus'),
 });

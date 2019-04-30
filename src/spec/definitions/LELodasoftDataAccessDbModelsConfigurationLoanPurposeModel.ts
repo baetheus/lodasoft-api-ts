@@ -22,8 +22,8 @@ export type LELodasoftDataAccessDbModelsConfigurationLoanPurposeModel = {
 	order: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationLoanPurposeModelIO = type({
-	loanPurposeId: createOptionFromNullable(number),
-	loanPurposeName: createOptionFromNullable(string),
+	loanPurposeId: createOptionFromNullable(number, 'loanPurposeId'),
+	loanPurposeName: createOptionFromNullable(string, 'loanPurposeName'),
 	mortgageLoanPurpose: createOptionFromNullable(
 		keyof({
 			Refinance: null,
@@ -33,8 +33,9 @@ export const LELodasoftDataAccessDbModelsConfigurationLoanPurposeModelIO = type(
 			OtherLoanPurpose: null,
 			RefinanceCashOut: null,
 		}),
+		'mortgageLoanPurpose',
 	),
-	companyId: createOptionFromNullable(number),
-	companyModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO),
-	order: createOptionFromNullable(number),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	companyModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'companyModel'),
+	order: createOptionFromNullable(number, 'order'),
 });

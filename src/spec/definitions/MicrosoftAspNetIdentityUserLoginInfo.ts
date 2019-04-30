@@ -4,6 +4,6 @@ import { createOptionFromNullable } from 'io-ts-types';
 
 export type MicrosoftAspNetIdentityUserLoginInfo = { loginProvider: Option<string>; providerKey: Option<string> };
 export const MicrosoftAspNetIdentityUserLoginInfoIO = type({
-	loginProvider: createOptionFromNullable(string),
-	providerKey: createOptionFromNullable(string),
+	loginProvider: createOptionFromNullable(string, 'loginProvider'),
+	providerKey: createOptionFromNullable(string, 'providerKey'),
 });

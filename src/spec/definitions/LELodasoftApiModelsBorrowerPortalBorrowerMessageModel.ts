@@ -8,7 +8,7 @@ export type LELodasoftApiModelsBorrowerPortalBorrowerMessageModel = {
 	messageText: Option<string>;
 };
 export const LELodasoftApiModelsBorrowerPortalBorrowerMessageModelIO = type({
-	applicationId: createOptionFromNullable(number),
-	loanDocTaskId: createOptionFromNullable(number),
-	messageText: createOptionFromNullable(string),
+	applicationId: createOptionFromNullable(number, 'applicationId'),
+	loanDocTaskId: createOptionFromNullable(number, 'loanDocTaskId'),
+	messageText: createOptionFromNullable(string, 'messageText'),
 });

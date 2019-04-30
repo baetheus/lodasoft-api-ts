@@ -22,13 +22,13 @@ export type LELodasoftDataAccessDbModelsConfigurationAgentPortalContentModel = {
 	referralTermsContent: Option<string>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationAgentPortalContentModelIO = type({
-	id: createOptionFromNullable(number),
-	companyId: createOptionFromNullable(number),
-	company: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO),
-	userId: createOptionFromNullable(string),
-	user: createOptionFromNullable(LELodasoftDataAccessDbModelsUserProfileIO),
-	aboutUsContent: createOptionFromNullable(string),
-	referralContent: createOptionFromNullable(string),
-	showReferralTerms: createOptionFromNullable(boolean),
-	referralTermsContent: createOptionFromNullable(string),
+	id: createOptionFromNullable(number, 'id'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	company: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'company'),
+	userId: createOptionFromNullable(string, 'userId'),
+	user: createOptionFromNullable(LELodasoftDataAccessDbModelsUserProfileIO, 'user'),
+	aboutUsContent: createOptionFromNullable(string, 'aboutUsContent'),
+	referralContent: createOptionFromNullable(string, 'referralContent'),
+	showReferralTerms: createOptionFromNullable(boolean, 'showReferralTerms'),
+	referralTermsContent: createOptionFromNullable(string, 'referralTermsContent'),
 });

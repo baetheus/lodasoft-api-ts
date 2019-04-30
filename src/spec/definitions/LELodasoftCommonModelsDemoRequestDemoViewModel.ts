@@ -10,9 +10,9 @@ export type LELodasoftCommonModelsDemoRequestDemoViewModel = {
 	message: Option<string>;
 };
 export const LELodasoftCommonModelsDemoRequestDemoViewModelIO = type({
-	name: createOptionFromNullable(string),
-	phone: createOptionFromNullable(string),
-	email: createOptionFromNullable(string),
-	subject: createOptionFromNullable(string),
-	message: createOptionFromNullable(string),
+	name: createOptionFromNullable(string, 'name'),
+	phone: createOptionFromNullable(string, 'phone'),
+	email: createOptionFromNullable(string, 'email'),
+	subject: createOptionFromNullable(string, 'subject'),
+	message: createOptionFromNullable(string, 'message'),
 });

@@ -8,7 +8,7 @@ export type LELodasoftCommonModelsThirdPartyCreditCreditResponseModel = {
 	errorMessage: Option<string>;
 };
 export const LELodasoftCommonModelsThirdPartyCreditCreditResponseModelIO = type({
-	success: createOptionFromNullable(boolean),
-	validationErrors: createOptionFromNullable(array(string)),
-	errorMessage: createOptionFromNullable(string),
+	success: createOptionFromNullable(boolean, 'success'),
+	validationErrors: createOptionFromNullable(array(string), 'validationErrors'),
+	errorMessage: createOptionFromNullable(string, 'errorMessage'),
 });

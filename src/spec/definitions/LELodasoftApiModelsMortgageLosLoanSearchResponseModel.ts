@@ -13,8 +13,11 @@ export type LELodasoftApiModelsMortgageLosLoanSearchResponseModel = {
 	errorMessage: Option<string>;
 };
 export const LELodasoftApiModelsMortgageLosLoanSearchResponseModelIO = type({
-	searchResponseItems: createOptionFromNullable(array(LELodasoftThirdPartyLosSearchResponseItemIO)),
-	success: createOptionFromNullable(boolean),
-	validationErrors: createOptionFromNullable(array(string)),
-	errorMessage: createOptionFromNullable(string),
+	searchResponseItems: createOptionFromNullable(
+		array(LELodasoftThirdPartyLosSearchResponseItemIO),
+		'searchResponseItems',
+	),
+	success: createOptionFromNullable(boolean, 'success'),
+	validationErrors: createOptionFromNullable(array(string), 'validationErrors'),
+	errorMessage: createOptionFromNullable(string, 'errorMessage'),
 });

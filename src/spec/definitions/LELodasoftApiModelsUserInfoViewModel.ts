@@ -9,8 +9,8 @@ export type LELodasoftApiModelsUserInfoViewModel = {
 	emailAddress: Option<string>;
 };
 export const LELodasoftApiModelsUserInfoViewModelIO = type({
-	userName: createOptionFromNullable(string),
-	hasRegistered: createOptionFromNullable(boolean),
-	loginProvider: createOptionFromNullable(string),
-	emailAddress: createOptionFromNullable(string),
+	userName: createOptionFromNullable(string, 'userName'),
+	hasRegistered: createOptionFromNullable(boolean, 'hasRegistered'),
+	loginProvider: createOptionFromNullable(string, 'loginProvider'),
+	emailAddress: createOptionFromNullable(string, 'emailAddress'),
 });

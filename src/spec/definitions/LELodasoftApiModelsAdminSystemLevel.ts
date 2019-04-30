@@ -71,36 +71,74 @@ export type LELodasoftApiModelsAdminSystemLevel = {
 	company: Option<LELodasoftDataAccessDbModelsConfigurationCompanyModel>;
 };
 export const LELodasoftApiModelsAdminSystemLevelIO = type({
-	sessionTimeout: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
-	reminderEmailEnabled: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
-	reminderEmailInterval: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
-	reminderSmsEnabled: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
-	reminderSmsInterval: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
-	documentExportFormat: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
+	sessionTimeout: createOptionFromNullable(
+		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
+		'sessionTimeout',
+	),
+	reminderEmailEnabled: createOptionFromNullable(
+		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
+		'reminderEmailEnabled',
+	),
+	reminderEmailInterval: createOptionFromNullable(
+		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
+		'reminderEmailInterval',
+	),
+	reminderSmsEnabled: createOptionFromNullable(
+		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
+		'reminderSmsEnabled',
+	),
+	reminderSmsInterval: createOptionFromNullable(
+		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
+		'reminderSmsInterval',
+	),
+	documentExportFormat: createOptionFromNullable(
+		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
+		'documentExportFormat',
+	),
 	digitalAssetVerificationEnabled: createOptionFromNullable(
 		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
+		'digitalAssetVerificationEnabled',
 	),
 	digitalEmploymentVerificationEnabled: createOptionFromNullable(
 		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
+		'digitalEmploymentVerificationEnabled',
 	),
-	creditReportingEnabled: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
-	ausEnabled: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
-	losEnabled: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
-	defaultCreditVendor: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
+	creditReportingEnabled: createOptionFromNullable(
+		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
+		'creditReportingEnabled',
+	),
+	ausEnabled: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO, 'ausEnabled'),
+	losEnabled: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO, 'losEnabled'),
+	defaultCreditVendor: createOptionFromNullable(
+		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
+		'defaultCreditVendor',
+	),
 	prequalGenerationSettings: createOptionFromNullable(
 		LELodasoftDataAccessDbModelsConfigurationPrequalGenerationSettingsModelIO,
+		'prequalGenerationSettings',
 	),
-	definedEmailTemplate: createOptionFromNullable(LELodasoftCommonModelsEmailDefinedEmailTemplateViewModelIO),
-	definedSmsTemplate: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationDefinedSmsTemplateModelIO),
+	definedEmailTemplate: createOptionFromNullable(
+		LELodasoftCommonModelsEmailDefinedEmailTemplateViewModelIO,
+		'definedEmailTemplate',
+	),
+	definedSmsTemplate: createOptionFromNullable(
+		LELodasoftDataAccessDbModelsConfigurationDefinedSmsTemplateModelIO,
+		'definedSmsTemplate',
+	),
 	borrowerPortalContent: createOptionFromNullable(
 		LELodasoftDataAccessDbModelsConfigurationBorrowerPortalContentModelIO,
+		'borrowerPortalContent',
 	),
-	agentPortalContent: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationAgentPortalContentModelIO),
-	emailService: createOptionFromNullable(LELodasoftDataAccessDbModelsSharedEmailServiceModelIO),
-	smsService: createOptionFromNullable(LELodasoftDataAccessDbModelsSharedSmsServiceModelIO),
-	integrations: createOptionFromNullable(LELodasoftApiModelsSharedIntegrationsModelIO),
+	agentPortalContent: createOptionFromNullable(
+		LELodasoftDataAccessDbModelsConfigurationAgentPortalContentModelIO,
+		'agentPortalContent',
+	),
+	emailService: createOptionFromNullable(LELodasoftDataAccessDbModelsSharedEmailServiceModelIO, 'emailService'),
+	smsService: createOptionFromNullable(LELodasoftDataAccessDbModelsSharedSmsServiceModelIO, 'smsService'),
+	integrations: createOptionFromNullable(LELodasoftApiModelsSharedIntegrationsModelIO, 'integrations'),
 	thirdPartyCredentials: createOptionFromNullable(
 		array(LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModelIO),
+		'thirdPartyCredentials',
 	),
-	company: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO),
+	company: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'company'),
 });

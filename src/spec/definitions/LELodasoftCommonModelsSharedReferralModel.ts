@@ -16,15 +16,15 @@ export type LELodasoftCommonModelsSharedReferralModel = {
 	referredByPhone: Option<string>;
 };
 export const LELodasoftCommonModelsSharedReferralModelIO = type({
-	referToUserId: createOptionFromNullable(string),
-	referralType: createOptionFromNullable(keyof({ Borrower: null, Agent: null })),
-	firstName: createOptionFromNullable(string),
-	lastName: createOptionFromNullable(string),
-	userContact: createOptionFromNullable(string),
-	email: createOptionFromNullable(string),
-	phone: createOptionFromNullable(string),
-	note: createOptionFromNullable(string),
-	referredByName: createOptionFromNullable(string),
-	referredByEmail: createOptionFromNullable(string),
-	referredByPhone: createOptionFromNullable(string),
+	referToUserId: createOptionFromNullable(string, 'referToUserId'),
+	referralType: createOptionFromNullable(keyof({ Borrower: null, Agent: null }), 'referralType'),
+	firstName: createOptionFromNullable(string, 'firstName'),
+	lastName: createOptionFromNullable(string, 'lastName'),
+	userContact: createOptionFromNullable(string, 'userContact'),
+	email: createOptionFromNullable(string, 'email'),
+	phone: createOptionFromNullable(string, 'phone'),
+	note: createOptionFromNullable(string, 'note'),
+	referredByName: createOptionFromNullable(string, 'referredByName'),
+	referredByEmail: createOptionFromNullable(string, 'referredByEmail'),
+	referredByPhone: createOptionFromNullable(string, 'referredByPhone'),
 });

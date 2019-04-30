@@ -17,16 +17,16 @@ export type LELodasoftCommonModelsAdminChecklistAnswerViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsAdminChecklistAnswerViewModelIO = type({
-	checklistAnswerId: createOptionFromNullable(number),
-	answerText: createOptionFromNullable(string),
-	answerId: createOptionFromNullable(number),
+	checklistAnswerId: createOptionFromNullable(number, 'checklistAnswerId'),
+	answerText: createOptionFromNullable(string, 'answerText'),
+	answerId: createOptionFromNullable(number, 'answerId'),
 	applicationId: number,
 	checkListId: number,
 	questionId: number,
-	loanDocTaskId: createOptionFromNullable(number),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	loanDocTaskId: createOptionFromNullable(number, 'loanDocTaskId'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

@@ -8,7 +8,7 @@ export type LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse = {
 	errorMessage: Option<string>;
 };
 export const LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO = type({
-	success: createOptionFromNullable(boolean),
-	htmlWidgetSrc: createOptionFromNullable(string),
-	errorMessage: createOptionFromNullable(string),
+	success: createOptionFromNullable(boolean, 'success'),
+	htmlWidgetSrc: createOptionFromNullable(string, 'htmlWidgetSrc'),
+	errorMessage: createOptionFromNullable(string, 'errorMessage'),
 });

@@ -67,9 +67,9 @@ export const formFreeController = asks(
 		FormFree_GetFormFreeHistory: parameters => {
 			const encoded = partial({
 				query: type({
-					loanId: createOptionFromNullable(number),
-					leadId: createOptionFromNullable(number),
-					borrowerId: createOptionFromNullable(number),
+					loanId: createOptionFromNullable(number, 'loanId'),
+					leadId: createOptionFromNullable(number, 'leadId'),
+					borrowerId: createOptionFromNullable(number, 'borrowerId'),
 				}),
 			}).encode(parameters);
 
@@ -104,9 +104,9 @@ export const formFreeController = asks(
 		},
 
 		FormFree_InviteBorrower: (loanId, borrowerId, parameters) => {
-			const encoded = partial({ query: type({ requestType: createOptionFromNullable(string) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ requestType: createOptionFromNullable(string, 'requestType') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/form-free/invite/${encodeURIComponent(

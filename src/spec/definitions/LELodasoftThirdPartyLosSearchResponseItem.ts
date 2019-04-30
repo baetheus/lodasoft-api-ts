@@ -13,12 +13,12 @@ export type LELodasoftThirdPartyLosSearchResponseItem = {
 	subjectPropertyZip: Option<string>;
 };
 export const LELodasoftThirdPartyLosSearchResponseItemIO = type({
-	losIdentifier: createOptionFromNullable(string),
-	loanNumber: createOptionFromNullable(string),
-	borrowerFirstName: createOptionFromNullable(string),
-	borrowerLastName: createOptionFromNullable(string),
-	subjectPropertyAddress: createOptionFromNullable(string),
-	subjectPropertyCity: createOptionFromNullable(string),
-	subjectPropertyState: createOptionFromNullable(string),
-	subjectPropertyZip: createOptionFromNullable(string),
+	losIdentifier: createOptionFromNullable(string, 'losIdentifier'),
+	loanNumber: createOptionFromNullable(string, 'loanNumber'),
+	borrowerFirstName: createOptionFromNullable(string, 'borrowerFirstName'),
+	borrowerLastName: createOptionFromNullable(string, 'borrowerLastName'),
+	subjectPropertyAddress: createOptionFromNullable(string, 'subjectPropertyAddress'),
+	subjectPropertyCity: createOptionFromNullable(string, 'subjectPropertyCity'),
+	subjectPropertyState: createOptionFromNullable(string, 'subjectPropertyState'),
+	subjectPropertyZip: createOptionFromNullable(string, 'subjectPropertyZip'),
 });

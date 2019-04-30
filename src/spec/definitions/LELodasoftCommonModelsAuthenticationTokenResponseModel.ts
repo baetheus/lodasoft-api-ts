@@ -11,10 +11,10 @@ export type LELodasoftCommonModelsAuthenticationTokenResponseModel = {
 	expires: Option<string>;
 };
 export const LELodasoftCommonModelsAuthenticationTokenResponseModelIO = type({
-	access_token: createOptionFromNullable(string),
-	token_type: createOptionFromNullable(string),
-	expires_in: createOptionFromNullable(number),
-	userName: createOptionFromNullable(string),
-	issued: createOptionFromNullable(string),
-	expires: createOptionFromNullable(string),
+	access_token: createOptionFromNullable(string, 'access_token'),
+	token_type: createOptionFromNullable(string, 'token_type'),
+	expires_in: createOptionFromNullable(number, 'expires_in'),
+	userName: createOptionFromNullable(string, 'userName'),
+	issued: createOptionFromNullable(string, 'issued'),
+	expires: createOptionFromNullable(string, 'expires'),
 });

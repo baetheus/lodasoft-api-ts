@@ -11,10 +11,10 @@ export type LELodasoftApiControllersInitializeFormFreeRequest = {
 	maxWidth: Option<number>;
 };
 export const LELodasoftApiControllersInitializeFormFreeRequestIO = type({
-	firstName: createOptionFromNullable(string),
-	lastName: createOptionFromNullable(string),
-	email: createOptionFromNullable(string),
-	last4Ssn: createOptionFromNullable(string),
-	maxHeight: createOptionFromNullable(number),
-	maxWidth: createOptionFromNullable(number),
+	firstName: createOptionFromNullable(string, 'firstName'),
+	lastName: createOptionFromNullable(string, 'lastName'),
+	email: createOptionFromNullable(string, 'email'),
+	last4Ssn: createOptionFromNullable(string, 'last4Ssn'),
+	maxHeight: createOptionFromNullable(number, 'maxHeight'),
+	maxWidth: createOptionFromNullable(number, 'maxWidth'),
 });

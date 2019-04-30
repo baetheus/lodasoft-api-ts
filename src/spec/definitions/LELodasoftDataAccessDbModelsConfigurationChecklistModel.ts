@@ -14,13 +14,13 @@ export type LELodasoftDataAccessDbModelsConfigurationChecklistModel = {
 	level: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationChecklistModelIO = type({
-	checkListId: createOptionFromNullable(number),
-	checkLisItemId: createOptionFromNullable(number),
-	parentRefId: createOptionFromNullable(number),
-	parentQuestionId: createOptionFromNullable(number),
-	questionAnswerId: createOptionFromNullable(number),
-	answerValue: createOptionFromNullable(boolean),
-	questionId: createOptionFromNullable(number),
-	questionRefId: createOptionFromNullable(number),
-	level: createOptionFromNullable(number),
+	checkListId: createOptionFromNullable(number, 'checkListId'),
+	checkLisItemId: createOptionFromNullable(number, 'checkLisItemId'),
+	parentRefId: createOptionFromNullable(number, 'parentRefId'),
+	parentQuestionId: createOptionFromNullable(number, 'parentQuestionId'),
+	questionAnswerId: createOptionFromNullable(number, 'questionAnswerId'),
+	answerValue: createOptionFromNullable(boolean, 'answerValue'),
+	questionId: createOptionFromNullable(number, 'questionId'),
+	questionRefId: createOptionFromNullable(number, 'questionRefId'),
+	level: createOptionFromNullable(number, 'level'),
 });

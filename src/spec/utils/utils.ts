@@ -1,5 +1,5 @@
 import { Either } from 'fp-ts/lib/Either';
-import { Type, success, identity, ValidationError } from 'io-ts';
+import { failure as ioFailure, identity, success, Type, ValidationError } from 'io-ts';
 import { failure } from 'io-ts/lib/PathReporter';
 import { Observable, of, throwError } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
@@ -20,3 +20,21 @@ export const decodeAndMap = <A, O = A, I = unknown>(t: Type<A, O, I>) => (obs: O
 		map(t.decode),
 		chainValidation,
 	);
+
+// EnumType Class
+export class EnumType<A> extends Type<A> {
+	public readonly _tag: 'EnumType' = 'EnumType';
+	public enumObject!: object;
+	public constructor(e: object, name?: string) {
+		super(
+			name || 'enum',
+			(u): u is A => Object.values(this.enumObject).some(v => v === u),
+			(u, c) => (this.is(u) ? success(u) : ioFailure(u, c)),
+			identity,
+		);
+		this.enumObject = e;
+	}
+}
+
+// simple helper function
+export const createEnumType = <T>(e: object, name?: string) => new EnumType<T>(e, name);

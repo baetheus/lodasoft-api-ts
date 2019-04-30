@@ -407,9 +407,9 @@ export const borrowerPortalController = asks(
 		},
 
 		BorrowerPortal_UploadDocument: (taskId, borrowerNote, parameters) => {
-			const encoded = partial({ query: type({ progressStatus: createOptionFromNullable(boolean) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ progressStatus: createOptionFromNullable(boolean, 'progressStatus') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/BorrowerPortal/UploadDocument/${encodeURIComponent(

@@ -11,6 +11,9 @@ export type LELodasoftApiModelsAdminPipelineApplicationCounts = {
 	byLoanPurpose: Option<Array<LELodasoftDataAccessModelsAppCountByFilterCriteria>>;
 };
 export const LELodasoftApiModelsAdminPipelineApplicationCountsIO = type({
-	byLoanStatus: createOptionFromNullable(array(LELodasoftDataAccessModelsAppCountByFilterCriteriaIO)),
-	byLoanPurpose: createOptionFromNullable(array(LELodasoftDataAccessModelsAppCountByFilterCriteriaIO)),
+	byLoanStatus: createOptionFromNullable(array(LELodasoftDataAccessModelsAppCountByFilterCriteriaIO), 'byLoanStatus'),
+	byLoanPurpose: createOptionFromNullable(
+		array(LELodasoftDataAccessModelsAppCountByFilterCriteriaIO),
+		'byLoanPurpose',
+	),
 });

@@ -14,13 +14,13 @@ export type LELodasoftCommonModelsConfigurationConfigurationViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsConfigurationConfigurationViewModelIO = type({
-	id: createOptionFromNullable(number),
-	key: createOptionFromNullable(string),
-	value: createOptionFromNullable(number),
-	valueStr: createOptionFromNullable(string),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	id: createOptionFromNullable(number, 'id'),
+	key: createOptionFromNullable(string, 'key'),
+	value: createOptionFromNullable(number, 'value'),
+	valueStr: createOptionFromNullable(string, 'valueStr'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

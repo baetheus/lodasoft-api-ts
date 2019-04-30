@@ -15,14 +15,14 @@ export type LELodasoftDataAccessDbModelsConfigurationPrequalGenerationSettingsMo
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationPrequalGenerationSettingsModelIO = type({
-	prequalGenerationSettingsId: createOptionFromNullable(number),
-	documentTemplateId: createOptionFromNullable(number),
-	enabledForInternalUsers: createOptionFromNullable(boolean),
-	enabledForAgents: createOptionFromNullable(boolean),
-	enabledForBorrowers: createOptionFromNullable(boolean),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	prequalGenerationSettingsId: createOptionFromNullable(number, 'prequalGenerationSettingsId'),
+	documentTemplateId: createOptionFromNullable(number, 'documentTemplateId'),
+	enabledForInternalUsers: createOptionFromNullable(boolean, 'enabledForInternalUsers'),
+	enabledForAgents: createOptionFromNullable(boolean, 'enabledForAgents'),
+	enabledForBorrowers: createOptionFromNullable(boolean, 'enabledForBorrowers'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

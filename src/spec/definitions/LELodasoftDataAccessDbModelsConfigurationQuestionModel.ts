@@ -89,8 +89,8 @@ export type LELodasoftDataAccessDbModelsConfigurationQuestionModel = {
 	companyId: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationQuestionModelIO = type({
-	questionId: createOptionFromNullable(number),
-	questionText: createOptionFromNullable(string),
+	questionId: createOptionFromNullable(number, 'questionId'),
+	questionText: createOptionFromNullable(string, 'questionText'),
 	questionType: createOptionFromNullable(
 		keyof({
 			Immediately: null,
@@ -173,6 +173,7 @@ export const LELodasoftDataAccessDbModelsConfigurationQuestionModelIO = type({
 			FailedEmailAlert: null,
 			FailedSmsAlert: null,
 		}),
+		'questionType',
 	),
-	companyId: createOptionFromNullable(number),
+	companyId: createOptionFromNullable(number, 'companyId'),
 });

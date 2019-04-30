@@ -6,5 +6,5 @@ export type LELodasoftCommonModelsLeadsReportsLeadStatusReportResponse = {
 	leadCountByStatus: Option<{ [key: string]: number }>;
 };
 export const LELodasoftCommonModelsLeadsReportsLeadStatusReportResponseIO = type({
-	leadCountByStatus: createOptionFromNullable(dictionary(string, number)),
+	leadCountByStatus: createOptionFromNullable(dictionary(string, number), 'leadCountByStatus'),
 });

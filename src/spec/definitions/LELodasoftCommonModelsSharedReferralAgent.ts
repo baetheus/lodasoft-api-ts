@@ -8,7 +8,7 @@ export type LELodasoftCommonModelsSharedReferralAgent = {
 	lastName: Option<string>;
 };
 export const LELodasoftCommonModelsSharedReferralAgentIO = type({
-	userId: createOptionFromNullable(string),
-	firstName: createOptionFromNullable(string),
-	lastName: createOptionFromNullable(string),
+	userId: createOptionFromNullable(string, 'userId'),
+	firstName: createOptionFromNullable(string, 'firstName'),
+	lastName: createOptionFromNullable(string, 'lastName'),
 });

@@ -11,10 +11,10 @@ export type LELodasoftDataAccessDbModelsConfigurationSetupReferenceModel = {
 	insertedId: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationSetupReferenceModelIO = type({
-	setupRefernceId: createOptionFromNullable(number),
-	tableName: createOptionFromNullable(string),
-	templateCompanyId: createOptionFromNullable(number),
-	templateId: createOptionFromNullable(number),
-	companyId: createOptionFromNullable(number),
-	insertedId: createOptionFromNullable(number),
+	setupRefernceId: createOptionFromNullable(number, 'setupRefernceId'),
+	tableName: createOptionFromNullable(string, 'tableName'),
+	templateCompanyId: createOptionFromNullable(number, 'templateCompanyId'),
+	templateId: createOptionFromNullable(number, 'templateId'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedId: createOptionFromNullable(number, 'insertedId'),
 });

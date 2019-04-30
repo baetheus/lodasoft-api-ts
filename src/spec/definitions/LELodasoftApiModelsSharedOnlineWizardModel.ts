@@ -4,6 +4,6 @@ import { createOptionFromNullable } from 'io-ts-types';
 
 export type LELodasoftApiModelsSharedOnlineWizardModel = { name: Option<string>; url: Option<string> };
 export const LELodasoftApiModelsSharedOnlineWizardModelIO = type({
-	name: createOptionFromNullable(string),
-	url: createOptionFromNullable(string),
+	name: createOptionFromNullable(string, 'name'),
+	url: createOptionFromNullable(string, 'url'),
 });

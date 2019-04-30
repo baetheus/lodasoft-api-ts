@@ -18,13 +18,16 @@ export type LELodasoftCommonModelsConfigurationDocumentTemplatePageViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsConfigurationDocumentTemplatePageViewModelIO = type({
-	documentTemplatePageId: createOptionFromNullable(number),
-	documentTemplateId: createOptionFromNullable(number),
-	title: createOptionFromNullable(string),
-	fields: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModelIO)),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	documentTemplatePageId: createOptionFromNullable(number, 'documentTemplatePageId'),
+	documentTemplateId: createOptionFromNullable(number, 'documentTemplateId'),
+	title: createOptionFromNullable(string, 'title'),
+	fields: createOptionFromNullable(
+		array(LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModelIO),
+		'fields',
+	),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

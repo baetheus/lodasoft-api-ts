@@ -12,11 +12,11 @@ export type LELodasoftCommonModelsConfigurationSendTestSmsRequest = {
 	companyId: Option<number>;
 };
 export const LELodasoftCommonModelsConfigurationSendTestSmsRequestIO = type({
-	serviceType: createOptionFromNullable(keyof({ Twilio: null })),
-	fromPhoneNumber: createOptionFromNullable(string),
-	accountIdentifier: createOptionFromNullable(string),
-	authToken: createOptionFromNullable(string),
-	toPhoneNumber: createOptionFromNullable(string),
-	message: createOptionFromNullable(string),
-	companyId: createOptionFromNullable(number),
+	serviceType: createOptionFromNullable(keyof({ Twilio: null }), 'serviceType'),
+	fromPhoneNumber: createOptionFromNullable(string, 'fromPhoneNumber'),
+	accountIdentifier: createOptionFromNullable(string, 'accountIdentifier'),
+	authToken: createOptionFromNullable(string, 'authToken'),
+	toPhoneNumber: createOptionFromNullable(string, 'toPhoneNumber'),
+	message: createOptionFromNullable(string, 'message'),
+	companyId: createOptionFromNullable(number, 'companyId'),
 });

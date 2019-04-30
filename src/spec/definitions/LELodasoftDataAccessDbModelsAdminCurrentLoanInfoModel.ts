@@ -11,10 +11,10 @@ export type LELodasoftDataAccessDbModelsAdminCurrentLoanInfoModel = {
 	term: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsAdminCurrentLoanInfoModelIO = type({
-	currentLoanInfoId: createOptionFromNullable(number),
-	applicationId: createOptionFromNullable(number),
-	currentUnpaidPrincipalBalance: createOptionFromNullable(number),
-	propertyValue: createOptionFromNullable(number),
-	currentRate: createOptionFromNullable(number),
-	term: createOptionFromNullable(number),
+	currentLoanInfoId: createOptionFromNullable(number, 'currentLoanInfoId'),
+	applicationId: createOptionFromNullable(number, 'applicationId'),
+	currentUnpaidPrincipalBalance: createOptionFromNullable(number, 'currentUnpaidPrincipalBalance'),
+	propertyValue: createOptionFromNullable(number, 'propertyValue'),
+	currentRate: createOptionFromNullable(number, 'currentRate'),
+	term: createOptionFromNullable(number, 'term'),
 });

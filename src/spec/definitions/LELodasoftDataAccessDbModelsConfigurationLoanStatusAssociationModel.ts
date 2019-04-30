@@ -20,15 +20,18 @@ export type LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel 
 	isLeadStatusAssociation: Option<boolean>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO = type({
-	id: createOptionFromNullable(number),
-	loanPurposeId: createOptionFromNullable(number),
-	loanStatusId: createOptionFromNullable(number),
-	loanStatusModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO),
-	borrowerFriendlyStatus: createOptionFromNullable(string),
-	borrowerFriendlyBlurb: createOptionFromNullable(string),
-	supressBorrowerNotification: createOptionFromNullable(boolean),
-	companyId: createOptionFromNullable(number),
-	order: createOptionFromNullable(number),
-	associatedStatuses: createOptionFromNullable(string),
-	isLeadStatusAssociation: createOptionFromNullable(boolean),
+	id: createOptionFromNullable(number, 'id'),
+	loanPurposeId: createOptionFromNullable(number, 'loanPurposeId'),
+	loanStatusId: createOptionFromNullable(number, 'loanStatusId'),
+	loanStatusModel: createOptionFromNullable(
+		LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO,
+		'loanStatusModel',
+	),
+	borrowerFriendlyStatus: createOptionFromNullable(string, 'borrowerFriendlyStatus'),
+	borrowerFriendlyBlurb: createOptionFromNullable(string, 'borrowerFriendlyBlurb'),
+	supressBorrowerNotification: createOptionFromNullable(boolean, 'supressBorrowerNotification'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	order: createOptionFromNullable(number, 'order'),
+	associatedStatuses: createOptionFromNullable(string, 'associatedStatuses'),
+	isLeadStatusAssociation: createOptionFromNullable(boolean, 'isLeadStatusAssociation'),
 });

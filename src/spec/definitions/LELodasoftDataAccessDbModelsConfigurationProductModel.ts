@@ -9,8 +9,8 @@ export type LELodasoftDataAccessDbModelsConfigurationProductModel = {
 	companyId: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationProductModelIO = type({
-	productId: createOptionFromNullable(number),
-	productName: createOptionFromNullable(string),
-	term: createOptionFromNullable(number),
-	companyId: createOptionFromNullable(number),
+	productId: createOptionFromNullable(number, 'productId'),
+	productName: createOptionFromNullable(string, 'productName'),
+	term: createOptionFromNullable(number, 'term'),
+	companyId: createOptionFromNullable(number, 'companyId'),
 });

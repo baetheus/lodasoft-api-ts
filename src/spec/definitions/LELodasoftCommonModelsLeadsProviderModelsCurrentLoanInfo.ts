@@ -9,8 +9,8 @@ export type LELodasoftCommonModelsLeadsProviderModelsCurrentLoanInfo = {
 	term: Option<number>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsCurrentLoanInfoIO = type({
-	unpaidPrincipalBalance: createOptionFromNullable(number),
-	estimatedValue: createOptionFromNullable(number),
-	interestRate: createOptionFromNullable(number),
-	term: createOptionFromNullable(number),
+	unpaidPrincipalBalance: createOptionFromNullable(number, 'unpaidPrincipalBalance'),
+	estimatedValue: createOptionFromNullable(number, 'estimatedValue'),
+	interestRate: createOptionFromNullable(number, 'interestRate'),
+	term: createOptionFromNullable(number, 'term'),
 });

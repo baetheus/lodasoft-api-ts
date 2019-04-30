@@ -9,8 +9,8 @@ export type LELodasoftCommonModelsSharedCallbackModel = {
 	bestCallbackTime: Option<Date>;
 };
 export const LELodasoftCommonModelsSharedCallbackModelIO = type({
-	applicationId: createOptionFromNullable(number),
-	bestContactNumber: createOptionFromNullable(string),
-	note: createOptionFromNullable(string),
-	bestCallbackTime: createOptionFromNullable(DateFromISOString),
+	applicationId: createOptionFromNullable(number, 'applicationId'),
+	bestContactNumber: createOptionFromNullable(string, 'bestContactNumber'),
+	note: createOptionFromNullable(string, 'note'),
+	bestCallbackTime: createOptionFromNullable(DateFromISOString, 'bestCallbackTime'),
 });

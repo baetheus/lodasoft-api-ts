@@ -103,11 +103,11 @@ export type LELodasoftCommonModelsAdminTrackingViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsAdminTrackingViewModelIO = type({
-	trackingId: createOptionFromNullable(number),
-	by: createOptionFromNullable(string),
-	applicationId: createOptionFromNullable(number),
-	taskId: createOptionFromNullable(number),
-	fileId: createOptionFromNullable(string),
+	trackingId: createOptionFromNullable(number, 'trackingId'),
+	by: createOptionFromNullable(string, 'by'),
+	applicationId: createOptionFromNullable(number, 'applicationId'),
+	taskId: createOptionFromNullable(number, 'taskId'),
+	fileId: createOptionFromNullable(string, 'fileId'),
 	actionType: createOptionFromNullable(
 		keyof({
 			Immediately: null,
@@ -190,13 +190,14 @@ export const LELodasoftCommonModelsAdminTrackingViewModelIO = type({
 			FailedEmailAlert: null,
 			FailedSmsAlert: null,
 		}),
+		'actionType',
 	),
-	actionValue: createOptionFromNullable(string),
-	dateCreated: createOptionFromNullable(DateFromISOString),
-	userProfile: createOptionFromNullable(LELodasoftCommonModelsAdminTrackingUserViewModelIO),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	actionValue: createOptionFromNullable(string, 'actionValue'),
+	dateCreated: createOptionFromNullable(DateFromISOString, 'dateCreated'),
+	userProfile: createOptionFromNullable(LELodasoftCommonModelsAdminTrackingUserViewModelIO, 'userProfile'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

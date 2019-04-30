@@ -17,14 +17,15 @@ export type LELodasoftDataAccessDbModelsConfigurationLoanTypeModel = {
 	order: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO = type({
-	loanTypeId: createOptionFromNullable(number),
-	loanTypeName: createOptionFromNullable(string),
+	loanTypeId: createOptionFromNullable(number, 'loanTypeId'),
+	loanTypeName: createOptionFromNullable(string, 'loanTypeName'),
 	mortgageAppliedForType: createOptionFromNullable(
 		keyof({ VA: null, FHA: null, Conventional: null, USDARuralHousingService: null, OtherMortgage: null }),
+		'mortgageAppliedForType',
 	),
-	companyId: createOptionFromNullable(number),
-	companyModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO),
-	showInOnlineApp: createOptionFromNullable(boolean),
-	defaultForOnlineApp: createOptionFromNullable(boolean),
-	order: createOptionFromNullable(number),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	companyModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'companyModel'),
+	showInOnlineApp: createOptionFromNullable(boolean, 'showInOnlineApp'),
+	defaultForOnlineApp: createOptionFromNullable(boolean, 'defaultForOnlineApp'),
+	order: createOptionFromNullable(number, 'order'),
 });

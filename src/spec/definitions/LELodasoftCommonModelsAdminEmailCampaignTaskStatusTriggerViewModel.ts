@@ -15,14 +15,14 @@ export type LELodasoftCommonModelsAdminEmailCampaignTaskStatusTriggerViewModel =
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsAdminEmailCampaignTaskStatusTriggerViewModelIO = type({
-	emailCampaignTaskStatusTriggerId: createOptionFromNullable(number),
-	emailCampaignId: createOptionFromNullable(number),
-	taskId: createOptionFromNullable(number),
-	customTaskId: createOptionFromNullable(number),
-	taskStatus: createOptionFromNullable(number),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	emailCampaignTaskStatusTriggerId: createOptionFromNullable(number, 'emailCampaignTaskStatusTriggerId'),
+	emailCampaignId: createOptionFromNullable(number, 'emailCampaignId'),
+	taskId: createOptionFromNullable(number, 'taskId'),
+	customTaskId: createOptionFromNullable(number, 'customTaskId'),
+	taskStatus: createOptionFromNullable(number, 'taskStatus'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

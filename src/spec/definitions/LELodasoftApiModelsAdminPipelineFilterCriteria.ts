@@ -8,7 +8,7 @@ export type LELodasoftApiModelsAdminPipelineFilterCriteria = {
 	users: Option<Array<string>>;
 };
 export const LELodasoftApiModelsAdminPipelineFilterCriteriaIO = type({
-	loanPurposes: createOptionFromNullable(array(number)),
-	loanStatuses: createOptionFromNullable(array(number)),
-	users: createOptionFromNullable(array(string)),
+	loanPurposes: createOptionFromNullable(array(number), 'loanPurposes'),
+	loanStatuses: createOptionFromNullable(array(number), 'loanStatuses'),
+	users: createOptionFromNullable(array(string), 'users'),
 });

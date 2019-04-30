@@ -14,10 +14,11 @@ export type LELodasoftApiControllersLogControllerLogModel = {
 export const LELodasoftApiControllersLogControllerLogModelIO = type({
 	level: createOptionFromNullable(
 		keyof({ Fatal: null, Error: null, Warning: null, Info: null, Debug: null, Trace: null }),
+		'level',
 	),
-	timestamp: createOptionFromNullable(DateFromISOString),
-	message: createOptionFromNullable(string),
-	actionType: createOptionFromNullable(string),
-	origin: createOptionFromNullable(string),
-	data: createOptionFromNullable(dictionary(string, unknownType)),
+	timestamp: createOptionFromNullable(DateFromISOString, 'timestamp'),
+	message: createOptionFromNullable(string, 'message'),
+	actionType: createOptionFromNullable(string, 'actionType'),
+	origin: createOptionFromNullable(string, 'origin'),
+	data: createOptionFromNullable(dictionary(string, unknownType), 'data'),
 });

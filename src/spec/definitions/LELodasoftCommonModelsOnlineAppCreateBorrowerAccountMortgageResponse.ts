@@ -14,9 +14,9 @@ export type LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponse
 	authToken: Option<LELodasoftCommonModelsAuthenticationTokenResponseModel>;
 };
 export const LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponseIO = type({
-	borrowerId: createOptionFromNullable(number),
-	applicationId: createOptionFromNullable(number),
-	userExists: createOptionFromNullable(boolean),
-	userMustConfirmRegistration: createOptionFromNullable(boolean),
-	authToken: createOptionFromNullable(LELodasoftCommonModelsAuthenticationTokenResponseModelIO),
+	borrowerId: createOptionFromNullable(number, 'borrowerId'),
+	applicationId: createOptionFromNullable(number, 'applicationId'),
+	userExists: createOptionFromNullable(boolean, 'userExists'),
+	userMustConfirmRegistration: createOptionFromNullable(boolean, 'userMustConfirmRegistration'),
+	authToken: createOptionFromNullable(LELodasoftCommonModelsAuthenticationTokenResponseModelIO, 'authToken'),
 });

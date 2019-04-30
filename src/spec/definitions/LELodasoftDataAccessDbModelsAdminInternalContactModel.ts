@@ -9,8 +9,8 @@ export type LELodasoftDataAccessDbModelsAdminInternalContactModel = {
 	userId: Option<string>;
 };
 export const LELodasoftDataAccessDbModelsAdminInternalContactModelIO = type({
-	internalContactId: createOptionFromNullable(number),
-	applicationId: createOptionFromNullable(number),
-	roleId: createOptionFromNullable(number),
-	userId: createOptionFromNullable(string),
+	internalContactId: createOptionFromNullable(number, 'internalContactId'),
+	applicationId: createOptionFromNullable(number, 'applicationId'),
+	roleId: createOptionFromNullable(number, 'roleId'),
+	userId: createOptionFromNullable(string, 'userId'),
 });

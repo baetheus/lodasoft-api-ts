@@ -17,16 +17,16 @@ export type LELodasoftDataAccessDbModelsAdminDocFileModel = {
 	active: Option<boolean>;
 };
 export const LELodasoftDataAccessDbModelsAdminDocFileModelIO = type({
-	guid: createOptionFromNullable(string),
-	loanDocId: createOptionFromNullable(number),
-	note: createOptionFromNullable(string),
-	borrowerNote: createOptionFromNullable(string),
-	condition: createOptionFromNullable(boolean),
-	replacementValuesJson: createOptionFromNullable(string),
-	fileName: createOptionFromNullable(string),
-	mimeType: createOptionFromNullable(string),
-	fileData: createOptionFromNullable(string),
-	createDate: createOptionFromNullable(DateFromISOString),
-	exportDate: createOptionFromNullable(DateFromISOString),
-	active: createOptionFromNullable(boolean),
+	guid: createOptionFromNullable(string, 'guid'),
+	loanDocId: createOptionFromNullable(number, 'loanDocId'),
+	note: createOptionFromNullable(string, 'note'),
+	borrowerNote: createOptionFromNullable(string, 'borrowerNote'),
+	condition: createOptionFromNullable(boolean, 'condition'),
+	replacementValuesJson: createOptionFromNullable(string, 'replacementValuesJson'),
+	fileName: createOptionFromNullable(string, 'fileName'),
+	mimeType: createOptionFromNullable(string, 'mimeType'),
+	fileData: createOptionFromNullable(string, 'fileData'),
+	createDate: createOptionFromNullable(DateFromISOString, 'createDate'),
+	exportDate: createOptionFromNullable(DateFromISOString, 'exportDate'),
+	active: createOptionFromNullable(boolean, 'active'),
 });

@@ -10,9 +10,9 @@ export type LELodasoftApiModelsAgentReferralSourceModel = {
 	orgName: Option<string>;
 };
 export const LELodasoftApiModelsAgentReferralSourceModelIO = type({
-	agentId: createOptionFromNullable(number),
-	firstName: createOptionFromNullable(string),
-	lastName: createOptionFromNullable(string),
-	title: createOptionFromNullable(string),
-	orgName: createOptionFromNullable(string),
+	agentId: createOptionFromNullable(number, 'agentId'),
+	firstName: createOptionFromNullable(string, 'firstName'),
+	lastName: createOptionFromNullable(string, 'lastName'),
+	title: createOptionFromNullable(string, 'title'),
+	orgName: createOptionFromNullable(string, 'orgName'),
 });

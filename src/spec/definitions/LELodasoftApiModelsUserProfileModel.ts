@@ -49,18 +49,37 @@ export type LELodasoftApiModelsUserProfileModel = {
 	definedSmsTemplate: Option<LELodasoftDataAccessDbModelsConfigurationDefinedSmsTemplateModel>;
 };
 export const LELodasoftApiModelsUserProfileModelIO = type({
-	userProfile: createOptionFromNullable(LELodasoftDataAccessDbModelsUserProfileIO),
-	integrations: createOptionFromNullable(LELodasoftApiModelsSharedIntegrationsModelIO),
+	userProfile: createOptionFromNullable(LELodasoftDataAccessDbModelsUserProfileIO, 'userProfile'),
+	integrations: createOptionFromNullable(LELodasoftApiModelsSharedIntegrationsModelIO, 'integrations'),
 	thirdPartyCredentials: createOptionFromNullable(
 		array(LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModelIO),
+		'thirdPartyCredentials',
 	),
-	emailService: createOptionFromNullable(LELodasoftDataAccessDbModelsSharedEmailServiceModelIO),
-	smsService: createOptionFromNullable(LELodasoftDataAccessDbModelsSharedSmsServiceModelIO),
-	userName: createOptionFromNullable(string),
-	reminderEmailEnabled: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
-	reminderEmailInterval: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
-	reminderSmsEnabled: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
-	reminderSmsInterval: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO),
-	definedEmailTemplate: createOptionFromNullable(LELodasoftCommonModelsEmailDefinedEmailTemplateViewModelIO),
-	definedSmsTemplate: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationDefinedSmsTemplateModelIO),
+	emailService: createOptionFromNullable(LELodasoftDataAccessDbModelsSharedEmailServiceModelIO, 'emailService'),
+	smsService: createOptionFromNullable(LELodasoftDataAccessDbModelsSharedSmsServiceModelIO, 'smsService'),
+	userName: createOptionFromNullable(string, 'userName'),
+	reminderEmailEnabled: createOptionFromNullable(
+		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
+		'reminderEmailEnabled',
+	),
+	reminderEmailInterval: createOptionFromNullable(
+		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
+		'reminderEmailInterval',
+	),
+	reminderSmsEnabled: createOptionFromNullable(
+		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
+		'reminderSmsEnabled',
+	),
+	reminderSmsInterval: createOptionFromNullable(
+		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
+		'reminderSmsInterval',
+	),
+	definedEmailTemplate: createOptionFromNullable(
+		LELodasoftCommonModelsEmailDefinedEmailTemplateViewModelIO,
+		'definedEmailTemplate',
+	),
+	definedSmsTemplate: createOptionFromNullable(
+		LELodasoftDataAccessDbModelsConfigurationDefinedSmsTemplateModelIO,
+		'definedSmsTemplate',
+	),
 });

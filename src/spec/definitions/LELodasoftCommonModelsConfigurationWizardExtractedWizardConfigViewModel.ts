@@ -42,13 +42,16 @@ export type LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewMo
 	question: Option<Array<LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModel>>;
 };
 export const LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO = type({
-	id: createOptionFromNullable(number),
-	name: createOptionFromNullable(string),
-	dataId: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardDataIdViewModelIO)),
-	data: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardDataViewModelIO)),
-	groupId: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO)),
-	group: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardGroupViewModelIO)),
-	valid: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardValidViewModelIO)),
-	tree: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardTreeViewModelIO)),
-	question: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO)),
+	id: createOptionFromNullable(number, 'id'),
+	name: createOptionFromNullable(string, 'name'),
+	dataId: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardDataIdViewModelIO), 'dataId'),
+	data: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardDataViewModelIO), 'data'),
+	groupId: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO), 'groupId'),
+	group: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardGroupViewModelIO), 'group'),
+	valid: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardValidViewModelIO), 'valid'),
+	tree: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardTreeViewModelIO), 'tree'),
+	question: createOptionFromNullable(
+		array(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO),
+		'question',
+	),
 });

@@ -29,18 +29,25 @@ export type LELodasoftCommonModelsAdminEmailCampaignViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsAdminEmailCampaignViewModelIO = type({
-	emailCampaignId: createOptionFromNullable(number),
-	emailCampaignName: createOptionFromNullable(string),
-	repeatDays: createOptionFromNullable(number),
-	active: createOptionFromNullable(boolean),
-	triggers: createOptionFromNullable(array(LELodasoftCommonModelsAdminEmailCampaignLoanStatusTriggerViewModelIO)),
+	emailCampaignId: createOptionFromNullable(number, 'emailCampaignId'),
+	emailCampaignName: createOptionFromNullable(string, 'emailCampaignName'),
+	repeatDays: createOptionFromNullable(number, 'repeatDays'),
+	active: createOptionFromNullable(boolean, 'active'),
+	triggers: createOptionFromNullable(
+		array(LELodasoftCommonModelsAdminEmailCampaignLoanStatusTriggerViewModelIO),
+		'triggers',
+	),
 	taskStatusTriggers: createOptionFromNullable(
 		array(LELodasoftCommonModelsAdminEmailCampaignTaskStatusTriggerViewModelIO),
+		'taskStatusTriggers',
 	),
-	automatedEmails: createOptionFromNullable(array(LELodasoftCommonModelsAdminAutomatedEmailViewModelIO)),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	automatedEmails: createOptionFromNullable(
+		array(LELodasoftCommonModelsAdminAutomatedEmailViewModelIO),
+		'automatedEmails',
+	),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

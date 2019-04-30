@@ -4,5 +4,5 @@ import { createOptionFromNullable } from 'io-ts-types';
 
 export type LELodasoftCommonModelsMessageSmsSearchBorrowerRequest = { phone: Option<string> };
 export const LELodasoftCommonModelsMessageSmsSearchBorrowerRequestIO = type({
-	phone: createOptionFromNullable(string),
+	phone: createOptionFromNullable(string, 'phone'),
 });

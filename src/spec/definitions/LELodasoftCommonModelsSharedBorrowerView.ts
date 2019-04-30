@@ -9,8 +9,8 @@ export type LELodasoftCommonModelsSharedBorrowerView = {
 	borrowerEmail: Option<string>;
 };
 export const LELodasoftCommonModelsSharedBorrowerViewIO = type({
-	borrowerId: createOptionFromNullable(number),
-	borrowerName: createOptionFromNullable(string),
-	borrowerPhone: createOptionFromNullable(string),
-	borrowerEmail: createOptionFromNullable(string),
+	borrowerId: createOptionFromNullable(number, 'borrowerId'),
+	borrowerName: createOptionFromNullable(string, 'borrowerName'),
+	borrowerPhone: createOptionFromNullable(string, 'borrowerPhone'),
+	borrowerEmail: createOptionFromNullable(string, 'borrowerEmail'),
 });

@@ -79,9 +79,9 @@ export const lookupController = asks(
 		},
 
 		Lookup_GetLosProviders: parameters => {
-			const encoded = partial({ query: type({ providerId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ providerId: createOptionFromNullable(number, 'providerId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Lookup/get-los-providers`,

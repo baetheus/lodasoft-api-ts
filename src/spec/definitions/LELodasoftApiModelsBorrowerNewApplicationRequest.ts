@@ -16,7 +16,7 @@ export type LELodasoftApiModelsBorrowerNewApplicationRequest = {
 	coBorrower: Option<LELodasoftDataAccessDbModelsAdminBorrowerModel>;
 };
 export const LELodasoftApiModelsBorrowerNewApplicationRequestIO = type({
-	application: createOptionFromNullable(LELodasoftCommonModelsConfigurationApplicationViewModelIO),
-	internalContactGroupNumber: createOptionFromNullable(string),
-	coBorrower: createOptionFromNullable(LELodasoftDataAccessDbModelsAdminBorrowerModelIO),
+	application: createOptionFromNullable(LELodasoftCommonModelsConfigurationApplicationViewModelIO, 'application'),
+	internalContactGroupNumber: createOptionFromNullable(string, 'internalContactGroupNumber'),
+	coBorrower: createOptionFromNullable(LELodasoftDataAccessDbModelsAdminBorrowerModelIO, 'coBorrower'),
 });

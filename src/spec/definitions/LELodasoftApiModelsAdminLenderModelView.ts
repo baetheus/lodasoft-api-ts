@@ -13,12 +13,12 @@ export type LELodasoftApiModelsAdminLenderModelView = {
 	zip: Option<string>;
 };
 export const LELodasoftApiModelsAdminLenderModelViewIO = type({
-	companyId: createOptionFromNullable(number),
-	lenderId: createOptionFromNullable(number),
-	nameOfLender: createOptionFromNullable(string),
-	phone: createOptionFromNullable(string),
-	address: createOptionFromNullable(string),
-	city: createOptionFromNullable(string),
-	state: createOptionFromNullable(string),
-	zip: createOptionFromNullable(string),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	lenderId: createOptionFromNullable(number, 'lenderId'),
+	nameOfLender: createOptionFromNullable(string, 'nameOfLender'),
+	phone: createOptionFromNullable(string, 'phone'),
+	address: createOptionFromNullable(string, 'address'),
+	city: createOptionFromNullable(string, 'city'),
+	state: createOptionFromNullable(string, 'state'),
+	zip: createOptionFromNullable(string, 'zip'),
 });

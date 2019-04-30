@@ -9,8 +9,8 @@ export type LELodasoftCommonModelsAdminTrackingUserViewModel = {
 	lastName: Option<string>;
 };
 export const LELodasoftCommonModelsAdminTrackingUserViewModelIO = type({
-	id: createOptionFromNullable(string),
-	userName: createOptionFromNullable(string),
-	firstName: createOptionFromNullable(string),
-	lastName: createOptionFromNullable(string),
+	id: createOptionFromNullable(string, 'id'),
+	userName: createOptionFromNullable(string, 'userName'),
+	firstName: createOptionFromNullable(string, 'firstName'),
+	lastName: createOptionFromNullable(string, 'lastName'),
 });

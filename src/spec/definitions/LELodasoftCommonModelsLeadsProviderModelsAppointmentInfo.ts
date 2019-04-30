@@ -8,7 +8,7 @@ export type LELodasoftCommonModelsLeadsProviderModelsAppointmentInfo = {
 	notes: Option<string>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsAppointmentInfoIO = type({
-	date: createOptionFromNullable(DateFromISOString),
-	description: createOptionFromNullable(string),
-	notes: createOptionFromNullable(string),
+	date: createOptionFromNullable(DateFromISOString, 'date'),
+	description: createOptionFromNullable(string, 'description'),
+	notes: createOptionFromNullable(string, 'notes'),
 });

@@ -10,9 +10,9 @@ export type LELodasoftApiModelsZipcodeLookupResult = {
 	locationText: Option<string>;
 };
 export const LELodasoftApiModelsZipcodeLookupResultIO = type({
-	recordNumber: createOptionFromNullable(number),
-	zipcode: createOptionFromNullable(string),
-	city: createOptionFromNullable(string),
-	state: createOptionFromNullable(string),
-	locationText: createOptionFromNullable(string),
+	recordNumber: createOptionFromNullable(number, 'recordNumber'),
+	zipcode: createOptionFromNullable(string, 'zipcode'),
+	city: createOptionFromNullable(string, 'city'),
+	state: createOptionFromNullable(string, 'state'),
+	locationText: createOptionFromNullable(string, 'locationText'),
 });

@@ -16,15 +16,15 @@ export type LELodasoftCommonModelsAdminEmailTemplateImageViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsAdminEmailTemplateImageViewModelIO = type({
-	emailTemplateImageId: createOptionFromNullable(number),
-	emailTemplateImageGuid: createOptionFromNullable(string),
-	definedEmailTemplateId: createOptionFromNullable(number),
-	emailTemplateId: createOptionFromNullable(number),
-	mimeType: createOptionFromNullable(string),
-	imageData: createOptionFromNullable(string),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	emailTemplateImageId: createOptionFromNullable(number, 'emailTemplateImageId'),
+	emailTemplateImageGuid: createOptionFromNullable(string, 'emailTemplateImageGuid'),
+	definedEmailTemplateId: createOptionFromNullable(number, 'definedEmailTemplateId'),
+	emailTemplateId: createOptionFromNullable(number, 'emailTemplateId'),
+	mimeType: createOptionFromNullable(string, 'mimeType'),
+	imageData: createOptionFromNullable(string, 'imageData'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

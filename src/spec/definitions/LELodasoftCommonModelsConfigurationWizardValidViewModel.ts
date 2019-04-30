@@ -10,9 +10,9 @@ export type LELodasoftCommonModelsConfigurationWizardValidViewModel = {
 	required: Option<boolean>;
 };
 export const LELodasoftCommonModelsConfigurationWizardValidViewModelIO = type({
-	id: createOptionFromNullable(number),
-	questionId: createOptionFromNullable(number),
-	min: createOptionFromNullable(number),
-	max: createOptionFromNullable(number),
-	required: createOptionFromNullable(boolean),
+	id: createOptionFromNullable(number, 'id'),
+	questionId: createOptionFromNullable(number, 'questionId'),
+	min: createOptionFromNullable(number, 'min'),
+	max: createOptionFromNullable(number, 'max'),
+	required: createOptionFromNullable(boolean, 'required'),
 });

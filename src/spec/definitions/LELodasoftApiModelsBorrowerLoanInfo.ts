@@ -15,6 +15,9 @@ export type LELodasoftApiModelsBorrowerLoanInfo = {
 	currentLoanInfo: Option<LELodasoftDataAccessDbModelsAdminCurrentLoanInfoModel>;
 };
 export const LELodasoftApiModelsBorrowerLoanInfoIO = type({
-	application: createOptionFromNullable(LELodasoftCommonModelsConfigurationApplicationViewModelIO),
-	currentLoanInfo: createOptionFromNullable(LELodasoftDataAccessDbModelsAdminCurrentLoanInfoModelIO),
+	application: createOptionFromNullable(LELodasoftCommonModelsConfigurationApplicationViewModelIO, 'application'),
+	currentLoanInfo: createOptionFromNullable(
+		LELodasoftDataAccessDbModelsAdminCurrentLoanInfoModelIO,
+		'currentLoanInfo',
+	),
 });

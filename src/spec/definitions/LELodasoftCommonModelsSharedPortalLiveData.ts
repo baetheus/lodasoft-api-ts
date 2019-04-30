@@ -11,6 +11,9 @@ export type LELodasoftCommonModelsSharedPortalLiveData = {
 	applicationTotals: Option<{ [key: string]: LELodasoftCommonModelsSharedLiveData }>;
 };
 export const LELodasoftCommonModelsSharedPortalLiveDataIO = type({
-	total: createOptionFromNullable(LELodasoftCommonModelsSharedLiveDataIO),
-	applicationTotals: createOptionFromNullable(dictionary(string, LELodasoftCommonModelsSharedLiveDataIO)),
+	total: createOptionFromNullable(LELodasoftCommonModelsSharedLiveDataIO, 'total'),
+	applicationTotals: createOptionFromNullable(
+		dictionary(string, LELodasoftCommonModelsSharedLiveDataIO),
+		'applicationTotals',
+	),
 });

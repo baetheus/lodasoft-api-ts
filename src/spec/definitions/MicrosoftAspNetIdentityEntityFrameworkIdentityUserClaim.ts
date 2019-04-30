@@ -9,8 +9,8 @@ export type MicrosoftAspNetIdentityEntityFrameworkIdentityUserClaim = {
 	claimValue: Option<string>;
 };
 export const MicrosoftAspNetIdentityEntityFrameworkIdentityUserClaimIO = type({
-	id: createOptionFromNullable(number),
-	userId: createOptionFromNullable(string),
-	claimType: createOptionFromNullable(string),
-	claimValue: createOptionFromNullable(string),
+	id: createOptionFromNullable(number, 'id'),
+	userId: createOptionFromNullable(string, 'userId'),
+	claimType: createOptionFromNullable(string, 'claimType'),
+	claimValue: createOptionFromNullable(string, 'claimValue'),
 });

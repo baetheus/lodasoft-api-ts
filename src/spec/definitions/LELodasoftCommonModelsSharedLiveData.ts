@@ -8,7 +8,7 @@ export type LELodasoftCommonModelsSharedLiveData = {
 	messageCount: Option<number>;
 };
 export const LELodasoftCommonModelsSharedLiveDataIO = type({
-	applicationId: createOptionFromNullable(number),
-	taskCount: createOptionFromNullable(number),
-	messageCount: createOptionFromNullable(number),
+	applicationId: createOptionFromNullable(number, 'applicationId'),
+	taskCount: createOptionFromNullable(number, 'taskCount'),
+	messageCount: createOptionFromNullable(number, 'messageCount'),
 });

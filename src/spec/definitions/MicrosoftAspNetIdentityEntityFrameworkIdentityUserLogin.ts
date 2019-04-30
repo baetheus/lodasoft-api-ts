@@ -8,7 +8,7 @@ export type MicrosoftAspNetIdentityEntityFrameworkIdentityUserLogin = {
 	userId: Option<string>;
 };
 export const MicrosoftAspNetIdentityEntityFrameworkIdentityUserLoginIO = type({
-	loginProvider: createOptionFromNullable(string),
-	providerKey: createOptionFromNullable(string),
-	userId: createOptionFromNullable(string),
+	loginProvider: createOptionFromNullable(string, 'loginProvider'),
+	providerKey: createOptionFromNullable(string, 'providerKey'),
+	userId: createOptionFromNullable(string, 'userId'),
 });

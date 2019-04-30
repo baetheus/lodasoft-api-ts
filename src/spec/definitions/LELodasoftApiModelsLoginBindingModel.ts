@@ -11,6 +11,6 @@ export type LELodasoftApiModelsLoginBindingModel = {
 export const LELodasoftApiModelsLoginBindingModelIO = type({
 	email: string,
 	password: string,
-	rememberMe: createOptionFromNullable(boolean),
-	scope: createOptionFromNullable(string),
+	rememberMe: createOptionFromNullable(boolean, 'rememberMe'),
+	scope: createOptionFromNullable(string, 'scope'),
 });

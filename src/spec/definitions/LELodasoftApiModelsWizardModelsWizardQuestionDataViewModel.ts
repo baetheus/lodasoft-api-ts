@@ -15,6 +15,6 @@ export type LELodasoftApiModelsWizardModelsWizardQuestionDataViewModel = {
 	valid: Option<LELodasoftCommonModelsConfigurationWizardValidViewModel>;
 };
 export const LELodasoftApiModelsWizardModelsWizardQuestionDataViewModelIO = type({
-	question: createOptionFromNullable(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO),
-	valid: createOptionFromNullable(LELodasoftCommonModelsConfigurationWizardValidViewModelIO),
+	question: createOptionFromNullable(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO, 'question'),
+	valid: createOptionFromNullable(LELodasoftCommonModelsConfigurationWizardValidViewModelIO, 'valid'),
 });

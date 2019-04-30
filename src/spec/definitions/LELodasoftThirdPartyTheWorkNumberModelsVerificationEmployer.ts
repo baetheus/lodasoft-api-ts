@@ -9,8 +9,8 @@ export type LELodasoftThirdPartyTheWorkNumberModelsVerificationEmployer = {
 	salaryKey: Option<string>;
 };
 export const LELodasoftThirdPartyTheWorkNumberModelsVerificationEmployerIO = type({
-	name: createOptionFromNullable(string),
-	code: createOptionFromNullable(string),
-	alternateIdentifier: createOptionFromNullable(string),
-	salaryKey: createOptionFromNullable(string),
+	name: createOptionFromNullable(string, 'name'),
+	code: createOptionFromNullable(string, 'code'),
+	alternateIdentifier: createOptionFromNullable(string, 'alternateIdentifier'),
+	salaryKey: createOptionFromNullable(string, 'salaryKey'),
 });

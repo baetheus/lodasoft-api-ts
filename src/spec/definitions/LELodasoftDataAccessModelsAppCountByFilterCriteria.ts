@@ -7,6 +7,6 @@ export type LELodasoftDataAccessModelsAppCountByFilterCriteria = {
 	total: Option<number>;
 };
 export const LELodasoftDataAccessModelsAppCountByFilterCriteriaIO = type({
-	filterCriteriaId: createOptionFromNullable(number),
-	total: createOptionFromNullable(number),
+	filterCriteriaId: createOptionFromNullable(number, 'filterCriteriaId'),
+	total: createOptionFromNullable(number, 'total'),
 });

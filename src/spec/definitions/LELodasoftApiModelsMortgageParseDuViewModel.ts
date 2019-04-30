@@ -22,15 +22,16 @@ export type LELodasoftApiModelsMortgageParseDuViewModel = {
 	errorMessage: Option<string>;
 };
 export const LELodasoftApiModelsMortgageParseDuViewModelIO = type({
-	mortgageViewModel: createOptionFromNullable(LELodasoftCommonModelsMortgageMortgageViewModelIO),
+	mortgageViewModel: createOptionFromNullable(LELodasoftCommonModelsMortgageMortgageViewModelIO, 'mortgageViewModel'),
 	suggestedBorrowers: createOptionFromNullable(
 		dictionary(string, array(LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO)),
+		'suggestedBorrowers',
 	),
-	loanNumber: createOptionFromNullable(string),
-	loanPurposeId: createOptionFromNullable(number),
-	loanTypeId: createOptionFromNullable(number),
-	losIdentifier: createOptionFromNullable(string),
-	success: createOptionFromNullable(boolean),
-	validationErrors: createOptionFromNullable(array(string)),
-	errorMessage: createOptionFromNullable(string),
+	loanNumber: createOptionFromNullable(string, 'loanNumber'),
+	loanPurposeId: createOptionFromNullable(number, 'loanPurposeId'),
+	loanTypeId: createOptionFromNullable(number, 'loanTypeId'),
+	losIdentifier: createOptionFromNullable(string, 'losIdentifier'),
+	success: createOptionFromNullable(boolean, 'success'),
+	validationErrors: createOptionFromNullable(array(string), 'validationErrors'),
+	errorMessage: createOptionFromNullable(string, 'errorMessage'),
 });

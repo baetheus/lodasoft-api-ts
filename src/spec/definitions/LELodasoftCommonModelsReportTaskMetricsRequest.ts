@@ -22,9 +22,9 @@ export type LELodasoftCommonModelsReportTaskMetricsRequest = {
 	loanStatusFilters: Option<Array<number>>;
 };
 export const LELodasoftCommonModelsReportTaskMetricsRequestIO = type({
-	companyId: createOptionFromNullable(number),
-	startDate: createOptionFromNullable(DateFromISOString),
-	endDate: createOptionFromNullable(DateFromISOString),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	startDate: createOptionFromNullable(DateFromISOString, 'startDate'),
+	endDate: createOptionFromNullable(DateFromISOString, 'endDate'),
 	reportType: createOptionFromNullable(
 		keyof({
 			TasksByCompany: null,
@@ -37,8 +37,9 @@ export const LELodasoftCommonModelsReportTaskMetricsRequestIO = type({
 			TasksByLoanType: null,
 			TasksByLoanPurpose: null,
 		}),
+		'reportType',
 	),
-	activeLoansOnly: createOptionFromNullable(boolean),
-	loanPurposeFilters: createOptionFromNullable(array(number)),
-	loanStatusFilters: createOptionFromNullable(array(number)),
+	activeLoansOnly: createOptionFromNullable(boolean, 'activeLoansOnly'),
+	loanPurposeFilters: createOptionFromNullable(array(number), 'loanPurposeFilters'),
+	loanStatusFilters: createOptionFromNullable(array(number), 'loanStatusFilters'),
 });

@@ -11,10 +11,10 @@ export type LELodasoftDataAccessDbModelsAdminLookupTypeModel = {
 	lookupOrder: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsAdminLookupTypeModelIO = type({
-	id: createOptionFromNullable(number),
-	lookupTypeID: createOptionFromNullable(number),
-	lookupGroup: createOptionFromNullable(string),
-	lookupValue: createOptionFromNullable(string),
-	lookupDescription: createOptionFromNullable(string),
-	lookupOrder: createOptionFromNullable(number),
+	id: createOptionFromNullable(number, 'id'),
+	lookupTypeID: createOptionFromNullable(number, 'lookupTypeID'),
+	lookupGroup: createOptionFromNullable(string, 'lookupGroup'),
+	lookupValue: createOptionFromNullable(string, 'lookupValue'),
+	lookupDescription: createOptionFromNullable(string, 'lookupDescription'),
+	lookupOrder: createOptionFromNullable(number, 'lookupOrder'),
 });

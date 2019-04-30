@@ -8,7 +8,7 @@ export type LELodasoftApiModelsVerifyCodeModel = {
 	password: Option<string>;
 };
 export const LELodasoftApiModelsVerifyCodeModelIO = type({
-	code: createOptionFromNullable(string),
-	email: createOptionFromNullable(string),
-	password: createOptionFromNullable(string),
+	code: createOptionFromNullable(string, 'code'),
+	email: createOptionFromNullable(string, 'email'),
+	password: createOptionFromNullable(string, 'password'),
 });

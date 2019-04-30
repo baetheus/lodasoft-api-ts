@@ -18,17 +18,20 @@ export type LELodasoftCommonModelsMortgageAddressViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageAddressViewModelIO = type({
-	addressId: createOptionFromNullable(number),
-	typeOfAddress: createOptionFromNullable(keyof({ PresentAddress: null, FormerAddress: null, MailingAddress: null })),
-	address1: createOptionFromNullable(string),
-	city: createOptionFromNullable(string),
-	state: createOptionFromNullable(string),
-	zipCode: createOptionFromNullable(string),
-	country: createOptionFromNullable(string),
-	active: createOptionFromNullable(boolean),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	addressId: createOptionFromNullable(number, 'addressId'),
+	typeOfAddress: createOptionFromNullable(
+		keyof({ PresentAddress: null, FormerAddress: null, MailingAddress: null }),
+		'typeOfAddress',
+	),
+	address1: createOptionFromNullable(string, 'address1'),
+	city: createOptionFromNullable(string, 'city'),
+	state: createOptionFromNullable(string, 'state'),
+	zipCode: createOptionFromNullable(string, 'zipCode'),
+	country: createOptionFromNullable(string, 'country'),
+	active: createOptionFromNullable(boolean, 'active'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

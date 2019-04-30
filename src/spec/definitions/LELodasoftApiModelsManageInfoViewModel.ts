@@ -17,8 +17,11 @@ export type LELodasoftApiModelsManageInfoViewModel = {
 	externalLoginProviders: Option<Array<LELodasoftApiModelsExternalLoginViewModel>>;
 };
 export const LELodasoftApiModelsManageInfoViewModelIO = type({
-	localLoginProvider: createOptionFromNullable(string),
-	userName: createOptionFromNullable(string),
-	logins: createOptionFromNullable(array(LELodasoftApiModelsUserLoginInfoViewModelIO)),
-	externalLoginProviders: createOptionFromNullable(array(LELodasoftApiModelsExternalLoginViewModelIO)),
+	localLoginProvider: createOptionFromNullable(string, 'localLoginProvider'),
+	userName: createOptionFromNullable(string, 'userName'),
+	logins: createOptionFromNullable(array(LELodasoftApiModelsUserLoginInfoViewModelIO), 'logins'),
+	externalLoginProviders: createOptionFromNullable(
+		array(LELodasoftApiModelsExternalLoginViewModelIO),
+		'externalLoginProviders',
+	),
 });

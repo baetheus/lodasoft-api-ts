@@ -166,9 +166,9 @@ export const emailCampaignController = asks(
 		},
 
 		EmailCampaign_GetAllManualEmailTemplates: parameters => {
-			const encoded = partial({ query: type({ emailTemplateType: createOptionFromNullable(string) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ emailTemplateType: createOptionFromNullable(string, 'emailTemplateType') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/admin/email-campaigns/manual-templates`,
@@ -179,7 +179,10 @@ export const emailCampaignController = asks(
 
 		EmailCampaign_GetManualEmailTemplateById: (emailTemplateId, parameters) => {
 			const encoded = partial({
-				query: type({ loanId: createOptionFromNullable(number), leadId: createOptionFromNullable(number) }),
+				query: type({
+					loanId: createOptionFromNullable(number, 'loanId'),
+					leadId: createOptionFromNullable(number, 'leadId'),
+				}),
 			}).encode(parameters);
 
 			return e.API_CLIENT.request({

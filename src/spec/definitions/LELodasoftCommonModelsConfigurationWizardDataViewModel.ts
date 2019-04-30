@@ -10,9 +10,9 @@ export type LELodasoftCommonModelsConfigurationWizardDataViewModel = {
 	buttonImage: Option<string>;
 };
 export const LELodasoftCommonModelsConfigurationWizardDataViewModelIO = type({
-	id: createOptionFromNullable(number),
-	dataId: createOptionFromNullable(number),
-	value: createOptionFromNullable(string),
-	name: createOptionFromNullable(string),
-	buttonImage: createOptionFromNullable(string),
+	id: createOptionFromNullable(number, 'id'),
+	dataId: createOptionFromNullable(number, 'dataId'),
+	value: createOptionFromNullable(string, 'value'),
+	name: createOptionFromNullable(string, 'name'),
+	buttonImage: createOptionFromNullable(string, 'buttonImage'),
 });

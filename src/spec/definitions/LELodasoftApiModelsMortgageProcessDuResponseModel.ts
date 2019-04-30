@@ -7,6 +7,6 @@ export type LELodasoftApiModelsMortgageProcessDuResponseModel = {
 	primaryBorrowerId: Option<number>;
 };
 export const LELodasoftApiModelsMortgageProcessDuResponseModelIO = type({
-	applicationId: createOptionFromNullable(number),
-	primaryBorrowerId: createOptionFromNullable(number),
+	applicationId: createOptionFromNullable(number, 'applicationId'),
+	primaryBorrowerId: createOptionFromNullable(number, 'primaryBorrowerId'),
 });

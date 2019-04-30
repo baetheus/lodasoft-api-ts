@@ -8,7 +8,7 @@ export type LELodasoftCommonModelsAdminRecentApplicationView = {
 	displayText: Option<string>;
 };
 export const LELodasoftCommonModelsAdminRecentApplicationViewIO = type({
-	borrowerId: createOptionFromNullable(number),
-	applicationId: createOptionFromNullable(number),
-	displayText: createOptionFromNullable(string),
+	borrowerId: createOptionFromNullable(number, 'borrowerId'),
+	applicationId: createOptionFromNullable(number, 'applicationId'),
+	displayText: createOptionFromNullable(string, 'displayText'),
 });

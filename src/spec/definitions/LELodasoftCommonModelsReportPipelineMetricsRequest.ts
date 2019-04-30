@@ -12,11 +12,11 @@ export type LELodasoftCommonModelsReportPipelineMetricsRequest = {
 	loanStatusFilters: Option<Array<number>>;
 };
 export const LELodasoftCommonModelsReportPipelineMetricsRequestIO = type({
-	companyId: createOptionFromNullable(number),
-	startDate: createOptionFromNullable(DateFromISOString),
-	endDate: createOptionFromNullable(DateFromISOString),
-	reportType: createOptionFromNullable(keyof({ PipelineByCompany: null })),
-	activeLoansOnly: createOptionFromNullable(boolean),
-	loanPurposeFilters: createOptionFromNullable(array(number)),
-	loanStatusFilters: createOptionFromNullable(array(number)),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	startDate: createOptionFromNullable(DateFromISOString, 'startDate'),
+	endDate: createOptionFromNullable(DateFromISOString, 'endDate'),
+	reportType: createOptionFromNullable(keyof({ PipelineByCompany: null }), 'reportType'),
+	activeLoansOnly: createOptionFromNullable(boolean, 'activeLoansOnly'),
+	loanPurposeFilters: createOptionFromNullable(array(number), 'loanPurposeFilters'),
+	loanStatusFilters: createOptionFromNullable(array(number), 'loanStatusFilters'),
 });

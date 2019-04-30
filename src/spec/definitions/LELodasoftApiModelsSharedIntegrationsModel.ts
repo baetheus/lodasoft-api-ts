@@ -25,10 +25,14 @@ export type LELodasoftApiModelsSharedIntegrationsModel = {
 	thirdPartyCredentials: Option<Array<LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModel>>;
 };
 export const LELodasoftApiModelsSharedIntegrationsModelIO = type({
-	zillow: createOptionFromNullable(LELodasoftApiModelsSharedZillowIO),
-	leadPoint: createOptionFromNullable(LELodasoftApiModelsSharedLeadPointIO),
-	onlineApplications: createOptionFromNullable(LELodasoftApiModelsSharedOnlineApplicationsModelIO),
+	zillow: createOptionFromNullable(LELodasoftApiModelsSharedZillowIO, 'zillow'),
+	leadPoint: createOptionFromNullable(LELodasoftApiModelsSharedLeadPointIO, 'leadPoint'),
+	onlineApplications: createOptionFromNullable(
+		LELodasoftApiModelsSharedOnlineApplicationsModelIO,
+		'onlineApplications',
+	),
 	thirdPartyCredentials: createOptionFromNullable(
 		array(LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModelIO),
+		'thirdPartyCredentials',
 	),
 });

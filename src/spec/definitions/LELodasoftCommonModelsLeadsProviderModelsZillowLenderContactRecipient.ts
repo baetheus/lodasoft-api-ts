@@ -11,10 +11,10 @@ export type LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactRecipien
 	nmlsLicense: Option<string>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactRecipientIO = type({
-	lenderId: createOptionFromNullable(string),
-	firstName: createOptionFromNullable(string),
-	lastName: createOptionFromNullable(string),
-	emailAddress: createOptionFromNullable(string),
-	phoneNumber: createOptionFromNullable(string),
-	nmlsLicense: createOptionFromNullable(string),
+	lenderId: createOptionFromNullable(string, 'lenderId'),
+	firstName: createOptionFromNullable(string, 'firstName'),
+	lastName: createOptionFromNullable(string, 'lastName'),
+	emailAddress: createOptionFromNullable(string, 'emailAddress'),
+	phoneNumber: createOptionFromNullable(string, 'phoneNumber'),
+	nmlsLicense: createOptionFromNullable(string, 'nmlsLicense'),
 });

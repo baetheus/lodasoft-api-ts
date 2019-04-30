@@ -12,7 +12,7 @@ export type LELodasoftApiModelsFileExportDocumentModel = {
 	docFiles: Option<Array<LELodasoftApiModelsFileExportLoanDocModel>>;
 };
 export const LELodasoftApiModelsFileExportDocumentModelIO = type({
-	documentTypeId: createOptionFromNullable(number),
-	documentTypeName: createOptionFromNullable(string),
-	docFiles: createOptionFromNullable(array(LELodasoftApiModelsFileExportLoanDocModelIO)),
+	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
+	documentTypeName: createOptionFromNullable(string, 'documentTypeName'),
+	docFiles: createOptionFromNullable(array(LELodasoftApiModelsFileExportLoanDocModelIO), 'docFiles'),
 });

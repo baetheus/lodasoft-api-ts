@@ -11,10 +11,10 @@ export type LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModel 
 	baseType: Option<string>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModelIO = type({
-	mergeFieldId: createOptionFromNullable(number),
-	mergeText: createOptionFromNullable(string),
-	displayName: createOptionFromNullable(string),
-	table: createOptionFromNullable(string),
-	column: createOptionFromNullable(string),
-	baseType: createOptionFromNullable(string),
+	mergeFieldId: createOptionFromNullable(number, 'mergeFieldId'),
+	mergeText: createOptionFromNullable(string, 'mergeText'),
+	displayName: createOptionFromNullable(string, 'displayName'),
+	table: createOptionFromNullable(string, 'table'),
+	column: createOptionFromNullable(string, 'column'),
+	baseType: createOptionFromNullable(string, 'baseType'),
 });

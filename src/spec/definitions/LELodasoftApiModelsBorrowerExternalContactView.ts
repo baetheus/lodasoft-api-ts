@@ -14,13 +14,13 @@ export type LELodasoftApiModelsBorrowerExternalContactView = {
 	fax: Option<string>;
 };
 export const LELodasoftApiModelsBorrowerExternalContactViewIO = type({
-	agentId: createOptionFromNullable(number),
-	agentTypeId: createOptionFromNullable(number),
-	agentType: createOptionFromNullable(string),
-	firstName: createOptionFromNullable(string),
-	lastName: createOptionFromNullable(string),
-	phone: createOptionFromNullable(string),
-	email: createOptionFromNullable(string),
-	orgName: createOptionFromNullable(string),
-	fax: createOptionFromNullable(string),
+	agentId: createOptionFromNullable(number, 'agentId'),
+	agentTypeId: createOptionFromNullable(number, 'agentTypeId'),
+	agentType: createOptionFromNullable(string, 'agentType'),
+	firstName: createOptionFromNullable(string, 'firstName'),
+	lastName: createOptionFromNullable(string, 'lastName'),
+	phone: createOptionFromNullable(string, 'phone'),
+	email: createOptionFromNullable(string, 'email'),
+	orgName: createOptionFromNullable(string, 'orgName'),
+	fax: createOptionFromNullable(string, 'fax'),
 });

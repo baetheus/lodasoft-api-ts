@@ -16,15 +16,15 @@ export type LELodasoftDataAccessDbModelsSharedSmsServiceModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftDataAccessDbModelsSharedSmsServiceModelIO = type({
-	smsServiceId: createOptionFromNullable(number),
-	userId: createOptionFromNullable(string),
-	serviceType: createOptionFromNullable(string),
-	fromPhoneNumber: createOptionFromNullable(string),
-	accountIdentifier: createOptionFromNullable(string),
-	authToken: createOptionFromNullable(string),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	smsServiceId: createOptionFromNullable(number, 'smsServiceId'),
+	userId: createOptionFromNullable(string, 'userId'),
+	serviceType: createOptionFromNullable(string, 'serviceType'),
+	fromPhoneNumber: createOptionFromNullable(string, 'fromPhoneNumber'),
+	accountIdentifier: createOptionFromNullable(string, 'accountIdentifier'),
+	authToken: createOptionFromNullable(string, 'authToken'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

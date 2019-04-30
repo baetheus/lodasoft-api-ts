@@ -8,7 +8,7 @@ export type LELodasoftCommonModelsAdminGenerateDocumentRequest = {
 	replacementValues: Option<{ [key: string]: string }>;
 };
 export const LELodasoftCommonModelsAdminGenerateDocumentRequestIO = type({
-	documentTemplateId: createOptionFromNullable(number),
-	applicationId: createOptionFromNullable(number),
-	replacementValues: createOptionFromNullable(dictionary(string, string)),
+	documentTemplateId: createOptionFromNullable(number, 'documentTemplateId'),
+	applicationId: createOptionFromNullable(number, 'applicationId'),
+	replacementValues: createOptionFromNullable(dictionary(string, string), 'replacementValues'),
 });

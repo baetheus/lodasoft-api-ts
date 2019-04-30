@@ -20,15 +20,15 @@ export type LELodasoftCommonModelsConfigurationWizardTreeViewModel = {
 	answerList: Option<Array<LELodasoftCommonModelsConfigurationWizardDataViewModel>>;
 };
 export const LELodasoftCommonModelsConfigurationWizardTreeViewModelIO = type({
-	parentQuestionId: createOptionFromNullable(number),
-	parentRefId: createOptionFromNullable(number),
-	questionId: createOptionFromNullable(number),
-	questionRefId: createOptionFromNullable(number),
-	questionCategoryId: createOptionFromNullable(number),
-	questionAnswerId: createOptionFromNullable(number),
-	checkListItemId: createOptionFromNullable(string),
-	questionText: createOptionFromNullable(string),
-	answer: createOptionFromNullable(string),
-	answerValue: createOptionFromNullable(string),
-	answerList: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardDataViewModelIO)),
+	parentQuestionId: createOptionFromNullable(number, 'parentQuestionId'),
+	parentRefId: createOptionFromNullable(number, 'parentRefId'),
+	questionId: createOptionFromNullable(number, 'questionId'),
+	questionRefId: createOptionFromNullable(number, 'questionRefId'),
+	questionCategoryId: createOptionFromNullable(number, 'questionCategoryId'),
+	questionAnswerId: createOptionFromNullable(number, 'questionAnswerId'),
+	checkListItemId: createOptionFromNullable(string, 'checkListItemId'),
+	questionText: createOptionFromNullable(string, 'questionText'),
+	answer: createOptionFromNullable(string, 'answer'),
+	answerValue: createOptionFromNullable(string, 'answerValue'),
+	answerList: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardDataViewModelIO), 'answerList'),
 });

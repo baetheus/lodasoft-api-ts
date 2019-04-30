@@ -4,5 +4,5 @@ import { createOptionFromNullable } from 'io-ts-types';
 
 export type LELodasoftCommonModelsSharedGeneratePrequalLetterResponse = { docFileGuid: Option<string> };
 export const LELodasoftCommonModelsSharedGeneratePrequalLetterResponseIO = type({
-	docFileGuid: createOptionFromNullable(string),
+	docFileGuid: createOptionFromNullable(string, 'docFileGuid'),
 });

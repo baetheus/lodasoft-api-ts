@@ -14,13 +14,13 @@ export type LELodasoftDataAccessDbModelsSharedEmailServiceModel = {
 	companyId: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsSharedEmailServiceModelIO = type({
-	serviceType: createOptionFromNullable(string),
-	server: createOptionFromNullable(string),
-	port: createOptionFromNullable(number),
-	userName: createOptionFromNullable(string),
-	password: createOptionFromNullable(string),
-	isSecure: createOptionFromNullable(boolean),
-	userId: createOptionFromNullable(string),
-	servicesUrl: createOptionFromNullable(string),
-	companyId: createOptionFromNullable(number),
+	serviceType: createOptionFromNullable(string, 'serviceType'),
+	server: createOptionFromNullable(string, 'server'),
+	port: createOptionFromNullable(number, 'port'),
+	userName: createOptionFromNullable(string, 'userName'),
+	password: createOptionFromNullable(string, 'password'),
+	isSecure: createOptionFromNullable(boolean, 'isSecure'),
+	userId: createOptionFromNullable(string, 'userId'),
+	servicesUrl: createOptionFromNullable(string, 'servicesUrl'),
+	companyId: createOptionFromNullable(number, 'companyId'),
 });

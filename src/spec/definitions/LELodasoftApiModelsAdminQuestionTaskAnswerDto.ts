@@ -179,14 +179,14 @@ export type LELodasoftApiModelsAdminQuestionTaskAnswerDto = {
 	qaTaskId: Option<Array<number>>;
 };
 export const LELodasoftApiModelsAdminQuestionTaskAnswerDtoIO = type({
-	questionAnswerId: createOptionFromNullable(number),
-	questionId: createOptionFromNullable(number),
-	companyId: createOptionFromNullable(number),
-	answerText: createOptionFromNullable(string),
-	sortValue: createOptionFromNullable(number),
-	require: createOptionFromNullable(boolean),
-	tableName: createOptionFromNullable(string),
-	columnName: createOptionFromNullable(string),
+	questionAnswerId: createOptionFromNullable(number, 'questionAnswerId'),
+	questionId: createOptionFromNullable(number, 'questionId'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	answerText: createOptionFromNullable(string, 'answerText'),
+	sortValue: createOptionFromNullable(number, 'sortValue'),
+	require: createOptionFromNullable(boolean, 'require'),
+	tableName: createOptionFromNullable(string, 'tableName'),
+	columnName: createOptionFromNullable(string, 'columnName'),
 	dataType: createOptionFromNullable(
 		keyof({
 			Immediately: null,
@@ -269,6 +269,7 @@ export const LELodasoftApiModelsAdminQuestionTaskAnswerDtoIO = type({
 			FailedEmailAlert: null,
 			FailedSmsAlert: null,
 		}),
+		'dataType',
 	),
 	comparisonType: createOptionFromNullable(
 		keyof({
@@ -352,9 +353,10 @@ export const LELodasoftApiModelsAdminQuestionTaskAnswerDtoIO = type({
 			FailedEmailAlert: null,
 			FailedSmsAlert: null,
 		}),
+		'comparisonType',
 	),
-	compareValue: createOptionFromNullable(string),
-	documentTypeId: createOptionFromNullable(number),
-	exist: createOptionFromNullable(boolean),
-	qaTaskId: createOptionFromNullable(array(number)),
+	compareValue: createOptionFromNullable(string, 'compareValue'),
+	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
+	exist: createOptionFromNullable(boolean, 'exist'),
+	qaTaskId: createOptionFromNullable(array(number), 'qaTaskId'),
 });

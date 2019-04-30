@@ -8,7 +8,7 @@ export type LELodasoftApiModelsBorrowerLoanCharacteristicView = {
 	selectedCharacteristics: Option<Array<number>>;
 };
 export const LELodasoftApiModelsBorrowerLoanCharacteristicViewIO = type({
-	loanCharacteristicId: createOptionFromNullable(number),
-	applicationId: createOptionFromNullable(number),
-	selectedCharacteristics: createOptionFromNullable(array(number)),
+	loanCharacteristicId: createOptionFromNullable(number, 'loanCharacteristicId'),
+	applicationId: createOptionFromNullable(number, 'applicationId'),
+	selectedCharacteristics: createOptionFromNullable(array(number), 'selectedCharacteristics'),
 });

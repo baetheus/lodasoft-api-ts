@@ -23,14 +23,17 @@ export type LELodasoftApiModelsMortgageProcessDuViewModel = {
 	alignmentGroupId: Option<string>;
 };
 export const LELodasoftApiModelsMortgageProcessDuViewModelIO = type({
-	mortgageViewModel: createOptionFromNullable(LELodasoftCommonModelsMortgageMortgageViewModelIO),
-	loanNumber: createOptionFromNullable(string),
-	losIdentifier: createOptionFromNullable(string),
-	credentialId: createOptionFromNullable(number),
-	linkBorrowers: createOptionFromNullable(dictionary(string, number)),
-	loanCharacteristics: createOptionFromNullable(array(number)),
-	borrowerCharacteristics: createOptionFromNullable(array(LELodasoftApiModelsBorrowerBorrowerCharacteristicViewIO)),
-	loanPurposeId: createOptionFromNullable(number),
-	loanTypeId: createOptionFromNullable(number),
-	alignmentGroupId: createOptionFromNullable(string),
+	mortgageViewModel: createOptionFromNullable(LELodasoftCommonModelsMortgageMortgageViewModelIO, 'mortgageViewModel'),
+	loanNumber: createOptionFromNullable(string, 'loanNumber'),
+	losIdentifier: createOptionFromNullable(string, 'losIdentifier'),
+	credentialId: createOptionFromNullable(number, 'credentialId'),
+	linkBorrowers: createOptionFromNullable(dictionary(string, number), 'linkBorrowers'),
+	loanCharacteristics: createOptionFromNullable(array(number), 'loanCharacteristics'),
+	borrowerCharacteristics: createOptionFromNullable(
+		array(LELodasoftApiModelsBorrowerBorrowerCharacteristicViewIO),
+		'borrowerCharacteristics',
+	),
+	loanPurposeId: createOptionFromNullable(number, 'loanPurposeId'),
+	loanTypeId: createOptionFromNullable(number, 'loanTypeId'),
+	alignmentGroupId: createOptionFromNullable(string, 'alignmentGroupId'),
 });

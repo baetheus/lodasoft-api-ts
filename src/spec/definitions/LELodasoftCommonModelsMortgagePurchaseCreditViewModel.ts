@@ -41,8 +41,8 @@ export type LELodasoftCommonModelsMortgagePurchaseCreditViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO = type({
-	purchaseCreditId: createOptionFromNullable(number),
-	transactionDetailId: createOptionFromNullable(number),
+	purchaseCreditId: createOptionFromNullable(number, 'purchaseCreditId'),
+	transactionDetailId: createOptionFromNullable(number, 'transactionDetailId'),
 	purchaseCreditType: createOptionFromNullable(
 		keyof({
 			BridgeLoan: null,
@@ -72,11 +72,12 @@ export const LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO = type({
 			Other: null,
 			LenderCredit: null,
 		}),
+		'purchaseCreditType',
 	),
-	purchaseCreditAmount: createOptionFromNullable(number),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	purchaseCreditAmount: createOptionFromNullable(number, 'purchaseCreditAmount'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

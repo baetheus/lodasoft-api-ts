@@ -13,12 +13,12 @@ export type LELodasoftDataAccessModelsReportPipelineMetricsModel = {
 	loanType: Option<string>;
 };
 export const LELodasoftDataAccessModelsReportPipelineMetricsModelIO = type({
-	loanStatus: createOptionFromNullable(string),
-	primaryRoleUser: createOptionFromNullable(string),
-	applicationId: createOptionFromNullable(number),
-	primaryBorrowerId: createOptionFromNullable(number),
-	borrowerName: createOptionFromNullable(string),
-	loanAmount: createOptionFromNullable(number),
-	loanPurpose: createOptionFromNullable(string),
-	loanType: createOptionFromNullable(string),
+	loanStatus: createOptionFromNullable(string, 'loanStatus'),
+	primaryRoleUser: createOptionFromNullable(string, 'primaryRoleUser'),
+	applicationId: createOptionFromNullable(number, 'applicationId'),
+	primaryBorrowerId: createOptionFromNullable(number, 'primaryBorrowerId'),
+	borrowerName: createOptionFromNullable(string, 'borrowerName'),
+	loanAmount: createOptionFromNullable(number, 'loanAmount'),
+	loanPurpose: createOptionFromNullable(string, 'loanPurpose'),
+	loanType: createOptionFromNullable(string, 'loanType'),
 });

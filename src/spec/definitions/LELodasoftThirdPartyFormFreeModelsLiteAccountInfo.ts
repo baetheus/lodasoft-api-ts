@@ -15,14 +15,14 @@ export type LELodasoftThirdPartyFormFreeModelsLiteAccountInfo = {
 	balanceDate: Option<Date>;
 };
 export const LELodasoftThirdPartyFormFreeModelsLiteAccountInfoIO = type({
-	accountId: createOptionFromNullable(string),
-	accountType: createOptionFromNullable(keyof({ DDA: null, SDA: null, INV: null, OLA: null })),
-	accountName: createOptionFromNullable(string),
-	accountNumber: createOptionFromNullable(string),
-	accountHolder: createOptionFromNullable(string),
-	fiName: createOptionFromNullable(string),
-	fiAccountType: createOptionFromNullable(string),
-	fiPlanName: createOptionFromNullable(string),
-	balance: createOptionFromNullable(number),
-	balanceDate: createOptionFromNullable(DateFromISOString),
+	accountId: createOptionFromNullable(string, 'accountId'),
+	accountType: createOptionFromNullable(keyof({ DDA: null, SDA: null, INV: null, OLA: null }), 'accountType'),
+	accountName: createOptionFromNullable(string, 'accountName'),
+	accountNumber: createOptionFromNullable(string, 'accountNumber'),
+	accountHolder: createOptionFromNullable(string, 'accountHolder'),
+	fiName: createOptionFromNullable(string, 'fiName'),
+	fiAccountType: createOptionFromNullable(string, 'fiAccountType'),
+	fiPlanName: createOptionFromNullable(string, 'fiPlanName'),
+	balance: createOptionFromNullable(number, 'balance'),
+	balanceDate: createOptionFromNullable(DateFromISOString, 'balanceDate'),
 });

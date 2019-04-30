@@ -15,14 +15,14 @@ export type LELodasoftCommonModelsLeadsProviderModelsCustomDataInfo = {
 	customData10: Option<string>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsCustomDataInfoIO = type({
-	customData1: createOptionFromNullable(string),
-	customData2: createOptionFromNullable(string),
-	customData3: createOptionFromNullable(string),
-	customData4: createOptionFromNullable(string),
-	customData5: createOptionFromNullable(string),
-	customData6: createOptionFromNullable(string),
-	customData7: createOptionFromNullable(string),
-	customData8: createOptionFromNullable(string),
-	customData9: createOptionFromNullable(string),
-	customData10: createOptionFromNullable(string),
+	customData1: createOptionFromNullable(string, 'customData1'),
+	customData2: createOptionFromNullable(string, 'customData2'),
+	customData3: createOptionFromNullable(string, 'customData3'),
+	customData4: createOptionFromNullable(string, 'customData4'),
+	customData5: createOptionFromNullable(string, 'customData5'),
+	customData6: createOptionFromNullable(string, 'customData6'),
+	customData7: createOptionFromNullable(string, 'customData7'),
+	customData8: createOptionFromNullable(string, 'customData8'),
+	customData9: createOptionFromNullable(string, 'customData9'),
+	customData10: createOptionFromNullable(string, 'customData10'),
 });

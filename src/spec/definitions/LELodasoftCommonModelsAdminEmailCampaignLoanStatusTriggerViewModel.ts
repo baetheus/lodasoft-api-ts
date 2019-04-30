@@ -15,14 +15,14 @@ export type LELodasoftCommonModelsAdminEmailCampaignLoanStatusTriggerViewModel =
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsAdminEmailCampaignLoanStatusTriggerViewModelIO = type({
-	emailCampaignLoanStatusTriggerId: createOptionFromNullable(number),
-	emailCampaignId: createOptionFromNullable(number),
-	loanPurposeId: createOptionFromNullable(number),
-	loanStatusId: createOptionFromNullable(number),
-	loanTypeId: createOptionFromNullable(number),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	emailCampaignLoanStatusTriggerId: createOptionFromNullable(number, 'emailCampaignLoanStatusTriggerId'),
+	emailCampaignId: createOptionFromNullable(number, 'emailCampaignId'),
+	loanPurposeId: createOptionFromNullable(number, 'loanPurposeId'),
+	loanStatusId: createOptionFromNullable(number, 'loanStatusId'),
+	loanTypeId: createOptionFromNullable(number, 'loanTypeId'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

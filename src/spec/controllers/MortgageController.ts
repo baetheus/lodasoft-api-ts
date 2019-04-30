@@ -177,7 +177,7 @@ export const mortgageController = asks(
 
 		Mortgage_InsertMortgage: parameters => {
 			const encoded = partial({
-				query: type({ mapFromApplication: createOptionFromNullable(boolean) }),
+				query: type({ mapFromApplication: createOptionFromNullable(boolean, 'mapFromApplication') }),
 				body: LELodasoftCommonModelsMortgageMortgageViewModelIO,
 			}).encode(parameters);
 

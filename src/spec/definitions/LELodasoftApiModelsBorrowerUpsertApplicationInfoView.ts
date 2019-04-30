@@ -15,6 +15,6 @@ export type LELodasoftApiModelsBorrowerUpsertApplicationInfoView = {
 	loanDocTasks: Option<Array<LELodasoftCommonModelsLoanLoanDocTaskViewModel>>;
 };
 export const LELodasoftApiModelsBorrowerUpsertApplicationInfoViewIO = type({
-	application: createOptionFromNullable(LELodasoftCommonModelsConfigurationApplicationViewModelIO),
-	loanDocTasks: createOptionFromNullable(array(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO)),
+	application: createOptionFromNullable(LELodasoftCommonModelsConfigurationApplicationViewModelIO, 'application'),
+	loanDocTasks: createOptionFromNullable(array(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO), 'loanDocTasks'),
 });

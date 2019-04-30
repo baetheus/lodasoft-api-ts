@@ -9,8 +9,8 @@ export type LELodasoftApiModelsSystemVersionResult = {
 	port: Option<number>;
 };
 export const LELodasoftApiModelsSystemVersionResultIO = type({
-	assemblyVersion: createOptionFromNullable(string),
-	assemblyInformation: createOptionFromNullable(string),
-	machineName: createOptionFromNullable(string),
-	port: createOptionFromNullable(number),
+	assemblyVersion: createOptionFromNullable(string, 'assemblyVersion'),
+	assemblyInformation: createOptionFromNullable(string, 'assemblyInformation'),
+	machineName: createOptionFromNullable(string, 'machineName'),
+	port: createOptionFromNullable(number, 'port'),
 });

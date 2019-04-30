@@ -14,13 +14,13 @@ export type LELodasoftCommonModelsThirdPartyThirdPartyKeyValuePairViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsThirdPartyThirdPartyKeyValuePairViewModelIO = type({
-	thirdPartyKeyValueId: createOptionFromNullable(number),
-	key: createOptionFromNullable(string),
-	value: createOptionFromNullable(string),
-	credentialId: createOptionFromNullable(number),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	thirdPartyKeyValueId: createOptionFromNullable(number, 'thirdPartyKeyValueId'),
+	key: createOptionFromNullable(string, 'key'),
+	value: createOptionFromNullable(string, 'value'),
+	credentialId: createOptionFromNullable(number, 'credentialId'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

@@ -14,13 +14,13 @@ export type LELodasoftCommonModelsAdminAgentListViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsAdminAgentListViewModelIO = type({
-	agentListId: createOptionFromNullable(number),
-	name: createOptionFromNullable(string),
-	description: createOptionFromNullable(string),
-	agentIds: createOptionFromNullable(array(number)),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	agentListId: createOptionFromNullable(number, 'agentListId'),
+	name: createOptionFromNullable(string, 'name'),
+	description: createOptionFromNullable(string, 'description'),
+	agentIds: createOptionFromNullable(array(number), 'agentIds'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

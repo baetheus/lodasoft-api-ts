@@ -14,9 +14,9 @@ export type LELodasoftDataAccessDbModelsAdminStackingOrderModel = {
 	associate: Option<string>;
 };
 export const LELodasoftDataAccessDbModelsAdminStackingOrderModelIO = type({
-	stakingOrderId: createOptionFromNullable(number),
-	companyId: createOptionFromNullable(number),
-	company: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO),
-	docType: createOptionFromNullable(string),
-	associate: createOptionFromNullable(string),
+	stakingOrderId: createOptionFromNullable(number, 'stakingOrderId'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	company: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'company'),
+	docType: createOptionFromNullable(string, 'docType'),
+	associate: createOptionFromNullable(string, 'associate'),
 });

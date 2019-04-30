@@ -15,14 +15,14 @@ export type LELodasoftApiModelsAdminInviteViewModel = {
 	active: Option<boolean>;
 };
 export const LELodasoftApiModelsAdminInviteViewModelIO = type({
-	userName: createOptionFromNullable(string),
-	email: createOptionFromNullable(string),
-	firstName: createOptionFromNullable(string),
-	lastName: createOptionFromNullable(string),
-	companyId: createOptionFromNullable(number),
-	sentDate: createOptionFromNullable(DateFromISOString),
-	registerDate: createOptionFromNullable(DateFromISOString),
-	isAdmin: createOptionFromNullable(boolean),
-	userId: createOptionFromNullable(string),
-	active: createOptionFromNullable(boolean),
+	userName: createOptionFromNullable(string, 'userName'),
+	email: createOptionFromNullable(string, 'email'),
+	firstName: createOptionFromNullable(string, 'firstName'),
+	lastName: createOptionFromNullable(string, 'lastName'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	sentDate: createOptionFromNullable(DateFromISOString, 'sentDate'),
+	registerDate: createOptionFromNullable(DateFromISOString, 'registerDate'),
+	isAdmin: createOptionFromNullable(boolean, 'isAdmin'),
+	userId: createOptionFromNullable(string, 'userId'),
+	active: createOptionFromNullable(boolean, 'active'),
 });

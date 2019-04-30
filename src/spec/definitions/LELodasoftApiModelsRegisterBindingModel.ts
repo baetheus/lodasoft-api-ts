@@ -10,5 +10,5 @@ export type LELodasoftApiModelsRegisterBindingModel = {
 export const LELodasoftApiModelsRegisterBindingModelIO = type({
 	email: string,
 	password: string,
-	confirmPassword: createOptionFromNullable(string),
+	confirmPassword: createOptionFromNullable(string, 'confirmPassword'),
 });

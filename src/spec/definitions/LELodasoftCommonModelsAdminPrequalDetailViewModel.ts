@@ -16,15 +16,15 @@ export type LELodasoftCommonModelsAdminPrequalDetailViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsAdminPrequalDetailViewModelIO = type({
-	prequalDetailId: createOptionFromNullable(number),
-	applicationId: createOptionFromNullable(number),
-	loanProgramDescription: createOptionFromNullable(string),
-	maxPurchasePrice: createOptionFromNullable(number),
-	downPaymentPercent: createOptionFromNullable(number),
-	interestRate: createOptionFromNullable(number),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	prequalDetailId: createOptionFromNullable(number, 'prequalDetailId'),
+	applicationId: createOptionFromNullable(number, 'applicationId'),
+	loanProgramDescription: createOptionFromNullable(string, 'loanProgramDescription'),
+	maxPurchasePrice: createOptionFromNullable(number, 'maxPurchasePrice'),
+	downPaymentPercent: createOptionFromNullable(number, 'downPaymentPercent'),
+	interestRate: createOptionFromNullable(number, 'interestRate'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

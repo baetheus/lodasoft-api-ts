@@ -14,9 +14,9 @@ export type LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrower = {
 	employer: Option<LELodasoftThirdPartyTheWorkNumberModelsVerificationEmployer>;
 };
 export const LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrowerIO = type({
-	firstName: createOptionFromNullable(string),
-	middleName: createOptionFromNullable(string),
-	lastName: createOptionFromNullable(string),
-	ssn: createOptionFromNullable(string),
-	employer: createOptionFromNullable(LELodasoftThirdPartyTheWorkNumberModelsVerificationEmployerIO),
+	firstName: createOptionFromNullable(string, 'firstName'),
+	middleName: createOptionFromNullable(string, 'middleName'),
+	lastName: createOptionFromNullable(string, 'lastName'),
+	ssn: createOptionFromNullable(string, 'ssn'),
+	employer: createOptionFromNullable(LELodasoftThirdPartyTheWorkNumberModelsVerificationEmployerIO, 'employer'),
 });

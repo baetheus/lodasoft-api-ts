@@ -10,5 +10,5 @@ export type LELodasoftApiModelsSharedOnlineApplicationsModel = {
 	wizardUrls: Option<Array<LELodasoftApiModelsSharedOnlineWizardModel>>;
 };
 export const LELodasoftApiModelsSharedOnlineApplicationsModelIO = type({
-	wizardUrls: createOptionFromNullable(array(LELodasoftApiModelsSharedOnlineWizardModelIO)),
+	wizardUrls: createOptionFromNullable(array(LELodasoftApiModelsSharedOnlineWizardModelIO), 'wizardUrls'),
 });

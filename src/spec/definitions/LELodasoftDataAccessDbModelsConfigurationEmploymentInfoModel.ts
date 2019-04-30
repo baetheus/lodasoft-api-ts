@@ -13,12 +13,12 @@ export type LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModel = {
 	current: Option<boolean>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModelIO = type({
-	employementInfoId: createOptionFromNullable(number),
-	companyName: createOptionFromNullable(string),
-	position: createOptionFromNullable(string),
-	years: createOptionFromNullable(number),
-	months: createOptionFromNullable(number),
-	monthlyIncome: createOptionFromNullable(number),
-	borrowerId: createOptionFromNullable(number),
-	current: createOptionFromNullable(boolean),
+	employementInfoId: createOptionFromNullable(number, 'employementInfoId'),
+	companyName: createOptionFromNullable(string, 'companyName'),
+	position: createOptionFromNullable(string, 'position'),
+	years: createOptionFromNullable(number, 'years'),
+	months: createOptionFromNullable(number, 'months'),
+	monthlyIncome: createOptionFromNullable(number, 'monthlyIncome'),
+	borrowerId: createOptionFromNullable(number, 'borrowerId'),
+	current: createOptionFromNullable(boolean, 'current'),
 });

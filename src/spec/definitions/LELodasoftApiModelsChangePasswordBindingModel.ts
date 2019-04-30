@@ -10,5 +10,5 @@ export type LELodasoftApiModelsChangePasswordBindingModel = {
 export const LELodasoftApiModelsChangePasswordBindingModelIO = type({
 	oldPassword: string,
 	newPassword: string,
-	confirmPassword: createOptionFromNullable(string),
+	confirmPassword: createOptionFromNullable(string, 'confirmPassword'),
 });

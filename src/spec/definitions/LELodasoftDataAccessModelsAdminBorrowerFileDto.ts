@@ -14,13 +14,13 @@ export type LELodasoftDataAccessModelsAdminBorrowerFileDto = {
 	active: Option<boolean>;
 };
 export const LELodasoftDataAccessModelsAdminBorrowerFileDtoIO = type({
-	guid: createOptionFromNullable(string),
-	loanDocId: createOptionFromNullable(number),
-	fileName: createOptionFromNullable(string),
-	note: createOptionFromNullable(string),
-	borrowerNote: createOptionFromNullable(string),
-	condition: createOptionFromNullable(boolean),
-	createDate: createOptionFromNullable(DateFromISOString),
-	expirationDate: createOptionFromNullable(DateFromISOString),
-	active: createOptionFromNullable(boolean),
+	guid: createOptionFromNullable(string, 'guid'),
+	loanDocId: createOptionFromNullable(number, 'loanDocId'),
+	fileName: createOptionFromNullable(string, 'fileName'),
+	note: createOptionFromNullable(string, 'note'),
+	borrowerNote: createOptionFromNullable(string, 'borrowerNote'),
+	condition: createOptionFromNullable(boolean, 'condition'),
+	createDate: createOptionFromNullable(DateFromISOString, 'createDate'),
+	expirationDate: createOptionFromNullable(DateFromISOString, 'expirationDate'),
+	active: createOptionFromNullable(boolean, 'active'),
 });

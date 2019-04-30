@@ -11,8 +11,9 @@ export type LELodasoftApiModelsAdminGetAllEmailCampaignTrigger = {
 	listEmailCampaignTriggerModel: Option<Array<LELodasoftApiModelsAdminEmailCampaignTriggerModelView>>;
 };
 export const LELodasoftApiModelsAdminGetAllEmailCampaignTriggerIO = type({
-	group: createOptionFromNullable(string),
+	group: createOptionFromNullable(string, 'group'),
 	listEmailCampaignTriggerModel: createOptionFromNullable(
 		array(LELodasoftApiModelsAdminEmailCampaignTriggerModelViewIO),
+		'listEmailCampaignTriggerModel',
 	),
 });

@@ -16,15 +16,15 @@ export type LELodasoftDataAccessModelsReportTaskMetricsModel = {
 	avgBorrApproval: Option<number>;
 };
 export const LELodasoftDataAccessModelsReportTaskMetricsModelIO = type({
-	userId: createOptionFromNullable(string),
-	userFullName: createOptionFromNullable(string),
-	applicationId: createOptionFromNullable(number),
-	roleId: createOptionFromNullable(number),
-	loanPurpose: createOptionFromNullable(number),
-	loanType: createOptionFromNullable(number),
-	taskCount: createOptionFromNullable(number),
-	taskIdentifier: createOptionFromNullable(string),
-	avgTaskCompletion: createOptionFromNullable(number),
-	avgBorrSubmission: createOptionFromNullable(number),
-	avgBorrApproval: createOptionFromNullable(number),
+	userId: createOptionFromNullable(string, 'userId'),
+	userFullName: createOptionFromNullable(string, 'userFullName'),
+	applicationId: createOptionFromNullable(number, 'applicationId'),
+	roleId: createOptionFromNullable(number, 'roleId'),
+	loanPurpose: createOptionFromNullable(number, 'loanPurpose'),
+	loanType: createOptionFromNullable(number, 'loanType'),
+	taskCount: createOptionFromNullable(number, 'taskCount'),
+	taskIdentifier: createOptionFromNullable(string, 'taskIdentifier'),
+	avgTaskCompletion: createOptionFromNullable(number, 'avgTaskCompletion'),
+	avgBorrSubmission: createOptionFromNullable(number, 'avgBorrSubmission'),
+	avgBorrApproval: createOptionFromNullable(number, 'avgBorrApproval'),
 });

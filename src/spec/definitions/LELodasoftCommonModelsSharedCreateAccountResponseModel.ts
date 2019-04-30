@@ -9,8 +9,8 @@ export type LELodasoftCommonModelsSharedCreateAccountResponseModel = {
 	errorMessage: Option<string>;
 };
 export const LELodasoftCommonModelsSharedCreateAccountResponseModelIO = type({
-	userId: createOptionFromNullable(string),
-	success: createOptionFromNullable(boolean),
-	alreadyRegistered: createOptionFromNullable(boolean),
-	errorMessage: createOptionFromNullable(string),
+	userId: createOptionFromNullable(string, 'userId'),
+	success: createOptionFromNullable(boolean, 'success'),
+	alreadyRegistered: createOptionFromNullable(boolean, 'alreadyRegistered'),
+	errorMessage: createOptionFromNullable(string, 'errorMessage'),
 });

@@ -15,6 +15,9 @@ export type LELodasoftApiModelsBorrowerUpsertLoanCharacteristicView = {
 	loanDocTasks: Option<Array<LELodasoftCommonModelsLoanLoanDocTaskViewModel>>;
 };
 export const LELodasoftApiModelsBorrowerUpsertLoanCharacteristicViewIO = type({
-	loanCharacteristic: createOptionFromNullable(LELodasoftApiModelsBorrowerLoanCharacteristicViewIO),
-	loanDocTasks: createOptionFromNullable(array(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO)),
+	loanCharacteristic: createOptionFromNullable(
+		LELodasoftApiModelsBorrowerLoanCharacteristicViewIO,
+		'loanCharacteristic',
+	),
+	loanDocTasks: createOptionFromNullable(array(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO), 'loanDocTasks'),
 });

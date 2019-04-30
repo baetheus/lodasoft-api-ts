@@ -11,10 +11,16 @@ export type LELodasoftDataAccessDbModelsConfigurationCharacteristicModel = {
 	order: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO = type({
-	taskCategoryId: createOptionFromNullable(number),
-	taskCategoryName: createOptionFromNullable(string),
-	companyId: createOptionFromNullable(number),
-	taskOption: createOptionFromNullable(keyof({ AutoApply: null, Confirm: null, RequestQuantity: null })),
-	characteristicType: createOptionFromNullable(keyof({ LoanCharacteristic: null, BorrowerCharacteristic: null })),
-	order: createOptionFromNullable(number),
+	taskCategoryId: createOptionFromNullable(number, 'taskCategoryId'),
+	taskCategoryName: createOptionFromNullable(string, 'taskCategoryName'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	taskOption: createOptionFromNullable(
+		keyof({ AutoApply: null, Confirm: null, RequestQuantity: null }),
+		'taskOption',
+	),
+	characteristicType: createOptionFromNullable(
+		keyof({ LoanCharacteristic: null, BorrowerCharacteristic: null }),
+		'characteristicType',
+	),
+	order: createOptionFromNullable(number, 'order'),
 });

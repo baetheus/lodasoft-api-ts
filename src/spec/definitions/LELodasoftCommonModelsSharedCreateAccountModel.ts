@@ -14,5 +14,5 @@ export const LELodasoftCommonModelsSharedCreateAccountModelIO = type({
 	lastName: string,
 	userName: string,
 	password: string,
-	confirmPassword: createOptionFromNullable(string),
+	confirmPassword: createOptionFromNullable(string, 'confirmPassword'),
 });

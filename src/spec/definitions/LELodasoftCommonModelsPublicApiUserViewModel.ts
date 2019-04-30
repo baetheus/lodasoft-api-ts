@@ -9,8 +9,8 @@ export type LELodasoftCommonModelsPublicApiUserViewModel = {
 	lastName: Option<string>;
 };
 export const LELodasoftCommonModelsPublicApiUserViewModelIO = type({
-	userId: createOptionFromNullable(string),
-	avatar: createOptionFromNullable(string),
-	firstName: createOptionFromNullable(string),
-	lastName: createOptionFromNullable(string),
+	userId: createOptionFromNullable(string, 'userId'),
+	avatar: createOptionFromNullable(string, 'avatar'),
+	firstName: createOptionFromNullable(string, 'firstName'),
+	lastName: createOptionFromNullable(string, 'lastName'),
 });

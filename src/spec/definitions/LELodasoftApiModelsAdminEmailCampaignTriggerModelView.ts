@@ -30,19 +30,26 @@ export type LELodasoftApiModelsAdminEmailCampaignTriggerModelView = {
 	listGlobalEmail: Option<Array<LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModel>>;
 };
 export const LELodasoftApiModelsAdminEmailCampaignTriggerModelViewIO = type({
-	id: createOptionFromNullable(number),
-	emailCampaignId: createOptionFromNullable(number),
-	fieldName: createOptionFromNullable(number),
-	comparisionType: createOptionFromNullable(number),
-	compareValue: createOptionFromNullable(string),
-	companyId: createOptionFromNullable(number),
-	group: createOptionFromNullable(string),
-	emailCampaignIdString: createOptionFromNullable(string),
-	comparisionTypeString: createOptionFromNullable(string),
-	fieldNameString: createOptionFromNullable(string),
-	listComparision: createOptionFromNullable(array(LELodasoftDataAccessDbModelsAdminLookupTypeModelIO)),
-	listEmailCampaign: createOptionFromNullable(array(LELodasoftDataAccessDbModelsConfigurationEmailCampaignModelIO)),
+	id: createOptionFromNullable(number, 'id'),
+	emailCampaignId: createOptionFromNullable(number, 'emailCampaignId'),
+	fieldName: createOptionFromNullable(number, 'fieldName'),
+	comparisionType: createOptionFromNullable(number, 'comparisionType'),
+	compareValue: createOptionFromNullable(string, 'compareValue'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	group: createOptionFromNullable(string, 'group'),
+	emailCampaignIdString: createOptionFromNullable(string, 'emailCampaignIdString'),
+	comparisionTypeString: createOptionFromNullable(string, 'comparisionTypeString'),
+	fieldNameString: createOptionFromNullable(string, 'fieldNameString'),
+	listComparision: createOptionFromNullable(
+		array(LELodasoftDataAccessDbModelsAdminLookupTypeModelIO),
+		'listComparision',
+	),
+	listEmailCampaign: createOptionFromNullable(
+		array(LELodasoftDataAccessDbModelsConfigurationEmailCampaignModelIO),
+		'listEmailCampaign',
+	),
 	listGlobalEmail: createOptionFromNullable(
 		array(LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModelIO),
+		'listGlobalEmail',
 	),
 });

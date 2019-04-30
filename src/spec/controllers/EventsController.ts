@@ -130,9 +130,9 @@ export const eventsController = asks(
 		Events_GetAllEvents: parameters => {
 			const encoded = partial({
 				query: type({
-					filterdate: createOptionFromNullable(string),
-					applicationId: createOptionFromNullable(number),
-					leadId: createOptionFromNullable(number),
+					filterdate: createOptionFromNullable(string, 'filterdate'),
+					applicationId: createOptionFromNullable(number, 'applicationId'),
+					leadId: createOptionFromNullable(number, 'leadId'),
 				}),
 			}).encode(parameters);
 

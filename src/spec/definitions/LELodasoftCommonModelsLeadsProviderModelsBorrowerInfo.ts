@@ -17,12 +17,12 @@ export type LELodasoftCommonModelsLeadsProviderModelsBorrowerInfo = {
 	creditScore: Option<number>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsBorrowerInfoIO = type({
-	firstName: createOptionFromNullable(string),
-	lastName: createOptionFromNullable(string),
-	birthDate: createOptionFromNullable(DateFromISOString),
-	email: createOptionFromNullable(string),
-	phone: createOptionFromNullable(string),
-	workPhone: createOptionFromNullable(string),
-	mailingAddress: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsAddressInfoIO),
-	creditScore: createOptionFromNullable(number),
+	firstName: createOptionFromNullable(string, 'firstName'),
+	lastName: createOptionFromNullable(string, 'lastName'),
+	birthDate: createOptionFromNullable(DateFromISOString, 'birthDate'),
+	email: createOptionFromNullable(string, 'email'),
+	phone: createOptionFromNullable(string, 'phone'),
+	workPhone: createOptionFromNullable(string, 'workPhone'),
+	mailingAddress: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsAddressInfoIO, 'mailingAddress'),
+	creditScore: createOptionFromNullable(number, 'creditScore'),
 });

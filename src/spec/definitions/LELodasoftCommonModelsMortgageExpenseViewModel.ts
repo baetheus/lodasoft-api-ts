@@ -25,9 +25,9 @@ export type LELodasoftCommonModelsMortgageExpenseViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageExpenseViewModelIO = type({
-	expenseId: createOptionFromNullable(number),
-	borrowerId: createOptionFromNullable(number),
-	monthlyAmount: createOptionFromNullable(number),
+	expenseId: createOptionFromNullable(number, 'expenseId'),
+	borrowerId: createOptionFromNullable(number, 'borrowerId'),
+	monthlyAmount: createOptionFromNullable(number, 'monthlyAmount'),
 	expenseType: createOptionFromNullable(
 		keyof({
 			FirstMortgagePrincipalAndInterest: null,
@@ -40,11 +40,12 @@ export const LELodasoftCommonModelsMortgageExpenseViewModelIO = type({
 			RealEstateTax: null,
 			Rent: null,
 		}),
+		'expenseType',
 	),
-	isCurrent: createOptionFromNullable(boolean),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	isCurrent: createOptionFromNullable(boolean, 'isCurrent'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

@@ -1,12 +1,22 @@
+import {
+	LELodasoftCommonModelsMortgageEmploymentViewModel,
+	LELodasoftCommonModelsMortgageEmploymentViewModelIO,
+} from '../definitions/LELodasoftCommonModelsMortgageEmploymentViewModel';
+import {
+	LELodasoftCommonModelsMortgageReoViewModel,
+	LELodasoftCommonModelsMortgageReoViewModelIO,
+} from '../definitions/LELodasoftCommonModelsMortgageReoViewModel';
 import { Option } from 'fp-ts/lib/Option';
-import { boolean, keyof, number, string, type } from 'io-ts';
+import { number, keyof, boolean, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 export type LELodasoftCommonModelsMortgageIncomeViewModel = {
 	incomeId: Option<number>;
 	borrowerId: Option<number>;
 	employmentId: Option<number>;
+	employmentModel: Option<LELodasoftCommonModelsMortgageEmploymentViewModel>;
 	reoId: Option<number>;
+	reoModel: Option<LELodasoftCommonModelsMortgageReoViewModel>;
 	monthlyIncome: Option<number>;
 	typeOfIncome: Option<
 		| 'AlimonyChildSupport'
@@ -60,11 +70,13 @@ export type LELodasoftCommonModelsMortgageIncomeViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageIncomeViewModelIO = type({
-	incomeId: createOptionFromNullable(number),
-	borrowerId: createOptionFromNullable(number),
-	employmentId: createOptionFromNullable(number),
-	reoId: createOptionFromNullable(number),
-	monthlyIncome: createOptionFromNullable(number),
+	incomeId: createOptionFromNullable(number, 'incomeId'),
+	borrowerId: createOptionFromNullable(number, 'borrowerId'),
+	employmentId: createOptionFromNullable(number, 'employmentId'),
+	employmentModel: createOptionFromNullable(LELodasoftCommonModelsMortgageEmploymentViewModelIO, 'employmentModel'),
+	reoId: createOptionFromNullable(number, 'reoId'),
+	reoModel: createOptionFromNullable(LELodasoftCommonModelsMortgageReoViewModelIO, 'reoModel'),
+	monthlyIncome: createOptionFromNullable(number, 'monthlyIncome'),
 	typeOfIncome: createOptionFromNullable(
 		keyof({
 			AlimonyChildSupport: null,
@@ -100,6 +112,7 @@ export const LELodasoftCommonModelsMortgageIncomeViewModelIO = type({
 			SelfEmployment: null,
 			IndependentContractor: null,
 		}),
+		'typeOfIncome',
 	),
 	categoryOfIncome: createOptionFromNullable(
 		keyof({
@@ -112,11 +125,12 @@ export const LELodasoftCommonModelsMortgageIncomeViewModelIO = type({
 			BuisnessSelfEmployment: null,
 			Other: null,
 		}),
+		'categoryOfIncome',
 	),
-	fromCreditReport: createOptionFromNullable(boolean),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	fromCreditReport: createOptionFromNullable(boolean, 'fromCreditReport'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

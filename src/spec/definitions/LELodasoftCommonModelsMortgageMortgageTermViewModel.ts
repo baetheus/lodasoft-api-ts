@@ -20,23 +20,25 @@ export type LELodasoftCommonModelsMortgageMortgageTermViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageMortgageTermViewModelIO = type({
-	mortgageTermId: createOptionFromNullable(number),
+	mortgageTermId: createOptionFromNullable(number, 'mortgageTermId'),
 	mortgageAppliedFor: createOptionFromNullable(
 		keyof({ VA: null, FHA: null, Conventional: null, USDARuralHousingService: null, OtherMortgage: null }),
+		'mortgageAppliedFor',
 	),
-	agencyCaseNumber: createOptionFromNullable(string),
-	lenderCaseNumber: createOptionFromNullable(string),
-	amount: createOptionFromNullable(number),
-	appraisedValue: createOptionFromNullable(number),
-	interestRate: createOptionFromNullable(number),
-	noOfMonths: createOptionFromNullable(number),
+	agencyCaseNumber: createOptionFromNullable(string, 'agencyCaseNumber'),
+	lenderCaseNumber: createOptionFromNullable(string, 'lenderCaseNumber'),
+	amount: createOptionFromNullable(number, 'amount'),
+	appraisedValue: createOptionFromNullable(number, 'appraisedValue'),
+	interestRate: createOptionFromNullable(number, 'interestRate'),
+	noOfMonths: createOptionFromNullable(number, 'noOfMonths'),
 	amortizationType: createOptionFromNullable(
 		keyof({ FixedRate: null, GEM: null, GPM: null, ARM: null, OtherAmortization: null }),
+		'amortizationType',
 	),
-	lienPosition: createOptionFromNullable(keyof({ FirstLien: null, SecondLien: null, Other: null })),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	lienPosition: createOptionFromNullable(keyof({ FirstLien: null, SecondLien: null, Other: null }), 'lienPosition'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

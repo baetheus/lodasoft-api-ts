@@ -13,12 +13,12 @@ export type LELodasoftCommonModelsConfigurationWizardGroupViewModel = {
 	validate: Option<string>;
 };
 export const LELodasoftCommonModelsConfigurationWizardGroupViewModelIO = type({
-	id: createOptionFromNullable(number),
-	groupId: createOptionFromNullable(number),
-	questionId: createOptionFromNullable(number),
-	categoryId: createOptionFromNullable(number),
-	name: createOptionFromNullable(string),
-	question: createOptionFromNullable(string),
-	answer: createOptionFromNullable(string),
-	validate: createOptionFromNullable(string),
+	id: createOptionFromNullable(number, 'id'),
+	groupId: createOptionFromNullable(number, 'groupId'),
+	questionId: createOptionFromNullable(number, 'questionId'),
+	categoryId: createOptionFromNullable(number, 'categoryId'),
+	name: createOptionFromNullable(string, 'name'),
+	question: createOptionFromNullable(string, 'question'),
+	answer: createOptionFromNullable(string, 'answer'),
+	validate: createOptionFromNullable(string, 'validate'),
 });

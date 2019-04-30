@@ -114,9 +114,9 @@ export const fileController = asks(
 		},
 
 		File_UpsertFileFromTask: (taskId, parameters) => {
-			const encoded = partial({ query: type({ autoTransition: createOptionFromNullable(boolean) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ autoTransition: createOptionFromNullable(boolean, 'autoTransition') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/File/UpsertFileFromTask/${encodeURIComponent(number.encode(taskId).toString())}`,

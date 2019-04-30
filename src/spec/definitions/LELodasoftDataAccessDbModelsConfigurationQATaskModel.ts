@@ -13,12 +13,12 @@ export type LELodasoftDataAccessDbModelsConfigurationQATaskModel = {
 	requestBorrower: Option<boolean>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationQATaskModelIO = type({
-	qaTaskId: createOptionFromNullable(number),
-	taskName: createOptionFromNullable(string),
-	roleId: createOptionFromNullable(number),
-	documentTypeId: createOptionFromNullable(number),
-	dueDays: createOptionFromNullable(number),
-	borrowerTrigger: createOptionFromNullable(number),
-	companyId: createOptionFromNullable(number),
-	requestBorrower: createOptionFromNullable(boolean),
+	qaTaskId: createOptionFromNullable(number, 'qaTaskId'),
+	taskName: createOptionFromNullable(string, 'taskName'),
+	roleId: createOptionFromNullable(number, 'roleId'),
+	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
+	dueDays: createOptionFromNullable(number, 'dueDays'),
+	borrowerTrigger: createOptionFromNullable(number, 'borrowerTrigger'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	requestBorrower: createOptionFromNullable(boolean, 'requestBorrower'),
 });

@@ -13,8 +13,14 @@ export type LELodasoftCommonModelsLoanMergeDocFilesRequest = {
 	newFileName: Option<string>;
 };
 export const LELodasoftCommonModelsLoanMergeDocFilesRequestIO = type({
-	newSourceDocFileBase64Content: createOptionFromNullable(dictionary(string, string)),
-	mergeInstructions: createOptionFromNullable(array(LELodasoftCommonModelsLoanMergeDocFilesInstructionIO)),
-	originalFileGuid: createOptionFromNullable(string),
-	newFileName: createOptionFromNullable(string),
+	newSourceDocFileBase64Content: createOptionFromNullable(
+		dictionary(string, string),
+		'newSourceDocFileBase64Content',
+	),
+	mergeInstructions: createOptionFromNullable(
+		array(LELodasoftCommonModelsLoanMergeDocFilesInstructionIO),
+		'mergeInstructions',
+	),
+	originalFileGuid: createOptionFromNullable(string, 'originalFileGuid'),
+	newFileName: createOptionFromNullable(string, 'newFileName'),
 });

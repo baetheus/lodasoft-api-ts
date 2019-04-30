@@ -22,5 +22,5 @@ export const LELodasoftCommonModelsThirdPartyCreditCreditRequestModelIO = type({
 	experian: boolean,
 	equifax: boolean,
 	transUnion: boolean,
-	creditReferenceNumber: createOptionFromNullable(string),
+	creditReferenceNumber: createOptionFromNullable(string, 'creditReferenceNumber'),
 });

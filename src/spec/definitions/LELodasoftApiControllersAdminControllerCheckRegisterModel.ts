@@ -7,6 +7,6 @@ export type LELodasoftApiControllersAdminControllerCheckRegisterModel = {
 	token: Option<string>;
 };
 export const LELodasoftApiControllersAdminControllerCheckRegisterModelIO = type({
-	username: createOptionFromNullable(string),
-	token: createOptionFromNullable(string),
+	username: createOptionFromNullable(string, 'username'),
+	token: createOptionFromNullable(string, 'token'),
 });

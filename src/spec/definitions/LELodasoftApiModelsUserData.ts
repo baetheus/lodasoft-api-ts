@@ -16,11 +16,11 @@ export type LELodasoftApiModelsUserData = {
 	avatar: Option<string>;
 };
 export const LELodasoftApiModelsUserDataIO = type({
-	userId: createOptionFromNullable(string),
-	email: createOptionFromNullable(string),
-	phoneNumber: createOptionFromNullable(string),
-	twoFactor: createOptionFromNullable(boolean),
-	logins: createOptionFromNullable(array(MicrosoftAspNetIdentityUserLoginInfoIO)),
-	lastTimeLogin: createOptionFromNullable(DateFromISOString),
-	avatar: createOptionFromNullable(string),
+	userId: createOptionFromNullable(string, 'userId'),
+	email: createOptionFromNullable(string, 'email'),
+	phoneNumber: createOptionFromNullable(string, 'phoneNumber'),
+	twoFactor: createOptionFromNullable(boolean, 'twoFactor'),
+	logins: createOptionFromNullable(array(MicrosoftAspNetIdentityUserLoginInfoIO), 'logins'),
+	lastTimeLogin: createOptionFromNullable(DateFromISOString, 'lastTimeLogin'),
+	avatar: createOptionFromNullable(string, 'avatar'),
 });

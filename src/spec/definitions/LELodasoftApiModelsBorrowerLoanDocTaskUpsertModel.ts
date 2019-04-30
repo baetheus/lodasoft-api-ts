@@ -13,8 +13,8 @@ export type LELodasoftApiModelsBorrowerLoanDocTaskUpsertModel = {
 	expirationDate: Option<Date>;
 };
 export const LELodasoftApiModelsBorrowerLoanDocTaskUpsertModelIO = type({
-	loanDocTask: createOptionFromNullable(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO),
-	multipleBorrower: createOptionFromNullable(array(number)),
-	numFiles: createOptionFromNullable(number),
-	expirationDate: createOptionFromNullable(DateFromISOString),
+	loanDocTask: createOptionFromNullable(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO, 'loanDocTask'),
+	multipleBorrower: createOptionFromNullable(array(number), 'multipleBorrower'),
+	numFiles: createOptionFromNullable(number, 'numFiles'),
+	expirationDate: createOptionFromNullable(DateFromISOString, 'expirationDate'),
 });

@@ -13,8 +13,8 @@ export type LELodasoftApiModelsBorrowerBorrowerFull = {
 	accountStatus: Option<'NotInvited' | 'Invited' | 'Live'>;
 };
 export const LELodasoftApiModelsBorrowerBorrowerFullIO = type({
-	portalUserName: createOptionFromNullable(string),
-	borrower: createOptionFromNullable(LELodasoftDataAccessDbModelsAdminBorrowerModelIO),
-	isEdit: createOptionFromNullable(boolean),
-	accountStatus: createOptionFromNullable(keyof({ NotInvited: null, Invited: null, Live: null })),
+	portalUserName: createOptionFromNullable(string, 'portalUserName'),
+	borrower: createOptionFromNullable(LELodasoftDataAccessDbModelsAdminBorrowerModelIO, 'borrower'),
+	isEdit: createOptionFromNullable(boolean, 'isEdit'),
+	accountStatus: createOptionFromNullable(keyof({ NotInvited: null, Invited: null, Live: null }), 'accountStatus'),
 });

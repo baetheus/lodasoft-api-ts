@@ -12,11 +12,11 @@ export type LELodasoftApiModelsSharedPortalContentViewModel = {
 	showPrequalLetterGeneration: Option<boolean>;
 };
 export const LELodasoftApiModelsSharedPortalContentViewModelIO = type({
-	companyId: createOptionFromNullable(number),
-	userId: createOptionFromNullable(string),
-	aboutUsContent: createOptionFromNullable(string),
-	referralContent: createOptionFromNullable(string),
-	showReferralTerms: createOptionFromNullable(boolean),
-	referralTermsContent: createOptionFromNullable(string),
-	showPrequalLetterGeneration: createOptionFromNullable(boolean),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	userId: createOptionFromNullable(string, 'userId'),
+	aboutUsContent: createOptionFromNullable(string, 'aboutUsContent'),
+	referralContent: createOptionFromNullable(string, 'referralContent'),
+	showReferralTerms: createOptionFromNullable(boolean, 'showReferralTerms'),
+	referralTermsContent: createOptionFromNullable(string, 'referralTermsContent'),
+	showPrequalLetterGeneration: createOptionFromNullable(boolean, 'showPrequalLetterGeneration'),
 });

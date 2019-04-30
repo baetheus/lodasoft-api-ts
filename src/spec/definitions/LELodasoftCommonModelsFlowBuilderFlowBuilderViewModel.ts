@@ -17,16 +17,16 @@ export type LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO = type({
-	id: createOptionFromNullable(number),
+	id: createOptionFromNullable(number, 'id'),
 	flowType: keyof({ Unspecified: null, LeadPost: null, OnlineApplication: null, ContactStrategy: null }),
 	title: string,
 	comment: string,
-	data: createOptionFromNullable(string),
-	flowGuid: createOptionFromNullable(string),
+	data: createOptionFromNullable(string, 'data'),
+	flowGuid: createOptionFromNullable(string, 'flowGuid'),
 	active: boolean,
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

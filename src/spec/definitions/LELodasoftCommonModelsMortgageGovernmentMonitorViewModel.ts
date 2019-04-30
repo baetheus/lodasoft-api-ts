@@ -35,9 +35,9 @@ export type LELodasoftCommonModelsMortgageGovernmentMonitorViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO = type({
-	governmentMonitorId: createOptionFromNullable(number),
-	borrowerId: createOptionFromNullable(number),
-	isFurnishInfo: createOptionFromNullable(boolean),
+	governmentMonitorId: createOptionFromNullable(number, 'governmentMonitorId'),
+	borrowerId: createOptionFromNullable(number, 'borrowerId'),
+	isFurnishInfo: createOptionFromNullable(boolean, 'isFurnishInfo'),
 	ethnicity: createOptionFromNullable(
 		keyof({
 			AmericanIndianOrAlaskaNative: null,
@@ -49,6 +49,7 @@ export const LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO = type({
 			InformationNotProvided: null,
 			NotApplicable: null,
 		}),
+		'ethnicity',
 	),
 	race: createOptionFromNullable(
 		keyof({
@@ -62,13 +63,15 @@ export const LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO = type({
 			InformationNotProvided: null,
 			NotApplicable: null,
 		}),
+		'race',
 	),
 	sex: createOptionFromNullable(
 		keyof({ Female: null, Male: null, InformationNotProvided: null, NotApplicable: null }),
+		'sex',
 	),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

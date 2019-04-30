@@ -19,10 +19,10 @@ export type LELodasoftDataAccessDbModelsConfigurationChecklistItemModel = {
 	companyModel: Option<LELodasoftDataAccessDbModelsConfigurationCompanyModel>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationChecklistItemModelIO = type({
-	checkListItemId: createOptionFromNullable(number),
-	checkListName: createOptionFromNullable(string),
-	loanStatusId: createOptionFromNullable(number),
-	loanStatus: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO),
-	companyId: createOptionFromNullable(number),
-	companyModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO),
+	checkListItemId: createOptionFromNullable(number, 'checkListItemId'),
+	checkListName: createOptionFromNullable(string, 'checkListName'),
+	loanStatusId: createOptionFromNullable(number, 'loanStatusId'),
+	loanStatus: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO, 'loanStatus'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	companyModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'companyModel'),
 });

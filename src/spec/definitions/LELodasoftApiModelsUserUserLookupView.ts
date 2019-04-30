@@ -9,8 +9,8 @@ export type LELodasoftApiModelsUserUserLookupView = {
 	roleId: Option<number>;
 };
 export const LELodasoftApiModelsUserUserLookupViewIO = type({
-	id: createOptionFromNullable(string),
-	firstName: createOptionFromNullable(string),
-	lastName: createOptionFromNullable(string),
-	roleId: createOptionFromNullable(number),
+	id: createOptionFromNullable(string, 'id'),
+	firstName: createOptionFromNullable(string, 'firstName'),
+	lastName: createOptionFromNullable(string, 'lastName'),
+	roleId: createOptionFromNullable(number, 'roleId'),
 });

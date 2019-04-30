@@ -10,9 +10,9 @@ export type LELodasoftCommonModelsSharedRegisterModel = {
 	confirmPassword: Option<string>;
 };
 export const LELodasoftCommonModelsSharedRegisterModelIO = type({
-	token: createOptionFromNullable(string),
-	isConfirmed: createOptionFromNullable(boolean),
+	token: createOptionFromNullable(string, 'token'),
+	isConfirmed: createOptionFromNullable(boolean, 'isConfirmed'),
 	userName: string,
 	password: string,
-	confirmPassword: createOptionFromNullable(string),
+	confirmPassword: createOptionFromNullable(string, 'confirmPassword'),
 });

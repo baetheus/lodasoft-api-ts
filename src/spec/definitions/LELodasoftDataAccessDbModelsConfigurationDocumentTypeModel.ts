@@ -9,8 +9,8 @@ export type LELodasoftDataAccessDbModelsConfigurationDocumentTypeModel = {
 	order: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationDocumentTypeModelIO = type({
-	documentTypeId: createOptionFromNullable(number),
-	companyId: createOptionFromNullable(number),
-	documentTypeName: createOptionFromNullable(string),
-	order: createOptionFromNullable(number),
+	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	documentTypeName: createOptionFromNullable(string, 'documentTypeName'),
+	order: createOptionFromNullable(number, 'order'),
 });

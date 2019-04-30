@@ -12,7 +12,7 @@ export type LELodasoftCommonModelsSharedPortalTasks = {
 	approved: Option<Array<LELodasoftCommonModelsSharedPortalTaskModel>>;
 };
 export const LELodasoftCommonModelsSharedPortalTasksIO = type({
-	requested: createOptionFromNullable(array(LELodasoftCommonModelsSharedPortalTaskModelIO)),
-	submitted: createOptionFromNullable(array(LELodasoftCommonModelsSharedPortalTaskModelIO)),
-	approved: createOptionFromNullable(array(LELodasoftCommonModelsSharedPortalTaskModelIO)),
+	requested: createOptionFromNullable(array(LELodasoftCommonModelsSharedPortalTaskModelIO), 'requested'),
+	submitted: createOptionFromNullable(array(LELodasoftCommonModelsSharedPortalTaskModelIO), 'submitted'),
+	approved: createOptionFromNullable(array(LELodasoftCommonModelsSharedPortalTaskModelIO), 'approved'),
 });

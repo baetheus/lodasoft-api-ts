@@ -12,7 +12,7 @@ export type LELodasoftCommonModelsConfigurationWizardDataIdViewModel = {
 	dataList: Option<Array<LELodasoftCommonModelsConfigurationWizardDataViewModel>>;
 };
 export const LELodasoftCommonModelsConfigurationWizardDataIdViewModelIO = type({
-	id: createOptionFromNullable(number),
-	name: createOptionFromNullable(string),
-	dataList: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardDataViewModelIO)),
+	id: createOptionFromNullable(number, 'id'),
+	name: createOptionFromNullable(string, 'name'),
+	dataList: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardDataViewModelIO), 'dataList'),
 });

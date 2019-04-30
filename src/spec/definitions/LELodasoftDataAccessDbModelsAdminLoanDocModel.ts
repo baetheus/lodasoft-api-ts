@@ -19,14 +19,14 @@ export type LELodasoftDataAccessDbModelsAdminLoanDocModel = {
 	docFiles: Option<Array<LELodasoftDataAccessDbModelsAdminDocFileModel>>;
 };
 export const LELodasoftDataAccessDbModelsAdminLoanDocModelIO = type({
-	loanDocId: createOptionFromNullable(number),
-	applicationId: createOptionFromNullable(number),
-	borrowerID: createOptionFromNullable(number),
-	documentTypeId: createOptionFromNullable(number),
-	description: createOptionFromNullable(string),
-	note: createOptionFromNullable(string),
-	expirationDate: createOptionFromNullable(DateFromISOString),
-	retask: createOptionFromNullable(boolean),
-	active: createOptionFromNullable(boolean),
-	docFiles: createOptionFromNullable(array(LELodasoftDataAccessDbModelsAdminDocFileModelIO)),
+	loanDocId: createOptionFromNullable(number, 'loanDocId'),
+	applicationId: createOptionFromNullable(number, 'applicationId'),
+	borrowerID: createOptionFromNullable(number, 'borrowerID'),
+	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
+	description: createOptionFromNullable(string, 'description'),
+	note: createOptionFromNullable(string, 'note'),
+	expirationDate: createOptionFromNullable(DateFromISOString, 'expirationDate'),
+	retask: createOptionFromNullable(boolean, 'retask'),
+	active: createOptionFromNullable(boolean, 'active'),
+	docFiles: createOptionFromNullable(array(LELodasoftDataAccessDbModelsAdminDocFileModelIO), 'docFiles'),
 });

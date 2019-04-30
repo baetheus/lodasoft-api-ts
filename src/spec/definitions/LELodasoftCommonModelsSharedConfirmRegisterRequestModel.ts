@@ -7,6 +7,6 @@ export type LELodasoftCommonModelsSharedConfirmRegisterRequestModel = {
 	token: Option<string>;
 };
 export const LELodasoftCommonModelsSharedConfirmRegisterRequestModelIO = type({
-	userName: createOptionFromNullable(string),
-	token: createOptionFromNullable(string),
+	userName: createOptionFromNullable(string, 'userName'),
+	token: createOptionFromNullable(string, 'token'),
 });

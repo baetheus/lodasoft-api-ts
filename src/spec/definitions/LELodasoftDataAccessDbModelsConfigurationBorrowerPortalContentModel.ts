@@ -12,11 +12,11 @@ export type LELodasoftDataAccessDbModelsConfigurationBorrowerPortalContentModel 
 	referralTermsContent: Option<string>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationBorrowerPortalContentModelIO = type({
-	id: createOptionFromNullable(number),
-	companyId: createOptionFromNullable(number),
-	userId: createOptionFromNullable(string),
-	aboutUsContent: createOptionFromNullable(string),
-	referralContent: createOptionFromNullable(string),
-	showReferralTerms: createOptionFromNullable(boolean),
-	referralTermsContent: createOptionFromNullable(string),
+	id: createOptionFromNullable(number, 'id'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	userId: createOptionFromNullable(string, 'userId'),
+	aboutUsContent: createOptionFromNullable(string, 'aboutUsContent'),
+	referralContent: createOptionFromNullable(string, 'referralContent'),
+	showReferralTerms: createOptionFromNullable(boolean, 'showReferralTerms'),
+	referralTermsContent: createOptionFromNullable(string, 'referralTermsContent'),
 });

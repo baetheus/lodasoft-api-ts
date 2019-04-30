@@ -10,9 +10,9 @@ export type LELodasoftCommonModelsLeadsProviderModelsAddressInfo = {
 	zip: Option<string>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsAddressInfoIO = type({
-	address1: createOptionFromNullable(string),
-	address2: createOptionFromNullable(string),
-	city: createOptionFromNullable(string),
-	state: createOptionFromNullable(string),
-	zip: createOptionFromNullable(string),
+	address1: createOptionFromNullable(string, 'address1'),
+	address2: createOptionFromNullable(string, 'address2'),
+	city: createOptionFromNullable(string, 'city'),
+	state: createOptionFromNullable(string, 'state'),
+	zip: createOptionFromNullable(string, 'zip'),
 });

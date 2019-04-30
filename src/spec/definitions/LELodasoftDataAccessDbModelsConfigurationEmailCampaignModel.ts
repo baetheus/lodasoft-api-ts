@@ -14,13 +14,13 @@ export type LELodasoftDataAccessDbModelsConfigurationEmailCampaignModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationEmailCampaignModelIO = type({
-	emailCampaignId: createOptionFromNullable(number),
-	emailCampaignName: createOptionFromNullable(string),
-	repeatDays: createOptionFromNullable(number),
-	active: createOptionFromNullable(boolean),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	emailCampaignId: createOptionFromNullable(number, 'emailCampaignId'),
+	emailCampaignName: createOptionFromNullable(string, 'emailCampaignName'),
+	repeatDays: createOptionFromNullable(number, 'repeatDays'),
+	active: createOptionFromNullable(boolean, 'active'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

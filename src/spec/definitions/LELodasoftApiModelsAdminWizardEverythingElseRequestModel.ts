@@ -7,6 +7,6 @@ export type LELodasoftApiModelsAdminWizardEverythingElseRequestModel = {
 	destinationCompanyId: Option<number>;
 };
 export const LELodasoftApiModelsAdminWizardEverythingElseRequestModelIO = type({
-	templateCompanyId: createOptionFromNullable(number),
-	destinationCompanyId: createOptionFromNullable(number),
+	templateCompanyId: createOptionFromNullable(number, 'templateCompanyId'),
+	destinationCompanyId: createOptionFromNullable(number, 'destinationCompanyId'),
 });

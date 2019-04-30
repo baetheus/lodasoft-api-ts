@@ -13,12 +13,12 @@ export type LELodasoftDataAccessDbModelsConfigurationAgentTypeModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationAgentTypeModelIO = type({
-	agentTypeId: createOptionFromNullable(number),
-	agentTypeName: createOptionFromNullable(string),
-	order: createOptionFromNullable(number),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	agentTypeId: createOptionFromNullable(number, 'agentTypeId'),
+	agentTypeName: createOptionFromNullable(string, 'agentTypeName'),
+	order: createOptionFromNullable(number, 'order'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

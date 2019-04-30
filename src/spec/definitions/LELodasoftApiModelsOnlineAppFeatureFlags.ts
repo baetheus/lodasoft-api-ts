@@ -9,8 +9,8 @@ export type LELodasoftApiModelsOnlineAppFeatureFlags = {
 	lpaEnabled: Option<boolean>;
 };
 export const LELodasoftApiModelsOnlineAppFeatureFlagsIO = type({
-	voaEnabled: createOptionFromNullable(boolean),
-	creditPullEnabled: createOptionFromNullable(boolean),
-	duEnabled: createOptionFromNullable(boolean),
-	lpaEnabled: createOptionFromNullable(boolean),
+	voaEnabled: createOptionFromNullable(boolean, 'voaEnabled'),
+	creditPullEnabled: createOptionFromNullable(boolean, 'creditPullEnabled'),
+	duEnabled: createOptionFromNullable(boolean, 'duEnabled'),
+	lpaEnabled: createOptionFromNullable(boolean, 'lpaEnabled'),
 });

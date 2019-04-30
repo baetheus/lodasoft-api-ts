@@ -13,10 +13,10 @@ export type LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageRequest 
 };
 export const LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageRequestIO = type({
 	companyGuid: string,
-	userGuid: createOptionFromNullable(string),
-	loanPurposeId: createOptionFromNullable(number),
+	userGuid: createOptionFromNullable(string, 'userGuid'),
+	loanPurposeId: createOptionFromNullable(number, 'loanPurposeId'),
 	firstName: string,
 	lastName: string,
 	email: string,
-	password: createOptionFromNullable(string),
+	password: createOptionFromNullable(string, 'password'),
 });

@@ -3,4 +3,6 @@ import { string, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
 
 export type LELodasoftApiModelsSharedLeadPoint = { leadPostUrl: Option<string> };
-export const LELodasoftApiModelsSharedLeadPointIO = type({ leadPostUrl: createOptionFromNullable(string) });
+export const LELodasoftApiModelsSharedLeadPointIO = type({
+	leadPostUrl: createOptionFromNullable(string, 'leadPostUrl'),
+});

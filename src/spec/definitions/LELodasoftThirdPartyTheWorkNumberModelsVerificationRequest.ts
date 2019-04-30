@@ -13,8 +13,8 @@ export type LELodasoftThirdPartyTheWorkNumberModelsVerificationRequest = {
 	borrower: Option<LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrower>;
 };
 export const LELodasoftThirdPartyTheWorkNumberModelsVerificationRequestIO = type({
-	requestType: createOptionFromNullable(keyof({ VOE: null, VOI: null })),
-	responseFormat: createOptionFromNullable(keyof({ Pdf: null, Xml: null })),
-	referenceNumber: createOptionFromNullable(string),
-	borrower: createOptionFromNullable(LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrowerIO),
+	requestType: createOptionFromNullable(keyof({ VOE: null, VOI: null }), 'requestType'),
+	responseFormat: createOptionFromNullable(keyof({ Pdf: null, Xml: null }), 'responseFormat'),
+	referenceNumber: createOptionFromNullable(string, 'referenceNumber'),
+	borrower: createOptionFromNullable(LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrowerIO, 'borrower'),
 });

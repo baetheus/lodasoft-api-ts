@@ -1346,9 +1346,9 @@ export type AdminController = {
 export const adminController = asks(
 	(e: { API_CLIENT: TAPIClient; PREFIX: string }): AdminController => ({
 		Admin_GetAllByCompanyId: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/GetAllProductByCompanyId`,
@@ -1358,9 +1358,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetProductById: (productId, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/GetProductById/${encodeURIComponent(number.encode(productId).toString())}`,
@@ -1371,7 +1371,7 @@ export const adminController = asks(
 
 		Admin_UpdateProduct: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationProductModelIO,
 			}).encode(parameters);
 
@@ -1385,7 +1385,7 @@ export const adminController = asks(
 
 		Admin_InsertProduct: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationProductModelIO,
 			}).encode(parameters);
 
@@ -1398,9 +1398,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteProduct: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteProduct/${encodeURIComponent(number.encode(id).toString())}`,
@@ -1410,9 +1410,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllQuestion: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllQuestion`,
@@ -1423,7 +1423,7 @@ export const adminController = asks(
 
 		Admin_UpdateQuestion: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationQuestionModelIO,
 			}).encode(parameters);
 
@@ -1437,7 +1437,7 @@ export const adminController = asks(
 
 		Admin_InsertQuestion: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationQuestionModelIO,
 			}).encode(parameters);
 
@@ -1450,9 +1450,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteQuestion: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteQuestion/${encodeURIComponent(number.encode(id).toString())}`,
@@ -1462,9 +1462,9 @@ export const adminController = asks(
 		},
 
 		Admin_QuestionAnswerGroupByQuestion: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/QuestionAnswerGroupByQuestion`,
@@ -1474,9 +1474,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllQuestionAnswer: (questionId, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllQuestionAnswer/${encodeURIComponent(
@@ -1489,7 +1489,7 @@ export const adminController = asks(
 
 		Admin_UpdateQuestionAnswer: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftApiModelsAdminQuestionTaskAnswerDtoIO,
 			}).encode(parameters);
 
@@ -1503,7 +1503,7 @@ export const adminController = asks(
 
 		Admin_InsertQuestionAnswer: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftApiModelsAdminQuestionTaskAnswerDtoIO,
 			}).encode(parameters);
 
@@ -1516,9 +1516,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteQuestionAnswer: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteQuestionAnswer/${encodeURIComponent(number.encode(id).toString())}`,
@@ -1528,9 +1528,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllQATaskModel: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllQATaskModel`,
@@ -1541,7 +1541,7 @@ export const adminController = asks(
 
 		Admin_UpdateQATaskModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationQATaskModelIO,
 			}).encode(parameters);
 
@@ -1555,7 +1555,7 @@ export const adminController = asks(
 
 		Admin_InsertQATaskModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationQATaskModelIO,
 			}).encode(parameters);
 
@@ -1568,9 +1568,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteQATaskModel: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteQATaskModel/${encodeURIComponent(number.encode(id).toString())}`,
@@ -1580,9 +1580,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllCheckListItem: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllCheckListItem`,
@@ -1593,7 +1593,7 @@ export const adminController = asks(
 
 		Admin_UpdateCheckListItem: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationChecklistItemModelIO,
 			}).encode(parameters);
 
@@ -1607,7 +1607,7 @@ export const adminController = asks(
 
 		Admin_InsertCheckListItem: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationChecklistItemModelIO,
 			}).encode(parameters);
 
@@ -1620,9 +1620,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteCheckListItem: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteCheckListItem/${encodeURIComponent(number.encode(id).toString())}`,
@@ -1632,9 +1632,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetSetupReferenceByTemplateCompany_CompanyId: (TemplateCompanyId, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/GetSetupReferenceByTemplateCompany_CompanyId/${encodeURIComponent(
@@ -1647,7 +1647,7 @@ export const adminController = asks(
 
 		Admin_UpsertSetupReference: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationSetupReferenceModelIO,
 			}).encode(parameters);
 
@@ -1660,9 +1660,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetPageResource: (page, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/PageResource/${encodeURIComponent(string.encode(page).toString())}`,
@@ -1763,9 +1763,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetPermissionMenu: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/PermissionMenu`,
@@ -1782,9 +1782,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllUserModel: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllUserModel`,
@@ -1795,7 +1795,7 @@ export const adminController = asks(
 
 		Admin_UpdateUserModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsUserProfileIO,
 			}).encode(parameters);
 
@@ -1809,7 +1809,7 @@ export const adminController = asks(
 
 		Admin_InsertUserModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsUserProfileIO,
 			}).encode(parameters);
 
@@ -1822,9 +1822,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteUserModel: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteUserModel/${encodeURIComponent(string.encode(id).toString())}`,
@@ -1842,7 +1842,7 @@ export const adminController = asks(
 
 		Admin_UpdateCompanyModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationCompanyModelIO,
 			}).encode(parameters);
 
@@ -1888,9 +1888,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteInvite: (userId, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteInvite/${encodeURIComponent(string.encode(userId).toString())}`,
@@ -1900,9 +1900,9 @@ export const adminController = asks(
 		},
 
 		Admin_ResendInvite: (userId, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/ResendInvite/${encodeURIComponent(string.encode(userId).toString())}`,
@@ -1913,7 +1913,7 @@ export const adminController = asks(
 
 		Admin_InviteUser: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftApiModelsAdminInviteViewModelIO,
 			}).encode(parameters);
 
@@ -1926,9 +1926,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllInvite: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllInvite`,
@@ -1938,9 +1938,9 @@ export const adminController = asks(
 		},
 
 		Admin_ImportListUserForCompany: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/ImportListUserForCompany`,
@@ -1950,9 +1950,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllRoleModel: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllRoleModel`,
@@ -1963,7 +1963,7 @@ export const adminController = asks(
 
 		Admin_UpdateRoleModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationRoleModelIO,
 			}).encode(parameters);
 
@@ -1977,7 +1977,7 @@ export const adminController = asks(
 
 		Admin_InsertRoleModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationRoleModelIO,
 			}).encode(parameters);
 
@@ -1990,9 +1990,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteRoleModel: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteRoleModel/${encodeURIComponent(number.encode(id).toString())}`,
@@ -2003,7 +2003,7 @@ export const adminController = asks(
 
 		Admin_UpdateRoleOrder: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: array(unknownType),
 			}).encode(parameters);
 
@@ -2016,9 +2016,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetCompanyAndRoleAndUserAligment: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/CompanyAndRoleAndUserForAligment`,
@@ -2028,9 +2028,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllAlignmentModel: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllAlignmentModel`,
@@ -2041,7 +2041,7 @@ export const adminController = asks(
 
 		Admin_UpdateAlignmentModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: unknownType,
 			}).encode(parameters);
 
@@ -2055,7 +2055,7 @@ export const adminController = asks(
 
 		Admin_InsertAlignmentModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: unknownType,
 			}).encode(parameters);
 
@@ -2068,9 +2068,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteAlignmentModel: (groupnumber, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteAlignmentModel/${encodeURIComponent(
@@ -2082,9 +2082,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllLeadStatusModel: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllLeadStatusModel`,
@@ -2094,9 +2094,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetLeadStatus: (leadStatusId, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/GetLeadStatus/${encodeURIComponent(
@@ -2108,9 +2108,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetLeadStatusByLoanPurposeId: (LoanPurposeId, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/GetLeadStatusByLoanPurposeId/${encodeURIComponent(
@@ -2123,7 +2123,7 @@ export const adminController = asks(
 
 		Admin_UpdateLeadStatusModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO,
 			}).encode(parameters);
 
@@ -2137,7 +2137,7 @@ export const adminController = asks(
 
 		Admin_InsertLeadStatusModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO,
 			}).encode(parameters);
 
@@ -2150,9 +2150,9 @@ export const adminController = asks(
 		},
 
 		Admin_SaveAssociateLeadStatus: (loanStatusId, loanPurposeId, associate, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/SaveAssociateLeadStatus/${encodeURIComponent(
@@ -2167,7 +2167,7 @@ export const adminController = asks(
 
 		Admin_SaveLeadStatusFlow: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO,
 			}).encode(parameters);
 
@@ -2180,9 +2180,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteLeadStatusModel: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteLeadStatusModel/${encodeURIComponent(number.encode(id).toString())}`,
@@ -2193,7 +2193,7 @@ export const adminController = asks(
 
 		Admin_UpdateLeadOrder: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: array(unknownType),
 			}).encode(parameters);
 
@@ -2206,9 +2206,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllLoanStatusModel: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllLoanStatusModel`,
@@ -2218,9 +2218,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetLoanStatus: (loanStatusId, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/GetLoanStatus/${encodeURIComponent(
@@ -2232,9 +2232,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetLoanStatusByLoanTypeId: (LoanPurposeId, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/GetLoanStatusByLoanPurposeId/${encodeURIComponent(
@@ -2247,7 +2247,7 @@ export const adminController = asks(
 
 		Admin_UpdateLoanStatusModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO,
 			}).encode(parameters);
 
@@ -2261,7 +2261,7 @@ export const adminController = asks(
 
 		Admin_InsertLoanStatusModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO,
 			}).encode(parameters);
 
@@ -2274,9 +2274,9 @@ export const adminController = asks(
 		},
 
 		Admin_SaveAssociateLoanStatus: (loanPurposeId, loanStatusId, associate, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/SaveAssociateLoanStatus/${encodeURIComponent(
@@ -2291,7 +2291,7 @@ export const adminController = asks(
 
 		Admin_SaveLoanStatusFlow: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO,
 			}).encode(parameters);
 
@@ -2304,9 +2304,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteLoanStatusModel: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteLoanStatusModel/${encodeURIComponent(number.encode(id).toString())}`,
@@ -2318,8 +2318,8 @@ export const adminController = asks(
 		Admin_UpdateLoanOrder: parameters => {
 			const encoded = partial({
 				query: type({
-					companyId: createOptionFromNullable(number),
-					leadStatus: createOptionFromNullable(boolean),
+					companyId: createOptionFromNullable(number, 'companyId'),
+					leadStatus: createOptionFromNullable(boolean, 'leadStatus'),
 				}),
 				body: array(unknownType),
 			}).encode(parameters);
@@ -2333,9 +2333,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllLoanTypeModel: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllLoanTypeModel`,
@@ -2346,7 +2346,7 @@ export const adminController = asks(
 
 		Admin_UpdateLoanTypeModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO,
 			}).encode(parameters);
 
@@ -2360,7 +2360,7 @@ export const adminController = asks(
 
 		Admin_InsertLoanTypeModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO,
 			}).encode(parameters);
 
@@ -2373,9 +2373,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteLoanTypeModel: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteLoanTypeModel/${encodeURIComponent(number.encode(id).toString())}`,
@@ -2386,7 +2386,7 @@ export const adminController = asks(
 
 		Admin_UpdateLoanTypeOrder: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: array(unknownType),
 			}).encode(parameters);
 
@@ -2399,9 +2399,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllLoanPurposeModel: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllLoanPurposeModel`,
@@ -2412,7 +2412,7 @@ export const adminController = asks(
 
 		Admin_UpdateLoanPurposeModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationLoanPurposeModelIO,
 			}).encode(parameters);
 
@@ -2426,7 +2426,7 @@ export const adminController = asks(
 
 		Admin_InsertLoanPurposeModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationLoanPurposeModelIO,
 			}).encode(parameters);
 
@@ -2439,9 +2439,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteLoanPurposeModel: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteLoanPurposeModel/${encodeURIComponent(number.encode(id).toString())}`,
@@ -2452,7 +2452,7 @@ export const adminController = asks(
 
 		Admin_UpdateLoanPurposeOrder: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: array(unknownType),
 			}).encode(parameters);
 
@@ -2465,9 +2465,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllLeadStatusAssociations: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/GetAllLeadStatusAssociations`,
@@ -2477,9 +2477,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllLeadStatusAssociationsByLoanPurpose: (loanPurposeId, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/GetAllLeadStatusAssociationsByLoanPurpose/${encodeURIComponent(
@@ -2492,7 +2492,7 @@ export const adminController = asks(
 
 		Admin_UpdateLeadStatusAssociation: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO,
 			}).encode(parameters);
 
@@ -2505,9 +2505,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteLeadStatusAssociation: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteLeadStatusAssociation/${encodeURIComponent(
@@ -2520,7 +2520,7 @@ export const adminController = asks(
 
 		Admin_InsertLeadStatusAssociation: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO,
 			}).encode(parameters);
 
@@ -2534,7 +2534,7 @@ export const adminController = asks(
 
 		Admin_UpdateLeadStatusFlowOrder: (loanPurposeId, parameters) => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: array(unknownType),
 			}).encode(parameters);
 
@@ -2549,9 +2549,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllLoanStatusAssociations: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/GetAllLoanStatusAssociations`,
@@ -2561,9 +2561,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllLoanStatusAssociationsByLoanPurpose: (loanPurposeId, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/GetAllLoanStatusAssociationsByLoanPurpose/${encodeURIComponent(
@@ -2576,7 +2576,7 @@ export const adminController = asks(
 
 		Admin_UpdateLoanStatusAssociation: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO,
 			}).encode(parameters);
 
@@ -2589,9 +2589,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteLoanStatusAssociation: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteLoanStatusAssociation/${encodeURIComponent(
@@ -2604,7 +2604,7 @@ export const adminController = asks(
 
 		Admin_InsertLoanStatusAssociation: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO,
 			}).encode(parameters);
 
@@ -2618,7 +2618,7 @@ export const adminController = asks(
 
 		Admin_UpdateLoanStatusFlowOrder: (loanPurposeId, parameters) => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: array(unknownType),
 			}).encode(parameters);
 
@@ -2633,9 +2633,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllTaskModel: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllTaskModel`,
@@ -2645,9 +2645,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetLeadAllTaskModel: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/GetLeadAllTaskModel`,
@@ -2657,9 +2657,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetTaskById: (taskId, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/GetTaskById/${encodeURIComponent(number.encode(taskId).toString())}`,
@@ -2670,7 +2670,7 @@ export const adminController = asks(
 
 		Admin_UpdateTaskModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftCommonModelsConfigurationTaskViewModelIO,
 			}).encode(parameters);
 
@@ -2683,9 +2683,9 @@ export const adminController = asks(
 		},
 
 		Admin_UpdateTaskSubTask: (taskId, subTasks, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/UpdateTaskSubTask/${encodeURIComponent(
@@ -2698,7 +2698,7 @@ export const adminController = asks(
 
 		Admin_InsertTaskModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftCommonModelsConfigurationTaskViewModelIO,
 			}).encode(parameters);
 
@@ -2712,7 +2712,7 @@ export const adminController = asks(
 
 		Admin_InsertTaskModelFromTemplate: (templateCompanyId, templateTaskId, parameters) => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftCommonModelsConfigurationTaskViewModelIO,
 			}).encode(parameters);
 
@@ -2727,9 +2727,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteTaskModel: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteTaskModel/${encodeURIComponent(number.encode(id).toString())}`,
@@ -2781,9 +2781,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllEmailCampaignTriggerModel: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllEmailCampaignTriggerModel`,
@@ -2794,7 +2794,7 @@ export const adminController = asks(
 
 		Admin_UpdateEmailCampaignTriggerModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftApiModelsAdminEmailCampaignTriggerModelViewIO,
 			}).encode(parameters);
 
@@ -2808,7 +2808,7 @@ export const adminController = asks(
 
 		Admin_InsertEmailCampaignTrigger: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftApiModelsAdminEmailCampaignTriggerModelViewIO,
 			}).encode(parameters);
 
@@ -2822,7 +2822,7 @@ export const adminController = asks(
 
 		Admin_InsertChildEmailCampaignTrigger: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftApiModelsAdminEmailCampaignTriggerModelViewIO,
 			}).encode(parameters);
 
@@ -2835,9 +2835,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteEmailCampaignTriggerModel: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteEmailCampaignTriggerModel/${encodeURIComponent(
@@ -2849,9 +2849,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllTaskCategoryModel: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllTaskCategoryModel`,
@@ -2862,7 +2862,7 @@ export const adminController = asks(
 
 		Admin_InsertTaskCategoryModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO,
 			}).encode(parameters);
 
@@ -2875,9 +2875,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteTaskCategoryModel: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteTaskCategoryModel/${encodeURIComponent(
@@ -2890,7 +2890,7 @@ export const adminController = asks(
 
 		Admin_UpdateTaskCategoryModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO,
 			}).encode(parameters);
 
@@ -2904,7 +2904,7 @@ export const adminController = asks(
 
 		Admin_UpdateTaskCategoryOrder: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: array(unknownType),
 			}).encode(parameters);
 
@@ -2917,9 +2917,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetCustomTaskModelByType: (taskType, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/GetCustomTaskModelByType/${encodeURIComponent(
@@ -2932,7 +2932,7 @@ export const adminController = asks(
 
 		Admin_InsertCustomTaskModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftCommonModelsConfigurationCustomTaskViewModelIO,
 			}).encode(parameters);
 
@@ -2945,9 +2945,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteCustomTaskModel: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteCustomTaskModel/${encodeURIComponent(number.encode(id).toString())}`,
@@ -2958,7 +2958,7 @@ export const adminController = asks(
 
 		Admin_UpdateCustomTaskModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftCommonModelsConfigurationCustomTaskViewModelIO,
 			}).encode(parameters);
 
@@ -2971,9 +2971,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllDocumentModel: (dbOnly, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllDocumentModel/${encodeURIComponent(boolean.encode(dbOnly).toString())}`,
@@ -2984,7 +2984,7 @@ export const adminController = asks(
 
 		Admin_UpdateDocumentModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationDocumentTypeModelIO,
 			}).encode(parameters);
 
@@ -2998,7 +2998,7 @@ export const adminController = asks(
 
 		Admin_InsertDocumentModel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationDocumentTypeModelIO,
 			}).encode(parameters);
 
@@ -3011,9 +3011,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteDocumentModel: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteDocumentModel/${encodeURIComponent(number.encode(id).toString())}`,
@@ -3024,7 +3024,7 @@ export const adminController = asks(
 
 		Admin_UpdateDocumentOrder: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: array(unknownType),
 			}).encode(parameters);
 
@@ -3037,9 +3037,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllAgentType: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllAgentType`,
@@ -3050,7 +3050,7 @@ export const adminController = asks(
 
 		Admin_UpdateAgentType: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationAgentTypeModelIO,
 			}).encode(parameters);
 
@@ -3064,7 +3064,7 @@ export const adminController = asks(
 
 		Admin_InsertAgentType: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsConfigurationAgentTypeModelIO,
 			}).encode(parameters);
 
@@ -3077,9 +3077,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteAgentType: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteAgentType/${encodeURIComponent(number.encode(id).toString())}`,
@@ -3090,7 +3090,7 @@ export const adminController = asks(
 
 		Admin_UpdateAgentTypeOrder: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: array(unknownType),
 			}).encode(parameters);
 
@@ -3103,9 +3103,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllLender: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllLender`,
@@ -3116,7 +3116,7 @@ export const adminController = asks(
 
 		Admin_UpdateLender: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftApiModelsAdminLenderModelViewIO,
 			}).encode(parameters);
 
@@ -3130,7 +3130,7 @@ export const adminController = asks(
 
 		Admin_InsertLender: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftApiModelsAdminLenderModelViewIO,
 			}).encode(parameters);
 
@@ -3143,9 +3143,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteLender: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteLender/${encodeURIComponent(number.encode(id).toString())}`,
@@ -3155,9 +3155,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetAllStackingOrder: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllStackingOrder`,
@@ -3167,9 +3167,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetStackingOrderInfo: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/StackingOrderInfo/${encodeURIComponent(number.encode(id).toString())}`,
@@ -3180,7 +3180,7 @@ export const adminController = asks(
 
 		Admin_UpdateStackingOrder: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsAdminStackingOrderModelIO,
 			}).encode(parameters);
 
@@ -3194,7 +3194,7 @@ export const adminController = asks(
 
 		Admin_InsertStackingOrder: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftDataAccessDbModelsAdminStackingOrderModelIO,
 			}).encode(parameters);
 
@@ -3207,9 +3207,9 @@ export const adminController = asks(
 		},
 
 		Admin_DeleteStackingOrder: (id, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/DeleteStackingOrder/${encodeURIComponent(number.encode(id).toString())}`,
@@ -3220,7 +3220,7 @@ export const adminController = asks(
 
 		Admin_PostSaveOrgChart: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: array(LELodasoftApiModelsAdminOrgChartModelIO),
 			}).encode(parameters);
 
@@ -3234,7 +3234,7 @@ export const adminController = asks(
 
 		Admin_SaveSystemLevel: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: LELodasoftApiModelsAdminSystemLevelIO,
 			}).encode(parameters);
 
@@ -3247,9 +3247,9 @@ export const adminController = asks(
 		},
 
 		Admin_GetSystemLevel: parameters => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/GetSystemLevel`,
@@ -3269,7 +3269,7 @@ export const adminController = asks(
 
 		Admin_UpdateCheckList: (CheckListItemId, parameters) => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number) }),
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
 				body: array(LELodasoftDataAccessDbModelsConfigurationChecklistModelIO),
 			}).encode(parameters);
 
@@ -3284,9 +3284,9 @@ export const adminController = asks(
 		},
 
 		Admin_AllCheckList: (CheckListItemId, parameters) => {
-			const encoded = partial({ query: type({ companyId: createOptionFromNullable(number) }) }).encode(
-				parameters,
-			);
+			const encoded = partial({
+				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+			}).encode(parameters);
 
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/Admin/AllCheckList/${encodeURIComponent(

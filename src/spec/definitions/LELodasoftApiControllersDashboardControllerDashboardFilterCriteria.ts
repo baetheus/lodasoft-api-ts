@@ -7,6 +7,6 @@ export type LELodasoftApiControllersDashboardControllerDashboardFilterCriteria =
 	lsValues: Option<Array<string>>;
 };
 export const LELodasoftApiControllersDashboardControllerDashboardFilterCriteriaIO = type({
-	lpValues: createOptionFromNullable(array(string)),
-	lsValues: createOptionFromNullable(array(string)),
+	lpValues: createOptionFromNullable(array(string), 'lpValues'),
+	lsValues: createOptionFromNullable(array(string), 'lsValues'),
 });

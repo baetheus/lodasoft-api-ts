@@ -49,9 +49,10 @@ export type LELodasoftCommonModelsAdminActivityLogViewModel = {
 	trackingId: Option<number>;
 };
 export const LELodasoftCommonModelsAdminActivityLogViewModelIO = type({
-	userId: createOptionFromNullable(string),
+	userId: createOptionFromNullable(string, 'userId'),
 	category: createOptionFromNullable(
 		keyof({ LoanChangeStatus: null, BorrowerMessage: null, InternalMessage: null, Lead: null, DocumentFile: null }),
+		'category',
 	),
 	activityType: createOptionFromNullable(
 		keyof({
@@ -89,12 +90,13 @@ export const LELodasoftCommonModelsAdminActivityLogViewModelIO = type({
 			ChangeReviewRequired: null,
 			Unknown: null,
 		}),
+		'activityType',
 	),
-	displayText: createOptionFromNullable(string),
-	dateCreated: createOptionFromNullable(DateFromISOString),
-	loanDocTaskId: createOptionFromNullable(number),
-	messageId: createOptionFromNullable(number),
-	leadEventId: createOptionFromNullable(number),
-	fileId: createOptionFromNullable(string),
-	trackingId: createOptionFromNullable(number),
+	displayText: createOptionFromNullable(string, 'displayText'),
+	dateCreated: createOptionFromNullable(DateFromISOString, 'dateCreated'),
+	loanDocTaskId: createOptionFromNullable(number, 'loanDocTaskId'),
+	messageId: createOptionFromNullable(number, 'messageId'),
+	leadEventId: createOptionFromNullable(number, 'leadEventId'),
+	fileId: createOptionFromNullable(string, 'fileId'),
+	trackingId: createOptionFromNullable(number, 'trackingId'),
 });

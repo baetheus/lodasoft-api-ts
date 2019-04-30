@@ -11,6 +11,6 @@ export type LELodasoftApiModelsResetPasswordBindingModel = {
 export const LELodasoftApiModelsResetPasswordBindingModelIO = type({
 	email: string,
 	password: string,
-	confirmPassword: createOptionFromNullable(string),
-	code: createOptionFromNullable(string),
+	confirmPassword: createOptionFromNullable(string, 'confirmPassword'),
+	code: createOptionFromNullable(string, 'code'),
 });

@@ -76,9 +76,9 @@ export const newSubmissionController = asks(
 		NewSubmission_LosLoanSearch: (credentialId, parameters) => {
 			const encoded = partial({
 				query: type({
-					loanNumber: createOptionFromNullable(string),
-					borrowerFirstName: createOptionFromNullable(string),
-					borrowerLastName: createOptionFromNullable(string),
+					loanNumber: createOptionFromNullable(string, 'loanNumber'),
+					borrowerFirstName: createOptionFromNullable(string, 'borrowerFirstName'),
+					borrowerLastName: createOptionFromNullable(string, 'borrowerLastName'),
 				}),
 			}).encode(parameters);
 

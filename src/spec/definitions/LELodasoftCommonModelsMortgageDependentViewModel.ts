@@ -13,12 +13,12 @@ export type LELodasoftCommonModelsMortgageDependentViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageDependentViewModelIO = type({
-	dependentId: createOptionFromNullable(number),
-	borrowerId: createOptionFromNullable(number),
-	age: createOptionFromNullable(number),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	dependentId: createOptionFromNullable(number, 'dependentId'),
+	borrowerId: createOptionFromNullable(number, 'borrowerId'),
+	age: createOptionFromNullable(number, 'age'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });

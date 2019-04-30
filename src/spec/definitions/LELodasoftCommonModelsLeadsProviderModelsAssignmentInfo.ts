@@ -7,6 +7,6 @@ export type LELodasoftCommonModelsLeadsProviderModelsAssignmentInfo = {
 	userGuid: Option<string>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsAssignmentInfoIO = type({
-	userName: createOptionFromNullable(string),
-	userGuid: createOptionFromNullable(string),
+	userName: createOptionFromNullable(string, 'userName'),
+	userGuid: createOptionFromNullable(string, 'userGuid'),
 });

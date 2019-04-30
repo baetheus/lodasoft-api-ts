@@ -13,12 +13,12 @@ export type LELodasoftCommonModelsLeadsReportsLeadMilestonesReportResponse = {
 	totalContactRate: Option<number>;
 };
 export const LELodasoftCommonModelsLeadsReportsLeadMilestonesReportResponseIO = type({
-	speedToContactAttemptMinutes: createOptionFromNullable(number),
-	speedToContactMinutes: createOptionFromNullable(number),
-	activeLeads: createOptionFromNullable(number),
-	contactRate: createOptionFromNullable(number),
-	conversionRate: createOptionFromNullable(number),
-	totalActiveLeads: createOptionFromNullable(number),
-	totalConversionRate: createOptionFromNullable(number),
-	totalContactRate: createOptionFromNullable(number),
+	speedToContactAttemptMinutes: createOptionFromNullable(number, 'speedToContactAttemptMinutes'),
+	speedToContactMinutes: createOptionFromNullable(number, 'speedToContactMinutes'),
+	activeLeads: createOptionFromNullable(number, 'activeLeads'),
+	contactRate: createOptionFromNullable(number, 'contactRate'),
+	conversionRate: createOptionFromNullable(number, 'conversionRate'),
+	totalActiveLeads: createOptionFromNullable(number, 'totalActiveLeads'),
+	totalConversionRate: createOptionFromNullable(number, 'totalConversionRate'),
+	totalContactRate: createOptionFromNullable(number, 'totalContactRate'),
 });

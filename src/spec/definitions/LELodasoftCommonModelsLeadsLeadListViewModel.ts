@@ -14,13 +14,13 @@ export type LELodasoftCommonModelsLeadsLeadListViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsLeadsLeadListViewModelIO = type({
-	leadListId: createOptionFromNullable(number),
-	name: createOptionFromNullable(string),
-	description: createOptionFromNullable(string),
-	leadIds: createOptionFromNullable(array(number)),
-	companyId: createOptionFromNullable(number),
-	insertedBy: createOptionFromNullable(string),
-	dateInserted: createOptionFromNullable(DateFromISOString),
-	updatedBy: createOptionFromNullable(string),
-	dateUpdated: createOptionFromNullable(DateFromISOString),
+	leadListId: createOptionFromNullable(number, 'leadListId'),
+	name: createOptionFromNullable(string, 'name'),
+	description: createOptionFromNullable(string, 'description'),
+	leadIds: createOptionFromNullable(array(number), 'leadIds'),
+	companyId: createOptionFromNullable(number, 'companyId'),
+	insertedBy: createOptionFromNullable(string, 'insertedBy'),
+	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromNullable(string, 'updatedBy'),
+	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
 });
