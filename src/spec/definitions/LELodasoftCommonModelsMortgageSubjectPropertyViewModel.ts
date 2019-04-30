@@ -1,22 +1,26 @@
-import {
-	LELodasoftCommonModelsMortgageAddressViewModel,
-	LELodasoftCommonModelsMortgageAddressViewModelIO,
-} from '../definitions/LELodasoftCommonModelsMortgageAddressViewModel';
 import { Option } from 'fp-ts/lib/Option';
-import { number, keyof, string, type } from 'io-ts';
+import { keyof, number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../../io-types';
+import {
+  LELodasoftCommonModelsMortgageAddressViewModel,
+  LELodasoftCommonModelsMortgageAddressViewModelIO,
+} from '../definitions/LELodasoftCommonModelsMortgageAddressViewModel';
+
+export enum PurposeOfLoan {
+	Refinance,
+	Purchase,
+	ConstructionOnly,
+	ConstructionToPermanent,
+	OtherLoanPurpose,
+	RefinanceCashOut,
+}
 
 export type LELodasoftCommonModelsMortgageSubjectPropertyViewModel = {
 	subjectPropertyId: Option<number>;
 	addressId: Option<number>;
-	purposeOfLoan: Option<
-		| 'Refinance'
-		| 'Purchase'
-		| 'ConstructionOnly'
-		| 'ConstructionToPermanent'
-		| 'OtherLoanPurpose'
-		| 'RefinanceCashOut'
-	>;
+	purposeOfLoan: Option<PurposeOfLoan>;
 	propertyWillBe: Option<'PrimaryResidence' | 'SecondaryResidence' | 'Investment' | 'ShortTermRental'>;
 	noOfUnits: Option<number>;
 	propertyType: Option<
@@ -64,16 +68,7 @@ export type LELodasoftCommonModelsMortgageSubjectPropertyViewModel = {
 export const LELodasoftCommonModelsMortgageSubjectPropertyViewModelIO = type({
 	subjectPropertyId: createOptionFromNullable(number),
 	addressId: createOptionFromNullable(number),
-	purposeOfLoan: createOptionFromNullable(
-		keyof({
-			Refinance: null,
-			Purchase: null,
-			ConstructionOnly: null,
-			ConstructionToPermanent: null,
-			OtherLoanPurpose: null,
-			RefinanceCashOut: null,
-		}),
-	),
+	purposeOfLoan: createOptionFromNullable(createEnumType<PurposeOfLoan>(PurposeOfLoan, 'PurposeOfLoan')),
 	propertyWillBe: createOptionFromNullable(
 		keyof({ PrimaryResidence: null, SecondaryResidence: null, Investment: null, ShortTermRental: null }),
 	),
