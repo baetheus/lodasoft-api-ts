@@ -14,3 +14,6 @@ Here is a list of the current modifications that must be manually performed duri
   - employmentModel
   - reoModel
 - Search for Option<'a' | 'b'> type definitions and manually replace with defined enums and createEnumType type codecs
+- Normal enum type definitions must also be manually replaced with defined enums and createEnumType
+- contactId on MortgageBorrowerViewModel must be switched to an Option type
+- ResidencyBasisEnum needs a fourth option as the backend occasionally returns 3
