@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.5.0](https://github.com/baetheus/lodasoft-api-ts/compare/v0.4.0...v0.5.0) (2019-05-02)
+
+
+### Features
+
+* **errors:** better validation error printing and passing ([391d919](https://github.com/baetheus/lodasoft-api-ts/commit/391d919))
+
+
+
 # [0.4.0](https://github.com/baetheus/lodasoft-api-ts/compare/v0.3.6...v0.4.0) (2019-05-02)
 
 
