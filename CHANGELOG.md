@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.4.0](https://github.com/baetheus/lodasoft-api-ts/compare/v0.3.6...v0.4.0) (2019-05-02)
+
+
+### Features
+
+* **enums:** manually convert all stringEnums to regular enums ([3749328](https://github.com/baetheus/lodasoft-api-ts/commit/3749328))
+
+
+
 ## [0.3.6](https://github.com/baetheus/lodasoft-api-ts/compare/v0.3.5...v0.3.6) (2019-04-30)
 
 
