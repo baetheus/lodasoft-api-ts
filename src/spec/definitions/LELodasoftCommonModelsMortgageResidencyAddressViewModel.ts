@@ -3,8 +3,8 @@ import { boolean, number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 import {
-	LELodasoftCommonModelsMortgageAddressViewModel,
-	LELodasoftCommonModelsMortgageAddressViewModelIO,
+  LELodasoftCommonModelsMortgageAddressViewModel,
+  LELodasoftCommonModelsMortgageAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageAddressViewModel';
 import { createEnumType } from '../utils/utils';
 
@@ -18,6 +18,7 @@ export enum ResidencyBasisEnum {
 	'PresentAddress',
 	'FormerAddress',
 	'MailingAddress',
+	'UnknownAddress',
 }
 
 export type LELodasoftCommonModelsMortgageResidencyAddressViewModel = {

@@ -3,52 +3,52 @@ import { array, boolean, number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 import {
-	LELodasoftCommonModelsMortgageAssetViewModel,
-	LELodasoftCommonModelsMortgageAssetViewModelIO,
+  LELodasoftCommonModelsMortgageAssetViewModel,
+  LELodasoftCommonModelsMortgageAssetViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageAssetViewModel';
 import {
-	LELodasoftCommonModelsMortgageDeclarationViewModel,
-	LELodasoftCommonModelsMortgageDeclarationViewModelIO,
+  LELodasoftCommonModelsMortgageDeclarationViewModel,
+  LELodasoftCommonModelsMortgageDeclarationViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageDeclarationViewModel';
 import {
-	LELodasoftCommonModelsMortgageDependentViewModel,
-	LELodasoftCommonModelsMortgageDependentViewModelIO,
+  LELodasoftCommonModelsMortgageDependentViewModel,
+  LELodasoftCommonModelsMortgageDependentViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageDependentViewModel';
 import {
-	LELodasoftCommonModelsMortgageEmailViewModel,
-	LELodasoftCommonModelsMortgageEmailViewModelIO,
+  LELodasoftCommonModelsMortgageEmailViewModel,
+  LELodasoftCommonModelsMortgageEmailViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageEmailViewModel';
 import {
-	LELodasoftCommonModelsMortgageEmploymentViewModel,
-	LELodasoftCommonModelsMortgageEmploymentViewModelIO,
+  LELodasoftCommonModelsMortgageEmploymentViewModel,
+  LELodasoftCommonModelsMortgageEmploymentViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageEmploymentViewModel';
 import {
-	LELodasoftCommonModelsMortgageExpenseViewModel,
-	LELodasoftCommonModelsMortgageExpenseViewModelIO,
+  LELodasoftCommonModelsMortgageExpenseViewModel,
+  LELodasoftCommonModelsMortgageExpenseViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageExpenseViewModel';
 import {
-	LELodasoftCommonModelsMortgageGovernmentMonitorViewModel,
-	LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO,
+  LELodasoftCommonModelsMortgageGovernmentMonitorViewModel,
+  LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageGovernmentMonitorViewModel';
 import {
-	LELodasoftCommonModelsMortgageIncomeViewModel,
-	LELodasoftCommonModelsMortgageIncomeViewModelIO,
+  LELodasoftCommonModelsMortgageIncomeViewModel,
+  LELodasoftCommonModelsMortgageIncomeViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageIncomeViewModel';
 import {
-	LELodasoftCommonModelsMortgageLiabilityViewModel,
-	LELodasoftCommonModelsMortgageLiabilityViewModelIO,
+  LELodasoftCommonModelsMortgageLiabilityViewModel,
+  LELodasoftCommonModelsMortgageLiabilityViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageLiabilityViewModel';
 import {
-	LELodasoftCommonModelsMortgagePhoneViewModel,
-	LELodasoftCommonModelsMortgagePhoneViewModelIO,
+  LELodasoftCommonModelsMortgagePhoneViewModel,
+  LELodasoftCommonModelsMortgagePhoneViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgagePhoneViewModel';
 import {
-	LELodasoftCommonModelsMortgageReoViewModel,
-	LELodasoftCommonModelsMortgageReoViewModelIO,
+  LELodasoftCommonModelsMortgageReoViewModel,
+  LELodasoftCommonModelsMortgageReoViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageReoViewModel';
 import {
-	LELodasoftCommonModelsMortgageResidencyAddressViewModel,
-	LELodasoftCommonModelsMortgageResidencyAddressViewModelIO,
+  LELodasoftCommonModelsMortgageResidencyAddressViewModel,
+  LELodasoftCommonModelsMortgageResidencyAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageResidencyAddressViewModel';
 import { createEnumType } from '../utils/utils';
 
@@ -66,7 +66,7 @@ export enum TypeOfBorrower {
 export type LELodasoftCommonModelsMortgageMortgageBorrowerViewModel = {
 	borrowerId: Option<number>;
 	mortgageId: number;
-	contactId: number;
+	contactId: Option<number>;
 	firstName: Option<string>;
 	middleName: Option<string>;
 	lastName: Option<string>;
@@ -104,7 +104,7 @@ export type LELodasoftCommonModelsMortgageMortgageBorrowerViewModel = {
 export const LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO = type({
 	borrowerId: createOptionFromNullable(number, 'borrowerId'),
 	mortgageId: number,
-	contactId: number,
+	contactId: createOptionFromNullable(number, 'contactId'),
 	firstName: createOptionFromNullable(string, 'firstName'),
 	middleName: createOptionFromNullable(string, 'middleName'),
 	lastName: createOptionFromNullable(string, 'lastName'),
