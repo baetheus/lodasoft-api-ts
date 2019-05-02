@@ -1,22 +1,26 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, keyof, boolean, array, type } from 'io-ts';
+import { array, boolean, number, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum ReportTypeEnum {
+	'TasksByCompany',
+	'TasksByUser',
+	'TasksByRole',
+	'TasksByRoleByUser',
+	'TasksByTaskType',
+	'TasksByTaskTypeByUser',
+	'TasksByUserByTaskType',
+	'TasksByLoanType',
+	'TasksByLoanPurpose',
+}
 
 export type LELodasoftCommonModelsReportTaskMetricsRequest = {
 	companyId: Option<number>;
 	startDate: Option<Date>;
 	endDate: Option<Date>;
-	reportType: Option<
-		| 'TasksByCompany'
-		| 'TasksByUser'
-		| 'TasksByRole'
-		| 'TasksByRoleByUser'
-		| 'TasksByTaskType'
-		| 'TasksByTaskTypeByUser'
-		| 'TasksByUserByTaskType'
-		| 'TasksByLoanType'
-		| 'TasksByLoanPurpose'
-	>;
+	reportType: Option<ReportTypeEnum>;
 	activeLoansOnly: Option<boolean>;
 	loanPurposeFilters: Option<Array<number>>;
 	loanStatusFilters: Option<Array<number>>;
@@ -26,17 +30,7 @@ export const LELodasoftCommonModelsReportTaskMetricsRequestIO = type({
 	startDate: createOptionFromNullable(DateFromISOString, 'startDate'),
 	endDate: createOptionFromNullable(DateFromISOString, 'endDate'),
 	reportType: createOptionFromNullable(
-		keyof({
-			TasksByCompany: null,
-			TasksByUser: null,
-			TasksByRole: null,
-			TasksByRoleByUser: null,
-			TasksByTaskType: null,
-			TasksByTaskTypeByUser: null,
-			TasksByUserByTaskType: null,
-			TasksByLoanType: null,
-			TasksByLoanPurpose: null,
-		}),
+		createEnumType<ReportTypeEnum>(ReportTypeEnum, 'ReportTypeEnum'),
 		'reportType',
 	),
 	activeLoansOnly: createOptionFromNullable(boolean, 'activeLoansOnly'),

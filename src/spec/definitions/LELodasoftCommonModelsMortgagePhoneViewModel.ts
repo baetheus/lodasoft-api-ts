@@ -1,12 +1,20 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, keyof, type } from 'io-ts';
+import { number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum TypeOfPhoneEnum {
+	'HomePhone',
+	'WorkPhone',
+	'CellPhone',
+}
 
 export type LELodasoftCommonModelsMortgagePhoneViewModel = {
 	phoneId: Option<number>;
 	borrowerId: Option<number>;
 	phoneNumber: Option<string>;
-	typeOfPhone: Option<'HomePhone' | 'WorkPhone' | 'CellPhone'>;
+	typeOfPhone: Option<TypeOfPhoneEnum>;
 	companyId: Option<number>;
 	insertedBy: Option<string>;
 	dateInserted: Option<Date>;
@@ -17,7 +25,10 @@ export const LELodasoftCommonModelsMortgagePhoneViewModelIO = type({
 	phoneId: createOptionFromNullable(number, 'phoneId'),
 	borrowerId: createOptionFromNullable(number, 'borrowerId'),
 	phoneNumber: createOptionFromNullable(string, 'phoneNumber'),
-	typeOfPhone: createOptionFromNullable(keyof({ HomePhone: null, WorkPhone: null, CellPhone: null }), 'typeOfPhone'),
+	typeOfPhone: createOptionFromNullable(
+		createEnumType<TypeOfPhoneEnum>(TypeOfPhoneEnum, 'TypeOfPhoneEnum'),
+		'typeOfPhone',
+	),
 	companyId: createOptionFromNullable(number, 'companyId'),
 	insertedBy: createOptionFromNullable(string, 'insertedBy'),
 	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),

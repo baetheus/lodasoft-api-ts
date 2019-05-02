@@ -1,5 +1,9 @@
 import { TAPIClient } from '../client/client';
 import {
+	LELodasoftApiModelsMortgageParseDuLeadViewModel,
+	LELodasoftApiModelsMortgageParseDuLeadViewModelIO,
+} from '../definitions/LELodasoftApiModelsMortgageParseDuLeadViewModel';
+import {
 	LELodasoftCommonModelsLeadsLeadCampaignViewModel,
 	LELodasoftCommonModelsLeadsLeadCampaignViewModelIO,
 } from '../definitions/LELodasoftCommonModelsLeadsLeadCampaignViewModel';
@@ -336,6 +340,11 @@ export type LeadController = {
 	 * @param { number } leadId undefined
 	 */
 	readonly Lead_GetTaskCountByLeadId: (leadId: number) => Observable<LELodasoftDataAccessModelsTaskCountModel>;
+
+	/**
+	 * Returns the LeadViewModel that was parsed from the Du file (not persisted)
+	 */
+	readonly Lead_ParseDu: () => Observable<LELodasoftApiModelsMortgageParseDuLeadViewModel>;
 };
 
 export const leadController = asks(
@@ -757,6 +766,13 @@ export const leadController = asks(
 				)}/GetTaskCountByLeadId`,
 				method: 'GET',
 			}).pipe(decodeAndMap(LELodasoftDataAccessModelsTaskCountModelIO));
+		},
+
+		Lead_ParseDu: () => {
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/leads/parse-du`,
+				method: 'POST',
+			}).pipe(decodeAndMap(LELodasoftApiModelsMortgageParseDuLeadViewModelIO));
 		},
 	}),
 );

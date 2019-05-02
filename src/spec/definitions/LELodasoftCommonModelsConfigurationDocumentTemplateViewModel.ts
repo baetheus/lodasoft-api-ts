@@ -1,15 +1,23 @@
+import { Option } from 'fp-ts/lib/Option';
+import { array, boolean, number, string, type } from 'io-ts';
+import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
 import {
 	LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModel,
 	LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModelIO,
 } from '../definitions/LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModel';
-import { Option } from 'fp-ts/lib/Option';
-import { number, keyof, string, boolean, array, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { createEnumType } from '../utils/utils';
+
+export enum DocumentTemplateTypeEnum {
+	'Unspecified',
+	'Html',
+	'Pdf',
+}
 
 export type LELodasoftCommonModelsConfigurationDocumentTemplateViewModel = {
 	documentTemplateId: Option<number>;
 	documentTypeId: Option<number>;
-	documentTemplateType: Option<'Unspecified' | 'Html' | 'Pdf'>;
+	documentTemplateType: Option<DocumentTemplateTypeEnum>;
 	documentTemplateName: Option<string>;
 	description: Option<string>;
 	headerHtml: Option<string>;
@@ -28,7 +36,7 @@ export const LELodasoftCommonModelsConfigurationDocumentTemplateViewModelIO = ty
 	documentTemplateId: createOptionFromNullable(number, 'documentTemplateId'),
 	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
 	documentTemplateType: createOptionFromNullable(
-		keyof({ Unspecified: null, Html: null, Pdf: null }),
+		createEnumType<DocumentTemplateTypeEnum>(DocumentTemplateTypeEnum, 'DocumentTemplateTypeEnum'),
 		'documentTemplateType',
 	),
 	documentTemplateName: createOptionFromNullable(string, 'documentTemplateName'),

@@ -1,12 +1,21 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, keyof, boolean, type } from 'io-ts';
+import { boolean, number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum FieldTypeEnum {
+	'Unspecified',
+	'Text',
+	'CheckBox',
+	'RadioButton',
+}
 
 export type LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModel = {
 	documentTemplateFieldId: Option<number>;
 	documentTemplateId: Option<number>;
 	fieldKey: Option<string>;
-	fieldType: Option<'Unspecified' | 'Text' | 'CheckBox' | 'RadioButton'>;
+	fieldType: Option<FieldTypeEnum>;
 	displayName: Option<string>;
 	globalMergeFieldKey: Option<string>;
 	defaultValue: Option<string>;
@@ -23,10 +32,7 @@ export const LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModelIO
 	documentTemplateFieldId: createOptionFromNullable(number, 'documentTemplateFieldId'),
 	documentTemplateId: createOptionFromNullable(number, 'documentTemplateId'),
 	fieldKey: createOptionFromNullable(string, 'fieldKey'),
-	fieldType: createOptionFromNullable(
-		keyof({ Unspecified: null, Text: null, CheckBox: null, RadioButton: null }),
-		'fieldType',
-	),
+	fieldType: createOptionFromNullable(createEnumType<FieldTypeEnum>(FieldTypeEnum, 'FieldTypeEnum'), 'fieldType'),
 	displayName: createOptionFromNullable(string, 'displayName'),
 	globalMergeFieldKey: createOptionFromNullable(string, 'globalMergeFieldKey'),
 	defaultValue: createOptionFromNullable(string, 'defaultValue'),

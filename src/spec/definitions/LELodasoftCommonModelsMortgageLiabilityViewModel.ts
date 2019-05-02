@@ -1,32 +1,36 @@
+import { Option } from 'fp-ts/lib/Option';
+import { boolean, number, string, type } from 'io-ts';
+import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
 import {
 	LELodasoftCommonModelsMortgageAddressViewModel,
 	LELodasoftCommonModelsMortgageAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageAddressViewModel';
-import { Option } from 'fp-ts/lib/Option';
-import { number, keyof, string, boolean, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { createEnumType } from '../utils/utils';
+
+export enum TypeOfLiabilityEnum {
+	'Alimony',
+	'ChildCare',
+	'ChildSupport',
+	'CollectionsJudgementsAndLiens',
+	'HELOC',
+	'Installment',
+	'JobRelatedExpenses',
+	'LeasePayments',
+	'MortgageLoan',
+	'Open30DayChargeAccount',
+	'OtherLiability',
+	'Revolving',
+	'SeparateMaintenanceExpense',
+	'OtherExpense',
+	'Taxes',
+}
 
 export type LELodasoftCommonModelsMortgageLiabilityViewModel = {
 	liabilityId: Option<number>;
 	borrowerId: Option<number>;
 	addressId: Option<number>;
-	typeOfLiability: Option<
-		| 'Alimony'
-		| 'ChildCare'
-		| 'ChildSupport'
-		| 'CollectionsJudgementsAndLiens'
-		| 'HELOC'
-		| 'Installment'
-		| 'JobRelatedExpenses'
-		| 'LeasePayments'
-		| 'MortgageLoan'
-		| 'Open30DayChargeAccount'
-		| 'OtherLiability'
-		| 'Revolving'
-		| 'SeparateMaintenanceExpense'
-		| 'OtherExpense'
-		| 'Taxes'
-	>;
+	typeOfLiability: Option<TypeOfLiabilityEnum>;
 	creditorName: Option<string>;
 	accountNumber: Option<string>;
 	monthlyPayment: Option<number>;
@@ -54,23 +58,7 @@ export const LELodasoftCommonModelsMortgageLiabilityViewModelIO = type({
 	borrowerId: createOptionFromNullable(number, 'borrowerId'),
 	addressId: createOptionFromNullable(number, 'addressId'),
 	typeOfLiability: createOptionFromNullable(
-		keyof({
-			Alimony: null,
-			ChildCare: null,
-			ChildSupport: null,
-			CollectionsJudgementsAndLiens: null,
-			HELOC: null,
-			Installment: null,
-			JobRelatedExpenses: null,
-			LeasePayments: null,
-			MortgageLoan: null,
-			Open30DayChargeAccount: null,
-			OtherLiability: null,
-			Revolving: null,
-			SeparateMaintenanceExpense: null,
-			OtherExpense: null,
-			Taxes: null,
-		}),
+		createEnumType<TypeOfLiabilityEnum>(TypeOfLiabilityEnum, 'TypeOfLiabilityEnum'),
 		'typeOfLiability',
 	),
 	creditorName: createOptionFromNullable(string, 'creditorName'),

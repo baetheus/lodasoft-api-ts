@@ -1,3 +1,7 @@
+import { Option } from 'fp-ts/lib/Option';
+import { array, boolean, number, string, type } from 'io-ts';
+import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
 import {
 	LELodasoftCommonModelsMortgageAssetViewModel,
 	LELodasoftCommonModelsMortgageAssetViewModelIO,
@@ -46,9 +50,18 @@ import {
 	LELodasoftCommonModelsMortgageResidencyAddressViewModel,
 	LELodasoftCommonModelsMortgageResidencyAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageResidencyAddressViewModel';
-import { Option } from 'fp-ts/lib/Option';
-import { number, string, boolean, keyof, array, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { createEnumType } from '../utils/utils';
+
+export enum MaritalStatusEnum {
+	'Single',
+	'Married',
+	'Separated',
+}
+
+export enum TypeOfBorrower {
+	'PrimaryBorrower',
+	'CoBorrower',
+}
 
 export type LELodasoftCommonModelsMortgageMortgageBorrowerViewModel = {
 	borrowerId: Option<number>;
@@ -62,13 +75,13 @@ export type LELodasoftCommonModelsMortgageMortgageBorrowerViewModel = {
 	dependentCount: Option<number>;
 	authorizedCreditCheck: Option<boolean>;
 	socialSecNum: Option<string>;
-	maritalStatus: Option<'Single' | 'Married' | 'Separated'>;
+	maritalStatus: Option<MaritalStatusEnum>;
 	dateOfBirth: Option<Date>;
 	creditScore: Option<number>;
 	creditScore_Equifax: Option<number>;
 	creditScore_Experian: Option<number>;
 	creditScore_TransUnion: Option<number>;
-	typeOfBorrower: 'PrimaryBorrower' | 'CoBorrower';
+	typeOfBorrower: TypeOfBorrower;
 	active: Option<boolean>;
 	assets: Option<Array<LELodasoftCommonModelsMortgageAssetViewModel>>;
 	declarations: Option<Array<LELodasoftCommonModelsMortgageDeclarationViewModel>>;
@@ -100,13 +113,16 @@ export const LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO = type({
 	dependentCount: createOptionFromNullable(number, 'dependentCount'),
 	authorizedCreditCheck: createOptionFromNullable(boolean, 'authorizedCreditCheck'),
 	socialSecNum: createOptionFromNullable(string, 'socialSecNum'),
-	maritalStatus: createOptionFromNullable(keyof({ Single: null, Married: null, Separated: null }), 'maritalStatus'),
+	maritalStatus: createOptionFromNullable(
+		createEnumType<MaritalStatusEnum>(MaritalStatusEnum, 'MaritalStatusEnum'),
+		'maritalStatus',
+	),
 	dateOfBirth: createOptionFromNullable(DateFromISOString, 'dateOfBirth'),
 	creditScore: createOptionFromNullable(number, 'creditScore'),
 	creditScore_Equifax: createOptionFromNullable(number, 'creditScore_Equifax'),
 	creditScore_Experian: createOptionFromNullable(number, 'creditScore_Experian'),
 	creditScore_TransUnion: createOptionFromNullable(number, 'creditScore_TransUnion'),
-	typeOfBorrower: keyof({ PrimaryBorrower: null, CoBorrower: null }),
+	typeOfBorrower: createEnumType<TypeOfBorrower>(TypeOfBorrower, 'TypeOfBorrower'),
 	active: createOptionFromNullable(boolean, 'active'),
 	assets: createOptionFromNullable(array(LELodasoftCommonModelsMortgageAssetViewModelIO), 'assets'),
 	declarations: createOptionFromNullable(array(LELodasoftCommonModelsMortgageDeclarationViewModelIO), 'declarations'),

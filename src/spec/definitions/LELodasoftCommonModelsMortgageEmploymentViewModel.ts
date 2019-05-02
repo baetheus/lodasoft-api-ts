@@ -1,3 +1,7 @@
+import { Option } from 'fp-ts/lib/Option';
+import { array, boolean, number, string, type } from 'io-ts';
+import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
 import {
 	LELodasoftCommonModelsMortgageAddressViewModel,
 	LELodasoftCommonModelsMortgageAddressViewModelIO,
@@ -6,9 +10,12 @@ import {
 	LELodasoftCommonModelsMortgageIncomeViewModel,
 	LELodasoftCommonModelsMortgageIncomeViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageIncomeViewModel';
-import { Option } from 'fp-ts/lib/Option';
-import { number, string, keyof, boolean, array, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { createEnumType } from '../utils/utils';
+
+export enum EmploymentTypeEnum {
+	'CurrentEmployer',
+	'FormerEmployer',
+}
 
 export type LELodasoftCommonModelsMortgageEmploymentViewModel = {
 	employmentId: Option<number>;
@@ -17,7 +24,7 @@ export type LELodasoftCommonModelsMortgageEmploymentViewModel = {
 	employer: Option<string>;
 	employerEmail: Option<string>;
 	employerPhone: Option<string>;
-	employmentType: Option<'CurrentEmployer' | 'FormerEmployer'>;
+	employmentType: Option<EmploymentTypeEnum>;
 	selfEmployed: Option<boolean>;
 	isPrimary: Option<boolean>;
 	position: Option<string>;
@@ -42,7 +49,10 @@ export const LELodasoftCommonModelsMortgageEmploymentViewModelIO = type({
 	employer: createOptionFromNullable(string, 'employer'),
 	employerEmail: createOptionFromNullable(string, 'employerEmail'),
 	employerPhone: createOptionFromNullable(string, 'employerPhone'),
-	employmentType: createOptionFromNullable(keyof({ CurrentEmployer: null, FormerEmployer: null }), 'employmentType'),
+	employmentType: createOptionFromNullable(
+		createEnumType<EmploymentTypeEnum>(EmploymentTypeEnum, 'EmploymentTypeEnum'),
+		'employmentType',
+	),
 	selfEmployed: createOptionFromNullable(boolean, 'selfEmployed'),
 	isPrimary: createOptionFromNullable(boolean, 'isPrimary'),
 	position: createOptionFromNullable(string, 'position'),

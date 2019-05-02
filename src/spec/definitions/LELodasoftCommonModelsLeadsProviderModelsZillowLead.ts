@@ -1,3 +1,7 @@
+import { Option } from 'fp-ts/lib/Option';
+import { number, string, type } from 'io-ts';
+import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
 import {
 	LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactDetails,
 	LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactDetailsIO,
@@ -14,28 +18,35 @@ import {
 	LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactSender,
 	LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactSenderIO,
 } from '../definitions/LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactSender';
-import { Option } from 'fp-ts/lib/Option';
-import { keyof, string, number, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { createEnumType } from '../utils/utils';
+
+export enum ZillowLeadTypeEnum {
+	'simple',
+	'quote',
+	'longForm',
+	'propertyPreapproval',
+}
+
+export enum ZillowLeadConciergeStatusEnum {
+	'Transferred',
+	'AppointmentSet',
+	'UnsupportedLanguage',
+	'EmailRequested',
+	'DoNotCall',
+	'Duplicate',
+	'LenderContacted',
+	'NotInterested',
+	'ConciergeUnsuccessful',
+	'LenderMustCall',
+}
 
 export type LELodasoftCommonModelsLeadsProviderModelsZillowLead = {
-	type: Option<'simple' | 'quote' | 'longForm' | 'propertyPreapproval'>;
+	type: Option<ZillowLeadTypeEnum>;
 	id: Option<string>;
 	created: Option<Date>;
 	source: Option<string>;
 	price: Option<number>;
-	conciergeStatus: Option<
-		| 'Transferred'
-		| 'AppointmentSet'
-		| 'UnsupportedLanguage'
-		| 'EmailRequested'
-		| 'DoNotCall'
-		| 'Duplicate'
-		| 'LenderContacted'
-		| 'NotInterested'
-		| 'ConciergeUnsuccessful'
-		| 'LenderMustCall'
-	>;
+	conciergeStatus: Option<ZillowLeadConciergeStatusEnum>;
 	sender: Option<LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactSender>;
 	recipient: Option<LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactRecipient>;
 	details: Option<LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactDetails>;
@@ -43,7 +54,7 @@ export type LELodasoftCommonModelsLeadsProviderModelsZillowLead = {
 };
 export const LELodasoftCommonModelsLeadsProviderModelsZillowLeadIO = type({
 	type: createOptionFromNullable(
-		keyof({ simple: null, quote: null, longForm: null, propertyPreapproval: null }),
+		createEnumType<ZillowLeadTypeEnum>(ZillowLeadTypeEnum, 'ZillowLeadTypeEnum'),
 		'type',
 	),
 	id: createOptionFromNullable(string, 'id'),
@@ -51,18 +62,7 @@ export const LELodasoftCommonModelsLeadsProviderModelsZillowLeadIO = type({
 	source: createOptionFromNullable(string, 'source'),
 	price: createOptionFromNullable(number, 'price'),
 	conciergeStatus: createOptionFromNullable(
-		keyof({
-			Transferred: null,
-			AppointmentSet: null,
-			UnsupportedLanguage: null,
-			EmailRequested: null,
-			DoNotCall: null,
-			Duplicate: null,
-			LenderContacted: null,
-			NotInterested: null,
-			ConciergeUnsuccessful: null,
-			LenderMustCall: null,
-		}),
+		createEnumType<ZillowLeadConciergeStatusEnum>(ZillowLeadConciergeStatusEnum, 'ZillowLeadConciergeStatusEnum'),
 		'conciergeStatus',
 	),
 	sender: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactSenderIO, 'sender'),

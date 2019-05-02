@@ -1,15 +1,25 @@
+import { Option } from 'fp-ts/lib/Option';
+import { boolean, number, string, type } from 'io-ts';
+import { createOptionFromNullable } from 'io-ts-types';
+
 import {
 	LELodasoftDataAccessDbModelsConfigurationCompanyModel,
 	LELodasoftDataAccessDbModelsConfigurationCompanyModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationCompanyModel';
-import { Option } from 'fp-ts/lib/Option';
-import { number, string, keyof, boolean, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createEnumType } from '../utils/utils';
+
+export enum MortgageAppliedForTypeEnum {
+	'VA',
+	'FHA',
+	'Conventional',
+	'USDARuralHousingService',
+	'OtherMortgage',
+}
 
 export type LELodasoftDataAccessDbModelsConfigurationLoanTypeModel = {
 	loanTypeId: Option<number>;
 	loanTypeName: Option<string>;
-	mortgageAppliedForType: Option<'VA' | 'FHA' | 'Conventional' | 'USDARuralHousingService' | 'OtherMortgage'>;
+	mortgageAppliedForType: Option<MortgageAppliedForTypeEnum>;
 	companyId: Option<number>;
 	companyModel: Option<LELodasoftDataAccessDbModelsConfigurationCompanyModel>;
 	showInOnlineApp: Option<boolean>;
@@ -20,7 +30,7 @@ export const LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO = type({
 	loanTypeId: createOptionFromNullable(number, 'loanTypeId'),
 	loanTypeName: createOptionFromNullable(string, 'loanTypeName'),
 	mortgageAppliedForType: createOptionFromNullable(
-		keyof({ VA: null, FHA: null, Conventional: null, USDARuralHousingService: null, OtherMortgage: null }),
+		createEnumType<MortgageAppliedForTypeEnum>(MortgageAppliedForTypeEnum, 'MortgageAppliedForTypeEnum'),
 		'mortgageAppliedForType',
 	),
 	companyId: createOptionFromNullable(number, 'companyId'),

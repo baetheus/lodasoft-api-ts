@@ -1,6 +1,50 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, keyof, boolean, type } from 'io-ts';
+import { boolean, number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum TaskTypeEnum {
+	'RequestDocument',
+	'ViewDocument',
+	'AcknowledgeReceipt',
+	'EsignDocument',
+	'RequestInformation',
+	'PerformAction',
+	'OnlineApplication',
+	'DigitalAssetVerification',
+}
+
+export enum TaskPriorityEnum {
+	'Low',
+	'Normal',
+	'High',
+	'Immediate',
+}
+
+export enum TaskStatusEnum {
+	'Pending',
+	'Submitted',
+	'Rejected',
+	'Approved',
+	'NotApplicable',
+	'Requested',
+	'Completed',
+	'ReviewReady',
+}
+
+export enum ConditionStatusEnum {
+	'ConditionPending',
+	'ConditionCleared',
+	'ConditionReOpened',
+}
+
+export enum ConditionTypeEnum {
+	'PTS',
+	'PTD',
+	'PTF',
+	'PTC',
+}
 
 export type LELodasoftDataAccessDbModelsAdminLoanDocTaskModel = {
 	loanDocTaskId: Option<number>;
@@ -15,27 +59,16 @@ export type LELodasoftDataAccessDbModelsAdminLoanDocTaskModel = {
 	roleId: Option<number>;
 	notifyPartyId: Option<string>;
 	reviewPartyId: Option<string>;
-	taskType: Option<
-		| 'RequestDocument'
-		| 'ViewDocument'
-		| 'AcknowledgeReceipt'
-		| 'EsignDocument'
-		| 'RequestInformation'
-		| 'PerformAction'
-		| 'OnlineApplication'
-		| 'DigitalAssetVerification'
-	>;
-	taskPriority: Option<'Low' | 'Normal' | 'High' | 'Immediate'>;
+	taskType: Option<TaskTypeEnum>;
+	taskPriority: Option<TaskPriorityEnum>;
 	description: Option<string>;
 	note: Option<string>;
 	borrowerFacingNote: Option<string>;
 	requestedBy: Option<string>;
 	dueDays: Option<number>;
-	taskStatus: Option<
-		'Pending' | 'Submitted' | 'Rejected' | 'Approved' | 'NotApplicable' | 'Requested' | 'Completed' | 'ReviewReady'
-	>;
-	conditionStatus: Option<'ConditionPending' | 'ConditionCleared' | 'ConditionReOpened'>;
-	conditionType: Option<'PTS' | 'PTD' | 'PTF' | 'PTC'>;
+	taskStatus: Option<TaskStatusEnum>;
+	conditionStatus: Option<ConditionStatusEnum>;
+	conditionType: Option<ConditionTypeEnum>;
 	requestBorrower: Option<boolean>;
 	condition: Option<boolean>;
 	requiresReview: Option<boolean>;
@@ -65,21 +98,9 @@ export const LELodasoftDataAccessDbModelsAdminLoanDocTaskModelIO = type({
 	roleId: createOptionFromNullable(number, 'roleId'),
 	notifyPartyId: createOptionFromNullable(string, 'notifyPartyId'),
 	reviewPartyId: createOptionFromNullable(string, 'reviewPartyId'),
-	taskType: createOptionFromNullable(
-		keyof({
-			RequestDocument: null,
-			ViewDocument: null,
-			AcknowledgeReceipt: null,
-			EsignDocument: null,
-			RequestInformation: null,
-			PerformAction: null,
-			OnlineApplication: null,
-			DigitalAssetVerification: null,
-		}),
-		'taskType',
-	),
+	taskType: createOptionFromNullable(createEnumType<TaskTypeEnum>(TaskTypeEnum, 'TaskTypeEnum'), 'taskType'),
 	taskPriority: createOptionFromNullable(
-		keyof({ Low: null, Normal: null, High: null, Immediate: null }),
+		createEnumType<TaskPriorityEnum>(TaskPriorityEnum, 'TaskPriorityEnum'),
 		'taskPriority',
 	),
 	description: createOptionFromNullable(string, 'description'),
@@ -88,23 +109,17 @@ export const LELodasoftDataAccessDbModelsAdminLoanDocTaskModelIO = type({
 	requestedBy: createOptionFromNullable(string, 'requestedBy'),
 	dueDays: createOptionFromNullable(number, 'dueDays'),
 	taskStatus: createOptionFromNullable(
-		keyof({
-			Pending: null,
-			Submitted: null,
-			Rejected: null,
-			Approved: null,
-			NotApplicable: null,
-			Requested: null,
-			Completed: null,
-			ReviewReady: null,
-		}),
+		createEnumType<TaskStatusEnum>(TaskStatusEnum, 'TaskStatusEnum'),
 		'taskStatus',
 	),
 	conditionStatus: createOptionFromNullable(
-		keyof({ ConditionPending: null, ConditionCleared: null, ConditionReOpened: null }),
+		createEnumType<ConditionStatusEnum>(ConditionStatusEnum, 'ConditionStatusEnum'),
 		'conditionStatus',
 	),
-	conditionType: createOptionFromNullable(keyof({ PTS: null, PTD: null, PTF: null, PTC: null }), 'conditionType'),
+	conditionType: createOptionFromNullable(
+		createEnumType<ConditionTypeEnum>(ConditionTypeEnum, 'ConditionTypeEnum'),
+		'conditionType',
+	),
 	requestBorrower: createOptionFromNullable(boolean, 'requestBorrower'),
 	condition: createOptionFromNullable(boolean, 'condition'),
 	requiresReview: createOptionFromNullable(boolean, 'requiresReview'),

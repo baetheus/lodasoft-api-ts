@@ -1,20 +1,38 @@
+import { Option } from 'fp-ts/lib/Option';
+import { string, type } from 'io-ts';
+import { createOptionFromNullable } from 'io-ts-types';
+
 import {
 	LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrower,
 	LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrowerIO,
 } from '../definitions/LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrower';
-import { Option } from 'fp-ts/lib/Option';
-import { keyof, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createEnumType } from '../utils/utils';
+
+export enum RequestTypeEnum {
+	'VOE',
+	'VOI',
+}
+
+export enum ResponseFormatEnum {
+	'Pdf',
+	'Xml',
+}
 
 export type LELodasoftThirdPartyTheWorkNumberModelsVerificationRequest = {
-	requestType: Option<'VOE' | 'VOI'>;
-	responseFormat: Option<'Pdf' | 'Xml'>;
+	requestType: Option<RequestTypeEnum>;
+	responseFormat: Option<ResponseFormatEnum>;
 	referenceNumber: Option<string>;
 	borrower: Option<LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrower>;
 };
 export const LELodasoftThirdPartyTheWorkNumberModelsVerificationRequestIO = type({
-	requestType: createOptionFromNullable(keyof({ VOE: null, VOI: null }), 'requestType'),
-	responseFormat: createOptionFromNullable(keyof({ Pdf: null, Xml: null }), 'responseFormat'),
+	requestType: createOptionFromNullable(
+		createEnumType<RequestTypeEnum>(RequestTypeEnum, 'RequestTypeEnum'),
+		'requestType',
+	),
+	responseFormat: createOptionFromNullable(
+		createEnumType<ResponseFormatEnum>(ResponseFormatEnum, 'ResponseFormatEnum'),
+		'responseFormat',
+	),
 	referenceNumber: createOptionFromNullable(string, 'referenceNumber'),
 	borrower: createOptionFromNullable(LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrowerIO, 'borrower'),
 });

@@ -1,6 +1,14 @@
 import { Option } from 'fp-ts/lib/Option';
-import { string, number, keyof, boolean, type } from 'io-ts';
+import { boolean, number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum UserTypeEnum {
+	'Admin',
+	'Borrower',
+	'Agent',
+}
 
 export type LELodasoftCommonModelsLeadsUserProfileViewModel = {
 	id: Option<string>;
@@ -8,7 +16,7 @@ export type LELodasoftCommonModelsLeadsUserProfileViewModel = {
 	stackOrderId: Option<number>;
 	roleId: Option<number>;
 	userName: Option<string>;
-	userType: Option<'Admin' | 'Borrower' | 'Agent'>;
+	userType: Option<UserTypeEnum>;
 	avatarId: Option<string>;
 	firstName: Option<string>;
 	lastName: Option<string>;
@@ -43,7 +51,7 @@ export const LELodasoftCommonModelsLeadsUserProfileViewModelIO = type({
 	stackOrderId: createOptionFromNullable(number, 'stackOrderId'),
 	roleId: createOptionFromNullable(number, 'roleId'),
 	userName: createOptionFromNullable(string, 'userName'),
-	userType: createOptionFromNullable(keyof({ Admin: null, Borrower: null, Agent: null }), 'userType'),
+	userType: createOptionFromNullable(createEnumType<UserTypeEnum>(UserTypeEnum, 'UserTypeEnum'), 'userType'),
 	avatarId: createOptionFromNullable(string, 'avatarId'),
 	firstName: createOptionFromNullable(string, 'firstName'),
 	lastName: createOptionFromNullable(string, 'lastName'),

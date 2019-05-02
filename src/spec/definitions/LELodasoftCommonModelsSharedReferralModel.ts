@@ -1,10 +1,17 @@
 import { Option } from 'fp-ts/lib/Option';
-import { string, keyof, type } from 'io-ts';
+import { string, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum ReferralTypeEnum {
+	'Borrower',
+	'Agent',
+}
 
 export type LELodasoftCommonModelsSharedReferralModel = {
 	referToUserId: Option<string>;
-	referralType: Option<'Borrower' | 'Agent'>;
+	referralType: Option<ReferralTypeEnum>;
 	firstName: Option<string>;
 	lastName: Option<string>;
 	userContact: Option<string>;
@@ -17,7 +24,10 @@ export type LELodasoftCommonModelsSharedReferralModel = {
 };
 export const LELodasoftCommonModelsSharedReferralModelIO = type({
 	referToUserId: createOptionFromNullable(string, 'referToUserId'),
-	referralType: createOptionFromNullable(keyof({ Borrower: null, Agent: null }), 'referralType'),
+	referralType: createOptionFromNullable(
+		createEnumType<ReferralTypeEnum>(ReferralTypeEnum, 'ReferralTypeEnum'),
+		'referralType',
+	),
 	firstName: createOptionFromNullable(string, 'firstName'),
 	lastName: createOptionFromNullable(string, 'lastName'),
 	userContact: createOptionFromNullable(string, 'userContact'),

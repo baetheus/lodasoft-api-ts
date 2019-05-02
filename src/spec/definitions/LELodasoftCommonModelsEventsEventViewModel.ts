@@ -1,13 +1,26 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, keyof, boolean, type } from 'io-ts';
+import { boolean, number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum EventTypeEnum {
+	'Appointment',
+	'EstimatedClosing',
+	'LockExpiration',
+}
+
+export enum PrivilegeEnum {
+	'Private',
+	'Public',
+}
 
 export type LELodasoftCommonModelsEventsEventViewModel = {
 	eventId: Option<number>;
 	title: Option<string>;
-	eventType: Option<'Appointment' | 'EstimatedClosing' | 'LockExpiration'>;
+	eventType: Option<EventTypeEnum>;
 	description: Option<string>;
-	privilege: Option<'Private' | 'Public'>;
+	privilege: Option<PrivilegeEnum>;
 	location: Option<string>;
 	icon: Option<string>;
 	className: Option<string>;
@@ -35,12 +48,9 @@ export type LELodasoftCommonModelsEventsEventViewModel = {
 export const LELodasoftCommonModelsEventsEventViewModelIO = type({
 	eventId: createOptionFromNullable(number, 'eventId'),
 	title: createOptionFromNullable(string, 'title'),
-	eventType: createOptionFromNullable(
-		keyof({ Appointment: null, EstimatedClosing: null, LockExpiration: null }),
-		'eventType',
-	),
+	eventType: createOptionFromNullable(createEnumType<EventTypeEnum>(EventTypeEnum, 'EventTypeEnum'), 'eventType'),
 	description: createOptionFromNullable(string, 'description'),
-	privilege: createOptionFromNullable(keyof({ Private: null, Public: null }), 'privilege'),
+	privilege: createOptionFromNullable(createEnumType<PrivilegeEnum>(PrivilegeEnum, 'PrivilegeEnum'), 'privilege'),
 	location: createOptionFromNullable(string, 'location'),
 	icon: createOptionFromNullable(string, 'icon'),
 	className: createOptionFromNullable(string, 'className'),

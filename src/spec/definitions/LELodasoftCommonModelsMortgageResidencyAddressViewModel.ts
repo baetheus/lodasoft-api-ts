@@ -1,19 +1,33 @@
+import { Option } from 'fp-ts/lib/Option';
+import { boolean, number, string, type } from 'io-ts';
+import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
 import {
 	LELodasoftCommonModelsMortgageAddressViewModel,
 	LELodasoftCommonModelsMortgageAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageAddressViewModel';
-import { Option } from 'fp-ts/lib/Option';
-import { number, keyof, boolean, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { createEnumType } from '../utils/utils';
+
+export enum OwnRentTypeEnum {
+	'Own',
+	'Rent',
+	'LivingRentFree',
+}
+
+export enum ResidencyBasisEnum {
+	'PresentAddress',
+	'FormerAddress',
+	'MailingAddress',
+}
 
 export type LELodasoftCommonModelsMortgageResidencyAddressViewModel = {
 	residencyAddressId: Option<number>;
 	borrowerId: number;
 	addressId: Option<number>;
-	residencyBasis: 'PresentAddress' | 'FormerAddress' | 'MailingAddress';
+	residencyBasis: ResidencyBasisEnum;
 	durationYears: Option<number>;
 	durationMonths: Option<number>;
-	ownRentType: Option<'Own' | 'Rent' | 'LivingRentFree'>;
+	ownRentType: Option<OwnRentTypeEnum>;
 	fromCreditReport: Option<boolean>;
 	address: Option<LELodasoftCommonModelsMortgageAddressViewModel>;
 	companyId: Option<number>;
@@ -26,10 +40,13 @@ export const LELodasoftCommonModelsMortgageResidencyAddressViewModelIO = type({
 	residencyAddressId: createOptionFromNullable(number, 'residencyAddressId'),
 	borrowerId: number,
 	addressId: createOptionFromNullable(number, 'addressId'),
-	residencyBasis: keyof({ PresentAddress: null, FormerAddress: null, MailingAddress: null }),
+	residencyBasis: createEnumType<ResidencyBasisEnum>(ResidencyBasisEnum, 'ResidencyBasisEnum'),
 	durationYears: createOptionFromNullable(number, 'durationYears'),
 	durationMonths: createOptionFromNullable(number, 'durationMonths'),
-	ownRentType: createOptionFromNullable(keyof({ Own: null, Rent: null, LivingRentFree: null }), 'ownRentType'),
+	ownRentType: createOptionFromNullable(
+		createEnumType<OwnRentTypeEnum>(OwnRentTypeEnum, 'OwnRentTypeEnum'),
+		'ownRentType',
+	),
 	fromCreditReport: createOptionFromNullable(boolean, 'fromCreditReport'),
 	address: createOptionFromNullable(LELodasoftCommonModelsMortgageAddressViewModelIO, 'address'),
 	companyId: createOptionFromNullable(number, 'companyId'),

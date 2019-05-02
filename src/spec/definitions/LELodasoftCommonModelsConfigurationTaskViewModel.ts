@@ -1,28 +1,46 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, keyof, boolean, type } from 'io-ts';
+import { boolean, number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum BorrowerTriggerEnum {
+	'Loan',
+	'PrimaryBorrower',
+	'AllBorrowers',
+	'SelectBorrowers',
+}
+
+export enum TaskTypeEnum {
+	'RequestDocument',
+	'ViewDocument',
+	'AcknowledgeReceipt',
+	'EsignDocument',
+	'RequestInformation',
+	'PerformAction',
+	'OnlineApplication',
+	'DigitalAssetVerification',
+}
+
+export enum DefaultTaskPriorityEnum {
+	'Low',
+	'Normal',
+	'High',
+	'Immediate',
+}
 
 export type LELodasoftCommonModelsConfigurationTaskViewModel = {
 	taskId: Option<number>;
 	taskName: Option<string>;
 	triggerAssociations: Option<string>;
-	borrowerTrigger: Option<'Loan' | 'PrimaryBorrower' | 'AllBorrowers' | 'SelectBorrowers'>;
+	borrowerTrigger: Option<BorrowerTriggerEnum>;
 	isLeadTask: Option<boolean>;
 	roleId: Option<number>;
 	documentTypeId: Option<number>;
 	reviewRequiredRoleId: Option<number>;
 	notifyPartyRoleId: Option<number>;
-	taskType: Option<
-		| 'RequestDocument'
-		| 'ViewDocument'
-		| 'AcknowledgeReceipt'
-		| 'EsignDocument'
-		| 'RequestInformation'
-		| 'PerformAction'
-		| 'OnlineApplication'
-		| 'DigitalAssetVerification'
-	>;
-	defaultTaskPriority: Option<'Low' | 'Normal' | 'High' | 'Immediate'>;
+	taskType: Option<TaskTypeEnum>;
+	defaultTaskPriority: Option<DefaultTaskPriorityEnum>;
 	dueDays: Option<number>;
 	permittedAgentTypes: Option<string>;
 	tasksOnCompletion: Option<string>;
@@ -42,7 +60,7 @@ export const LELodasoftCommonModelsConfigurationTaskViewModelIO = type({
 	taskName: createOptionFromNullable(string, 'taskName'),
 	triggerAssociations: createOptionFromNullable(string, 'triggerAssociations'),
 	borrowerTrigger: createOptionFromNullable(
-		keyof({ Loan: null, PrimaryBorrower: null, AllBorrowers: null, SelectBorrowers: null }),
+		createEnumType<BorrowerTriggerEnum>(BorrowerTriggerEnum, 'BorrowerTriggerEnum'),
 		'borrowerTrigger',
 	),
 	isLeadTask: createOptionFromNullable(boolean, 'isLeadTask'),
@@ -50,21 +68,9 @@ export const LELodasoftCommonModelsConfigurationTaskViewModelIO = type({
 	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
 	reviewRequiredRoleId: createOptionFromNullable(number, 'reviewRequiredRoleId'),
 	notifyPartyRoleId: createOptionFromNullable(number, 'notifyPartyRoleId'),
-	taskType: createOptionFromNullable(
-		keyof({
-			RequestDocument: null,
-			ViewDocument: null,
-			AcknowledgeReceipt: null,
-			EsignDocument: null,
-			RequestInformation: null,
-			PerformAction: null,
-			OnlineApplication: null,
-			DigitalAssetVerification: null,
-		}),
-		'taskType',
-	),
+	taskType: createOptionFromNullable(createEnumType<TaskTypeEnum>(TaskTypeEnum, 'TaskTypeEnum'), 'taskType'),
 	defaultTaskPriority: createOptionFromNullable(
-		keyof({ Low: null, Normal: null, High: null, Immediate: null }),
+		createEnumType<DefaultTaskPriorityEnum>(DefaultTaskPriorityEnum, 'DefaultTaskPriorityEnum'),
 		'defaultTaskPriority',
 	),
 	dueDays: createOptionFromNullable(number, 'dueDays'),

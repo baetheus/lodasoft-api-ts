@@ -1,10 +1,19 @@
 import { Option } from 'fp-ts/lib/Option';
-import { string, keyof, number, type } from 'io-ts';
+import { number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum AccountTypeEnum {
+	'DDA',
+	'SDA',
+	'INV',
+	'OLA',
+}
 
 export type LELodasoftThirdPartyFormFreeModelsLiteAccountInfo = {
 	accountId: Option<string>;
-	accountType: Option<'DDA' | 'SDA' | 'INV' | 'OLA'>;
+	accountType: Option<AccountTypeEnum>;
 	accountName: Option<string>;
 	accountNumber: Option<string>;
 	accountHolder: Option<string>;
@@ -16,7 +25,10 @@ export type LELodasoftThirdPartyFormFreeModelsLiteAccountInfo = {
 };
 export const LELodasoftThirdPartyFormFreeModelsLiteAccountInfoIO = type({
 	accountId: createOptionFromNullable(string, 'accountId'),
-	accountType: createOptionFromNullable(keyof({ DDA: null, SDA: null, INV: null, OLA: null }), 'accountType'),
+	accountType: createOptionFromNullable(
+		createEnumType<AccountTypeEnum>(AccountTypeEnum, 'AccountTypeEnum'),
+		'accountType',
+	),
 	accountName: createOptionFromNullable(string, 'accountName'),
 	accountNumber: createOptionFromNullable(string, 'accountNumber'),
 	accountHolder: createOptionFromNullable(string, 'accountHolder'),

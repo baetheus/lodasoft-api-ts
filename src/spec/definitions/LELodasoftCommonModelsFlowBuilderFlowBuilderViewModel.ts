@@ -1,10 +1,19 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, keyof, string, boolean, type } from 'io-ts';
+import { boolean, number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum FlowTypeEnum {
+	'Unspecified',
+	'LeadPost',
+	'OnlineApplication',
+	'ContactStrategy',
+}
 
 export type LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel = {
 	id: Option<number>;
-	flowType: 'Unspecified' | 'LeadPost' | 'OnlineApplication' | 'ContactStrategy';
+	flowType: FlowTypeEnum;
 	title: string;
 	comment: string;
 	data: Option<string>;
@@ -18,7 +27,7 @@ export type LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel = {
 };
 export const LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO = type({
 	id: createOptionFromNullable(number, 'id'),
-	flowType: keyof({ Unspecified: null, LeadPost: null, OnlineApplication: null, ContactStrategy: null }),
+	flowType: createEnumType<FlowTypeEnum>(FlowTypeEnum, 'FlowTypeEnum'),
 	title: string,
 	comment: string,
 	data: createOptionFromNullable(string, 'data'),

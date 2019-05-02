@@ -1,18 +1,42 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, keyof, string, type } from 'io-ts';
+import { number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum MortgageAppliedForEnum {
+	'VA',
+	'FHA',
+	'Conventional',
+	'USDARuralHousingService',
+	'OtherMortgage',
+}
+
+export enum AmortizationTypeEnum {
+	'FixedRate',
+	'GEM',
+	'GPM',
+	'ARM',
+	'OtherAmortization',
+}
+
+export enum LienPositionEnum {
+	'FirstLien',
+	'SecondLien',
+	'Other',
+}
 
 export type LELodasoftCommonModelsMortgageMortgageTermViewModel = {
 	mortgageTermId: Option<number>;
-	mortgageAppliedFor: Option<'VA' | 'FHA' | 'Conventional' | 'USDARuralHousingService' | 'OtherMortgage'>;
+	mortgageAppliedFor: Option<MortgageAppliedForEnum>;
 	agencyCaseNumber: Option<string>;
 	lenderCaseNumber: Option<string>;
 	amount: Option<number>;
 	appraisedValue: Option<number>;
 	interestRate: Option<number>;
 	noOfMonths: Option<number>;
-	amortizationType: Option<'FixedRate' | 'GEM' | 'GPM' | 'ARM' | 'OtherAmortization'>;
-	lienPosition: Option<'FirstLien' | 'SecondLien' | 'Other'>;
+	amortizationType: Option<AmortizationTypeEnum>;
+	lienPosition: Option<LienPositionEnum>;
 	companyId: Option<number>;
 	insertedBy: Option<string>;
 	dateInserted: Option<Date>;
@@ -22,7 +46,7 @@ export type LELodasoftCommonModelsMortgageMortgageTermViewModel = {
 export const LELodasoftCommonModelsMortgageMortgageTermViewModelIO = type({
 	mortgageTermId: createOptionFromNullable(number, 'mortgageTermId'),
 	mortgageAppliedFor: createOptionFromNullable(
-		keyof({ VA: null, FHA: null, Conventional: null, USDARuralHousingService: null, OtherMortgage: null }),
+		createEnumType<MortgageAppliedForEnum>(MortgageAppliedForEnum, 'MortgageAppliedForEnum'),
 		'mortgageAppliedFor',
 	),
 	agencyCaseNumber: createOptionFromNullable(string, 'agencyCaseNumber'),
@@ -32,10 +56,13 @@ export const LELodasoftCommonModelsMortgageMortgageTermViewModelIO = type({
 	interestRate: createOptionFromNullable(number, 'interestRate'),
 	noOfMonths: createOptionFromNullable(number, 'noOfMonths'),
 	amortizationType: createOptionFromNullable(
-		keyof({ FixedRate: null, GEM: null, GPM: null, ARM: null, OtherAmortization: null }),
+		createEnumType<AmortizationTypeEnum>(AmortizationTypeEnum, 'AmortizationTypeEnum'),
 		'amortizationType',
 	),
-	lienPosition: createOptionFromNullable(keyof({ FirstLien: null, SecondLien: null, Other: null }), 'lienPosition'),
+	lienPosition: createOptionFromNullable(
+		createEnumType<LienPositionEnum>(LienPositionEnum, 'LienPositionEnum'),
+		'lienPosition',
+	),
 	companyId: createOptionFromNullable(number, 'companyId'),
 	insertedBy: createOptionFromNullable(string, 'insertedBy'),
 	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),

@@ -1,3 +1,7 @@
+import { Option } from 'fp-ts/lib/Option';
+import { boolean, number, string, type } from 'io-ts';
+import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
 import {
 	LELodasoftDataAccessDbModelsConfigurationCharacteristicModel,
 	LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO,
@@ -14,9 +18,36 @@ import {
 	LELodasoftDataAccessDbModelsConfigurationRoleModel,
 	LELodasoftDataAccessDbModelsConfigurationRoleModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationRoleModel';
-import { Option } from 'fp-ts/lib/Option';
-import { number, string, keyof, boolean, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { createEnumType } from '../utils/utils';
+
+export enum OptionEnum {
+	'Immediately',
+	'OnLoanStatus',
+}
+
+export enum ApplyToEnum {
+	'Loan',
+	'PrimaryBorrower',
+	'SelectBorrowers',
+}
+
+export enum TaskTypeEnum {
+	'RequestDocument',
+	'ViewDocument',
+	'AcknowledgeReceipt',
+	'EsignDocument',
+	'RequestInformation',
+	'PerformAction',
+	'OnlineApplication',
+	'DigitalAssetVerification',
+}
+
+export enum DefaultTaskPriorityEnum {
+	'Low',
+	'Normal',
+	'High',
+	'Immediate',
+}
 
 export type LELodasoftDataAccessDbModelsConfigurationCustomTaskModel = {
 	customTaskId: Option<number>;
@@ -25,8 +56,8 @@ export type LELodasoftDataAccessDbModelsConfigurationCustomTaskModel = {
 	loanStatusId: Option<number>;
 	loanStatusModel: Option<LELodasoftDataAccessDbModelsConfigurationLoanStatusModel>;
 	taskDescription: Option<string>;
-	option: Option<'Immediately' | 'OnLoanStatus'>;
-	applyTo: Option<'Loan' | 'PrimaryBorrower' | 'SelectBorrowers'>;
+	option: Option<OptionEnum>;
+	applyTo: Option<ApplyToEnum>;
 	roleId: Option<number>;
 	roleModel: Option<LELodasoftDataAccessDbModelsConfigurationRoleModel>;
 	documentTypeId: Option<number>;
@@ -35,21 +66,12 @@ export type LELodasoftDataAccessDbModelsConfigurationCustomTaskModel = {
 	reviewRequiredRoleModel: Option<LELodasoftDataAccessDbModelsConfigurationRoleModel>;
 	notifyPartyRoleId: Option<number>;
 	notifyPartyRoleModel: Option<LELodasoftDataAccessDbModelsConfigurationRoleModel>;
-	taskType: Option<
-		| 'RequestDocument'
-		| 'ViewDocument'
-		| 'AcknowledgeReceipt'
-		| 'EsignDocument'
-		| 'RequestInformation'
-		| 'PerformAction'
-		| 'OnlineApplication'
-		| 'DigitalAssetVerification'
-	>;
+	taskType: Option<TaskTypeEnum>;
 	dueDays: Option<number>;
 	permittedAgentTypes: Option<string>;
 	tasksOnCompletion: Option<string>;
 	documentDataHeader: Option<string>;
-	defaultTaskPriority: Option<'Low' | 'Normal' | 'High' | 'Immediate'>;
+	defaultTaskPriority: Option<DefaultTaskPriorityEnum>;
 	docDataString: Option<string>;
 	requestBorrower: Option<boolean>;
 	alwaysShowPending: Option<boolean>;
@@ -72,8 +94,8 @@ export const LELodasoftDataAccessDbModelsConfigurationCustomTaskModelIO = type({
 		'loanStatusModel',
 	),
 	taskDescription: createOptionFromNullable(string, 'taskDescription'),
-	option: createOptionFromNullable(keyof({ Immediately: null, OnLoanStatus: null }), 'option'),
-	applyTo: createOptionFromNullable(keyof({ Loan: null, PrimaryBorrower: null, SelectBorrowers: null }), 'applyTo'),
+	option: createOptionFromNullable(createEnumType<OptionEnum>(OptionEnum, 'OptionEnum'), 'option'),
+	applyTo: createOptionFromNullable(createEnumType<ApplyToEnum>(ApplyToEnum, 'ApplyToEnum'), 'applyTo'),
 	roleId: createOptionFromNullable(number, 'roleId'),
 	roleModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationRoleModelIO, 'roleModel'),
 	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
@@ -91,25 +113,13 @@ export const LELodasoftDataAccessDbModelsConfigurationCustomTaskModelIO = type({
 		LELodasoftDataAccessDbModelsConfigurationRoleModelIO,
 		'notifyPartyRoleModel',
 	),
-	taskType: createOptionFromNullable(
-		keyof({
-			RequestDocument: null,
-			ViewDocument: null,
-			AcknowledgeReceipt: null,
-			EsignDocument: null,
-			RequestInformation: null,
-			PerformAction: null,
-			OnlineApplication: null,
-			DigitalAssetVerification: null,
-		}),
-		'taskType',
-	),
+	taskType: createOptionFromNullable(createEnumType<TaskTypeEnum>(TaskTypeEnum, 'TaskTypeEnum'), 'taskType'),
 	dueDays: createOptionFromNullable(number, 'dueDays'),
 	permittedAgentTypes: createOptionFromNullable(string, 'permittedAgentTypes'),
 	tasksOnCompletion: createOptionFromNullable(string, 'tasksOnCompletion'),
 	documentDataHeader: createOptionFromNullable(string, 'documentDataHeader'),
 	defaultTaskPriority: createOptionFromNullable(
-		keyof({ Low: null, Normal: null, High: null, Immediate: null }),
+		createEnumType<DefaultTaskPriorityEnum>(DefaultTaskPriorityEnum, 'DefaultTaskPriorityEnum'),
 		'defaultTaskPriority',
 	),
 	docDataString: createOptionFromNullable(string, 'docDataString'),

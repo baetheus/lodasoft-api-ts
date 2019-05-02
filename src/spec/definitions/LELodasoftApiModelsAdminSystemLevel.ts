@@ -31,6 +31,10 @@ import {
 	LELodasoftDataAccessDbModelsConfigurationDefinedSmsTemplateModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationDefinedSmsTemplateModel';
 import {
+	LELodasoftDataAccessDbModelsConfigurationOnlineApplicationSettingsModel,
+	LELodasoftDataAccessDbModelsConfigurationOnlineApplicationSettingsModelIO,
+} from '../definitions/LELodasoftDataAccessDbModelsConfigurationOnlineApplicationSettingsModel';
+import {
 	LELodasoftDataAccessDbModelsConfigurationPrequalGenerationSettingsModel,
 	LELodasoftDataAccessDbModelsConfigurationPrequalGenerationSettingsModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationPrequalGenerationSettingsModel';
@@ -60,6 +64,7 @@ export type LELodasoftApiModelsAdminSystemLevel = {
 	losEnabled: Option<LELodasoftCommonModelsConfigurationConfigurationViewModel>;
 	defaultCreditVendor: Option<LELodasoftCommonModelsConfigurationConfigurationViewModel>;
 	prequalGenerationSettings: Option<LELodasoftDataAccessDbModelsConfigurationPrequalGenerationSettingsModel>;
+	onlineApplicationSettings: Option<LELodasoftDataAccessDbModelsConfigurationOnlineApplicationSettingsModel>;
 	definedEmailTemplate: Option<LELodasoftCommonModelsEmailDefinedEmailTemplateViewModel>;
 	definedSmsTemplate: Option<LELodasoftDataAccessDbModelsConfigurationDefinedSmsTemplateModel>;
 	borrowerPortalContent: Option<LELodasoftDataAccessDbModelsConfigurationBorrowerPortalContentModel>;
@@ -116,6 +121,10 @@ export const LELodasoftApiModelsAdminSystemLevelIO = type({
 	prequalGenerationSettings: createOptionFromNullable(
 		LELodasoftDataAccessDbModelsConfigurationPrequalGenerationSettingsModelIO,
 		'prequalGenerationSettings',
+	),
+	onlineApplicationSettings: createOptionFromNullable(
+		LELodasoftDataAccessDbModelsConfigurationOnlineApplicationSettingsModelIO,
+		'onlineApplicationSettings',
 	),
 	definedEmailTemplate: createOptionFromNullable(
 		LELodasoftCommonModelsEmailDefinedEmailTemplateViewModelIO,

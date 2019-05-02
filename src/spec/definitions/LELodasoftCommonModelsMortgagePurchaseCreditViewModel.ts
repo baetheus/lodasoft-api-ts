@@ -1,38 +1,42 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, keyof, string, type } from 'io-ts';
+import { number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum PurchaseCreditTypeEnum {
+	'BridgeLoan',
+	'CashOnHand',
+	'CheckingSavings',
+	'DepositOnSalesContract',
+	'EquityOnPendingSale',
+	'EquityOnSoldProperty',
+	'EquityOnSubjectProperty',
+	'GiftFunds',
+	'LifeInsuranceCashValue',
+	'LotEquity',
+	'OtherTypeOfDownPayment',
+	'RentWithOptionToPurchase',
+	'RetirementFunds',
+	'SaleOfChattel',
+	'SecuredBorrowedFunds',
+	'StocksAndBonds',
+	'SweatEquity',
+	'TradeEquity',
+	'TrustFunds',
+	'UnsecuredBorrowedFunds',
+	'EarnestMoney',
+	'RelocationFunds',
+	'EmployerAssistedHousing',
+	'LeasePurchaseFund',
+	'Other',
+	'LenderCredit',
+}
 
 export type LELodasoftCommonModelsMortgagePurchaseCreditViewModel = {
 	purchaseCreditId: Option<number>;
 	transactionDetailId: Option<number>;
-	purchaseCreditType: Option<
-		| 'BridgeLoan'
-		| 'CashOnHand'
-		| 'CheckingSavings'
-		| 'DepositOnSalesContract'
-		| 'EquityOnPendingSale'
-		| 'EquityOnSoldProperty'
-		| 'EquityOnSubjectProperty'
-		| 'GiftFunds'
-		| 'LifeInsuranceCashValue'
-		| 'LotEquity'
-		| 'OtherTypeOfDownPayment'
-		| 'RentWithOptionToPurchase'
-		| 'RetirementFunds'
-		| 'SaleOfChattel'
-		| 'SecuredBorrowedFunds'
-		| 'StocksAndBonds'
-		| 'SweatEquity'
-		| 'TradeEquity'
-		| 'TrustFunds'
-		| 'UnsecuredBorrowedFunds'
-		| 'EarnestMoney'
-		| 'RelocationFunds'
-		| 'EmployerAssistedHousing'
-		| 'LeasePurchaseFund'
-		| 'Other'
-		| 'LenderCredit'
-	>;
+	purchaseCreditType: Option<PurchaseCreditTypeEnum>;
 	purchaseCreditAmount: Option<number>;
 	companyId: Option<number>;
 	insertedBy: Option<string>;
@@ -44,34 +48,7 @@ export const LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO = type({
 	purchaseCreditId: createOptionFromNullable(number, 'purchaseCreditId'),
 	transactionDetailId: createOptionFromNullable(number, 'transactionDetailId'),
 	purchaseCreditType: createOptionFromNullable(
-		keyof({
-			BridgeLoan: null,
-			CashOnHand: null,
-			CheckingSavings: null,
-			DepositOnSalesContract: null,
-			EquityOnPendingSale: null,
-			EquityOnSoldProperty: null,
-			EquityOnSubjectProperty: null,
-			GiftFunds: null,
-			LifeInsuranceCashValue: null,
-			LotEquity: null,
-			OtherTypeOfDownPayment: null,
-			RentWithOptionToPurchase: null,
-			RetirementFunds: null,
-			SaleOfChattel: null,
-			SecuredBorrowedFunds: null,
-			StocksAndBonds: null,
-			SweatEquity: null,
-			TradeEquity: null,
-			TrustFunds: null,
-			UnsecuredBorrowedFunds: null,
-			EarnestMoney: null,
-			RelocationFunds: null,
-			EmployerAssistedHousing: null,
-			LeasePurchaseFund: null,
-			Other: null,
-			LenderCredit: null,
-		}),
+		createEnumType<PurchaseCreditTypeEnum>(PurchaseCreditTypeEnum, 'PurchaseCreditTypeEnum'),
 		'purchaseCreditType',
 	),
 	purchaseCreditAmount: createOptionFromNullable(number, 'purchaseCreditAmount'),

@@ -1,6 +1,41 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, boolean, string, keyof, type } from 'io-ts';
+import { boolean, number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum ResidenceStatusEnum {
+	'USCitizen',
+	'PermanentResident',
+	'ResidentAlien',
+	'UnknownResidencyStatus',
+}
+
+export enum TypeOfPropertyEnum {
+	'SFRAttached',
+	'Condominium',
+	'Cooperative',
+	'SFR',
+	'HighRiseCondominium',
+	'ManufacturedHousing',
+	'Modular',
+	'PUD',
+	'ManufacturedHousingSingleWide',
+	'ManufacturedHousingDoubleWide',
+	'DetachedCondominium',
+	'ManufacturedHomeCondominium',
+	'ManufacturedHousingMultiWide',
+	'ManufacturedHomeCondominiumOrPUDOrCooperative',
+	'TwoTo4UnitBuilding',
+	'NonWarrantedCondo',
+}
+
+export enum PropertyWillBeEnum {
+	'PrimaryResidence',
+	'SecondaryResidence',
+	'Investment',
+	'ShortTermRental',
+}
 
 export type LELodasoftCommonModelsMortgageDeclarationViewModel = {
 	declarationId: Option<number>;
@@ -24,28 +59,11 @@ export type LELodasoftCommonModelsMortgageDeclarationViewModel = {
 	coSignedLoan: Option<boolean>;
 	coSignedLoanInfo: Option<string>;
 	isVeteran: Option<boolean>;
-	residenceStatus: Option<'USCitizen' | 'PermanentResident' | 'ResidentAlien' | 'UnknownResidencyStatus'>;
+	residenceStatus: Option<ResidenceStatusEnum>;
 	occupyProperty: Option<boolean>;
 	havePropertiesOwnership: Option<boolean>;
-	typeOfProperty: Option<
-		| 'SFRAttached'
-		| 'Condominium'
-		| 'Cooperative'
-		| 'SFR'
-		| 'HighRiseCondominium'
-		| 'ManufacturedHousing'
-		| 'Modular'
-		| 'PUD'
-		| 'ManufacturedHousingSingleWide'
-		| 'ManufacturedHousingDoubleWide'
-		| 'DetachedCondominium'
-		| 'ManufacturedHomeCondominium'
-		| 'ManufacturedHousingMultiWide'
-		| 'ManufacturedHomeCondominiumOrPUDOrCooperative'
-		| 'TwoTo4UnitBuilding'
-		| 'NonWarrantedCondo'
-	>;
-	propertyWillBe: Option<'PrimaryResidence' | 'SecondaryResidence' | 'Investment' | 'ShortTermRental'>;
+	typeOfProperty: Option<TypeOfPropertyEnum>;
+	propertyWillBe: Option<PropertyWillBeEnum>;
 	heldTitleHow: Option<number>;
 	fromCreditReport: Option<boolean>;
 	companyId: Option<number>;
@@ -77,34 +95,17 @@ export const LELodasoftCommonModelsMortgageDeclarationViewModelIO = type({
 	coSignedLoanInfo: createOptionFromNullable(string, 'coSignedLoanInfo'),
 	isVeteran: createOptionFromNullable(boolean, 'isVeteran'),
 	residenceStatus: createOptionFromNullable(
-		keyof({ USCitizen: null, PermanentResident: null, ResidentAlien: null, UnknownResidencyStatus: null }),
+		createEnumType<ResidenceStatusEnum>(ResidenceStatusEnum, 'ResidenceStatusEnum'),
 		'residenceStatus',
 	),
 	occupyProperty: createOptionFromNullable(boolean, 'occupyProperty'),
 	havePropertiesOwnership: createOptionFromNullable(boolean, 'havePropertiesOwnership'),
 	typeOfProperty: createOptionFromNullable(
-		keyof({
-			SFRAttached: null,
-			Condominium: null,
-			Cooperative: null,
-			SFR: null,
-			HighRiseCondominium: null,
-			ManufacturedHousing: null,
-			Modular: null,
-			PUD: null,
-			ManufacturedHousingSingleWide: null,
-			ManufacturedHousingDoubleWide: null,
-			DetachedCondominium: null,
-			ManufacturedHomeCondominium: null,
-			ManufacturedHousingMultiWide: null,
-			ManufacturedHomeCondominiumOrPUDOrCooperative: null,
-			TwoTo4UnitBuilding: null,
-			NonWarrantedCondo: null,
-		}),
+		createEnumType<TypeOfPropertyEnum>(TypeOfPropertyEnum, 'TypeOfPropertyEnum'),
 		'typeOfProperty',
 	),
 	propertyWillBe: createOptionFromNullable(
-		keyof({ PrimaryResidence: null, SecondaryResidence: null, Investment: null, ShortTermRental: null }),
+		createEnumType<PropertyWillBeEnum>(PropertyWillBeEnum, 'PropertyWillBeEnum'),
 		'propertyWillBe',
 	),
 	heldTitleHow: createOptionFromNullable(number, 'heldTitleHow'),

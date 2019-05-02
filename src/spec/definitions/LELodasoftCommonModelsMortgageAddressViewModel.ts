@@ -1,10 +1,18 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, keyof, string, boolean, type } from 'io-ts';
+import { boolean, number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum TypeOfAddressEnum {
+	'PresentAddress',
+	'FormerAddress',
+	'MailingAddress',
+}
 
 export type LELodasoftCommonModelsMortgageAddressViewModel = {
 	addressId: Option<number>;
-	typeOfAddress: Option<'PresentAddress' | 'FormerAddress' | 'MailingAddress'>;
+	typeOfAddress: Option<TypeOfAddressEnum>;
 	address1: Option<string>;
 	city: Option<string>;
 	state: Option<string>;
@@ -20,7 +28,7 @@ export type LELodasoftCommonModelsMortgageAddressViewModel = {
 export const LELodasoftCommonModelsMortgageAddressViewModelIO = type({
 	addressId: createOptionFromNullable(number, 'addressId'),
 	typeOfAddress: createOptionFromNullable(
-		keyof({ PresentAddress: null, FormerAddress: null, MailingAddress: null }),
+		createEnumType<TypeOfAddressEnum>(TypeOfAddressEnum, 'TypeOfAddressEnum'),
 		'typeOfAddress',
 	),
 	address1: createOptionFromNullable(string, 'address1'),

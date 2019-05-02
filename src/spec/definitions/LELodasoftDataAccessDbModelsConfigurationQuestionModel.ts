@@ -1,178 +1,102 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, keyof, type } from 'io-ts';
+import { number, string, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum QuestionTypeEnum {
+	'Immediately',
+	'OnLoanStatus',
+	'Private',
+	'Group',
+	'Public',
+	'Al',
+	'Event',
+	'ToDo',
+	'Appointment',
+	'AutoApply',
+	'Confirm',
+	'RequestQuantity',
+	'LoanCharacteristic',
+	'BorrowerCharacteristic',
+	'LessThan',
+	'LessThanOrEqualTo',
+	'EqualTo',
+	'GreatherThan',
+	'GreaterThanOrEqualTo',
+	'NullOrEmpty',
+	'NotNullOrEmpty',
+	'StartsWith',
+	'Contains',
+	'DoesNotContain',
+	'In',
+	'NotIn',
+	'YesNo',
+	'TrueFalse',
+	'OnOff',
+	'Text',
+	'Integer',
+	'Decimal',
+	'MultiSelect',
+	'SelectList',
+	'Value',
+	'Docvalue',
+	'DataValidation',
+	'DocumentValidation',
+	'ManualValidation',
+	'Pdf',
+	'Doc',
+	'Txt',
+	'Excel',
+	'Csv',
+	'Img',
+	'ApplyToLoan',
+	'ApplyToPrimaryBorrower',
+	'ApplyToSelectBorrowers',
+	'ChangeStatus',
+	'Uploadfile',
+	'DeleteFile',
+	'DownloadFile',
+	'ExportFile',
+	'FileNoteUpdated',
+	'BorrowerNoteUpdated',
+	'DeleteTask',
+	'RemoveFileFromTrash',
+	'ConditionStatusChange',
+	'CreateTask',
+	'RestoreTask',
+	'MergeFile',
+	'PostponeTask',
+	'ChangeFollowUpDate',
+	'ChangeDueDate',
+	'ViewFile',
+	'FileNameChanged',
+	'ChangeConditionFlag',
+	'ChangeDescription',
+	'ChangeNotifyParty',
+	'ChangePriority',
+	'ChangeResponsibleParty',
+	'ChangeReviewRequired',
+	'InternalMessageAlert',
+	'BorrowerMessageAlert',
+	'TaskStatusAlert',
+	'GeneralAlert',
+	'LoanStatusAlert',
+	'FailedEmailAlert',
+	'FailedSmsAlert',
+}
 
 export type LELodasoftDataAccessDbModelsConfigurationQuestionModel = {
 	questionId: Option<number>;
 	questionText: Option<string>;
-	questionType: Option<
-		| 'Immediately'
-		| 'OnLoanStatus'
-		| 'Private'
-		| 'Group'
-		| 'Public'
-		| 'Al'
-		| 'Event'
-		| 'ToDo'
-		| 'Appointment'
-		| 'AutoApply'
-		| 'Confirm'
-		| 'RequestQuantity'
-		| 'LoanCharacteristic'
-		| 'BorrowerCharacteristic'
-		| 'LessThan'
-		| 'LessThanOrEqualTo'
-		| 'EqualTo'
-		| 'GreatherThan'
-		| 'GreaterThanOrEqualTo'
-		| 'NullOrEmpty'
-		| 'NotNullOrEmpty'
-		| 'StartsWith'
-		| 'Contains'
-		| 'DoesNotContain'
-		| 'In'
-		| 'NotIn'
-		| 'YesNo'
-		| 'TrueFalse'
-		| 'OnOff'
-		| 'Text'
-		| 'Integer'
-		| 'Decimal'
-		| 'MultiSelect'
-		| 'SelectList'
-		| 'Value'
-		| 'Docvalue'
-		| 'DataValidation'
-		| 'DocumentValidation'
-		| 'ManualValidation'
-		| 'Pdf'
-		| 'Doc'
-		| 'Txt'
-		| 'Excel'
-		| 'Csv'
-		| 'Img'
-		| 'ApplyToLoan'
-		| 'ApplyToPrimaryBorrower'
-		| 'ApplyToSelectBorrowers'
-		| 'ChangeStatus'
-		| 'Uploadfile'
-		| 'DeleteFile'
-		| 'DownloadFile'
-		| 'ExportFile'
-		| 'FileNoteUpdated'
-		| 'BorrowerNoteUpdated'
-		| 'DeleteTask'
-		| 'RemoveFileFromTrash'
-		| 'ConditionStatusChange'
-		| 'CreateTask'
-		| 'RestoreTask'
-		| 'MergeFile'
-		| 'PostponeTask'
-		| 'ChangeFollowUpDate'
-		| 'ChangeDueDate'
-		| 'ViewFile'
-		| 'FileNameChanged'
-		| 'ChangeConditionFlag'
-		| 'ChangeDescription'
-		| 'ChangeNotifyParty'
-		| 'ChangePriority'
-		| 'ChangeResponsibleParty'
-		| 'ChangeReviewRequired'
-		| 'InternalMessageAlert'
-		| 'BorrowerMessageAlert'
-		| 'TaskStatusAlert'
-		| 'GeneralAlert'
-		| 'LoanStatusAlert'
-		| 'FailedEmailAlert'
-		| 'FailedSmsAlert'
-	>;
+	questionType: Option<QuestionTypeEnum>;
 	companyId: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationQuestionModelIO = type({
 	questionId: createOptionFromNullable(number, 'questionId'),
 	questionText: createOptionFromNullable(string, 'questionText'),
 	questionType: createOptionFromNullable(
-		keyof({
-			Immediately: null,
-			OnLoanStatus: null,
-			Private: null,
-			Group: null,
-			Public: null,
-			Al: null,
-			Event: null,
-			ToDo: null,
-			Appointment: null,
-			AutoApply: null,
-			Confirm: null,
-			RequestQuantity: null,
-			LoanCharacteristic: null,
-			BorrowerCharacteristic: null,
-			LessThan: null,
-			LessThanOrEqualTo: null,
-			EqualTo: null,
-			GreatherThan: null,
-			GreaterThanOrEqualTo: null,
-			NullOrEmpty: null,
-			NotNullOrEmpty: null,
-			StartsWith: null,
-			Contains: null,
-			DoesNotContain: null,
-			In: null,
-			NotIn: null,
-			YesNo: null,
-			TrueFalse: null,
-			OnOff: null,
-			Text: null,
-			Integer: null,
-			Decimal: null,
-			MultiSelect: null,
-			SelectList: null,
-			Value: null,
-			Docvalue: null,
-			DataValidation: null,
-			DocumentValidation: null,
-			ManualValidation: null,
-			Pdf: null,
-			Doc: null,
-			Txt: null,
-			Excel: null,
-			Csv: null,
-			Img: null,
-			ApplyToLoan: null,
-			ApplyToPrimaryBorrower: null,
-			ApplyToSelectBorrowers: null,
-			ChangeStatus: null,
-			Uploadfile: null,
-			DeleteFile: null,
-			DownloadFile: null,
-			ExportFile: null,
-			FileNoteUpdated: null,
-			BorrowerNoteUpdated: null,
-			DeleteTask: null,
-			RemoveFileFromTrash: null,
-			ConditionStatusChange: null,
-			CreateTask: null,
-			RestoreTask: null,
-			MergeFile: null,
-			PostponeTask: null,
-			ChangeFollowUpDate: null,
-			ChangeDueDate: null,
-			ViewFile: null,
-			FileNameChanged: null,
-			ChangeConditionFlag: null,
-			ChangeDescription: null,
-			ChangeNotifyParty: null,
-			ChangePriority: null,
-			ChangeResponsibleParty: null,
-			ChangeReviewRequired: null,
-			InternalMessageAlert: null,
-			BorrowerMessageAlert: null,
-			TaskStatusAlert: null,
-			GeneralAlert: null,
-			LoanStatusAlert: null,
-			FailedEmailAlert: null,
-			FailedSmsAlert: null,
-		}),
+		createEnumType<QuestionTypeEnum>(QuestionTypeEnum, 'QuestionTypeEnum'),
 		'questionType',
 	),
 	companyId: createOptionFromNullable(number, 'companyId'),

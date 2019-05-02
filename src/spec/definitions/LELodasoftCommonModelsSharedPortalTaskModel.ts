@@ -1,24 +1,35 @@
+import { Option } from 'fp-ts/lib/Option';
+import { array, boolean, number, string, type } from 'io-ts';
+import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
 import {
 	LELodasoftCommonModelsSharedPortalTaskDocument,
 	LELodasoftCommonModelsSharedPortalTaskDocumentIO,
 } from '../definitions/LELodasoftCommonModelsSharedPortalTaskDocument';
-import { Option } from 'fp-ts/lib/Option';
-import { number, string, keyof, array, boolean, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { createEnumType } from '../utils/utils';
+
+export enum BorrowerTaskTypeEnum {
+	'RequestDocument',
+	'ViewDocument',
+	'AcknowledgeReceipt',
+	'EsignDocument',
+	'RequestInformation',
+	'PerformAction',
+	'OnlineApplication',
+	'DigitalAssetVerification',
+}
+
+export enum BorrowerTaskStatusEnum {
+	'Pending',
+	'Submitted',
+	'Rejected',
+	'Completed',
+}
 
 export type LELodasoftCommonModelsSharedPortalTaskModel = {
 	taskId: Option<number>;
 	taskTypeId: Option<string>;
-	borrowerTaskType: Option<
-		| 'RequestDocument'
-		| 'ViewDocument'
-		| 'AcknowledgeReceipt'
-		| 'EsignDocument'
-		| 'RequestInformation'
-		| 'PerformAction'
-		| 'OnlineApplication'
-		| 'DigitalAssetVerification'
-	>;
+	borrowerTaskType: Option<BorrowerTaskTypeEnum>;
 	description: Option<string>;
 	docType: Option<string>;
 	docSortOrder: Option<number>;
@@ -29,7 +40,7 @@ export type LELodasoftCommonModelsSharedPortalTaskModel = {
 	borrowerId: Option<number>;
 	borrowerName: Option<string>;
 	borrowerFacingNote: Option<string>;
-	borrowerTaskStatus: Option<'Pending' | 'Submitted' | 'Rejected' | 'Completed'>;
+	borrowerTaskStatus: Option<BorrowerTaskStatusEnum>;
 	linkedDocuments: Option<Array<LELodasoftCommonModelsSharedPortalTaskDocument>>;
 	allowUpload: Option<boolean>;
 };
@@ -37,16 +48,7 @@ export const LELodasoftCommonModelsSharedPortalTaskModelIO = type({
 	taskId: createOptionFromNullable(number, 'taskId'),
 	taskTypeId: createOptionFromNullable(string, 'taskTypeId'),
 	borrowerTaskType: createOptionFromNullable(
-		keyof({
-			RequestDocument: null,
-			ViewDocument: null,
-			AcknowledgeReceipt: null,
-			EsignDocument: null,
-			RequestInformation: null,
-			PerformAction: null,
-			OnlineApplication: null,
-			DigitalAssetVerification: null,
-		}),
+		createEnumType<BorrowerTaskTypeEnum>(BorrowerTaskTypeEnum, 'BorrowerTaskTypeEnum'),
 		'borrowerTaskType',
 	),
 	description: createOptionFromNullable(string, 'description'),
@@ -60,7 +62,7 @@ export const LELodasoftCommonModelsSharedPortalTaskModelIO = type({
 	borrowerName: createOptionFromNullable(string, 'borrowerName'),
 	borrowerFacingNote: createOptionFromNullable(string, 'borrowerFacingNote'),
 	borrowerTaskStatus: createOptionFromNullable(
-		keyof({ Pending: null, Submitted: null, Rejected: null, Completed: null }),
+		createEnumType<BorrowerTaskStatusEnum>(BorrowerTaskStatusEnum, 'BorrowerTaskStatusEnum'),
 		'borrowerTaskStatus',
 	),
 	linkedDocuments: createOptionFromNullable(

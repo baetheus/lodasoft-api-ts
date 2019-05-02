@@ -1,3 +1,7 @@
+import { Option } from 'fp-ts/lib/Option';
+import { array, boolean, number, string, type } from 'io-ts';
+import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
 import {
 	LELodasoftDataAccessDbModelsAdminStackingOrderModel,
 	LELodasoftDataAccessDbModelsAdminStackingOrderModelIO,
@@ -22,9 +26,13 @@ import {
 	MicrosoftAspNetIdentityEntityFrameworkIdentityUserRole,
 	MicrosoftAspNetIdentityEntityFrameworkIdentityUserRoleIO,
 } from '../definitions/MicrosoftAspNetIdentityEntityFrameworkIdentityUserRole';
-import { Option } from 'fp-ts/lib/Option';
-import { string, number, keyof, boolean, array, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { createEnumType } from '../utils/utils';
+
+export enum UserTypeEnum {
+	'Admin',
+	'Borrower',
+	'Agent',
+}
 
 export type LELodasoftApiModelsAdminUser_View_AdminPage = {
 	email: Option<string>;
@@ -34,7 +42,7 @@ export type LELodasoftApiModelsAdminUser_View_AdminPage = {
 	stackingOrder: Option<LELodasoftDataAccessDbModelsAdminStackingOrderModel>;
 	roleId: Option<number>;
 	roleModel: Option<LELodasoftDataAccessDbModelsConfigurationRoleModel>;
-	userType: Option<'Admin' | 'Borrower' | 'Agent'>;
+	userType: Option<UserTypeEnum>;
 	avatarId: Option<string>;
 	firstName: Option<string>;
 	lastName: Option<string>;
@@ -87,7 +95,7 @@ export const LELodasoftApiModelsAdminUser_View_AdminPageIO = type({
 	stackingOrder: createOptionFromNullable(LELodasoftDataAccessDbModelsAdminStackingOrderModelIO, 'stackingOrder'),
 	roleId: createOptionFromNullable(number, 'roleId'),
 	roleModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationRoleModelIO, 'roleModel'),
-	userType: createOptionFromNullable(keyof({ Admin: null, Borrower: null, Agent: null }), 'userType'),
+	userType: createOptionFromNullable(createEnumType<UserTypeEnum>(UserTypeEnum, 'UserTypeEnum'), 'userType'),
 	avatarId: createOptionFromNullable(string, 'avatarId'),
 	firstName: createOptionFromNullable(string, 'firstName'),
 	lastName: createOptionFromNullable(string, 'lastName'),

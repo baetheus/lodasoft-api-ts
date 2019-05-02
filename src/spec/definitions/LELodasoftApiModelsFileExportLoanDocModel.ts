@@ -1,12 +1,29 @@
 import { Option } from 'fp-ts/lib/Option';
-import { keyof, string, number, boolean, type } from 'io-ts';
+import { boolean, number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
+import { createEnumType } from '../utils/utils';
+
+export enum TaskStatusEnum {
+	'Pending',
+	'Submitted',
+	'Rejected',
+	'Approved',
+	'NotApplicable',
+	'Requested',
+	'Completed',
+	'ReviewReady',
+}
+
+export enum ConditionStatusEnum {
+	'ConditionPending',
+	'ConditionCleared',
+	'ConditionReOpened',
+}
+
 export type LELodasoftApiModelsFileExportLoanDocModel = {
-	taskStatus: Option<
-		'Pending' | 'Submitted' | 'Rejected' | 'Approved' | 'NotApplicable' | 'Requested' | 'Completed' | 'ReviewReady'
-	>;
-	conditionStatus: Option<'ConditionPending' | 'ConditionCleared' | 'ConditionReOpened'>;
+	taskStatus: Option<TaskStatusEnum>;
+	conditionStatus: Option<ConditionStatusEnum>;
 	guid: Option<string>;
 	loanDocId: Option<number>;
 	note: Option<string>;
@@ -22,20 +39,11 @@ export type LELodasoftApiModelsFileExportLoanDocModel = {
 };
 export const LELodasoftApiModelsFileExportLoanDocModelIO = type({
 	taskStatus: createOptionFromNullable(
-		keyof({
-			Pending: null,
-			Submitted: null,
-			Rejected: null,
-			Approved: null,
-			NotApplicable: null,
-			Requested: null,
-			Completed: null,
-			ReviewReady: null,
-		}),
+		createEnumType<TaskStatusEnum>(TaskStatusEnum, 'TaskStatusEnum'),
 		'taskStatus',
 	),
 	conditionStatus: createOptionFromNullable(
-		keyof({ ConditionPending: null, ConditionCleared: null, ConditionReOpened: null }),
+		createEnumType<ConditionStatusEnum>(ConditionStatusEnum, 'ConditionStatusEnum'),
 		'conditionStatus',
 	),
 	guid: createOptionFromNullable(string, 'guid'),

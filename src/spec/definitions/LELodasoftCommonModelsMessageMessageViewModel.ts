@@ -1,6 +1,54 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, keyof, type } from 'io-ts';
+import { number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum MsgTypeEnum {
+	'Unspecified',
+	'UserInvite',
+	'BorrowerInvite',
+	'AgentInvite',
+	'ForgotPassword',
+	'DocRequest',
+	'DocReject',
+	'DocAccepted',
+	'StatusUpdate',
+	'Reminder',
+	'ApplicationEmailCampaign',
+	'ContactEmailCampaign',
+	'NewMessage',
+	'UserCreatedEmail',
+	'UserCreatedSms',
+	'Test',
+	'AppointmentAlert',
+	'Referral',
+	'CombinedParent',
+}
+
+export enum DeliveryEnum {
+	'Unspecified',
+	'Email',
+	'SMS',
+	'Toaster',
+}
+
+export enum PriorityEnum {
+	'Unspecified',
+	'Immediate',
+	'Queue',
+	'QueuedImmediate',
+	'Retry',
+}
+
+export enum StatusEnum {
+	'Unprocessed',
+	'InProcess',
+	'FailureSmsNotEnabled',
+	'Failure',
+	'Success',
+	'CombinedChild',
+}
 
 export type LELodasoftCommonModelsMessageMessageViewModel = {
 	id: Option<number>;
@@ -12,30 +60,10 @@ export type LELodasoftCommonModelsMessageMessageViewModel = {
 	eventId: Option<number>;
 	leadId: Option<number>;
 	fromUserId: Option<string>;
-	msgType: Option<
-		| 'Unspecified'
-		| 'UserInvite'
-		| 'BorrowerInvite'
-		| 'AgentInvite'
-		| 'ForgotPassword'
-		| 'DocRequest'
-		| 'DocReject'
-		| 'DocAccepted'
-		| 'StatusUpdate'
-		| 'Reminder'
-		| 'ApplicationEmailCampaign'
-		| 'ContactEmailCampaign'
-		| 'NewMessage'
-		| 'UserCreatedEmail'
-		| 'UserCreatedSms'
-		| 'Test'
-		| 'AppointmentAlert'
-		| 'Referral'
-		| 'CombinedParent'
-	>;
-	delivery: Option<'Unspecified' | 'Email' | 'SMS' | 'Toaster'>;
-	priority: Option<'Unspecified' | 'Immediate' | 'Queue' | 'QueuedImmediate' | 'Retry'>;
-	status: Option<'Unprocessed' | 'InProcess' | 'FailureSmsNotEnabled' | 'Failure' | 'Success' | 'CombinedChild'>;
+	msgType: Option<MsgTypeEnum>;
+	delivery: Option<DeliveryEnum>;
+	priority: Option<PriorityEnum>;
+	status: Option<StatusEnum>;
 	to: Option<string>;
 	from: Option<string>;
 	cc: Option<string>;
@@ -63,46 +91,10 @@ export const LELodasoftCommonModelsMessageMessageViewModelIO = type({
 	eventId: createOptionFromNullable(number, 'eventId'),
 	leadId: createOptionFromNullable(number, 'leadId'),
 	fromUserId: createOptionFromNullable(string, 'fromUserId'),
-	msgType: createOptionFromNullable(
-		keyof({
-			Unspecified: null,
-			UserInvite: null,
-			BorrowerInvite: null,
-			AgentInvite: null,
-			ForgotPassword: null,
-			DocRequest: null,
-			DocReject: null,
-			DocAccepted: null,
-			StatusUpdate: null,
-			Reminder: null,
-			ApplicationEmailCampaign: null,
-			ContactEmailCampaign: null,
-			NewMessage: null,
-			UserCreatedEmail: null,
-			UserCreatedSms: null,
-			Test: null,
-			AppointmentAlert: null,
-			Referral: null,
-			CombinedParent: null,
-		}),
-		'msgType',
-	),
-	delivery: createOptionFromNullable(keyof({ Unspecified: null, Email: null, SMS: null, Toaster: null }), 'delivery'),
-	priority: createOptionFromNullable(
-		keyof({ Unspecified: null, Immediate: null, Queue: null, QueuedImmediate: null, Retry: null }),
-		'priority',
-	),
-	status: createOptionFromNullable(
-		keyof({
-			Unprocessed: null,
-			InProcess: null,
-			FailureSmsNotEnabled: null,
-			Failure: null,
-			Success: null,
-			CombinedChild: null,
-		}),
-		'status',
-	),
+	msgType: createOptionFromNullable(createEnumType<MsgTypeEnum>(MsgTypeEnum, 'MsgTypeEnum'), 'msgType'),
+	delivery: createOptionFromNullable(createEnumType<DeliveryEnum>(DeliveryEnum, 'DeliveryEnum'), 'delivery'),
+	priority: createOptionFromNullable(createEnumType<PriorityEnum>(PriorityEnum, 'PriorityEnum'), 'priority'),
+	status: createOptionFromNullable(createEnumType<StatusEnum>(StatusEnum, 'StatusEnum'), 'status'),
 	to: createOptionFromNullable(string, 'to'),
 	from: createOptionFromNullable(string, 'from'),
 	cc: createOptionFromNullable(string, 'cc'),

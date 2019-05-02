@@ -1,5 +1,5 @@
 import { Option } from 'fp-ts/lib/Option';
-import { keyof, number, string, type } from 'io-ts';
+import { number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
 
 import {
@@ -8,7 +8,7 @@ import {
 } from '../definitions/LELodasoftCommonModelsMortgageAddressViewModel';
 import { createEnumType } from '../utils/utils';
 
-export enum PurposeOfLoan {
+export enum PurposeOfLoanEnum {
 	'Refinance',
 	'Purchase',
 	'ConstructionOnly',
@@ -17,30 +17,57 @@ export enum PurposeOfLoan {
 	'RefinanceCashOut',
 }
 
+export enum PropertyWillBeEnum {
+	'PrimaryResidence',
+	'SecondaryResidence',
+	'Investment',
+	'ShortTermRental',
+}
+
+export enum PropertyTypeEnum {
+	'SFRAttached',
+	'Condominium',
+	'Cooperative',
+	'SFR',
+	'HighRiseCondominium',
+	'ManufacturedHousing',
+	'Modular',
+	'PUD',
+	'ManufacturedHousingSingleWide',
+	'ManufacturedHousingDoubleWide',
+	'DetachedCondominium',
+	'ManufacturedHomeCondominium',
+	'ManufacturedHousingMultiWide',
+	'ManufacturedHomeCondominiumOrPUDOrCooperative',
+	'TwoTo4UnitBuilding',
+	'NonWarrantedCondo',
+}
+
+export enum RefiPurposeEnum {
+	'Purchase',
+	'RefinanceCashOut',
+	'RefinanceNoCashOut',
+	'StreamlinedRefinance',
+	'Construction',
+}
+
+export enum ImprovementStatusEnum {
+	'Made',
+	'ToBeMade',
+}
+
+export enum EstateEnum {
+	'FeeSimple',
+	'LeaseHold',
+}
+
 export type LELodasoftCommonModelsMortgageSubjectPropertyViewModel = {
 	subjectPropertyId: Option<number>;
 	addressId: Option<number>;
-	purposeOfLoan: Option<PurposeOfLoan>;
-	propertyWillBe: Option<'PrimaryResidence' | 'SecondaryResidence' | 'Investment' | 'ShortTermRental'>;
+	purposeOfLoan: Option<PurposeOfLoanEnum>;
+	propertyWillBe: Option<PropertyWillBeEnum>;
 	noOfUnits: Option<number>;
-	propertyType: Option<
-		| 'SFRAttached'
-		| 'Condominium'
-		| 'Cooperative'
-		| 'SFR'
-		| 'HighRiseCondominium'
-		| 'ManufacturedHousing'
-		| 'Modular'
-		| 'PUD'
-		| 'ManufacturedHousingSingleWide'
-		| 'ManufacturedHousingDoubleWide'
-		| 'DetachedCondominium'
-		| 'ManufacturedHomeCondominium'
-		| 'ManufacturedHousingMultiWide'
-		| 'ManufacturedHomeCondominiumOrPUDOrCooperative'
-		| 'TwoTo4UnitBuilding'
-		| 'NonWarrantedCondo'
-	>;
+	propertyType: Option<PropertyTypeEnum>;
 	yearBuilt: Option<number>;
 	originalCost: Option<number>;
 	amountOutstanding: Option<number>;
@@ -48,16 +75,14 @@ export type LELodasoftCommonModelsMortgageSubjectPropertyViewModel = {
 	improvementCost: Option<number>;
 	originalCostYear: Option<number>;
 	amountExistLiensYear: Option<number>;
-	refiPurpose: Option<
-		'Purchase' | 'RefinanceCashOut' | 'RefinanceNoCashOut' | 'StreamlinedRefinance' | 'Construction'
-	>;
+	refiPurpose: Option<RefiPurposeEnum>;
 	describeImprovement: Option<string>;
-	improvementStatus: Option<'Made' | 'ToBeMade'>;
+	improvementStatus: Option<ImprovementStatusEnum>;
 	cost: Option<number>;
 	titleNames: Option<string>;
 	explain: Option<string>;
 	manner: Option<string>;
-	estate: Option<'FeeSimple' | 'LeaseHold'>;
+	estate: Option<EstateEnum>;
 	address: Option<LELodasoftCommonModelsMortgageAddressViewModel>;
 	companyId: Option<number>;
 	insertedBy: Option<string>;
@@ -69,33 +94,16 @@ export const LELodasoftCommonModelsMortgageSubjectPropertyViewModelIO = type({
 	subjectPropertyId: createOptionFromNullable(number, 'subjectPropertyId'),
 	addressId: createOptionFromNullable(number, 'addressId'),
 	purposeOfLoan: createOptionFromNullable(
-		createEnumType<PurposeOfLoan>(PurposeOfLoan, 'PurposeOfLoan'),
+		createEnumType<PurposeOfLoanEnum>(PurposeOfLoanEnum, 'PurposeOfLoanEnum'),
 		'purposeOfLoan',
 	),
 	propertyWillBe: createOptionFromNullable(
-		keyof({ PrimaryResidence: null, SecondaryResidence: null, Investment: null, ShortTermRental: null }),
+		createEnumType<PropertyWillBeEnum>(PropertyWillBeEnum, 'PropertyWillBeEnum'),
 		'propertyWillBe',
 	),
 	noOfUnits: createOptionFromNullable(number, 'noOfUnits'),
 	propertyType: createOptionFromNullable(
-		keyof({
-			SFRAttached: null,
-			Condominium: null,
-			Cooperative: null,
-			SFR: null,
-			HighRiseCondominium: null,
-			ManufacturedHousing: null,
-			Modular: null,
-			PUD: null,
-			ManufacturedHousingSingleWide: null,
-			ManufacturedHousingDoubleWide: null,
-			DetachedCondominium: null,
-			ManufacturedHomeCondominium: null,
-			ManufacturedHousingMultiWide: null,
-			ManufacturedHomeCondominiumOrPUDOrCooperative: null,
-			TwoTo4UnitBuilding: null,
-			NonWarrantedCondo: null,
-		}),
+		createEnumType<PropertyTypeEnum>(PropertyTypeEnum, 'PropertyTypeEnum'),
 		'propertyType',
 	),
 	yearBuilt: createOptionFromNullable(number, 'yearBuilt'),
@@ -106,22 +114,19 @@ export const LELodasoftCommonModelsMortgageSubjectPropertyViewModelIO = type({
 	originalCostYear: createOptionFromNullable(number, 'originalCostYear'),
 	amountExistLiensYear: createOptionFromNullable(number, 'amountExistLiensYear'),
 	refiPurpose: createOptionFromNullable(
-		keyof({
-			Purchase: null,
-			RefinanceCashOut: null,
-			RefinanceNoCashOut: null,
-			StreamlinedRefinance: null,
-			Construction: null,
-		}),
+		createEnumType<RefiPurposeEnum>(RefiPurposeEnum, 'RefiPurposeEnum'),
 		'refiPurpose',
 	),
 	describeImprovement: createOptionFromNullable(string, 'describeImprovement'),
-	improvementStatus: createOptionFromNullable(keyof({ Made: null, ToBeMade: null }), 'improvementStatus'),
+	improvementStatus: createOptionFromNullable(
+		createEnumType<ImprovementStatusEnum>(ImprovementStatusEnum, 'ImprovementStatusEnum'),
+		'improvementStatus',
+	),
 	cost: createOptionFromNullable(number, 'cost'),
 	titleNames: createOptionFromNullable(string, 'titleNames'),
 	explain: createOptionFromNullable(string, 'explain'),
 	manner: createOptionFromNullable(string, 'manner'),
-	estate: createOptionFromNullable(keyof({ FeeSimple: null, LeaseHold: null }), 'estate'),
+	estate: createOptionFromNullable(createEnumType<EstateEnum>(EstateEnum, 'EstateEnum'), 'estate'),
 	address: createOptionFromNullable(LELodasoftCommonModelsMortgageAddressViewModelIO, 'address'),
 	companyId: createOptionFromNullable(number, 'companyId'),
 	insertedBy: createOptionFromNullable(string, 'insertedBy'),

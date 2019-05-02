@@ -1,13 +1,26 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, keyof, type } from 'io-ts';
+import { number, string, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum TaskOptionEnum {
+	'AutoApply',
+	'Confirm',
+	'RequestQuantity',
+}
+
+export enum CharacteristicTypeEnum {
+	'LoanCharacteristic',
+	'BorrowerCharacteristic',
+}
 
 export type LELodasoftDataAccessDbModelsConfigurationCharacteristicModel = {
 	taskCategoryId: Option<number>;
 	taskCategoryName: Option<string>;
 	companyId: Option<number>;
-	taskOption: Option<'AutoApply' | 'Confirm' | 'RequestQuantity'>;
-	characteristicType: Option<'LoanCharacteristic' | 'BorrowerCharacteristic'>;
+	taskOption: Option<TaskOptionEnum>;
+	characteristicType: Option<CharacteristicTypeEnum>;
 	order: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO = type({
@@ -15,11 +28,11 @@ export const LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO = ty
 	taskCategoryName: createOptionFromNullable(string, 'taskCategoryName'),
 	companyId: createOptionFromNullable(number, 'companyId'),
 	taskOption: createOptionFromNullable(
-		keyof({ AutoApply: null, Confirm: null, RequestQuantity: null }),
+		createEnumType<TaskOptionEnum>(TaskOptionEnum, 'TaskOptionEnum'),
 		'taskOption',
 	),
 	characteristicType: createOptionFromNullable(
-		keyof({ LoanCharacteristic: null, BorrowerCharacteristic: null }),
+		createEnumType<CharacteristicTypeEnum>(CharacteristicTypeEnum, 'CharacteristicTypeEnum'),
 		'characteristicType',
 	),
 	order: createOptionFromNullable(number, 'order'),

@@ -1,33 +1,46 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, boolean, keyof, string, type } from 'io-ts';
+import { boolean, number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum EthnicityEnum {
+	'AmericanIndianOrAlaskaNative',
+	'Asian',
+	'BlackOrAfricanAmerican',
+	'HispanicOrLatino',
+	'NativeHawaiianOrOtherPacificIslander',
+	'White',
+	'InformationNotProvided',
+	'NotApplicable',
+}
+
+export enum RaceEnum {
+	'Caucasian',
+	'NonCaucasian',
+	'AmericanIndianOrAlaskaNative',
+	'Asian',
+	'BlackOrAfricanAmerican',
+	'NativeHawaiianOrOtherPacificIslander',
+	'White',
+	'InformationNotProvided',
+	'NotApplicable',
+}
+
+export enum SexEnum {
+	'Female',
+	'Male',
+	'InformationNotProvided',
+	'NotApplicable',
+}
 
 export type LELodasoftCommonModelsMortgageGovernmentMonitorViewModel = {
 	governmentMonitorId: Option<number>;
 	borrowerId: Option<number>;
 	isFurnishInfo: Option<boolean>;
-	ethnicity: Option<
-		| 'AmericanIndianOrAlaskaNative'
-		| 'Asian'
-		| 'BlackOrAfricanAmerican'
-		| 'HispanicOrLatino'
-		| 'NativeHawaiianOrOtherPacificIslander'
-		| 'White'
-		| 'InformationNotProvided'
-		| 'NotApplicable'
-	>;
-	race: Option<
-		| 'Caucasian'
-		| 'NonCaucasian'
-		| 'AmericanIndianOrAlaskaNative'
-		| 'Asian'
-		| 'BlackOrAfricanAmerican'
-		| 'NativeHawaiianOrOtherPacificIslander'
-		| 'White'
-		| 'InformationNotProvided'
-		| 'NotApplicable'
-	>;
-	sex: Option<'Female' | 'Male' | 'InformationNotProvided' | 'NotApplicable'>;
+	ethnicity: Option<EthnicityEnum>;
+	race: Option<RaceEnum>;
+	sex: Option<SexEnum>;
 	companyId: Option<number>;
 	insertedBy: Option<string>;
 	dateInserted: Option<Date>;
@@ -38,37 +51,9 @@ export const LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO = type({
 	governmentMonitorId: createOptionFromNullable(number, 'governmentMonitorId'),
 	borrowerId: createOptionFromNullable(number, 'borrowerId'),
 	isFurnishInfo: createOptionFromNullable(boolean, 'isFurnishInfo'),
-	ethnicity: createOptionFromNullable(
-		keyof({
-			AmericanIndianOrAlaskaNative: null,
-			Asian: null,
-			BlackOrAfricanAmerican: null,
-			HispanicOrLatino: null,
-			NativeHawaiianOrOtherPacificIslander: null,
-			White: null,
-			InformationNotProvided: null,
-			NotApplicable: null,
-		}),
-		'ethnicity',
-	),
-	race: createOptionFromNullable(
-		keyof({
-			Caucasian: null,
-			NonCaucasian: null,
-			AmericanIndianOrAlaskaNative: null,
-			Asian: null,
-			BlackOrAfricanAmerican: null,
-			NativeHawaiianOrOtherPacificIslander: null,
-			White: null,
-			InformationNotProvided: null,
-			NotApplicable: null,
-		}),
-		'race',
-	),
-	sex: createOptionFromNullable(
-		keyof({ Female: null, Male: null, InformationNotProvided: null, NotApplicable: null }),
-		'sex',
-	),
+	ethnicity: createOptionFromNullable(createEnumType<EthnicityEnum>(EthnicityEnum, 'EthnicityEnum'), 'ethnicity'),
+	race: createOptionFromNullable(createEnumType<RaceEnum>(RaceEnum, 'RaceEnum'), 'race'),
+	sex: createOptionFromNullable(createEnumType<SexEnum>(SexEnum, 'SexEnum'), 'sex'),
 	companyId: createOptionFromNullable(number, 'companyId'),
 	insertedBy: createOptionFromNullable(string, 'insertedBy'),
 	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),

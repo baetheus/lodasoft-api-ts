@@ -1,13 +1,21 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, keyof, type } from 'io-ts';
+import { number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum DirectionEnum {
+	'Unspecified',
+	'Outbound',
+	'Inbound',
+}
 
 export type LELodasoftCommonModelsMessageSmsHistoryViewModel = {
 	id: Option<number>;
 	from: Option<string>;
 	to: Option<string>;
 	body: Option<string>;
-	direction: Option<'Unspecified' | 'Outbound' | 'Inbound'>;
+	direction: Option<DirectionEnum>;
 	smsMessageSid: Option<string>;
 	messageSid: Option<string>;
 	accountSid: Option<string>;
@@ -22,7 +30,7 @@ export const LELodasoftCommonModelsMessageSmsHistoryViewModelIO = type({
 	from: createOptionFromNullable(string, 'from'),
 	to: createOptionFromNullable(string, 'to'),
 	body: createOptionFromNullable(string, 'body'),
-	direction: createOptionFromNullable(keyof({ Unspecified: null, Outbound: null, Inbound: null }), 'direction'),
+	direction: createOptionFromNullable(createEnumType<DirectionEnum>(DirectionEnum, 'DirectionEnum'), 'direction'),
 	smsMessageSid: createOptionFromNullable(string, 'smsMessageSid'),
 	messageSid: createOptionFromNullable(string, 'messageSid'),
 	accountSid: createOptionFromNullable(string, 'accountSid'),

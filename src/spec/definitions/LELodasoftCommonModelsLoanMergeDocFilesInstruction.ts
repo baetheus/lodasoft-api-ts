@@ -1,6 +1,14 @@
 import { Option } from 'fp-ts/lib/Option';
-import { string, number, boolean, keyof, array, type } from 'io-ts';
+import { array, boolean, number, string, type } from 'io-ts';
 import { createOptionFromNullable } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum MergeModeEnum {
+	'Append',
+	'Prepend',
+	'Replace',
+}
 
 export type LELodasoftCommonModelsLoanMergeDocFilesInstruction = {
 	sourceDocFileGuid: Option<string>;
@@ -13,7 +21,7 @@ export type LELodasoftCommonModelsLoanMergeDocFilesInstruction = {
 	note: Option<string>;
 	borrowerNote: Option<string>;
 	condition: Option<boolean>;
-	mergeMode: Option<'Append' | 'Prepend' | 'Replace'>;
+	mergeMode: Option<MergeModeEnum>;
 	allPages: Option<boolean>;
 	customPages: Option<Array<number>>;
 	removePagesFromSource: Option<boolean>;
@@ -29,7 +37,7 @@ export const LELodasoftCommonModelsLoanMergeDocFilesInstructionIO = type({
 	note: createOptionFromNullable(string, 'note'),
 	borrowerNote: createOptionFromNullable(string, 'borrowerNote'),
 	condition: createOptionFromNullable(boolean, 'condition'),
-	mergeMode: createOptionFromNullable(keyof({ Append: null, Prepend: null, Replace: null }), 'mergeMode'),
+	mergeMode: createOptionFromNullable(createEnumType<MergeModeEnum>(MergeModeEnum, 'MergeModeEnum'), 'mergeMode'),
 	allPages: createOptionFromNullable(boolean, 'allPages'),
 	customPages: createOptionFromNullable(array(number), 'customPages'),
 	removePagesFromSource: createOptionFromNullable(boolean, 'removePagesFromSource'),

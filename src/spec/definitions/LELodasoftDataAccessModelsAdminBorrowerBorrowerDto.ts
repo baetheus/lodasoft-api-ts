@@ -1,6 +1,14 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, boolean, keyof, type } from 'io-ts';
+import { boolean, number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum CreditMonitoringStatusEnum {
+	'Unset',
+	'Active',
+	'Disabled',
+}
 
 export type LELodasoftDataAccessModelsAdminBorrowerBorrowerDto = {
 	borrowerId: Option<number>;
@@ -24,7 +32,7 @@ export type LELodasoftDataAccessModelsAdminBorrowerBorrowerDto = {
 	mailingState: Option<string>;
 	mailingZip: Option<string>;
 	borrowerContact: Option<string>;
-	creditMonitoringStatus: Option<'Unset' | 'Active' | 'Disabled'>;
+	creditMonitoringStatus: Option<CreditMonitoringStatusEnum>;
 	dateCreateBorrower: Option<Date>;
 };
 export const LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO = type({
@@ -50,7 +58,7 @@ export const LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO = type({
 	mailingZip: createOptionFromNullable(string, 'mailingZip'),
 	borrowerContact: createOptionFromNullable(string, 'borrowerContact'),
 	creditMonitoringStatus: createOptionFromNullable(
-		keyof({ Unset: null, Active: null, Disabled: null }),
+		createEnumType<CreditMonitoringStatusEnum>(CreditMonitoringStatusEnum, 'CreditMonitoringStatusEnum'),
 		'creditMonitoringStatus',
 	),
 	dateCreateBorrower: createOptionFromNullable(DateFromISOString, 'dateCreateBorrower'),

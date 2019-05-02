@@ -1,6 +1,24 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, keyof, type } from 'io-ts';
+import { number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum VoaRequestTypeEnum {
+	'full',
+	'lite',
+}
+
+export enum TaskStatusEnum {
+	'Pending',
+	'Submitted',
+	'Rejected',
+	'Approved',
+	'NotApplicable',
+	'Requested',
+	'Completed',
+	'ReviewReady',
+}
 
 export type LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModel = {
 	formFreeHistoryId: Option<number>;
@@ -8,7 +26,7 @@ export type LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModel = {
 	lastName: Option<string>;
 	email: Option<string>;
 	last4Ssn: Option<string>;
-	voaRequestType: Option<'full' | 'lite'>;
+	voaRequestType: Option<VoaRequestTypeEnum>;
 	transactionId: Option<string>;
 	accountChekOrderId: Option<string>;
 	reportId: Option<string>;
@@ -19,9 +37,7 @@ export type LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModel = {
 	applicationId: Option<number>;
 	borrowerId: Option<number>;
 	loanDocTaskId: Option<number>;
-	taskStatus: Option<
-		'Pending' | 'Submitted' | 'Rejected' | 'Approved' | 'NotApplicable' | 'Requested' | 'Completed' | 'ReviewReady'
-	>;
+	taskStatus: Option<TaskStatusEnum>;
 	companyId: Option<number>;
 	insertedBy: Option<string>;
 	dateInserted: Option<Date>;
@@ -34,7 +50,10 @@ export const LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO = type({
 	lastName: createOptionFromNullable(string, 'lastName'),
 	email: createOptionFromNullable(string, 'email'),
 	last4Ssn: createOptionFromNullable(string, 'last4Ssn'),
-	voaRequestType: createOptionFromNullable(keyof({ full: null, lite: null }), 'voaRequestType'),
+	voaRequestType: createOptionFromNullable(
+		createEnumType<VoaRequestTypeEnum>(VoaRequestTypeEnum, 'VoaRequestTypeEnum'),
+		'voaRequestType',
+	),
 	transactionId: createOptionFromNullable(string, 'transactionId'),
 	accountChekOrderId: createOptionFromNullable(string, 'accountChekOrderId'),
 	reportId: createOptionFromNullable(string, 'reportId'),
@@ -46,16 +65,7 @@ export const LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO = type({
 	borrowerId: createOptionFromNullable(number, 'borrowerId'),
 	loanDocTaskId: createOptionFromNullable(number, 'loanDocTaskId'),
 	taskStatus: createOptionFromNullable(
-		keyof({
-			Pending: null,
-			Submitted: null,
-			Rejected: null,
-			Approved: null,
-			NotApplicable: null,
-			Requested: null,
-			Completed: null,
-			ReviewReady: null,
-		}),
+		createEnumType<TaskStatusEnum>(TaskStatusEnum, 'TaskStatusEnum'),
 		'taskStatus',
 	),
 	companyId: createOptionFromNullable(number, 'companyId'),

@@ -1,10 +1,54 @@
+import { Option } from 'fp-ts/lib/Option';
+import { array, boolean, number, string, type } from 'io-ts';
+import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
 import {
 	LELodasoftDataAccessModelsAdminBorrowerFileDto,
 	LELodasoftDataAccessModelsAdminBorrowerFileDtoIO,
 } from '../definitions/LELodasoftDataAccessModelsAdminBorrowerFileDto';
-import { Option } from 'fp-ts/lib/Option';
-import { number, string, keyof, boolean, array, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { createEnumType } from '../utils/utils';
+
+export enum StatusEnum {
+	'Pending',
+	'Submitted',
+	'Rejected',
+	'Approved',
+	'NotApplicable',
+	'Requested',
+	'Completed',
+	'ReviewReady',
+}
+
+export enum TaskPriorityEnum {
+	'Low',
+	'Normal',
+	'High',
+	'Immediate',
+}
+
+export enum TaskTypeEnum {
+	'RequestDocument',
+	'ViewDocument',
+	'AcknowledgeReceipt',
+	'EsignDocument',
+	'RequestInformation',
+	'PerformAction',
+	'OnlineApplication',
+	'DigitalAssetVerification',
+}
+
+export enum ConditionStatusEnum {
+	'ConditionPending',
+	'ConditionCleared',
+	'ConditionReOpened',
+}
+
+export enum ConditionTypeEnum {
+	'PTS',
+	'PTD',
+	'PTF',
+	'PTC',
+}
 
 export type LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView = {
 	loanDocTaskId: Option<number>;
@@ -20,21 +64,10 @@ export type LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView = {
 	responsibleParty: Option<string>;
 	requestedBy: Option<string>;
 	note: Option<string>;
-	status: Option<
-		'Pending' | 'Submitted' | 'Rejected' | 'Approved' | 'NotApplicable' | 'Requested' | 'Completed' | 'ReviewReady'
-	>;
+	status: Option<StatusEnum>;
 	taskStatus: Option<string>;
-	taskPriority: Option<'Low' | 'Normal' | 'High' | 'Immediate'>;
-	taskType: Option<
-		| 'RequestDocument'
-		| 'ViewDocument'
-		| 'AcknowledgeReceipt'
-		| 'EsignDocument'
-		| 'RequestInformation'
-		| 'PerformAction'
-		| 'OnlineApplication'
-		| 'DigitalAssetVerification'
-	>;
+	taskPriority: Option<TaskPriorityEnum>;
+	taskType: Option<TaskTypeEnum>;
 	documentTypeId: Option<number>;
 	docTypeText: Option<string>;
 	description: Option<string>;
@@ -51,8 +84,8 @@ export type LELodasoftApiModelsBorrowerLoanDocTask_DashBoardView = {
 	loading: Option<boolean>;
 	borrowerNote: Option<string>;
 	condition: Option<boolean>;
-	conditionStatus: Option<'ConditionPending' | 'ConditionCleared' | 'ConditionReOpened'>;
-	conditionType: Option<'PTS' | 'PTD' | 'PTF' | 'PTC'>;
+	conditionStatus: Option<ConditionStatusEnum>;
+	conditionType: Option<ConditionTypeEnum>;
 	docFiles: Option<Array<LELodasoftDataAccessModelsAdminBorrowerFileDto>>;
 	notifyPartyId: Option<string>;
 	requiresReview: Option<boolean>;
@@ -75,37 +108,13 @@ export const LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO = type({
 	responsibleParty: createOptionFromNullable(string, 'responsibleParty'),
 	requestedBy: createOptionFromNullable(string, 'requestedBy'),
 	note: createOptionFromNullable(string, 'note'),
-	status: createOptionFromNullable(
-		keyof({
-			Pending: null,
-			Submitted: null,
-			Rejected: null,
-			Approved: null,
-			NotApplicable: null,
-			Requested: null,
-			Completed: null,
-			ReviewReady: null,
-		}),
-		'status',
-	),
+	status: createOptionFromNullable(createEnumType<StatusEnum>(StatusEnum, 'StatusEnum'), 'status'),
 	taskStatus: createOptionFromNullable(string, 'taskStatus'),
 	taskPriority: createOptionFromNullable(
-		keyof({ Low: null, Normal: null, High: null, Immediate: null }),
+		createEnumType<TaskPriorityEnum>(TaskPriorityEnum, 'TaskPriorityEnum'),
 		'taskPriority',
 	),
-	taskType: createOptionFromNullable(
-		keyof({
-			RequestDocument: null,
-			ViewDocument: null,
-			AcknowledgeReceipt: null,
-			EsignDocument: null,
-			RequestInformation: null,
-			PerformAction: null,
-			OnlineApplication: null,
-			DigitalAssetVerification: null,
-		}),
-		'taskType',
-	),
+	taskType: createOptionFromNullable(createEnumType<TaskTypeEnum>(TaskTypeEnum, 'TaskTypeEnum'), 'taskType'),
 	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
 	docTypeText: createOptionFromNullable(string, 'docTypeText'),
 	description: createOptionFromNullable(string, 'description'),
@@ -123,10 +132,13 @@ export const LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO = type({
 	borrowerNote: createOptionFromNullable(string, 'borrowerNote'),
 	condition: createOptionFromNullable(boolean, 'condition'),
 	conditionStatus: createOptionFromNullable(
-		keyof({ ConditionPending: null, ConditionCleared: null, ConditionReOpened: null }),
+		createEnumType<ConditionStatusEnum>(ConditionStatusEnum, 'ConditionStatusEnum'),
 		'conditionStatus',
 	),
-	conditionType: createOptionFromNullable(keyof({ PTS: null, PTD: null, PTF: null, PTC: null }), 'conditionType'),
+	conditionType: createOptionFromNullable(
+		createEnumType<ConditionTypeEnum>(ConditionTypeEnum, 'ConditionTypeEnum'),
+		'conditionType',
+	),
 	docFiles: createOptionFromNullable(array(LELodasoftDataAccessModelsAdminBorrowerFileDtoIO), 'docFiles'),
 	notifyPartyId: createOptionFromNullable(string, 'notifyPartyId'),
 	requiresReview: createOptionFromNullable(boolean, 'requiresReview'),

@@ -28,7 +28,10 @@ export class EnumType<A> extends Type<A> {
 	public constructor(e: object, name?: string) {
 		super(
 			name || 'enum',
-			(u): u is A => Object.values(this.enumObject).some(v => v === u),
+			(u): u is A =>
+				Object.keys(this.enumObject)
+					.map(k => this.enumObject[k])
+					.some(v => v === u),
 			(u, c) => (this.is(u) ? success(u) : ioFailure(u, c)),
 			identity,
 		);

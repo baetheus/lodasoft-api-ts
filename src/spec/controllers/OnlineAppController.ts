@@ -16,14 +16,6 @@ import {
 	LELodasoftCommonModelsConfigurationApplicationViewModelIO,
 } from '../definitions/LELodasoftCommonModelsConfigurationApplicationViewModel';
 import {
-	LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModel,
-	LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO,
-} from '../definitions/LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModel';
-import {
-	LELodasoftCommonModelsConfigurationWizardWizardConfigViewModel,
-	LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO,
-} from '../definitions/LELodasoftCommonModelsConfigurationWizardWizardConfigViewModel';
-import {
 	LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageRequest,
 	LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageRequestIO,
 } from '../definitions/LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageRequest';
@@ -35,6 +27,22 @@ import {
 	LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModel,
 	LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModel';
+import {
+	LELodasoftCommonModelsSharedGenerateCreditAuthRequest,
+	LELodasoftCommonModelsSharedGenerateCreditAuthRequestIO,
+} from '../definitions/LELodasoftCommonModelsSharedGenerateCreditAuthRequest';
+import {
+	LELodasoftCommonModelsSharedGenerateCreditAuthResponse,
+	LELodasoftCommonModelsSharedGenerateCreditAuthResponseIO,
+} from '../definitions/LELodasoftCommonModelsSharedGenerateCreditAuthResponse';
+import {
+	LELodasoftCommonModelsSharedGenerateEConsentRequest,
+	LELodasoftCommonModelsSharedGenerateEConsentRequestIO,
+} from '../definitions/LELodasoftCommonModelsSharedGenerateEConsentRequest';
+import {
+	LELodasoftCommonModelsSharedGenerateEConsentResponse,
+	LELodasoftCommonModelsSharedGenerateEConsentResponseIO,
+} from '../definitions/LELodasoftCommonModelsSharedGenerateEConsentResponse';
 import {
 	LELodasoftDataAccessDbModelsConfigurationLoanTypeModel,
 	LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO,
@@ -117,34 +125,6 @@ export type OnlineAppController = {
 	) => Observable<LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponse>;
 
 	/**
-	 * @deprecated
-	 * @param { string } companyGuid undefined
-	 */
-	readonly OnlineApp_GetAllWizardConfigs: (
-		companyGuid: string,
-	) => Observable<Array<LELodasoftCommonModelsConfigurationWizardWizardConfigViewModel>>;
-
-	/**
-	 * @deprecated
-	 * @param { string } companyGuid undefined
-	 * @param { number } wizardConfigId undefined
-	 */
-	readonly OnlineApp_GetExtractedWizardConfigById: (
-		companyGuid: string,
-		wizardConfigId: number,
-	) => Observable<LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModel>;
-
-	/**
-	 * @deprecated
-	 * @param { string } companyGuid undefined
-	 * @param { object } parameters
-	 */
-	readonly OnlineApp_InitializeFormFreeByCompanyGuid: (
-		companyGuid: string,
-		parameters: { body: LELodasoftApiControllersInitializeFormFreeRequest },
-	) => Observable<LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse>;
-
-	/**
 	 * Initialize Form Free for Online Application (authed). This will link the request to the loanid and the primary borrower on that loan.
 	 * @param { number } loanId -
 	 * @param { object } parameters
@@ -170,13 +150,31 @@ export type OnlineAppController = {
 	 * @param { number } borrowerId - id of the borrower to initialize form free for
 	 */
 	readonly OnlineApp_MarkFormFreeForBorrowerComplete: (loanId: number, borrowerId: number) => Observable<unknown>;
+
+	/**
+	 * @param { number } loanId undefined
+	 * @param { object } parameters
+	 */
+	readonly OnlineApp_GenerateEConsentDocument: (
+		loanId: number,
+		parameters: { body: LELodasoftCommonModelsSharedGenerateEConsentRequest },
+	) => Observable<LELodasoftCommonModelsSharedGenerateEConsentResponse>;
+
+	/**
+	 * @param { number } loanId undefined
+	 * @param { object } parameters
+	 */
+	readonly OnlineApp_GenerateCreditAuthDocument: (
+		loanId: number,
+		parameters: { body: LELodasoftCommonModelsSharedGenerateCreditAuthRequest },
+	) => Observable<LELodasoftCommonModelsSharedGenerateCreditAuthResponse>;
 };
 
 export const onlineAppController = asks(
 	(e: { API_CLIENT: TAPIClient; PREFIX: string }): OnlineAppController => ({
 		OnlineApp_GetFeatureFlags: loanId => {
 			return e.API_CLIENT.request({
-				url: `${e.PREFIX}/api/online-app/feature-flags/${encodeURIComponent(number.encode(loanId).toString())}`,
+				url: `${e.PREFIX}/api/online-app/config/${encodeURIComponent(number.encode(loanId).toString())}`,
 				method: 'GET',
 			}).pipe(decodeAndMap(LELodasoftApiModelsOnlineAppFeatureFlagsIO));
 		},
@@ -246,35 +244,6 @@ export const onlineAppController = asks(
 			}).pipe(decodeAndMap(LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponseIO));
 		},
 
-		OnlineApp_GetAllWizardConfigs: companyGuid => {
-			return e.API_CLIENT.request({
-				url: `${e.PREFIX}/api/online-app/${encodeURIComponent(string.encode(companyGuid).toString())}`,
-				method: 'GET',
-			}).pipe(decodeAndMap(array(LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO)));
-		},
-
-		OnlineApp_GetExtractedWizardConfigById: (companyGuid, wizardConfigId) => {
-			return e.API_CLIENT.request({
-				url: `${e.PREFIX}/api/online-app/${encodeURIComponent(
-					string.encode(companyGuid).toString(),
-				)}/${encodeURIComponent(number.encode(wizardConfigId).toString())}/extracted`,
-				method: 'GET',
-			}).pipe(decodeAndMap(LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO));
-		},
-
-		OnlineApp_InitializeFormFreeByCompanyGuid: (companyGuid, parameters) => {
-			const encoded = partial({ body: LELodasoftApiControllersInitializeFormFreeRequestIO }).encode(parameters);
-
-			return e.API_CLIENT.request({
-				url: `${e.PREFIX}/api/online-app/${encodeURIComponent(
-					string.encode(companyGuid).toString(),
-				)}/InitializeFormFree`,
-				method: 'POST',
-
-				body: encoded.body,
-			}).pipe(decodeAndMap(LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO));
-		},
-
 		OnlineApp_InitializeFormFree: (loanId, parameters) => {
 			const encoded = partial({ body: LELodasoftApiControllersInitializeFormFreeRequestIO }).encode(parameters);
 
@@ -304,6 +273,34 @@ export const onlineAppController = asks(
 				)}/${encodeURIComponent(number.encode(borrowerId).toString())}`,
 				method: 'POST',
 			}).pipe(decodeAndMap(unknownType));
+		},
+
+		OnlineApp_GenerateEConsentDocument: (loanId, parameters) => {
+			const encoded = partial({ body: LELodasoftCommonModelsSharedGenerateEConsentRequestIO }).encode(parameters);
+
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/GenerateEConsentDocument/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}`,
+				method: 'POST',
+
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsSharedGenerateEConsentResponseIO));
+		},
+
+		OnlineApp_GenerateCreditAuthDocument: (loanId, parameters) => {
+			const encoded = partial({ body: LELodasoftCommonModelsSharedGenerateCreditAuthRequestIO }).encode(
+				parameters,
+			);
+
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/GenerateCreditAuthDocument/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}`,
+				method: 'POST',
+
+				body: encoded.body,
+			}).pipe(decodeAndMap(LELodasoftCommonModelsSharedGenerateCreditAuthResponseIO));
 		},
 	}),
 );

@@ -1,29 +1,40 @@
+import { Option } from 'fp-ts/lib/Option';
+import { boolean, number, string, type } from 'io-ts';
+import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
 import {
 	LELodasoftCommonModelsMortgageAddressViewModel,
 	LELodasoftCommonModelsMortgageAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageAddressViewModel';
-import { Option } from 'fp-ts/lib/Option';
-import { number, keyof, boolean, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { createEnumType } from '../utils/utils';
+
+export enum TypeOfPropertyEnum {
+	'SingleFamily',
+	'Condo',
+	'Townhouse',
+	'Coop',
+	'TwoToFourUnitProperty',
+	'MultifamilyMoreThanFourUnits',
+	'CommercialNonResidential',
+	'MixedUseResidential',
+	'Farm',
+	'HomeAndBusinessCombined',
+	'Land',
+}
+
+export enum DispositionStatusEnum {
+	'Sold',
+	'PendingSale',
+	'RetainForPrimaryOrSecondaryResidence',
+	'RentalProperty',
+}
 
 export type LELodasoftCommonModelsMortgageReoViewModel = {
 	reoId: Option<number>;
 	borrowerId: Option<number>;
 	addressId: Option<number>;
-	typeOfProperty: Option<
-		| 'SingleFamily'
-		| 'Condo'
-		| 'Townhouse'
-		| 'Coop'
-		| 'TwoToFourUnitProperty'
-		| 'MultifamilyMoreThanFourUnits'
-		| 'CommercialNonResidential'
-		| 'MixedUseResidential'
-		| 'Farm'
-		| 'HomeAndBusinessCombined'
-		| 'Land'
-	>;
-	dispositionStatus: Option<'Sold' | 'PendingSale' | 'RetainForPrimaryOrSecondaryResidence' | 'RentalProperty'>;
+	typeOfProperty: Option<TypeOfPropertyEnum>;
+	dispositionStatus: Option<DispositionStatusEnum>;
 	marketValue: Option<number>;
 	amountOfMortgage: Option<number>;
 	grossRentalIncome: Option<number>;
@@ -44,23 +55,11 @@ export const LELodasoftCommonModelsMortgageReoViewModelIO = type({
 	borrowerId: createOptionFromNullable(number, 'borrowerId'),
 	addressId: createOptionFromNullable(number, 'addressId'),
 	typeOfProperty: createOptionFromNullable(
-		keyof({
-			SingleFamily: null,
-			Condo: null,
-			Townhouse: null,
-			Coop: null,
-			TwoToFourUnitProperty: null,
-			MultifamilyMoreThanFourUnits: null,
-			CommercialNonResidential: null,
-			MixedUseResidential: null,
-			Farm: null,
-			HomeAndBusinessCombined: null,
-			Land: null,
-		}),
+		createEnumType<TypeOfPropertyEnum>(TypeOfPropertyEnum, 'TypeOfPropertyEnum'),
 		'typeOfProperty',
 	),
 	dispositionStatus: createOptionFromNullable(
-		keyof({ Sold: null, PendingSale: null, RetainForPrimaryOrSecondaryResidence: null, RentalProperty: null }),
+		createEnumType<DispositionStatusEnum>(DispositionStatusEnum, 'DispositionStatusEnum'),
 		'dispositionStatus',
 	),
 	marketValue: createOptionFromNullable(number, 'marketValue'),

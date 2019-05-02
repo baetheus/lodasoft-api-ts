@@ -1,22 +1,26 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, keyof, boolean, string, type } from 'io-ts';
+import { boolean, number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum ExpenseTypeEnum {
+	'FirstMortgagePrincipalAndInterest',
+	'HazardInsurance',
+	'HomeownersInsurance',
+	'HomeownersAssociationDuesAndCondominiumFees',
+	'MorgageInsurance',
+	'OtherHousingExpense',
+	'OtherMortgageLoanPrincipalAndInterest',
+	'RealEstateTax',
+	'Rent',
+}
 
 export type LELodasoftCommonModelsMortgageExpenseViewModel = {
 	expenseId: Option<number>;
 	borrowerId: Option<number>;
 	monthlyAmount: Option<number>;
-	expenseType: Option<
-		| 'FirstMortgagePrincipalAndInterest'
-		| 'HazardInsurance'
-		| 'HomeownersInsurance'
-		| 'HomeownersAssociationDuesAndCondominiumFees'
-		| 'MorgageInsurance'
-		| 'OtherHousingExpense'
-		| 'OtherMortgageLoanPrincipalAndInterest'
-		| 'RealEstateTax'
-		| 'Rent'
-	>;
+	expenseType: Option<ExpenseTypeEnum>;
 	isCurrent: Option<boolean>;
 	companyId: Option<number>;
 	insertedBy: Option<string>;
@@ -29,17 +33,7 @@ export const LELodasoftCommonModelsMortgageExpenseViewModelIO = type({
 	borrowerId: createOptionFromNullable(number, 'borrowerId'),
 	monthlyAmount: createOptionFromNullable(number, 'monthlyAmount'),
 	expenseType: createOptionFromNullable(
-		keyof({
-			FirstMortgagePrincipalAndInterest: null,
-			HazardInsurance: null,
-			HomeownersInsurance: null,
-			HomeownersAssociationDuesAndCondominiumFees: null,
-			MorgageInsurance: null,
-			OtherHousingExpense: null,
-			OtherMortgageLoanPrincipalAndInterest: null,
-			RealEstateTax: null,
-			Rent: null,
-		}),
+		createEnumType<ExpenseTypeEnum>(ExpenseTypeEnum, 'ExpenseTypeEnum'),
 		'expenseType',
 	),
 	isCurrent: createOptionFromNullable(boolean, 'isCurrent'),

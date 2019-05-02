@@ -1,6 +1,13 @@
 import { Option } from 'fp-ts/lib/Option';
-import { number, string, keyof, type } from 'io-ts';
+import { number, string, type } from 'io-ts';
 import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
+import { createEnumType } from '../utils/utils';
+
+export enum LosVendorEnum {
+	'Encompass',
+	'LendingQb',
+}
 
 export type LELodasoftDataAccessDbModelsAdminApplicationModel = {
 	applicationId: Option<number>;
@@ -13,7 +20,7 @@ export type LELodasoftDataAccessDbModelsAdminApplicationModel = {
 	refNumber: Option<string>;
 	losIdentifier: Option<string>;
 	thirdPartyCredentialProviderId: Option<number>;
-	losVendor: Option<'Encompass' | 'LendingQb'>;
+	losVendor: Option<LosVendorEnum>;
 	loanAmount: Option<number>;
 	mipAmount: Option<number>;
 	cashOutAmount: Option<number>;
@@ -54,7 +61,7 @@ export const LELodasoftDataAccessDbModelsAdminApplicationModelIO = type({
 	refNumber: createOptionFromNullable(string, 'refNumber'),
 	losIdentifier: createOptionFromNullable(string, 'losIdentifier'),
 	thirdPartyCredentialProviderId: createOptionFromNullable(number, 'thirdPartyCredentialProviderId'),
-	losVendor: createOptionFromNullable(keyof({ Encompass: null, LendingQb: null }), 'losVendor'),
+	losVendor: createOptionFromNullable(createEnumType<LosVendorEnum>(LosVendorEnum, 'LosVendorEnum'), 'losVendor'),
 	loanAmount: createOptionFromNullable(number, 'loanAmount'),
 	mipAmount: createOptionFromNullable(number, 'mipAmount'),
 	cashOutAmount: createOptionFromNullable(number, 'cashOutAmount'),

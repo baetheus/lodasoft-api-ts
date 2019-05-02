@@ -1,40 +1,44 @@
+import { Option } from 'fp-ts/lib/Option';
+import { number, string, type } from 'io-ts';
+import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+
 import {
 	LELodasoftCommonModelsMortgageAddressViewModel,
 	LELodasoftCommonModelsMortgageAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageAddressViewModel';
-import { Option } from 'fp-ts/lib/Option';
-import { number, keyof, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { createEnumType } from '../utils/utils';
+
+export enum AssetTypeEnum {
+	'Automobile',
+	'Bond',
+	'BridgeLoanNotDeposited',
+	'Cash',
+	'CertificateOfDepositTimeDeposit',
+	'CheckingAccount',
+	'EarnestMoneyCashDepositTowardPurchase',
+	'GiftsTotal',
+	'GiftsNotDeposited',
+	'LifeInsurance',
+	'MoneyMarketFund',
+	'MutualFund',
+	'NetWorthOfBusinessOwned',
+	'OtherLiquidAssets',
+	'OtherNonLiquidAssets',
+	'PendingNetSaleProceedsFromRealEstateAssets',
+	'RelocationMoney',
+	'RetirementFund',
+	'SaleOtherAssets',
+	'SavingsAccount',
+	'SecuredBorrowedFundsNotDeposited',
+	'Stock',
+	'TrustAccount',
+}
 
 export type LELodasoftCommonModelsMortgageAssetViewModel = {
 	assetId: Option<number>;
 	borrowerId: Option<number>;
 	addressId: Option<number>;
-	assetType: Option<
-		| 'Automobile'
-		| 'Bond'
-		| 'BridgeLoanNotDeposited'
-		| 'Cash'
-		| 'CertificateOfDepositTimeDeposit'
-		| 'CheckingAccount'
-		| 'EarnestMoneyCashDepositTowardPurchase'
-		| 'GiftsTotal'
-		| 'GiftsNotDeposited'
-		| 'LifeInsurance'
-		| 'MoneyMarketFund'
-		| 'MutualFund'
-		| 'NetWorthOfBusinessOwned'
-		| 'OtherLiquidAssets'
-		| 'OtherNonLiquidAssets'
-		| 'PendingNetSaleProceedsFromRealEstateAssets'
-		| 'RelocationMoney'
-		| 'RetirementFund'
-		| 'SaleOtherAssets'
-		| 'SavingsAccount'
-		| 'SecuredBorrowedFundsNotDeposited'
-		| 'Stock'
-		| 'TrustAccount'
-	>;
+	assetType: Option<AssetTypeEnum>;
 	cashMarketValue: Option<number>;
 	accountNumber: Option<string>;
 	depository: Option<string>;
@@ -57,34 +61,7 @@ export const LELodasoftCommonModelsMortgageAssetViewModelIO = type({
 	assetId: createOptionFromNullable(number, 'assetId'),
 	borrowerId: createOptionFromNullable(number, 'borrowerId'),
 	addressId: createOptionFromNullable(number, 'addressId'),
-	assetType: createOptionFromNullable(
-		keyof({
-			Automobile: null,
-			Bond: null,
-			BridgeLoanNotDeposited: null,
-			Cash: null,
-			CertificateOfDepositTimeDeposit: null,
-			CheckingAccount: null,
-			EarnestMoneyCashDepositTowardPurchase: null,
-			GiftsTotal: null,
-			GiftsNotDeposited: null,
-			LifeInsurance: null,
-			MoneyMarketFund: null,
-			MutualFund: null,
-			NetWorthOfBusinessOwned: null,
-			OtherLiquidAssets: null,
-			OtherNonLiquidAssets: null,
-			PendingNetSaleProceedsFromRealEstateAssets: null,
-			RelocationMoney: null,
-			RetirementFund: null,
-			SaleOtherAssets: null,
-			SavingsAccount: null,
-			SecuredBorrowedFundsNotDeposited: null,
-			Stock: null,
-			TrustAccount: null,
-		}),
-		'assetType',
-	),
+	assetType: createOptionFromNullable(createEnumType<AssetTypeEnum>(AssetTypeEnum, 'AssetTypeEnum'), 'assetType'),
 	cashMarketValue: createOptionFromNullable(number, 'cashMarketValue'),
 	accountNumber: createOptionFromNullable(string, 'accountNumber'),
 	depository: createOptionFromNullable(string, 'depository'),
