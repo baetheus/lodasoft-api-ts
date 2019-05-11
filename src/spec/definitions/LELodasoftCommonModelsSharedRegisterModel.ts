@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, boolean, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsSharedRegisterModel = {
 	token: Option<string>;
@@ -10,9 +10,9 @@ export type LELodasoftCommonModelsSharedRegisterModel = {
 	confirmPassword: Option<string>;
 };
 export const LELodasoftCommonModelsSharedRegisterModelIO = type({
-	token: createOptionFromNullable(string, 'token'),
-	isConfirmed: createOptionFromNullable(boolean, 'isConfirmed'),
+	token: createOptionFromOptional(string, 'token'),
+	isConfirmed: createOptionFromOptional(boolean, 'isConfirmed'),
 	userName: string,
 	password: string,
-	confirmPassword: createOptionFromNullable(string, 'confirmPassword'),
+	confirmPassword: createOptionFromOptional(string, 'confirmPassword'),
 });

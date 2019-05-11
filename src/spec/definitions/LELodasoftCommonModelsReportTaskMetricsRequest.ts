@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -26,14 +27,14 @@ export type LELodasoftCommonModelsReportTaskMetricsRequest = {
 	loanStatusFilters: Option<Array<number>>;
 };
 export const LELodasoftCommonModelsReportTaskMetricsRequestIO = type({
-	companyId: createOptionFromNullable(number, 'companyId'),
-	startDate: createOptionFromNullable(DateFromISOString, 'startDate'),
-	endDate: createOptionFromNullable(DateFromISOString, 'endDate'),
-	reportType: createOptionFromNullable(
+	companyId: createOptionFromOptional(number, 'companyId'),
+	startDate: createOptionFromOptional(DateFromISOString, 'startDate'),
+	endDate: createOptionFromOptional(DateFromISOString, 'endDate'),
+	reportType: createOptionFromOptional(
 		createEnumType<ReportTypeEnum>(ReportTypeEnum, 'ReportTypeEnum'),
 		'reportType',
 	),
-	activeLoansOnly: createOptionFromNullable(boolean, 'activeLoansOnly'),
-	loanPurposeFilters: createOptionFromNullable(array(number), 'loanPurposeFilters'),
-	loanStatusFilters: createOptionFromNullable(array(number), 'loanStatusFilters'),
+	activeLoansOnly: createOptionFromOptional(boolean, 'activeLoansOnly'),
+	loanPurposeFilters: createOptionFromOptional(array(number), 'loanPurposeFilters'),
+	loanStatusFilters: createOptionFromOptional(array(number), 'loanStatusFilters'),
 });

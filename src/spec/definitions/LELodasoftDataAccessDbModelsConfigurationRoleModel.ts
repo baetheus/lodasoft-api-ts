@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsConfigurationRoleModel = {
 	roleId: Option<number>;
@@ -21,20 +22,20 @@ export type LELodasoftDataAccessDbModelsConfigurationRoleModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationRoleModelIO = type({
-	roleId: createOptionFromNullable(number, 'roleId'),
-	roleName: createOptionFromNullable(string, 'roleName'),
-	isLoanContact: createOptionFromNullable(boolean, 'isLoanContact'),
-	order: createOptionFromNullable(number, 'order'),
-	allowAccessAllLoans: createOptionFromNullable(boolean, 'allowAccessAllLoans'),
-	allowBorrowerAssignment: createOptionFromNullable(boolean, 'allowBorrowerAssignment'),
-	showOnPortals: createOptionFromNullable(boolean, 'showOnPortals'),
-	showNewSubmissionForm: createOptionFromNullable(boolean, 'showNewSubmissionForm'),
-	bulkEditTasks: createOptionFromNullable(boolean, 'bulkEditTasks'),
-	readOnlyTasks: createOptionFromNullable(boolean, 'readOnlyTasks'),
-	useForCreditMonitoring: createOptionFromNullable(boolean, 'useForCreditMonitoring'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	roleId: createOptionFromOptional(number, 'roleId'),
+	roleName: createOptionFromOptional(string, 'roleName'),
+	isLoanContact: createOptionFromOptional(boolean, 'isLoanContact'),
+	order: createOptionFromOptional(number, 'order'),
+	allowAccessAllLoans: createOptionFromOptional(boolean, 'allowAccessAllLoans'),
+	allowBorrowerAssignment: createOptionFromOptional(boolean, 'allowBorrowerAssignment'),
+	showOnPortals: createOptionFromOptional(boolean, 'showOnPortals'),
+	showNewSubmissionForm: createOptionFromOptional(boolean, 'showNewSubmissionForm'),
+	bulkEditTasks: createOptionFromOptional(boolean, 'bulkEditTasks'),
+	readOnlyTasks: createOptionFromOptional(boolean, 'readOnlyTasks'),
+	useForCreditMonitoring: createOptionFromOptional(boolean, 'useForCreditMonitoring'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

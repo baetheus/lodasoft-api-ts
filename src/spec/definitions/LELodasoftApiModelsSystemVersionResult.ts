@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsSystemVersionResult = {
 	assemblyVersion: Option<string>;
@@ -9,8 +9,8 @@ export type LELodasoftApiModelsSystemVersionResult = {
 	port: Option<number>;
 };
 export const LELodasoftApiModelsSystemVersionResultIO = type({
-	assemblyVersion: createOptionFromNullable(string, 'assemblyVersion'),
-	assemblyInformation: createOptionFromNullable(string, 'assemblyInformation'),
-	machineName: createOptionFromNullable(string, 'machineName'),
-	port: createOptionFromNullable(number, 'port'),
+	assemblyVersion: createOptionFromOptional(string, 'assemblyVersion'),
+	assemblyInformation: createOptionFromOptional(string, 'assemblyInformation'),
+	machineName: createOptionFromOptional(string, 'machineName'),
+	port: createOptionFromOptional(number, 'port'),
 });

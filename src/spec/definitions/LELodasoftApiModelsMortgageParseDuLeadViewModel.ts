@@ -4,7 +4,7 @@ import {
 } from '../definitions/LELodasoftCommonModelsLeadsLeadViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, boolean, array, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsMortgageParseDuLeadViewModel = {
 	leadViewModel: Option<LELodasoftCommonModelsLeadsLeadViewModel>;
@@ -17,12 +17,12 @@ export type LELodasoftApiModelsMortgageParseDuLeadViewModel = {
 	errorMessage: Option<string>;
 };
 export const LELodasoftApiModelsMortgageParseDuLeadViewModelIO = type({
-	leadViewModel: createOptionFromNullable(LELodasoftCommonModelsLeadsLeadViewModelIO, 'leadViewModel'),
-	loanNumber: createOptionFromNullable(string, 'loanNumber'),
-	loanPurposeId: createOptionFromNullable(number, 'loanPurposeId'),
-	loanTypeId: createOptionFromNullable(number, 'loanTypeId'),
-	losIdentifier: createOptionFromNullable(string, 'losIdentifier'),
-	success: createOptionFromNullable(boolean, 'success'),
-	validationErrors: createOptionFromNullable(array(string), 'validationErrors'),
-	errorMessage: createOptionFromNullable(string, 'errorMessage'),
+	leadViewModel: createOptionFromOptional(LELodasoftCommonModelsLeadsLeadViewModelIO, 'leadViewModel'),
+	loanNumber: createOptionFromOptional(string, 'loanNumber'),
+	loanPurposeId: createOptionFromOptional(number, 'loanPurposeId'),
+	loanTypeId: createOptionFromOptional(number, 'loanTypeId'),
+	losIdentifier: createOptionFromOptional(string, 'losIdentifier'),
+	success: createOptionFromOptional(boolean, 'success'),
+	validationErrors: createOptionFromOptional(array(string), 'validationErrors'),
+	errorMessage: createOptionFromOptional(string, 'errorMessage'),
 });

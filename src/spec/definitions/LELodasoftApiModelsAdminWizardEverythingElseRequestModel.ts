@@ -1,12 +1,12 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsAdminWizardEverythingElseRequestModel = {
 	templateCompanyId: Option<number>;
 	destinationCompanyId: Option<number>;
 };
 export const LELodasoftApiModelsAdminWizardEverythingElseRequestModelIO = type({
-	templateCompanyId: createOptionFromNullable(number, 'templateCompanyId'),
-	destinationCompanyId: createOptionFromNullable(number, 'destinationCompanyId'),
+	templateCompanyId: createOptionFromOptional(number, 'templateCompanyId'),
+	destinationCompanyId: createOptionFromOptional(number, 'destinationCompanyId'),
 });

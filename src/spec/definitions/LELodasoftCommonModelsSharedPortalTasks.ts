@@ -4,7 +4,7 @@ import {
 } from '../definitions/LELodasoftCommonModelsSharedPortalTaskModel';
 import { Option } from 'fp-ts/lib/Option';
 import { array, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsSharedPortalTasks = {
 	requested: Option<Array<LELodasoftCommonModelsSharedPortalTaskModel>>;
@@ -12,7 +12,7 @@ export type LELodasoftCommonModelsSharedPortalTasks = {
 	approved: Option<Array<LELodasoftCommonModelsSharedPortalTaskModel>>;
 };
 export const LELodasoftCommonModelsSharedPortalTasksIO = type({
-	requested: createOptionFromNullable(array(LELodasoftCommonModelsSharedPortalTaskModelIO), 'requested'),
-	submitted: createOptionFromNullable(array(LELodasoftCommonModelsSharedPortalTaskModelIO), 'submitted'),
-	approved: createOptionFromNullable(array(LELodasoftCommonModelsSharedPortalTaskModelIO), 'approved'),
+	requested: createOptionFromOptional(array(LELodasoftCommonModelsSharedPortalTaskModelIO), 'requested'),
+	submitted: createOptionFromOptional(array(LELodasoftCommonModelsSharedPortalTaskModelIO), 'submitted'),
+	approved: createOptionFromOptional(array(LELodasoftCommonModelsSharedPortalTaskModelIO), 'approved'),
 });

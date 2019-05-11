@@ -23,7 +23,7 @@ import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { string, array, number, boolean, type, partial } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 import { Observable } from 'rxjs';
 
 export type FileController = {
@@ -115,7 +115,7 @@ export const fileController = asks(
 
 		File_UpsertFileFromTask: (taskId, parameters) => {
 			const encoded = partial({
-				query: type({ autoTransition: createOptionFromNullable(boolean, 'autoTransition') }),
+				query: type({ autoTransition: createOptionFromOptional(boolean, 'autoTransition') }),
 			}).encode(parameters);
 
 			return e.API_CLIENT.request({

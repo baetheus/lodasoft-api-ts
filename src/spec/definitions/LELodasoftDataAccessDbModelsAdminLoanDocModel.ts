@@ -4,7 +4,8 @@ import {
 } from '../definitions/LELodasoftDataAccessDbModelsAdminDocFileModel';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, array, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsAdminLoanDocModel = {
 	loanDocId: Option<number>;
@@ -19,14 +20,14 @@ export type LELodasoftDataAccessDbModelsAdminLoanDocModel = {
 	docFiles: Option<Array<LELodasoftDataAccessDbModelsAdminDocFileModel>>;
 };
 export const LELodasoftDataAccessDbModelsAdminLoanDocModelIO = type({
-	loanDocId: createOptionFromNullable(number, 'loanDocId'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	borrowerID: createOptionFromNullable(number, 'borrowerID'),
-	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
-	description: createOptionFromNullable(string, 'description'),
-	note: createOptionFromNullable(string, 'note'),
-	expirationDate: createOptionFromNullable(DateFromISOString, 'expirationDate'),
-	retask: createOptionFromNullable(boolean, 'retask'),
-	active: createOptionFromNullable(boolean, 'active'),
-	docFiles: createOptionFromNullable(array(LELodasoftDataAccessDbModelsAdminDocFileModelIO), 'docFiles'),
+	loanDocId: createOptionFromOptional(number, 'loanDocId'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	borrowerID: createOptionFromOptional(number, 'borrowerID'),
+	documentTypeId: createOptionFromOptional(number, 'documentTypeId'),
+	description: createOptionFromOptional(string, 'description'),
+	note: createOptionFromOptional(string, 'note'),
+	expirationDate: createOptionFromOptional(DateFromISOString, 'expirationDate'),
+	retask: createOptionFromOptional(boolean, 'retask'),
+	active: createOptionFromOptional(boolean, 'active'),
+	docFiles: createOptionFromOptional(array(LELodasoftDataAccessDbModelsAdminDocFileModelIO), 'docFiles'),
 });

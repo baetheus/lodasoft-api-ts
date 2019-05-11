@@ -4,7 +4,7 @@ import {
 } from '../definitions/LELodasoftThirdPartyLosSearchResponseItem';
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsMortgageLosLoanSearchResponseModel = {
 	searchResponseItems: Option<Array<LELodasoftThirdPartyLosSearchResponseItem>>;
@@ -13,11 +13,11 @@ export type LELodasoftApiModelsMortgageLosLoanSearchResponseModel = {
 	errorMessage: Option<string>;
 };
 export const LELodasoftApiModelsMortgageLosLoanSearchResponseModelIO = type({
-	searchResponseItems: createOptionFromNullable(
+	searchResponseItems: createOptionFromOptional(
 		array(LELodasoftThirdPartyLosSearchResponseItemIO),
 		'searchResponseItems',
 	),
-	success: createOptionFromNullable(boolean, 'success'),
-	validationErrors: createOptionFromNullable(array(string), 'validationErrors'),
-	errorMessage: createOptionFromNullable(string, 'errorMessage'),
+	success: createOptionFromOptional(boolean, 'success'),
+	validationErrors: createOptionFromOptional(array(string), 'validationErrors'),
+	errorMessage: createOptionFromOptional(string, 'errorMessage'),
 });

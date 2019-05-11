@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsLeadsLeadEmploymentViewModel = {
 	leadEmploymentId: Option<number>;
@@ -18,17 +19,17 @@ export type LELodasoftCommonModelsLeadsLeadEmploymentViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsLeadsLeadEmploymentViewModelIO = type({
-	leadEmploymentId: createOptionFromNullable(number, 'leadEmploymentId'),
-	leadId: createOptionFromNullable(number, 'leadId'),
-	companyName: createOptionFromNullable(string, 'companyName'),
-	position: createOptionFromNullable(string, 'position'),
-	employmentLengthYears: createOptionFromNullable(number, 'employmentLengthYears'),
-	monthlyIncome: createOptionFromNullable(number, 'monthlyIncome'),
-	isCurrentEmployer: createOptionFromNullable(boolean, 'isCurrentEmployer'),
-	notes: createOptionFromNullable(string, 'notes'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	leadEmploymentId: createOptionFromOptional(number, 'leadEmploymentId'),
+	leadId: createOptionFromOptional(number, 'leadId'),
+	companyName: createOptionFromOptional(string, 'companyName'),
+	position: createOptionFromOptional(string, 'position'),
+	employmentLengthYears: createOptionFromOptional(number, 'employmentLengthYears'),
+	monthlyIncome: createOptionFromOptional(number, 'monthlyIncome'),
+	isCurrentEmployer: createOptionFromOptional(boolean, 'isCurrentEmployer'),
+	notes: createOptionFromOptional(string, 'notes'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsAdminRecentApplicationView = {
 	borrowerId: Option<number>;
@@ -8,7 +8,7 @@ export type LELodasoftCommonModelsAdminRecentApplicationView = {
 	displayText: Option<string>;
 };
 export const LELodasoftCommonModelsAdminRecentApplicationViewIO = type({
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	displayText: createOptionFromNullable(string, 'displayText'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	displayText: createOptionFromOptional(string, 'displayText'),
 });

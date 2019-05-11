@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, boolean, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsLoanDocFileViewModel = {
 	guid: Option<string>;
@@ -19,18 +20,18 @@ export type LELodasoftCommonModelsLoanDocFileViewModel = {
 	active: Option<boolean>;
 };
 export const LELodasoftCommonModelsLoanDocFileViewModelIO = type({
-	guid: createOptionFromNullable(string, 'guid'),
-	loanDocId: createOptionFromNullable(number, 'loanDocId'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
-	note: createOptionFromNullable(string, 'note'),
-	borrowerNote: createOptionFromNullable(string, 'borrowerNote'),
-	condition: createOptionFromNullable(boolean, 'condition'),
-	fileName: createOptionFromNullable(string, 'fileName'),
-	mimeType: createOptionFromNullable(string, 'mimeType'),
-	fileData: createOptionFromNullable(string, 'fileData'),
-	createDate: createOptionFromNullable(DateFromISOString, 'createDate'),
-	exportDate: createOptionFromNullable(DateFromISOString, 'exportDate'),
-	active: createOptionFromNullable(boolean, 'active'),
+	guid: createOptionFromOptional(string, 'guid'),
+	loanDocId: createOptionFromOptional(number, 'loanDocId'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	documentTypeId: createOptionFromOptional(number, 'documentTypeId'),
+	note: createOptionFromOptional(string, 'note'),
+	borrowerNote: createOptionFromOptional(string, 'borrowerNote'),
+	condition: createOptionFromOptional(boolean, 'condition'),
+	fileName: createOptionFromOptional(string, 'fileName'),
+	mimeType: createOptionFromOptional(string, 'mimeType'),
+	fileData: createOptionFromOptional(string, 'fileData'),
+	createDate: createOptionFromOptional(DateFromISOString, 'createDate'),
+	exportDate: createOptionFromOptional(DateFromISOString, 'exportDate'),
+	active: createOptionFromOptional(boolean, 'active'),
 });

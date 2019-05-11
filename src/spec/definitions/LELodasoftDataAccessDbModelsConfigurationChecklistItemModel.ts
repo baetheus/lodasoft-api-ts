@@ -8,7 +8,7 @@ import {
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationLoanStatusModel';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsConfigurationChecklistItemModel = {
 	checkListItemId: Option<number>;
@@ -19,10 +19,10 @@ export type LELodasoftDataAccessDbModelsConfigurationChecklistItemModel = {
 	companyModel: Option<LELodasoftDataAccessDbModelsConfigurationCompanyModel>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationChecklistItemModelIO = type({
-	checkListItemId: createOptionFromNullable(number, 'checkListItemId'),
-	checkListName: createOptionFromNullable(string, 'checkListName'),
-	loanStatusId: createOptionFromNullable(number, 'loanStatusId'),
-	loanStatus: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO, 'loanStatus'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	companyModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'companyModel'),
+	checkListItemId: createOptionFromOptional(number, 'checkListItemId'),
+	checkListName: createOptionFromOptional(string, 'checkListName'),
+	loanStatusId: createOptionFromOptional(number, 'loanStatusId'),
+	loanStatus: createOptionFromOptional(LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO, 'loanStatus'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	companyModel: createOptionFromOptional(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'companyModel'),
 });

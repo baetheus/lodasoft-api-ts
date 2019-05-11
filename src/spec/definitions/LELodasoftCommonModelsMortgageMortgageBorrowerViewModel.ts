@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
 
 import {
   LELodasoftCommonModelsMortgageAssetViewModel,
@@ -50,6 +50,7 @@ import {
   LELodasoftCommonModelsMortgageResidencyAddressViewModel,
   LELodasoftCommonModelsMortgageResidencyAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageResidencyAddressViewModel';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 import { createEnumType } from '../utils/utils';
 
 export enum MaritalStatusEnum {
@@ -102,49 +103,49 @@ export type LELodasoftCommonModelsMortgageMortgageBorrowerViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO = type({
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
 	mortgageId: number,
-	contactId: createOptionFromNullable(number, 'contactId'),
-	firstName: createOptionFromNullable(string, 'firstName'),
-	middleName: createOptionFromNullable(string, 'middleName'),
-	lastName: createOptionFromNullable(string, 'lastName'),
-	nameSuffix: createOptionFromNullable(string, 'nameSuffix'),
-	yearsOfSchool: createOptionFromNullable(number, 'yearsOfSchool'),
-	dependentCount: createOptionFromNullable(number, 'dependentCount'),
-	authorizedCreditCheck: createOptionFromNullable(boolean, 'authorizedCreditCheck'),
-	socialSecNum: createOptionFromNullable(string, 'socialSecNum'),
-	maritalStatus: createOptionFromNullable(
+	contactId: createOptionFromOptional(number, 'contactId'),
+	firstName: createOptionFromOptional(string, 'firstName'),
+	middleName: createOptionFromOptional(string, 'middleName'),
+	lastName: createOptionFromOptional(string, 'lastName'),
+	nameSuffix: createOptionFromOptional(string, 'nameSuffix'),
+	yearsOfSchool: createOptionFromOptional(number, 'yearsOfSchool'),
+	dependentCount: createOptionFromOptional(number, 'dependentCount'),
+	authorizedCreditCheck: createOptionFromOptional(boolean, 'authorizedCreditCheck'),
+	socialSecNum: createOptionFromOptional(string, 'socialSecNum'),
+	maritalStatus: createOptionFromOptional(
 		createEnumType<MaritalStatusEnum>(MaritalStatusEnum, 'MaritalStatusEnum'),
 		'maritalStatus',
 	),
-	dateOfBirth: createOptionFromNullable(DateFromISOString, 'dateOfBirth'),
-	creditScore: createOptionFromNullable(number, 'creditScore'),
-	creditScore_Equifax: createOptionFromNullable(number, 'creditScore_Equifax'),
-	creditScore_Experian: createOptionFromNullable(number, 'creditScore_Experian'),
-	creditScore_TransUnion: createOptionFromNullable(number, 'creditScore_TransUnion'),
+	dateOfBirth: createOptionFromOptional(DateFromISOString, 'dateOfBirth'),
+	creditScore: createOptionFromOptional(number, 'creditScore'),
+	creditScore_Equifax: createOptionFromOptional(number, 'creditScore_Equifax'),
+	creditScore_Experian: createOptionFromOptional(number, 'creditScore_Experian'),
+	creditScore_TransUnion: createOptionFromOptional(number, 'creditScore_TransUnion'),
 	typeOfBorrower: createEnumType<TypeOfBorrower>(TypeOfBorrower, 'TypeOfBorrower'),
-	active: createOptionFromNullable(boolean, 'active'),
-	assets: createOptionFromNullable(array(LELodasoftCommonModelsMortgageAssetViewModelIO), 'assets'),
-	declarations: createOptionFromNullable(array(LELodasoftCommonModelsMortgageDeclarationViewModelIO), 'declarations'),
-	dependents: createOptionFromNullable(array(LELodasoftCommonModelsMortgageDependentViewModelIO), 'dependents'),
-	emails: createOptionFromNullable(array(LELodasoftCommonModelsMortgageEmailViewModelIO), 'emails'),
-	employments: createOptionFromNullable(array(LELodasoftCommonModelsMortgageEmploymentViewModelIO), 'employments'),
-	expenses: createOptionFromNullable(array(LELodasoftCommonModelsMortgageExpenseViewModelIO), 'expenses'),
-	governmentMonitors: createOptionFromNullable(
+	active: createOptionFromOptional(boolean, 'active'),
+	assets: createOptionFromOptional(array(LELodasoftCommonModelsMortgageAssetViewModelIO), 'assets'),
+	declarations: createOptionFromOptional(array(LELodasoftCommonModelsMortgageDeclarationViewModelIO), 'declarations'),
+	dependents: createOptionFromOptional(array(LELodasoftCommonModelsMortgageDependentViewModelIO), 'dependents'),
+	emails: createOptionFromOptional(array(LELodasoftCommonModelsMortgageEmailViewModelIO), 'emails'),
+	employments: createOptionFromOptional(array(LELodasoftCommonModelsMortgageEmploymentViewModelIO), 'employments'),
+	expenses: createOptionFromOptional(array(LELodasoftCommonModelsMortgageExpenseViewModelIO), 'expenses'),
+	governmentMonitors: createOptionFromOptional(
 		array(LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO),
 		'governmentMonitors',
 	),
-	incomes: createOptionFromNullable(array(LELodasoftCommonModelsMortgageIncomeViewModelIO), 'incomes'),
-	liabilities: createOptionFromNullable(array(LELodasoftCommonModelsMortgageLiabilityViewModelIO), 'liabilities'),
-	phones: createOptionFromNullable(array(LELodasoftCommonModelsMortgagePhoneViewModelIO), 'phones'),
-	reos: createOptionFromNullable(array(LELodasoftCommonModelsMortgageReoViewModelIO), 'reos'),
-	residencyAddresses: createOptionFromNullable(
+	incomes: createOptionFromOptional(array(LELodasoftCommonModelsMortgageIncomeViewModelIO), 'incomes'),
+	liabilities: createOptionFromOptional(array(LELodasoftCommonModelsMortgageLiabilityViewModelIO), 'liabilities'),
+	phones: createOptionFromOptional(array(LELodasoftCommonModelsMortgagePhoneViewModelIO), 'phones'),
+	reos: createOptionFromOptional(array(LELodasoftCommonModelsMortgageReoViewModelIO), 'reos'),
+	residencyAddresses: createOptionFromOptional(
 		array(LELodasoftCommonModelsMortgageResidencyAddressViewModelIO),
 		'residencyAddresses',
 	),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

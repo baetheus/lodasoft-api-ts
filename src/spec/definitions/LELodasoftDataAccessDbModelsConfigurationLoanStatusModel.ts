@@ -4,7 +4,8 @@ import {
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationRoleModel';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsConfigurationLoanStatusModel = {
 	loanStatusId: Option<number>;
@@ -23,18 +24,18 @@ export type LELodasoftDataAccessDbModelsConfigurationLoanStatusModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO = type({
-	loanStatusId: createOptionFromNullable(number, 'loanStatusId'),
-	loanStatusName: createOptionFromNullable(string, 'loanStatusName'),
-	selectByRole: createOptionFromNullable(string, 'selectByRole'),
-	order: createOptionFromNullable(number, 'order'),
-	showAsArchive: createOptionFromNullable(boolean, 'showAsArchive'),
-	hideFromCounter: createOptionFromNullable(boolean, 'hideFromCounter'),
-	isLeadStatus: createOptionFromNullable(boolean, 'isLeadStatus'),
-	emailFromRoleId: createOptionFromNullable(number, 'emailFromRoleId'),
-	roleModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationRoleModelIO, 'roleModel'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	loanStatusId: createOptionFromOptional(number, 'loanStatusId'),
+	loanStatusName: createOptionFromOptional(string, 'loanStatusName'),
+	selectByRole: createOptionFromOptional(string, 'selectByRole'),
+	order: createOptionFromOptional(number, 'order'),
+	showAsArchive: createOptionFromOptional(boolean, 'showAsArchive'),
+	hideFromCounter: createOptionFromOptional(boolean, 'hideFromCounter'),
+	isLeadStatus: createOptionFromOptional(boolean, 'isLeadStatus'),
+	emailFromRoleId: createOptionFromOptional(number, 'emailFromRoleId'),
+	roleModel: createOptionFromOptional(LELodasoftDataAccessDbModelsConfigurationRoleModelIO, 'roleModel'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

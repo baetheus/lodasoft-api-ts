@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -23,18 +23,18 @@ export type LELodasoftCommonModelsSharedReferralModel = {
 	referredByPhone: Option<string>;
 };
 export const LELodasoftCommonModelsSharedReferralModelIO = type({
-	referToUserId: createOptionFromNullable(string, 'referToUserId'),
-	referralType: createOptionFromNullable(
+	referToUserId: createOptionFromOptional(string, 'referToUserId'),
+	referralType: createOptionFromOptional(
 		createEnumType<ReferralTypeEnum>(ReferralTypeEnum, 'ReferralTypeEnum'),
 		'referralType',
 	),
-	firstName: createOptionFromNullable(string, 'firstName'),
-	lastName: createOptionFromNullable(string, 'lastName'),
-	userContact: createOptionFromNullable(string, 'userContact'),
-	email: createOptionFromNullable(string, 'email'),
-	phone: createOptionFromNullable(string, 'phone'),
-	note: createOptionFromNullable(string, 'note'),
-	referredByName: createOptionFromNullable(string, 'referredByName'),
-	referredByEmail: createOptionFromNullable(string, 'referredByEmail'),
-	referredByPhone: createOptionFromNullable(string, 'referredByPhone'),
+	firstName: createOptionFromOptional(string, 'firstName'),
+	lastName: createOptionFromOptional(string, 'lastName'),
+	userContact: createOptionFromOptional(string, 'userContact'),
+	email: createOptionFromOptional(string, 'email'),
+	phone: createOptionFromOptional(string, 'phone'),
+	note: createOptionFromOptional(string, 'note'),
+	referredByName: createOptionFromOptional(string, 'referredByName'),
+	referredByEmail: createOptionFromOptional(string, 'referredByEmail'),
+	referredByPhone: createOptionFromOptional(string, 'referredByPhone'),
 });

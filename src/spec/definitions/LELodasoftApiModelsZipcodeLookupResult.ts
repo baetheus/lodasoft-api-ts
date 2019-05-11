@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsZipcodeLookupResult = {
 	recordNumber: Option<number>;
@@ -10,9 +10,9 @@ export type LELodasoftApiModelsZipcodeLookupResult = {
 	locationText: Option<string>;
 };
 export const LELodasoftApiModelsZipcodeLookupResultIO = type({
-	recordNumber: createOptionFromNullable(number, 'recordNumber'),
-	zipcode: createOptionFromNullable(string, 'zipcode'),
-	city: createOptionFromNullable(string, 'city'),
-	state: createOptionFromNullable(string, 'state'),
-	locationText: createOptionFromNullable(string, 'locationText'),
+	recordNumber: createOptionFromOptional(number, 'recordNumber'),
+	zipcode: createOptionFromOptional(string, 'zipcode'),
+	city: createOptionFromOptional(string, 'city'),
+	state: createOptionFromOptional(string, 'state'),
+	locationText: createOptionFromOptional(string, 'locationText'),
 });

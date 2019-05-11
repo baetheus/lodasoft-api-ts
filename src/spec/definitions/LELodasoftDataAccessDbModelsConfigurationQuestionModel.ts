@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -93,11 +93,11 @@ export type LELodasoftDataAccessDbModelsConfigurationQuestionModel = {
 	companyId: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationQuestionModelIO = type({
-	questionId: createOptionFromNullable(number, 'questionId'),
-	questionText: createOptionFromNullable(string, 'questionText'),
-	questionType: createOptionFromNullable(
+	questionId: createOptionFromOptional(number, 'questionId'),
+	questionText: createOptionFromOptional(string, 'questionText'),
+	questionType: createOptionFromOptional(
 		createEnumType<QuestionTypeEnum>(QuestionTypeEnum, 'QuestionTypeEnum'),
 		'questionType',
 	),
-	companyId: createOptionFromNullable(number, 'companyId'),
+	companyId: createOptionFromOptional(number, 'companyId'),
 });

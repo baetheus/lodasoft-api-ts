@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageRequest = {
 	companyGuid: string;
@@ -13,10 +13,10 @@ export type LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageRequest 
 };
 export const LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageRequestIO = type({
 	companyGuid: string,
-	userGuid: createOptionFromNullable(string, 'userGuid'),
-	loanPurposeId: createOptionFromNullable(number, 'loanPurposeId'),
+	userGuid: createOptionFromOptional(string, 'userGuid'),
+	loanPurposeId: createOptionFromOptional(number, 'loanPurposeId'),
 	firstName: string,
 	lastName: string,
 	email: string,
-	password: createOptionFromNullable(string, 'password'),
+	password: createOptionFromOptional(string, 'password'),
 });

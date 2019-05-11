@@ -16,7 +16,8 @@ import {
 } from '../definitions/LELodasoftCommonModelsMortgageTransactionDetailViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { number, array, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsMortgageMortgageViewModel = {
 	mortgageId: Option<number>;
@@ -35,24 +36,24 @@ export type LELodasoftCommonModelsMortgageMortgageViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageMortgageViewModelIO = type({
-	mortgageId: createOptionFromNullable(number, 'mortgageId'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	subjectPropertyId: createOptionFromNullable(number, 'subjectPropertyId'),
-	mortgageTermId: createOptionFromNullable(number, 'mortgageTermId'),
-	transactionDetailId: createOptionFromNullable(number, 'transactionDetailId'),
-	subjectProperty: createOptionFromNullable(
+	mortgageId: createOptionFromOptional(number, 'mortgageId'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	subjectPropertyId: createOptionFromOptional(number, 'subjectPropertyId'),
+	mortgageTermId: createOptionFromOptional(number, 'mortgageTermId'),
+	transactionDetailId: createOptionFromOptional(number, 'transactionDetailId'),
+	subjectProperty: createOptionFromOptional(
 		LELodasoftCommonModelsMortgageSubjectPropertyViewModelIO,
 		'subjectProperty',
 	),
-	mortgageTerm: createOptionFromNullable(LELodasoftCommonModelsMortgageMortgageTermViewModelIO, 'mortgageTerm'),
-	transactionDetail: createOptionFromNullable(
+	mortgageTerm: createOptionFromOptional(LELodasoftCommonModelsMortgageMortgageTermViewModelIO, 'mortgageTerm'),
+	transactionDetail: createOptionFromOptional(
 		LELodasoftCommonModelsMortgageTransactionDetailViewModelIO,
 		'transactionDetail',
 	),
-	borrowers: createOptionFromNullable(array(LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO), 'borrowers'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	borrowers: createOptionFromOptional(array(LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO), 'borrowers'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

@@ -4,7 +4,7 @@ import {
 } from '../definitions/LELodasoftCommonModelsSharedBorrowerView';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, array, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsSharedApplicationView = {
 	applicationId: Option<number>;
@@ -32,29 +32,29 @@ export type LELodasoftCommonModelsSharedApplicationView = {
 	otherBorrowersOnLoan: Option<Array<LELodasoftCommonModelsSharedBorrowerView>>;
 };
 export const LELodasoftCommonModelsSharedApplicationViewIO = type({
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	refNumber: createOptionFromNullable(string, 'refNumber'),
-	streetViewImageUrl: createOptionFromNullable(string, 'streetViewImageUrl'),
-	mapViewImageUrl: createOptionFromNullable(string, 'mapViewImageUrl'),
-	address: createOptionFromNullable(string, 'address'),
-	city: createOptionFromNullable(string, 'city'),
-	state: createOptionFromNullable(string, 'state'),
-	zip: createOptionFromNullable(string, 'zip'),
-	loanStatus: createOptionFromNullable(string, 'loanStatus'),
-	blurb: createOptionFromNullable(string, 'blurb'),
-	loanPurpose: createOptionFromNullable(string, 'loanPurpose'),
-	loanAmount: createOptionFromNullable(number, 'loanAmount'),
-	interestRate: createOptionFromNullable(number, 'interestRate'),
-	contactRole: createOptionFromNullable(string, 'contactRole'),
-	contactName: createOptionFromNullable(string, 'contactName'),
-	contactNumber: createOptionFromNullable(string, 'contactNumber'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	companyName: createOptionFromNullable(string, 'companyName'),
-	applicationName: createOptionFromNullable(string, 'applicationName'),
-	onlineAppInProgress: createOptionFromNullable(boolean, 'onlineAppInProgress'),
-	forceFinishOnlineApp: createOptionFromNullable(boolean, 'forceFinishOnlineApp'),
-	myDetails: createOptionFromNullable(LELodasoftCommonModelsSharedBorrowerViewIO, 'myDetails'),
-	otherBorrowersOnLoan: createOptionFromNullable(
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	refNumber: createOptionFromOptional(string, 'refNumber'),
+	streetViewImageUrl: createOptionFromOptional(string, 'streetViewImageUrl'),
+	mapViewImageUrl: createOptionFromOptional(string, 'mapViewImageUrl'),
+	address: createOptionFromOptional(string, 'address'),
+	city: createOptionFromOptional(string, 'city'),
+	state: createOptionFromOptional(string, 'state'),
+	zip: createOptionFromOptional(string, 'zip'),
+	loanStatus: createOptionFromOptional(string, 'loanStatus'),
+	blurb: createOptionFromOptional(string, 'blurb'),
+	loanPurpose: createOptionFromOptional(string, 'loanPurpose'),
+	loanAmount: createOptionFromOptional(number, 'loanAmount'),
+	interestRate: createOptionFromOptional(number, 'interestRate'),
+	contactRole: createOptionFromOptional(string, 'contactRole'),
+	contactName: createOptionFromOptional(string, 'contactName'),
+	contactNumber: createOptionFromOptional(string, 'contactNumber'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	companyName: createOptionFromOptional(string, 'companyName'),
+	applicationName: createOptionFromOptional(string, 'applicationName'),
+	onlineAppInProgress: createOptionFromOptional(boolean, 'onlineAppInProgress'),
+	forceFinishOnlineApp: createOptionFromOptional(boolean, 'forceFinishOnlineApp'),
+	myDetails: createOptionFromOptional(LELodasoftCommonModelsSharedBorrowerViewIO, 'myDetails'),
+	otherBorrowersOnLoan: createOptionFromOptional(
 		array(LELodasoftCommonModelsSharedBorrowerViewIO),
 		'otherBorrowersOnLoan',
 	),

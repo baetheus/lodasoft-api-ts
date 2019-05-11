@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftCommonModelsMortgageAddressViewModel,
@@ -91,46 +92,46 @@ export type LELodasoftCommonModelsMortgageSubjectPropertyViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageSubjectPropertyViewModelIO = type({
-	subjectPropertyId: createOptionFromNullable(number, 'subjectPropertyId'),
-	addressId: createOptionFromNullable(number, 'addressId'),
-	purposeOfLoan: createOptionFromNullable(
+	subjectPropertyId: createOptionFromOptional(number, 'subjectPropertyId'),
+	addressId: createOptionFromOptional(number, 'addressId'),
+	purposeOfLoan: createOptionFromOptional(
 		createEnumType<PurposeOfLoanEnum>(PurposeOfLoanEnum, 'PurposeOfLoanEnum'),
 		'purposeOfLoan',
 	),
-	propertyWillBe: createOptionFromNullable(
+	propertyWillBe: createOptionFromOptional(
 		createEnumType<PropertyWillBeEnum>(PropertyWillBeEnum, 'PropertyWillBeEnum'),
 		'propertyWillBe',
 	),
-	noOfUnits: createOptionFromNullable(number, 'noOfUnits'),
-	propertyType: createOptionFromNullable(
+	noOfUnits: createOptionFromOptional(number, 'noOfUnits'),
+	propertyType: createOptionFromOptional(
 		createEnumType<PropertyTypeEnum>(PropertyTypeEnum, 'PropertyTypeEnum'),
 		'propertyType',
 	),
-	yearBuilt: createOptionFromNullable(number, 'yearBuilt'),
-	originalCost: createOptionFromNullable(number, 'originalCost'),
-	amountOutstanding: createOptionFromNullable(number, 'amountOutstanding'),
-	presentValue: createOptionFromNullable(number, 'presentValue'),
-	improvementCost: createOptionFromNullable(number, 'improvementCost'),
-	originalCostYear: createOptionFromNullable(number, 'originalCostYear'),
-	amountExistLiensYear: createOptionFromNullable(number, 'amountExistLiensYear'),
-	refiPurpose: createOptionFromNullable(
+	yearBuilt: createOptionFromOptional(number, 'yearBuilt'),
+	originalCost: createOptionFromOptional(number, 'originalCost'),
+	amountOutstanding: createOptionFromOptional(number, 'amountOutstanding'),
+	presentValue: createOptionFromOptional(number, 'presentValue'),
+	improvementCost: createOptionFromOptional(number, 'improvementCost'),
+	originalCostYear: createOptionFromOptional(number, 'originalCostYear'),
+	amountExistLiensYear: createOptionFromOptional(number, 'amountExistLiensYear'),
+	refiPurpose: createOptionFromOptional(
 		createEnumType<RefiPurposeEnum>(RefiPurposeEnum, 'RefiPurposeEnum'),
 		'refiPurpose',
 	),
-	describeImprovement: createOptionFromNullable(string, 'describeImprovement'),
-	improvementStatus: createOptionFromNullable(
+	describeImprovement: createOptionFromOptional(string, 'describeImprovement'),
+	improvementStatus: createOptionFromOptional(
 		createEnumType<ImprovementStatusEnum>(ImprovementStatusEnum, 'ImprovementStatusEnum'),
 		'improvementStatus',
 	),
-	cost: createOptionFromNullable(number, 'cost'),
-	titleNames: createOptionFromNullable(string, 'titleNames'),
-	explain: createOptionFromNullable(string, 'explain'),
-	manner: createOptionFromNullable(string, 'manner'),
-	estate: createOptionFromNullable(createEnumType<EstateEnum>(EstateEnum, 'EstateEnum'), 'estate'),
-	address: createOptionFromNullable(LELodasoftCommonModelsMortgageAddressViewModelIO, 'address'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	cost: createOptionFromOptional(number, 'cost'),
+	titleNames: createOptionFromOptional(string, 'titleNames'),
+	explain: createOptionFromOptional(string, 'explain'),
+	manner: createOptionFromOptional(string, 'manner'),
+	estate: createOptionFromOptional(createEnumType<EstateEnum>(EstateEnum, 'EstateEnum'), 'estate'),
+	address: createOptionFromOptional(LELodasoftCommonModelsMortgageAddressViewModelIO, 'address'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

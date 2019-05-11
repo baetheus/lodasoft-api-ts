@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftDataAccessDbModelsAdminBorrowerModel,
@@ -21,10 +21,10 @@ export type LELodasoftApiModelsBorrowerBorrowerFull = {
 	accountStatus: Option<AccountStatusEnum>;
 };
 export const LELodasoftApiModelsBorrowerBorrowerFullIO = type({
-	portalUserName: createOptionFromNullable(string, 'portalUserName'),
-	borrower: createOptionFromNullable(LELodasoftDataAccessDbModelsAdminBorrowerModelIO, 'borrower'),
-	isEdit: createOptionFromNullable(boolean, 'isEdit'),
-	accountStatus: createOptionFromNullable(
+	portalUserName: createOptionFromOptional(string, 'portalUserName'),
+	borrower: createOptionFromOptional(LELodasoftDataAccessDbModelsAdminBorrowerModelIO, 'borrower'),
+	isEdit: createOptionFromOptional(boolean, 'isEdit'),
+	accountStatus: createOptionFromOptional(
 		createEnumType<AccountStatusEnum>(AccountStatusEnum, 'AccountStatusEnum'),
 		'accountStatus',
 	),

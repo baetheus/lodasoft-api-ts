@@ -19,7 +19,7 @@ import { decodeAndMap } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { array, number, type, partial } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 import { Observable } from 'rxjs';
 
 export type LookupController = {
@@ -80,7 +80,7 @@ export const lookupController = asks(
 
 		Lookup_GetLosProviders: parameters => {
 			const encoded = partial({
-				query: type({ providerId: createOptionFromNullable(number, 'providerId') }),
+				query: type({ providerId: createOptionFromOptional(number, 'providerId') }),
 			}).encode(parameters);
 
 			return e.API_CLIENT.request({

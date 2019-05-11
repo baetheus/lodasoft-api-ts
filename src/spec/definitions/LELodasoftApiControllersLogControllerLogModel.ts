@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { dictionary, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType, unknownType } from '../utils/utils';
 
@@ -22,10 +23,10 @@ export type LELodasoftApiControllersLogControllerLogModel = {
 	data: Option<{ [key: string]: unknown }>;
 };
 export const LELodasoftApiControllersLogControllerLogModelIO = type({
-	level: createOptionFromNullable(createEnumType<LevelEnum>(LevelEnum, 'LevelEnum')),
-	timestamp: createOptionFromNullable(DateFromISOString, 'timestamp'),
-	message: createOptionFromNullable(string, 'message'),
-	actionType: createOptionFromNullable(string, 'actionType'),
-	origin: createOptionFromNullable(string, 'origin'),
-	data: createOptionFromNullable(dictionary(string, unknownType), 'data'),
+	level: createOptionFromOptional(createEnumType<LevelEnum>(LevelEnum, 'LevelEnum')),
+	timestamp: createOptionFromOptional(DateFromISOString, 'timestamp'),
+	message: createOptionFromOptional(string, 'message'),
+	actionType: createOptionFromOptional(string, 'actionType'),
+	origin: createOptionFromOptional(string, 'origin'),
+	data: createOptionFromOptional(dictionary(string, unknownType), 'data'),
 });

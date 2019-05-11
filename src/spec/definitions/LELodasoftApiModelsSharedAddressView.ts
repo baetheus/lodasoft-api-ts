@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsSharedAddressView = {
 	mailingStreet: Option<string>;
@@ -10,9 +10,9 @@ export type LELodasoftApiModelsSharedAddressView = {
 	mailingZip: Option<string>;
 };
 export const LELodasoftApiModelsSharedAddressViewIO = type({
-	mailingStreet: createOptionFromNullable(string, 'mailingStreet'),
-	mailingPOBox: createOptionFromNullable(string, 'mailingPOBox'),
-	mailingCity: createOptionFromNullable(string, 'mailingCity'),
-	mailingState: createOptionFromNullable(string, 'mailingState'),
-	mailingZip: createOptionFromNullable(string, 'mailingZip'),
+	mailingStreet: createOptionFromOptional(string, 'mailingStreet'),
+	mailingPOBox: createOptionFromOptional(string, 'mailingPOBox'),
+	mailingCity: createOptionFromOptional(string, 'mailingCity'),
+	mailingState: createOptionFromOptional(string, 'mailingState'),
+	mailingZip: createOptionFromOptional(string, 'mailingZip'),
 });

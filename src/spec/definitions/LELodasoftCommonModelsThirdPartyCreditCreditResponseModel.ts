@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, string, array, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsThirdPartyCreditCreditResponseModel = {
 	success: Option<boolean>;
@@ -8,7 +8,7 @@ export type LELodasoftCommonModelsThirdPartyCreditCreditResponseModel = {
 	errorMessage: Option<string>;
 };
 export const LELodasoftCommonModelsThirdPartyCreditCreditResponseModelIO = type({
-	success: createOptionFromNullable(boolean, 'success'),
-	validationErrors: createOptionFromNullable(array(string), 'validationErrors'),
-	errorMessage: createOptionFromNullable(string, 'errorMessage'),
+	success: createOptionFromOptional(boolean, 'success'),
+	validationErrors: createOptionFromOptional(array(string), 'validationErrors'),
+	errorMessage: createOptionFromOptional(string, 'errorMessage'),
 });

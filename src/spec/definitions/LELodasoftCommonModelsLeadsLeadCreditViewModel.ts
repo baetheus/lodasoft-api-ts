@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, boolean, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsLeadsLeadCreditViewModel = {
 	leadCreditId: Option<number>;
@@ -19,18 +20,18 @@ export type LELodasoftCommonModelsLeadsLeadCreditViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsLeadsLeadCreditViewModelIO = type({
-	leadCreditId: createOptionFromNullable(number, 'leadCreditId'),
-	leadId: createOptionFromNullable(number, 'leadId'),
-	creditRunDate: createOptionFromNullable(DateFromISOString, 'creditRunDate'),
-	experianScore: createOptionFromNullable(number, 'experianScore'),
-	equifaxScore: createOptionFromNullable(number, 'equifaxScore'),
-	transUnionScore: createOptionFromNullable(number, 'transUnionScore'),
-	isJoint: createOptionFromNullable(boolean, 'isJoint'),
-	referenceNumber: createOptionFromNullable(string, 'referenceNumber'),
-	notes: createOptionFromNullable(string, 'notes'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	leadCreditId: createOptionFromOptional(number, 'leadCreditId'),
+	leadId: createOptionFromOptional(number, 'leadId'),
+	creditRunDate: createOptionFromOptional(DateFromISOString, 'creditRunDate'),
+	experianScore: createOptionFromOptional(number, 'experianScore'),
+	equifaxScore: createOptionFromOptional(number, 'equifaxScore'),
+	transUnionScore: createOptionFromOptional(number, 'transUnionScore'),
+	isJoint: createOptionFromOptional(boolean, 'isJoint'),
+	referenceNumber: createOptionFromOptional(string, 'referenceNumber'),
+	notes: createOptionFromOptional(string, 'notes'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

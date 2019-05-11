@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -40,5 +40,5 @@ export const LELodasoftCommonModelsThirdPartyCreditCreditRequestModelIO = type({
 	experian: boolean,
 	equifax: boolean,
 	transUnion: boolean,
-	creditReferenceNumber: createOptionFromNullable(string, 'creditReferenceNumber'),
+	creditReferenceNumber: createOptionFromOptional(string, 'creditReferenceNumber'),
 });

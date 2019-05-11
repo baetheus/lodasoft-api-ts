@@ -8,7 +8,7 @@ import {
 } from '../definitions/LELodasoftCommonModelsMortgageMortgageViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, dictionary, array, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsMortgageProcessDuViewModel = {
 	mortgageViewModel: Option<LELodasoftCommonModelsMortgageMortgageViewModel>;
@@ -23,17 +23,17 @@ export type LELodasoftApiModelsMortgageProcessDuViewModel = {
 	alignmentGroupId: Option<string>;
 };
 export const LELodasoftApiModelsMortgageProcessDuViewModelIO = type({
-	mortgageViewModel: createOptionFromNullable(LELodasoftCommonModelsMortgageMortgageViewModelIO, 'mortgageViewModel'),
-	loanNumber: createOptionFromNullable(string, 'loanNumber'),
-	losIdentifier: createOptionFromNullable(string, 'losIdentifier'),
-	credentialId: createOptionFromNullable(number, 'credentialId'),
-	linkBorrowers: createOptionFromNullable(dictionary(string, number), 'linkBorrowers'),
-	loanCharacteristics: createOptionFromNullable(array(number), 'loanCharacteristics'),
-	borrowerCharacteristics: createOptionFromNullable(
+	mortgageViewModel: createOptionFromOptional(LELodasoftCommonModelsMortgageMortgageViewModelIO, 'mortgageViewModel'),
+	loanNumber: createOptionFromOptional(string, 'loanNumber'),
+	losIdentifier: createOptionFromOptional(string, 'losIdentifier'),
+	credentialId: createOptionFromOptional(number, 'credentialId'),
+	linkBorrowers: createOptionFromOptional(dictionary(string, number), 'linkBorrowers'),
+	loanCharacteristics: createOptionFromOptional(array(number), 'loanCharacteristics'),
+	borrowerCharacteristics: createOptionFromOptional(
 		array(LELodasoftApiModelsBorrowerBorrowerCharacteristicViewIO),
 		'borrowerCharacteristics',
 	),
-	loanPurposeId: createOptionFromNullable(number, 'loanPurposeId'),
-	loanTypeId: createOptionFromNullable(number, 'loanTypeId'),
-	alignmentGroupId: createOptionFromNullable(string, 'alignmentGroupId'),
+	loanPurposeId: createOptionFromOptional(number, 'loanPurposeId'),
+	loanTypeId: createOptionFromOptional(number, 'loanTypeId'),
+	alignmentGroupId: createOptionFromOptional(string, 'alignmentGroupId'),
 });

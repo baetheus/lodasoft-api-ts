@@ -4,7 +4,8 @@ import {
 } from '../definitions/LELodasoftCommonModelsMortgagePurchaseCreditViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { number, array, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsMortgageTransactionDetailViewModel = {
 	transactionDetailId: Option<number>;
@@ -27,31 +28,31 @@ export type LELodasoftCommonModelsMortgageTransactionDetailViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageTransactionDetailViewModelIO = type({
-	transactionDetailId: createOptionFromNullable(number, 'transactionDetailId'),
-	purchasePriceAmount: createOptionFromNullable(number, 'purchasePriceAmount'),
-	landAmount: createOptionFromNullable(number, 'landAmount'),
-	alterationsImprovementsAndRepairsAmount: createOptionFromNullable(
+	transactionDetailId: createOptionFromOptional(number, 'transactionDetailId'),
+	purchasePriceAmount: createOptionFromOptional(number, 'purchasePriceAmount'),
+	landAmount: createOptionFromOptional(number, 'landAmount'),
+	alterationsImprovementsAndRepairsAmount: createOptionFromOptional(
 		number,
 		'alterationsImprovementsAndRepairsAmount',
 	),
-	refinanceIncludingDebtsToBePaidOffAmount: createOptionFromNullable(
+	refinanceIncludingDebtsToBePaidOffAmount: createOptionFromOptional(
 		number,
 		'refinanceIncludingDebtsToBePaidOffAmount',
 	),
-	prepaidItemsEstimatedAmount: createOptionFromNullable(number, 'prepaidItemsEstimatedAmount'),
-	estimatedClosingCostsAmount: createOptionFromNullable(number, 'estimatedClosingCostsAmount'),
-	miAndFundingFeeTotalAmount: createOptionFromNullable(number, 'miAndFundingFeeTotalAmount'),
-	borrowerPaidDiscountPointsTotalAmount: createOptionFromNullable(number, 'borrowerPaidDiscountPointsTotalAmount'),
-	subordinateLienAmount: createOptionFromNullable(number, 'subordinateLienAmount'),
-	sellerPaidClosingCostsAmount: createOptionFromNullable(number, 'sellerPaidClosingCostsAmount'),
-	miAndFundingFeeFinancedAmount: createOptionFromNullable(number, 'miAndFundingFeeFinancedAmount'),
-	purchaseCredits: createOptionFromNullable(
+	prepaidItemsEstimatedAmount: createOptionFromOptional(number, 'prepaidItemsEstimatedAmount'),
+	estimatedClosingCostsAmount: createOptionFromOptional(number, 'estimatedClosingCostsAmount'),
+	miAndFundingFeeTotalAmount: createOptionFromOptional(number, 'miAndFundingFeeTotalAmount'),
+	borrowerPaidDiscountPointsTotalAmount: createOptionFromOptional(number, 'borrowerPaidDiscountPointsTotalAmount'),
+	subordinateLienAmount: createOptionFromOptional(number, 'subordinateLienAmount'),
+	sellerPaidClosingCostsAmount: createOptionFromOptional(number, 'sellerPaidClosingCostsAmount'),
+	miAndFundingFeeFinancedAmount: createOptionFromOptional(number, 'miAndFundingFeeFinancedAmount'),
+	purchaseCredits: createOptionFromOptional(
 		array(LELodasoftCommonModelsMortgagePurchaseCreditViewModelIO),
 		'purchaseCredits',
 	),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

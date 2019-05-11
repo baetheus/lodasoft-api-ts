@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsLeadsProviderModelsCustomDataInfo = {
 	customData1: Option<string>;
@@ -15,14 +15,14 @@ export type LELodasoftCommonModelsLeadsProviderModelsCustomDataInfo = {
 	customData10: Option<string>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsCustomDataInfoIO = type({
-	customData1: createOptionFromNullable(string, 'customData1'),
-	customData2: createOptionFromNullable(string, 'customData2'),
-	customData3: createOptionFromNullable(string, 'customData3'),
-	customData4: createOptionFromNullable(string, 'customData4'),
-	customData5: createOptionFromNullable(string, 'customData5'),
-	customData6: createOptionFromNullable(string, 'customData6'),
-	customData7: createOptionFromNullable(string, 'customData7'),
-	customData8: createOptionFromNullable(string, 'customData8'),
-	customData9: createOptionFromNullable(string, 'customData9'),
-	customData10: createOptionFromNullable(string, 'customData10'),
+	customData1: createOptionFromOptional(string, 'customData1'),
+	customData2: createOptionFromOptional(string, 'customData2'),
+	customData3: createOptionFromOptional(string, 'customData3'),
+	customData4: createOptionFromOptional(string, 'customData4'),
+	customData5: createOptionFromOptional(string, 'customData5'),
+	customData6: createOptionFromOptional(string, 'customData6'),
+	customData7: createOptionFromOptional(string, 'customData7'),
+	customData8: createOptionFromOptional(string, 'customData8'),
+	customData9: createOptionFromOptional(string, 'customData9'),
+	customData10: createOptionFromOptional(string, 'customData10'),
 });

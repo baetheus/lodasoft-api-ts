@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -24,17 +25,17 @@ export type LELodasoftThirdPartyFormFreeModelsLiteAccountInfo = {
 	balanceDate: Option<Date>;
 };
 export const LELodasoftThirdPartyFormFreeModelsLiteAccountInfoIO = type({
-	accountId: createOptionFromNullable(string, 'accountId'),
-	accountType: createOptionFromNullable(
+	accountId: createOptionFromOptional(string, 'accountId'),
+	accountType: createOptionFromOptional(
 		createEnumType<AccountTypeEnum>(AccountTypeEnum, 'AccountTypeEnum'),
 		'accountType',
 	),
-	accountName: createOptionFromNullable(string, 'accountName'),
-	accountNumber: createOptionFromNullable(string, 'accountNumber'),
-	accountHolder: createOptionFromNullable(string, 'accountHolder'),
-	fiName: createOptionFromNullable(string, 'fiName'),
-	fiAccountType: createOptionFromNullable(string, 'fiAccountType'),
-	fiPlanName: createOptionFromNullable(string, 'fiPlanName'),
-	balance: createOptionFromNullable(number, 'balance'),
-	balanceDate: createOptionFromNullable(DateFromISOString, 'balanceDate'),
+	accountName: createOptionFromOptional(string, 'accountName'),
+	accountNumber: createOptionFromOptional(string, 'accountNumber'),
+	accountHolder: createOptionFromOptional(string, 'accountHolder'),
+	fiName: createOptionFromOptional(string, 'fiName'),
+	fiAccountType: createOptionFromOptional(string, 'fiAccountType'),
+	fiPlanName: createOptionFromOptional(string, 'fiPlanName'),
+	balance: createOptionFromOptional(number, 'balance'),
+	balanceDate: createOptionFromOptional(DateFromISOString, 'balanceDate'),
 });

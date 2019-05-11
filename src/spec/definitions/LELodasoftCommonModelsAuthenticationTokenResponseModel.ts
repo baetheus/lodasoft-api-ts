@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsAuthenticationTokenResponseModel = {
 	access_token: Option<string>;
@@ -11,10 +11,10 @@ export type LELodasoftCommonModelsAuthenticationTokenResponseModel = {
 	expires: Option<string>;
 };
 export const LELodasoftCommonModelsAuthenticationTokenResponseModelIO = type({
-	access_token: createOptionFromNullable(string, 'access_token'),
-	token_type: createOptionFromNullable(string, 'token_type'),
-	expires_in: createOptionFromNullable(number, 'expires_in'),
-	userName: createOptionFromNullable(string, 'userName'),
-	issued: createOptionFromNullable(string, 'issued'),
-	expires: createOptionFromNullable(string, 'expires'),
+	access_token: createOptionFromOptional(string, 'access_token'),
+	token_type: createOptionFromOptional(string, 'token_type'),
+	expires_in: createOptionFromOptional(number, 'expires_in'),
+	userName: createOptionFromOptional(string, 'userName'),
+	issued: createOptionFromOptional(string, 'issued'),
+	expires: createOptionFromOptional(string, 'expires'),
 });

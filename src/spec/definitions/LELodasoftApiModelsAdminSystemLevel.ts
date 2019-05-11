@@ -48,7 +48,7 @@ import {
 } from '../definitions/LELodasoftDataAccessDbModelsSharedSmsServiceModel';
 import { Option } from 'fp-ts/lib/Option';
 import { array, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsAdminSystemLevel = {
 	sessionTimeout: Option<LELodasoftCommonModelsConfigurationConfigurationViewModel>;
@@ -76,78 +76,78 @@ export type LELodasoftApiModelsAdminSystemLevel = {
 	company: Option<LELodasoftDataAccessDbModelsConfigurationCompanyModel>;
 };
 export const LELodasoftApiModelsAdminSystemLevelIO = type({
-	sessionTimeout: createOptionFromNullable(
+	sessionTimeout: createOptionFromOptional(
 		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
 		'sessionTimeout',
 	),
-	reminderEmailEnabled: createOptionFromNullable(
+	reminderEmailEnabled: createOptionFromOptional(
 		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
 		'reminderEmailEnabled',
 	),
-	reminderEmailInterval: createOptionFromNullable(
+	reminderEmailInterval: createOptionFromOptional(
 		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
 		'reminderEmailInterval',
 	),
-	reminderSmsEnabled: createOptionFromNullable(
+	reminderSmsEnabled: createOptionFromOptional(
 		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
 		'reminderSmsEnabled',
 	),
-	reminderSmsInterval: createOptionFromNullable(
+	reminderSmsInterval: createOptionFromOptional(
 		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
 		'reminderSmsInterval',
 	),
-	documentExportFormat: createOptionFromNullable(
+	documentExportFormat: createOptionFromOptional(
 		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
 		'documentExportFormat',
 	),
-	digitalAssetVerificationEnabled: createOptionFromNullable(
+	digitalAssetVerificationEnabled: createOptionFromOptional(
 		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
 		'digitalAssetVerificationEnabled',
 	),
-	digitalEmploymentVerificationEnabled: createOptionFromNullable(
+	digitalEmploymentVerificationEnabled: createOptionFromOptional(
 		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
 		'digitalEmploymentVerificationEnabled',
 	),
-	creditReportingEnabled: createOptionFromNullable(
+	creditReportingEnabled: createOptionFromOptional(
 		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
 		'creditReportingEnabled',
 	),
-	ausEnabled: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO, 'ausEnabled'),
-	losEnabled: createOptionFromNullable(LELodasoftCommonModelsConfigurationConfigurationViewModelIO, 'losEnabled'),
-	defaultCreditVendor: createOptionFromNullable(
+	ausEnabled: createOptionFromOptional(LELodasoftCommonModelsConfigurationConfigurationViewModelIO, 'ausEnabled'),
+	losEnabled: createOptionFromOptional(LELodasoftCommonModelsConfigurationConfigurationViewModelIO, 'losEnabled'),
+	defaultCreditVendor: createOptionFromOptional(
 		LELodasoftCommonModelsConfigurationConfigurationViewModelIO,
 		'defaultCreditVendor',
 	),
-	prequalGenerationSettings: createOptionFromNullable(
+	prequalGenerationSettings: createOptionFromOptional(
 		LELodasoftDataAccessDbModelsConfigurationPrequalGenerationSettingsModelIO,
 		'prequalGenerationSettings',
 	),
-	onlineApplicationSettings: createOptionFromNullable(
+	onlineApplicationSettings: createOptionFromOptional(
 		LELodasoftDataAccessDbModelsConfigurationOnlineApplicationSettingsModelIO,
 		'onlineApplicationSettings',
 	),
-	definedEmailTemplate: createOptionFromNullable(
+	definedEmailTemplate: createOptionFromOptional(
 		LELodasoftCommonModelsEmailDefinedEmailTemplateViewModelIO,
 		'definedEmailTemplate',
 	),
-	definedSmsTemplate: createOptionFromNullable(
+	definedSmsTemplate: createOptionFromOptional(
 		LELodasoftDataAccessDbModelsConfigurationDefinedSmsTemplateModelIO,
 		'definedSmsTemplate',
 	),
-	borrowerPortalContent: createOptionFromNullable(
+	borrowerPortalContent: createOptionFromOptional(
 		LELodasoftDataAccessDbModelsConfigurationBorrowerPortalContentModelIO,
 		'borrowerPortalContent',
 	),
-	agentPortalContent: createOptionFromNullable(
+	agentPortalContent: createOptionFromOptional(
 		LELodasoftDataAccessDbModelsConfigurationAgentPortalContentModelIO,
 		'agentPortalContent',
 	),
-	emailService: createOptionFromNullable(LELodasoftDataAccessDbModelsSharedEmailServiceModelIO, 'emailService'),
-	smsService: createOptionFromNullable(LELodasoftDataAccessDbModelsSharedSmsServiceModelIO, 'smsService'),
-	integrations: createOptionFromNullable(LELodasoftApiModelsSharedIntegrationsModelIO, 'integrations'),
-	thirdPartyCredentials: createOptionFromNullable(
+	emailService: createOptionFromOptional(LELodasoftDataAccessDbModelsSharedEmailServiceModelIO, 'emailService'),
+	smsService: createOptionFromOptional(LELodasoftDataAccessDbModelsSharedSmsServiceModelIO, 'smsService'),
+	integrations: createOptionFromOptional(LELodasoftApiModelsSharedIntegrationsModelIO, 'integrations'),
+	thirdPartyCredentials: createOptionFromOptional(
 		array(LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModelIO),
 		'thirdPartyCredentials',
 	),
-	company: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'company'),
+	company: createOptionFromOptional(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'company'),
 });

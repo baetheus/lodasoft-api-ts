@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftThirdPartyTheWorkNumberModelsVerificationEmployer = {
 	name: Option<string>;
@@ -9,8 +9,8 @@ export type LELodasoftThirdPartyTheWorkNumberModelsVerificationEmployer = {
 	salaryKey: Option<string>;
 };
 export const LELodasoftThirdPartyTheWorkNumberModelsVerificationEmployerIO = type({
-	name: createOptionFromNullable(string, 'name'),
-	code: createOptionFromNullable(string, 'code'),
-	alternateIdentifier: createOptionFromNullable(string, 'alternateIdentifier'),
-	salaryKey: createOptionFromNullable(string, 'salaryKey'),
+	name: createOptionFromOptional(string, 'name'),
+	code: createOptionFromOptional(string, 'code'),
+	alternateIdentifier: createOptionFromOptional(string, 'alternateIdentifier'),
+	salaryKey: createOptionFromOptional(string, 'salaryKey'),
 });

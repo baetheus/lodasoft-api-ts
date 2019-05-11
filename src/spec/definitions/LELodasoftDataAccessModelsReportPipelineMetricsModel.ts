@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessModelsReportPipelineMetricsModel = {
 	loanStatus: Option<string>;
@@ -13,12 +13,12 @@ export type LELodasoftDataAccessModelsReportPipelineMetricsModel = {
 	loanType: Option<string>;
 };
 export const LELodasoftDataAccessModelsReportPipelineMetricsModelIO = type({
-	loanStatus: createOptionFromNullable(string, 'loanStatus'),
-	primaryRoleUser: createOptionFromNullable(string, 'primaryRoleUser'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	primaryBorrowerId: createOptionFromNullable(number, 'primaryBorrowerId'),
-	borrowerName: createOptionFromNullable(string, 'borrowerName'),
-	loanAmount: createOptionFromNullable(number, 'loanAmount'),
-	loanPurpose: createOptionFromNullable(string, 'loanPurpose'),
-	loanType: createOptionFromNullable(string, 'loanType'),
+	loanStatus: createOptionFromOptional(string, 'loanStatus'),
+	primaryRoleUser: createOptionFromOptional(string, 'primaryRoleUser'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	primaryBorrowerId: createOptionFromOptional(number, 'primaryBorrowerId'),
+	borrowerName: createOptionFromOptional(string, 'borrowerName'),
+	loanAmount: createOptionFromOptional(number, 'loanAmount'),
+	loanPurpose: createOptionFromOptional(string, 'loanPurpose'),
+	loanType: createOptionFromOptional(string, 'loanType'),
 });

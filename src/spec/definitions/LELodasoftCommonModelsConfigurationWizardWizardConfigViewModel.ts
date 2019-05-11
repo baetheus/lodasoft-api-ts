@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsConfigurationWizardWizardConfigViewModel = {
 	id: Option<number>;
@@ -22,21 +23,21 @@ export type LELodasoftCommonModelsConfigurationWizardWizardConfigViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsConfigurationWizardWizardConfigViewModelIO = type({
-	id: createOptionFromNullable(number, 'id'),
-	name: createOptionFromNullable(string, 'name'),
-	dataId: createOptionFromNullable(string, 'dataId'),
-	data: createOptionFromNullable(string, 'data'),
-	groupId: createOptionFromNullable(string, 'groupId'),
-	group: createOptionFromNullable(string, 'group'),
-	valid: createOptionFromNullable(string, 'valid'),
-	tree: createOptionFromNullable(string, 'tree'),
-	questionId: createOptionFromNullable(string, 'questionId'),
-	startUrl: createOptionFromNullable(string, 'startUrl'),
-	postUrl: createOptionFromNullable(string, 'postUrl'),
-	answersModelJSON: createOptionFromNullable(string, 'answersModelJSON'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	id: createOptionFromOptional(number, 'id'),
+	name: createOptionFromOptional(string, 'name'),
+	dataId: createOptionFromOptional(string, 'dataId'),
+	data: createOptionFromOptional(string, 'data'),
+	groupId: createOptionFromOptional(string, 'groupId'),
+	group: createOptionFromOptional(string, 'group'),
+	valid: createOptionFromOptional(string, 'valid'),
+	tree: createOptionFromOptional(string, 'tree'),
+	questionId: createOptionFromOptional(string, 'questionId'),
+	startUrl: createOptionFromOptional(string, 'startUrl'),
+	postUrl: createOptionFromOptional(string, 'postUrl'),
+	answersModelJSON: createOptionFromOptional(string, 'answersModelJSON'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -24,16 +24,16 @@ export type LELodasoftDataAccessDbModelsConfigurationCharacteristicModel = {
 	order: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO = type({
-	taskCategoryId: createOptionFromNullable(number, 'taskCategoryId'),
-	taskCategoryName: createOptionFromNullable(string, 'taskCategoryName'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	taskOption: createOptionFromNullable(
+	taskCategoryId: createOptionFromOptional(number, 'taskCategoryId'),
+	taskCategoryName: createOptionFromOptional(string, 'taskCategoryName'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	taskOption: createOptionFromOptional(
 		createEnumType<TaskOptionEnum>(TaskOptionEnum, 'TaskOptionEnum'),
 		'taskOption',
 	),
-	characteristicType: createOptionFromNullable(
+	characteristicType: createOptionFromOptional(
 		createEnumType<CharacteristicTypeEnum>(CharacteristicTypeEnum, 'CharacteristicTypeEnum'),
 		'characteristicType',
 	),
-	order: createOptionFromNullable(number, 'order'),
+	order: createOptionFromOptional(number, 'order'),
 });

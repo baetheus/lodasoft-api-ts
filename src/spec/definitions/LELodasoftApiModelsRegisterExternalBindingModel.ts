@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsRegisterExternalBindingModel = {
 	userName: string;
@@ -12,7 +12,7 @@ export type LELodasoftApiModelsRegisterExternalBindingModel = {
 export const LELodasoftApiModelsRegisterExternalBindingModelIO = type({
 	userName: string,
 	password: string,
-	confirmPassword: createOptionFromNullable(string, 'confirmPassword'),
+	confirmPassword: createOptionFromOptional(string, 'confirmPassword'),
 	provider: string,
 	externalAccessToken: string,
 });

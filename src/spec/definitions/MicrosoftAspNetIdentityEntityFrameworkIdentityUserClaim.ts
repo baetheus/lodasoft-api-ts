@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type MicrosoftAspNetIdentityEntityFrameworkIdentityUserClaim = {
 	id: Option<number>;
@@ -9,8 +9,8 @@ export type MicrosoftAspNetIdentityEntityFrameworkIdentityUserClaim = {
 	claimValue: Option<string>;
 };
 export const MicrosoftAspNetIdentityEntityFrameworkIdentityUserClaimIO = type({
-	id: createOptionFromNullable(number, 'id'),
-	userId: createOptionFromNullable(string, 'userId'),
-	claimType: createOptionFromNullable(string, 'claimType'),
-	claimValue: createOptionFromNullable(string, 'claimValue'),
+	id: createOptionFromOptional(number, 'id'),
+	userId: createOptionFromOptional(string, 'userId'),
+	claimType: createOptionFromOptional(string, 'claimType'),
+	claimValue: createOptionFromOptional(string, 'claimValue'),
 });

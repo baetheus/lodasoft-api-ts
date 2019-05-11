@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -189,79 +189,79 @@ export type LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactDetails 
 	zipCode: Option<string>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactDetailsIO = type({
-	acceptPrepaymentPenalty: createOptionFromNullable(boolean, 'acceptPrepaymentPenalty'),
-	agentBusinessName: createOptionFromNullable(string, 'agentBusinessName'),
-	agentEmailAddress: createOptionFromNullable(string, 'agentEmailAddress'),
-	agentFirstName: createOptionFromNullable(string, 'agentFirstName'),
-	agentId: createOptionFromNullable(string, 'agentId'),
-	agentLastName: createOptionFromNullable(string, 'agentLastName'),
-	agentPhoneNumber: createOptionFromNullable(string, 'agentPhoneNumber'),
-	annualIncome: createOptionFromNullable(number, 'annualIncome'),
-	banks: createOptionFromNullable(array(string), 'banks'),
-	cashOut: createOptionFromNullable(number, 'cashOut'),
-	city: createOptionFromNullable(string, 'city'),
-	closingTimelineDays: createOptionFromNullable(number, 'closingTimelineDays'),
-	coborrowerFirstName: createOptionFromNullable(string, 'coborrowerFirstName'),
-	coborrowerLastName: createOptionFromNullable(string, 'coborrowerLastName'),
-	creditScoreRange: createOptionFromNullable(
+	acceptPrepaymentPenalty: createOptionFromOptional(boolean, 'acceptPrepaymentPenalty'),
+	agentBusinessName: createOptionFromOptional(string, 'agentBusinessName'),
+	agentEmailAddress: createOptionFromOptional(string, 'agentEmailAddress'),
+	agentFirstName: createOptionFromOptional(string, 'agentFirstName'),
+	agentId: createOptionFromOptional(string, 'agentId'),
+	agentLastName: createOptionFromOptional(string, 'agentLastName'),
+	agentPhoneNumber: createOptionFromOptional(string, 'agentPhoneNumber'),
+	annualIncome: createOptionFromOptional(number, 'annualIncome'),
+	banks: createOptionFromOptional(array(string), 'banks'),
+	cashOut: createOptionFromOptional(number, 'cashOut'),
+	city: createOptionFromOptional(string, 'city'),
+	closingTimelineDays: createOptionFromOptional(number, 'closingTimelineDays'),
+	coborrowerFirstName: createOptionFromOptional(string, 'coborrowerFirstName'),
+	coborrowerLastName: createOptionFromOptional(string, 'coborrowerLastName'),
+	creditScoreRange: createOptionFromOptional(
 		createEnumType<CreditScoreRangeEnum>(CreditScoreRangeEnum, 'CreditScoreRangeEnum'),
 		'creditScoreRange',
 	),
-	currentBacker: createOptionFromNullable(
+	currentBacker: createOptionFromOptional(
 		createEnumType<CurrentBackerEnum>(CurrentBackerEnum, 'CurrentBackerEnum'),
 		'currentBacker',
 	),
-	currentBalance: createOptionFromNullable(number, 'currentBalance'),
-	debtToIncomePercent: createOptionFromNullable(number, 'debtToIncomePercent'),
-	desiredPrograms: createOptionFromNullable(
+	currentBalance: createOptionFromOptional(number, 'currentBalance'),
+	debtToIncomePercent: createOptionFromOptional(number, 'debtToIncomePercent'),
+	desiredPrograms: createOptionFromOptional(
 		array(createEnumType<DesiredProgramEnum>(DesiredProgramEnum, 'DesiredProgramEnum')),
 		'desiredPrograms',
 	),
-	downPayment: createOptionFromNullable(number, 'downPayment'),
-	fhaStreamlineEligible: createOptionFromNullable(boolean, 'fhaStreamlineEligible'),
-	firstTimeBuyer: createOptionFromNullable(boolean, 'firstTimeBuyer'),
-	harpEligible: createOptionFromNullable(boolean, 'harpEligible'),
-	hasAgent: createOptionFromNullable(boolean, 'hasAgent'),
-	hasBankruptcy: createOptionFromNullable(boolean, 'hasBankruptcy'),
-	hasCoborrower: createOptionFromNullable(boolean, 'hasCoborrower'),
-	hasForeclosure: createOptionFromNullable(boolean, 'hasForeclosure'),
-	hasSecondMortgage: createOptionFromNullable(boolean, 'hasSecondMortgage'),
-	loanAmount: createOptionFromNullable(number, 'loanAmount'),
-	loanPurpose: createOptionFromNullable(
+	downPayment: createOptionFromOptional(number, 'downPayment'),
+	fhaStreamlineEligible: createOptionFromOptional(boolean, 'fhaStreamlineEligible'),
+	firstTimeBuyer: createOptionFromOptional(boolean, 'firstTimeBuyer'),
+	harpEligible: createOptionFromOptional(boolean, 'harpEligible'),
+	hasAgent: createOptionFromOptional(boolean, 'hasAgent'),
+	hasBankruptcy: createOptionFromOptional(boolean, 'hasBankruptcy'),
+	hasCoborrower: createOptionFromOptional(boolean, 'hasCoborrower'),
+	hasForeclosure: createOptionFromOptional(boolean, 'hasForeclosure'),
+	hasSecondMortgage: createOptionFromOptional(boolean, 'hasSecondMortgage'),
+	loanAmount: createOptionFromOptional(number, 'loanAmount'),
+	loanPurpose: createOptionFromOptional(
 		createEnumType<LoanPurposeEnum>(LoanPurposeEnum, 'LoanPurposeEnum'),
 		'loanPurpose',
 	),
-	loanToValuePercent: createOptionFromNullable(number, 'loanToValuePercent'),
-	message: createOptionFromNullable(string, 'message'),
-	monthlyDebts: createOptionFromNullable(number, 'monthlyDebts'),
-	newConstruction: createOptionFromNullable(boolean, 'newConstruction'),
-	propertyAddress: createOptionFromNullable(string, 'propertyAddress'),
-	propertyType: createOptionFromNullable(
+	loanToValuePercent: createOptionFromOptional(number, 'loanToValuePercent'),
+	message: createOptionFromOptional(string, 'message'),
+	monthlyDebts: createOptionFromOptional(number, 'monthlyDebts'),
+	newConstruction: createOptionFromOptional(boolean, 'newConstruction'),
+	propertyAddress: createOptionFromOptional(string, 'propertyAddress'),
+	propertyType: createOptionFromOptional(
 		createEnumType<PropertyTypeEnum>(PropertyTypeEnum, 'PropertyTypeEnum'),
 		'propertyType',
 	),
-	propertyUse: createOptionFromNullable(
+	propertyUse: createOptionFromOptional(
 		createEnumType<PropertyUseEnum>(PropertyUseEnum, 'PropertyUseEnum'),
 		'propertyUse',
 	),
-	propertyValue: createOptionFromNullable(number, 'propertyValue'),
-	quoteId: createOptionFromNullable(string, 'quoteId'),
-	requestId: createOptionFromNullable(string, 'requestId'),
-	selfEmployed: createOptionFromNullable(boolean, 'selfEmployed'),
-	stateAbbreviation: createOptionFromNullable(
+	propertyValue: createOptionFromOptional(number, 'propertyValue'),
+	quoteId: createOptionFromOptional(string, 'quoteId'),
+	requestId: createOptionFromOptional(string, 'requestId'),
+	selfEmployed: createOptionFromOptional(boolean, 'selfEmployed'),
+	stateAbbreviation: createOptionFromOptional(
 		createEnumType<StateAbbreviationEnum>(StateAbbreviationEnum, 'StateAbbreviationEnum'),
 		'stateAbbreviation',
 	),
-	streetAddress: createOptionFromNullable(string, 'streetAddress'),
-	totalAssets: createOptionFromNullable(number, 'totalAssets'),
-	wantsCashOut: createOptionFromNullable(boolean, 'wantsCashOut'),
-	vaEligible: createOptionFromNullable(boolean, 'vaEligible'),
-	vaFirstTimeUser: createOptionFromNullable(boolean, 'vaFirstTimeUser'),
-	vaHasDisability: createOptionFromNullable(boolean, 'vaHasDisability'),
-	veteranType: createOptionFromNullable(
+	streetAddress: createOptionFromOptional(string, 'streetAddress'),
+	totalAssets: createOptionFromOptional(number, 'totalAssets'),
+	wantsCashOut: createOptionFromOptional(boolean, 'wantsCashOut'),
+	vaEligible: createOptionFromOptional(boolean, 'vaEligible'),
+	vaFirstTimeUser: createOptionFromOptional(boolean, 'vaFirstTimeUser'),
+	vaHasDisability: createOptionFromOptional(boolean, 'vaHasDisability'),
+	veteranType: createOptionFromOptional(
 		createEnumType<VeteranTypeEnum>(VeteranTypeEnum, 'VeteranTypeEnum'),
 		'veteranType',
 	),
-	yearPurchased: createOptionFromNullable(number, 'yearPurchased'),
-	zipCode: createOptionFromNullable(string, 'zipCode'),
+	yearPurchased: createOptionFromOptional(number, 'yearPurchased'),
+	zipCode: createOptionFromOptional(string, 'zipCode'),
 });

@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, array, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsBorrowerLoanCharacteristicView = {
 	loanCharacteristicId: Option<number>;
@@ -8,7 +8,7 @@ export type LELodasoftApiModelsBorrowerLoanCharacteristicView = {
 	selectedCharacteristics: Option<Array<number>>;
 };
 export const LELodasoftApiModelsBorrowerLoanCharacteristicViewIO = type({
-	loanCharacteristicId: createOptionFromNullable(number, 'loanCharacteristicId'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	selectedCharacteristics: createOptionFromNullable(array(number), 'selectedCharacteristics'),
+	loanCharacteristicId: createOptionFromOptional(number, 'loanCharacteristicId'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	selectedCharacteristics: createOptionFromOptional(array(number), 'selectedCharacteristics'),
 });

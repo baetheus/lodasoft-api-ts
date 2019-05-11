@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -115,26 +116,26 @@ export type LELodasoftCommonModelsAdminAlertViewModel = {
 	borrowerName: Option<string>;
 };
 export const LELodasoftCommonModelsAdminAlertViewModelIO = type({
-	alertId: createOptionFromNullable(number, 'alertId'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	taskId: createOptionFromNullable(number, 'taskId'),
-	loanDocId: createOptionFromNullable(number, 'loanDocId'),
-	messageModelId: createOptionFromNullable(number, 'messageModelId'),
-	messageDelivery: createOptionFromNullable(
+	alertId: createOptionFromOptional(number, 'alertId'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	taskId: createOptionFromOptional(number, 'taskId'),
+	loanDocId: createOptionFromOptional(number, 'loanDocId'),
+	messageModelId: createOptionFromOptional(number, 'messageModelId'),
+	messageDelivery: createOptionFromOptional(
 		createEnumType<MessageDeliveryEnum>(MessageDeliveryEnum, 'MessageDeliveryEnum'),
 		'messageDelivery',
 	),
-	userId: createOptionFromNullable(string, 'userId'),
-	notifyPartyId: createOptionFromNullable(string, 'notifyPartyId'),
-	alertType: createOptionFromNullable(createEnumType<AlertTypeEnum>(AlertTypeEnum, 'AlertTypeEnum'), 'alertType'),
-	alertText: createOptionFromNullable(string, 'alertText'),
-	createDate: createOptionFromNullable(DateFromISOString, 'createDate'),
-	applicationStatus: createOptionFromNullable(string, 'applicationStatus'),
-	propertyAddress: createOptionFromNullable(string, 'propertyAddress'),
-	userName: createOptionFromNullable(string, 'userName'),
-	taskText: createOptionFromNullable(string, 'taskText'),
-	taskNote: createOptionFromNullable(string, 'taskNote'),
-	notifyPartyName: createOptionFromNullable(string, 'notifyPartyName'),
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	borrowerName: createOptionFromNullable(string, 'borrowerName'),
+	userId: createOptionFromOptional(string, 'userId'),
+	notifyPartyId: createOptionFromOptional(string, 'notifyPartyId'),
+	alertType: createOptionFromOptional(createEnumType<AlertTypeEnum>(AlertTypeEnum, 'AlertTypeEnum'), 'alertType'),
+	alertText: createOptionFromOptional(string, 'alertText'),
+	createDate: createOptionFromOptional(DateFromISOString, 'createDate'),
+	applicationStatus: createOptionFromOptional(string, 'applicationStatus'),
+	propertyAddress: createOptionFromOptional(string, 'propertyAddress'),
+	userName: createOptionFromOptional(string, 'userName'),
+	taskText: createOptionFromOptional(string, 'taskText'),
+	taskNote: createOptionFromOptional(string, 'taskNote'),
+	notifyPartyName: createOptionFromOptional(string, 'notifyPartyName'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	borrowerName: createOptionFromOptional(string, 'borrowerName'),
 });

@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -29,17 +30,17 @@ export type LELodasoftCommonModelsMortgageExpenseViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageExpenseViewModelIO = type({
-	expenseId: createOptionFromNullable(number, 'expenseId'),
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	monthlyAmount: createOptionFromNullable(number, 'monthlyAmount'),
-	expenseType: createOptionFromNullable(
+	expenseId: createOptionFromOptional(number, 'expenseId'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	monthlyAmount: createOptionFromOptional(number, 'monthlyAmount'),
+	expenseType: createOptionFromOptional(
 		createEnumType<ExpenseTypeEnum>(ExpenseTypeEnum, 'ExpenseTypeEnum'),
 		'expenseType',
 	),
-	isCurrent: createOptionFromNullable(boolean, 'isCurrent'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	isCurrent: createOptionFromOptional(boolean, 'isCurrent'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

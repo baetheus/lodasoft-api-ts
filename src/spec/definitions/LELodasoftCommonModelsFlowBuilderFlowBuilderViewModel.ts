@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -26,16 +27,16 @@ export type LELodasoftCommonModelsFlowBuilderFlowBuilderViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsFlowBuilderFlowBuilderViewModelIO = type({
-	id: createOptionFromNullable(number, 'id'),
+	id: createOptionFromOptional(number, 'id'),
 	flowType: createEnumType<FlowTypeEnum>(FlowTypeEnum, 'FlowTypeEnum'),
 	title: string,
 	comment: string,
-	data: createOptionFromNullable(string, 'data'),
-	flowGuid: createOptionFromNullable(string, 'flowGuid'),
+	data: createOptionFromOptional(string, 'data'),
+	flowGuid: createOptionFromOptional(string, 'flowGuid'),
 	active: boolean,
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, boolean, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsSharedEmailServiceModel = {
 	serviceType: Option<string>;
@@ -14,13 +14,13 @@ export type LELodasoftDataAccessDbModelsSharedEmailServiceModel = {
 	companyId: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsSharedEmailServiceModelIO = type({
-	serviceType: createOptionFromNullable(string, 'serviceType'),
-	server: createOptionFromNullable(string, 'server'),
-	port: createOptionFromNullable(number, 'port'),
-	userName: createOptionFromNullable(string, 'userName'),
-	password: createOptionFromNullable(string, 'password'),
-	isSecure: createOptionFromNullable(boolean, 'isSecure'),
-	userId: createOptionFromNullable(string, 'userId'),
-	servicesUrl: createOptionFromNullable(string, 'servicesUrl'),
-	companyId: createOptionFromNullable(number, 'companyId'),
+	serviceType: createOptionFromOptional(string, 'serviceType'),
+	server: createOptionFromOptional(string, 'server'),
+	port: createOptionFromOptional(number, 'port'),
+	userName: createOptionFromOptional(string, 'userName'),
+	password: createOptionFromOptional(string, 'password'),
+	isSecure: createOptionFromOptional(boolean, 'isSecure'),
+	userId: createOptionFromOptional(string, 'userId'),
+	servicesUrl: createOptionFromOptional(string, 'servicesUrl'),
+	companyId: createOptionFromOptional(number, 'companyId'),
 });

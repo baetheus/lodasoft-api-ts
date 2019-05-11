@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -29,19 +30,19 @@ export type LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModel = 
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModelIO = type({
-	documentTemplateFieldId: createOptionFromNullable(number, 'documentTemplateFieldId'),
-	documentTemplateId: createOptionFromNullable(number, 'documentTemplateId'),
-	fieldKey: createOptionFromNullable(string, 'fieldKey'),
-	fieldType: createOptionFromNullable(createEnumType<FieldTypeEnum>(FieldTypeEnum, 'FieldTypeEnum'), 'fieldType'),
-	displayName: createOptionFromNullable(string, 'displayName'),
-	globalMergeFieldKey: createOptionFromNullable(string, 'globalMergeFieldKey'),
-	defaultValue: createOptionFromNullable(string, 'defaultValue'),
-	visible: createOptionFromNullable(boolean, 'visible'),
-	editable: createOptionFromNullable(boolean, 'editable'),
-	documentTemplatePageId: createOptionFromNullable(number, 'documentTemplatePageId'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	documentTemplateFieldId: createOptionFromOptional(number, 'documentTemplateFieldId'),
+	documentTemplateId: createOptionFromOptional(number, 'documentTemplateId'),
+	fieldKey: createOptionFromOptional(string, 'fieldKey'),
+	fieldType: createOptionFromOptional(createEnumType<FieldTypeEnum>(FieldTypeEnum, 'FieldTypeEnum'), 'fieldType'),
+	displayName: createOptionFromOptional(string, 'displayName'),
+	globalMergeFieldKey: createOptionFromOptional(string, 'globalMergeFieldKey'),
+	defaultValue: createOptionFromOptional(string, 'defaultValue'),
+	visible: createOptionFromOptional(boolean, 'visible'),
+	editable: createOptionFromOptional(boolean, 'editable'),
+	documentTemplatePageId: createOptionFromOptional(number, 'documentTemplatePageId'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

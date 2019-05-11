@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, boolean, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsLoginBindingModel = {
 	email: string;
@@ -11,6 +11,6 @@ export type LELodasoftApiModelsLoginBindingModel = {
 export const LELodasoftApiModelsLoginBindingModelIO = type({
 	email: string,
 	password: string,
-	rememberMe: createOptionFromNullable(boolean, 'rememberMe'),
-	scope: createOptionFromNullable(string, 'scope'),
+	rememberMe: createOptionFromOptional(boolean, 'rememberMe'),
+	scope: createOptionFromOptional(string, 'scope'),
 });

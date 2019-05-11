@@ -8,7 +8,7 @@ import {
 } from '../definitions/LELodasoftDataAccessDbModelsUserProfile';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsConfigurationAgentPortalContentModel = {
 	id: Option<number>;
@@ -22,13 +22,13 @@ export type LELodasoftDataAccessDbModelsConfigurationAgentPortalContentModel = {
 	referralTermsContent: Option<string>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationAgentPortalContentModelIO = type({
-	id: createOptionFromNullable(number, 'id'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	company: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'company'),
-	userId: createOptionFromNullable(string, 'userId'),
-	user: createOptionFromNullable(LELodasoftDataAccessDbModelsUserProfileIO, 'user'),
-	aboutUsContent: createOptionFromNullable(string, 'aboutUsContent'),
-	referralContent: createOptionFromNullable(string, 'referralContent'),
-	showReferralTerms: createOptionFromNullable(boolean, 'showReferralTerms'),
-	referralTermsContent: createOptionFromNullable(string, 'referralTermsContent'),
+	id: createOptionFromOptional(number, 'id'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	company: createOptionFromOptional(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'company'),
+	userId: createOptionFromOptional(string, 'userId'),
+	user: createOptionFromOptional(LELodasoftDataAccessDbModelsUserProfileIO, 'user'),
+	aboutUsContent: createOptionFromOptional(string, 'aboutUsContent'),
+	referralContent: createOptionFromOptional(string, 'referralContent'),
+	showReferralTerms: createOptionFromOptional(boolean, 'showReferralTerms'),
+	referralTermsContent: createOptionFromOptional(string, 'referralTermsContent'),
 });

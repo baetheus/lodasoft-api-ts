@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftCommonModelsConfigurationCustomTaskViewModel,
@@ -102,60 +103,60 @@ export type LELodasoftCommonModelsLoanLoanDocTaskViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsLoanLoanDocTaskViewModelIO = type({
-	loanDocTaskId: createOptionFromNullable(number, 'loanDocTaskId'),
-	leadId: createOptionFromNullable(number, 'leadId'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	taskId: createOptionFromNullable(number, 'taskId'),
-	customTaskId: createOptionFromNullable(number, 'customTaskId'),
-	loanDocId: createOptionFromNullable(number, 'loanDocId'),
-	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
-	userId: createOptionFromNullable(string, 'userId'),
-	roleId: createOptionFromNullable(number, 'roleId'),
-	notifyPartyId: createOptionFromNullable(string, 'notifyPartyId'),
-	reviewPartyId: createOptionFromNullable(string, 'reviewPartyId'),
-	templateDocumentUrl: createOptionFromNullable(string, 'templateDocumentUrl'),
-	taskType: createOptionFromNullable(createEnumType<TaskTypeEnum>(TaskTypeEnum, 'TaskTypeEnum'), 'taskType'),
-	taskPriority: createOptionFromNullable(
+	loanDocTaskId: createOptionFromOptional(number, 'loanDocTaskId'),
+	leadId: createOptionFromOptional(number, 'leadId'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	taskId: createOptionFromOptional(number, 'taskId'),
+	customTaskId: createOptionFromOptional(number, 'customTaskId'),
+	loanDocId: createOptionFromOptional(number, 'loanDocId'),
+	documentTypeId: createOptionFromOptional(number, 'documentTypeId'),
+	userId: createOptionFromOptional(string, 'userId'),
+	roleId: createOptionFromOptional(number, 'roleId'),
+	notifyPartyId: createOptionFromOptional(string, 'notifyPartyId'),
+	reviewPartyId: createOptionFromOptional(string, 'reviewPartyId'),
+	templateDocumentUrl: createOptionFromOptional(string, 'templateDocumentUrl'),
+	taskType: createOptionFromOptional(createEnumType<TaskTypeEnum>(TaskTypeEnum, 'TaskTypeEnum'), 'taskType'),
+	taskPriority: createOptionFromOptional(
 		createEnumType<TaskPriorityEnum>(TaskPriorityEnum, 'TaskPriorityEnum'),
 		'taskPriority',
 	),
-	description: createOptionFromNullable(string, 'description'),
-	note: createOptionFromNullable(string, 'note'),
-	borrowerFacingNote: createOptionFromNullable(string, 'borrowerFacingNote'),
-	requestedBy: createOptionFromNullable(string, 'requestedBy'),
-	dueDays: createOptionFromNullable(number, 'dueDays'),
-	taskStatus: createOptionFromNullable(
+	description: createOptionFromOptional(string, 'description'),
+	note: createOptionFromOptional(string, 'note'),
+	borrowerFacingNote: createOptionFromOptional(string, 'borrowerFacingNote'),
+	requestedBy: createOptionFromOptional(string, 'requestedBy'),
+	dueDays: createOptionFromOptional(number, 'dueDays'),
+	taskStatus: createOptionFromOptional(
 		createEnumType<TaskStatusEnum>(TaskStatusEnum, 'TaskStatusEnum'),
 		'taskStatus',
 	),
-	conditionStatus: createOptionFromNullable(
+	conditionStatus: createOptionFromOptional(
 		createEnumType<ConditionStatusEnum>(ConditionStatusEnum, 'ConditionStatusEnum'),
 		'conditionStatus',
 	),
-	conditionType: createOptionFromNullable(
+	conditionType: createOptionFromOptional(
 		createEnumType<ConditionTypeEnum>(ConditionTypeEnum, 'ConditionTypeEnum'),
 		'conditionType',
 	),
-	requestBorrower: createOptionFromNullable(boolean, 'requestBorrower'),
-	condition: createOptionFromNullable(boolean, 'condition'),
-	requiresReview: createOptionFromNullable(boolean, 'requiresReview'),
-	requestDate: createOptionFromNullable(DateFromISOString, 'requestDate'),
-	dueDate: createOptionFromNullable(DateFromISOString, 'dueDate'),
-	submittedDate: createOptionFromNullable(DateFromISOString, 'submittedDate'),
-	acknowledgementDate: createOptionFromNullable(DateFromISOString, 'acknowledgementDate'),
-	completeDate: createOptionFromNullable(DateFromISOString, 'completeDate'),
-	followUpDate: createOptionFromNullable(DateFromISOString, 'followUpDate'),
-	active: createOptionFromNullable(boolean, 'active'),
-	taskModel: createOptionFromNullable(LELodasoftCommonModelsConfigurationTaskViewModelIO, 'taskModel'),
-	customTaskModel: createOptionFromNullable(
+	requestBorrower: createOptionFromOptional(boolean, 'requestBorrower'),
+	condition: createOptionFromOptional(boolean, 'condition'),
+	requiresReview: createOptionFromOptional(boolean, 'requiresReview'),
+	requestDate: createOptionFromOptional(DateFromISOString, 'requestDate'),
+	dueDate: createOptionFromOptional(DateFromISOString, 'dueDate'),
+	submittedDate: createOptionFromOptional(DateFromISOString, 'submittedDate'),
+	acknowledgementDate: createOptionFromOptional(DateFromISOString, 'acknowledgementDate'),
+	completeDate: createOptionFromOptional(DateFromISOString, 'completeDate'),
+	followUpDate: createOptionFromOptional(DateFromISOString, 'followUpDate'),
+	active: createOptionFromOptional(boolean, 'active'),
+	taskModel: createOptionFromOptional(LELodasoftCommonModelsConfigurationTaskViewModelIO, 'taskModel'),
+	customTaskModel: createOptionFromOptional(
 		LELodasoftCommonModelsConfigurationCustomTaskViewModelIO,
 		'customTaskModel',
 	),
-	loanDocModel: createOptionFromNullable(LELodasoftCommonModelsLoanLoanDocViewModelIO, 'loanDocModel'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	loanDocModel: createOptionFromOptional(LELodasoftCommonModelsLoanLoanDocViewModelIO, 'loanDocModel'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

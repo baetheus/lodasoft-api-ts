@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsConfigurationEmailCampaignModel = {
 	emailCampaignId: Option<number>;
@@ -14,13 +15,13 @@ export type LELodasoftDataAccessDbModelsConfigurationEmailCampaignModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationEmailCampaignModelIO = type({
-	emailCampaignId: createOptionFromNullable(number, 'emailCampaignId'),
-	emailCampaignName: createOptionFromNullable(string, 'emailCampaignName'),
-	repeatDays: createOptionFromNullable(number, 'repeatDays'),
-	active: createOptionFromNullable(boolean, 'active'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	emailCampaignId: createOptionFromOptional(number, 'emailCampaignId'),
+	emailCampaignName: createOptionFromOptional(string, 'emailCampaignName'),
+	repeatDays: createOptionFromOptional(number, 'repeatDays'),
+	active: createOptionFromOptional(boolean, 'active'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -66,23 +67,23 @@ export type LELodasoftCommonModelsMortgageIncomeViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageIncomeViewModelIO = type({
-	incomeId: createOptionFromNullable(number, 'incomeId'),
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	employmentId: createOptionFromNullable(number, 'employmentId'),
-	reoId: createOptionFromNullable(number, 'reoId'),
-	monthlyIncome: createOptionFromNullable(number, 'monthlyIncome'),
-	typeOfIncome: createOptionFromNullable(
+	incomeId: createOptionFromOptional(number, 'incomeId'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	employmentId: createOptionFromOptional(number, 'employmentId'),
+	reoId: createOptionFromOptional(number, 'reoId'),
+	monthlyIncome: createOptionFromOptional(number, 'monthlyIncome'),
+	typeOfIncome: createOptionFromOptional(
 		createEnumType<TypeOfIncomeEnum>(TypeOfIncomeEnum, 'TypeOfIncomeEnum'),
 		'typeOfIncome',
 	),
-	categoryOfIncome: createOptionFromNullable(
+	categoryOfIncome: createOptionFromOptional(
 		createEnumType<CategoryOfIncomeEnum>(CategoryOfIncomeEnum, 'CategoryOfIncomeEnum'),
 		'categoryOfIncome',
 	),
-	fromCreditReport: createOptionFromNullable(boolean, 'fromCreditReport'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	fromCreditReport: createOptionFromOptional(boolean, 'fromCreditReport'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

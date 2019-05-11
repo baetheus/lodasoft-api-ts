@@ -4,7 +4,8 @@ import {
 } from '../definitions/LELodasoftCommonModelsAdminEmailTemplateImageViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, array, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsEmailDefinedEmailTemplateViewModel = {
 	id: Option<number>;
@@ -38,33 +39,33 @@ export type LELodasoftCommonModelsEmailDefinedEmailTemplateViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsEmailDefinedEmailTemplateViewModelIO = type({
-	id: createOptionFromNullable(number, 'id'),
-	userId: createOptionFromNullable(string, 'userId'),
-	onlineAppRegistrationOverride: createOptionFromNullable(boolean, 'onlineAppRegistrationOverride'),
-	onlineAppRegistrationSubject: createOptionFromNullable(string, 'onlineAppRegistrationSubject'),
-	onlineAppRegistrationEmail: createOptionFromNullable(string, 'onlineAppRegistrationEmail'),
-	onlineAppStartedOverride: createOptionFromNullable(boolean, 'onlineAppStartedOverride'),
-	onlineAppStartedSubject: createOptionFromNullable(string, 'onlineAppStartedSubject'),
-	onlineAppStartedEmail: createOptionFromNullable(string, 'onlineAppStartedEmail'),
-	onlineAppSubmissionOverride: createOptionFromNullable(boolean, 'onlineAppSubmissionOverride'),
-	onlineAppSubmissionSubject: createOptionFromNullable(string, 'onlineAppSubmissionSubject'),
-	onlineAppSubmissionEmail: createOptionFromNullable(string, 'onlineAppSubmissionEmail'),
-	inviteOverride: createOptionFromNullable(boolean, 'inviteOverride'),
-	inviteSubject: createOptionFromNullable(string, 'inviteSubject'),
-	inviteEmail: createOptionFromNullable(string, 'inviteEmail'),
-	inviteAgentOverride: createOptionFromNullable(boolean, 'inviteAgentOverride'),
-	inviteAgentSubject: createOptionFromNullable(string, 'inviteAgentSubject'),
-	inviteAgentEmail: createOptionFromNullable(string, 'inviteAgentEmail'),
-	requestOverride: createOptionFromNullable(boolean, 'requestOverride'),
-	requestSubject: createOptionFromNullable(string, 'requestSubject'),
-	requestEmail: createOptionFromNullable(string, 'requestEmail'),
-	reminderOverride: createOptionFromNullable(boolean, 'reminderOverride'),
-	reminderSubject: createOptionFromNullable(string, 'reminderSubject'),
-	reminderEmail: createOptionFromNullable(string, 'reminderEmail'),
-	images: createOptionFromNullable(array(LELodasoftCommonModelsAdminEmailTemplateImageViewModelIO), 'images'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	id: createOptionFromOptional(number, 'id'),
+	userId: createOptionFromOptional(string, 'userId'),
+	onlineAppRegistrationOverride: createOptionFromOptional(boolean, 'onlineAppRegistrationOverride'),
+	onlineAppRegistrationSubject: createOptionFromOptional(string, 'onlineAppRegistrationSubject'),
+	onlineAppRegistrationEmail: createOptionFromOptional(string, 'onlineAppRegistrationEmail'),
+	onlineAppStartedOverride: createOptionFromOptional(boolean, 'onlineAppStartedOverride'),
+	onlineAppStartedSubject: createOptionFromOptional(string, 'onlineAppStartedSubject'),
+	onlineAppStartedEmail: createOptionFromOptional(string, 'onlineAppStartedEmail'),
+	onlineAppSubmissionOverride: createOptionFromOptional(boolean, 'onlineAppSubmissionOverride'),
+	onlineAppSubmissionSubject: createOptionFromOptional(string, 'onlineAppSubmissionSubject'),
+	onlineAppSubmissionEmail: createOptionFromOptional(string, 'onlineAppSubmissionEmail'),
+	inviteOverride: createOptionFromOptional(boolean, 'inviteOverride'),
+	inviteSubject: createOptionFromOptional(string, 'inviteSubject'),
+	inviteEmail: createOptionFromOptional(string, 'inviteEmail'),
+	inviteAgentOverride: createOptionFromOptional(boolean, 'inviteAgentOverride'),
+	inviteAgentSubject: createOptionFromOptional(string, 'inviteAgentSubject'),
+	inviteAgentEmail: createOptionFromOptional(string, 'inviteAgentEmail'),
+	requestOverride: createOptionFromOptional(boolean, 'requestOverride'),
+	requestSubject: createOptionFromOptional(string, 'requestSubject'),
+	requestEmail: createOptionFromOptional(string, 'requestEmail'),
+	reminderOverride: createOptionFromOptional(boolean, 'reminderOverride'),
+	reminderSubject: createOptionFromOptional(string, 'reminderSubject'),
+	reminderEmail: createOptionFromOptional(string, 'reminderEmail'),
+	images: createOptionFromOptional(array(LELodasoftCommonModelsAdminEmailTemplateImageViewModelIO), 'images'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsAdminAutomatedEmailViewModel = {
 	automatedEmailId: Option<number>;
@@ -24,23 +25,23 @@ export type LELodasoftCommonModelsAdminAutomatedEmailViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsAdminAutomatedEmailViewModelIO = type({
-	automatedEmailId: createOptionFromNullable(number, 'automatedEmailId'),
-	emailCampaignId: createOptionFromNullable(number, 'emailCampaignId'),
-	emailTemplateId: createOptionFromNullable(number, 'emailTemplateId'),
-	delayDays: createOptionFromNullable(number, 'delayDays'),
-	daysOfWeekToSend: createOptionFromNullable(string, 'daysOfWeekToSend'),
-	timeOfDayToSend: createOptionFromNullable(string, 'timeOfDayToSend'),
-	from: createOptionFromNullable(string, 'from'),
-	sendFromLoanContact: createOptionFromNullable(boolean, 'sendFromLoanContact'),
-	to: createOptionFromNullable(string, 'to'),
-	cc: createOptionFromNullable(string, 'cc'),
-	bcc: createOptionFromNullable(string, 'bcc'),
-	subject: createOptionFromNullable(string, 'subject'),
-	appendLoanContactEmailSignature: createOptionFromNullable(boolean, 'appendLoanContactEmailSignature'),
-	active: createOptionFromNullable(boolean, 'active'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	automatedEmailId: createOptionFromOptional(number, 'automatedEmailId'),
+	emailCampaignId: createOptionFromOptional(number, 'emailCampaignId'),
+	emailTemplateId: createOptionFromOptional(number, 'emailTemplateId'),
+	delayDays: createOptionFromOptional(number, 'delayDays'),
+	daysOfWeekToSend: createOptionFromOptional(string, 'daysOfWeekToSend'),
+	timeOfDayToSend: createOptionFromOptional(string, 'timeOfDayToSend'),
+	from: createOptionFromOptional(string, 'from'),
+	sendFromLoanContact: createOptionFromOptional(boolean, 'sendFromLoanContact'),
+	to: createOptionFromOptional(string, 'to'),
+	cc: createOptionFromOptional(string, 'cc'),
+	bcc: createOptionFromOptional(string, 'bcc'),
+	subject: createOptionFromOptional(string, 'subject'),
+	appendLoanContactEmailSignature: createOptionFromOptional(boolean, 'appendLoanContactEmailSignature'),
+	active: createOptionFromOptional(boolean, 'active'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

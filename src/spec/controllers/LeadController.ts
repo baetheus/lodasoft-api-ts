@@ -51,7 +51,7 @@ import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { array, boolean, number, string, type, partial } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 import { Observable } from 'rxjs';
 
 export type LeadController = {
@@ -352,10 +352,10 @@ export const leadController = asks(
 		Lead_GetAllLeads: parameters => {
 			const encoded = partial({
 				query: type({
-					showArchived: createOptionFromNullable(boolean, 'showArchived'),
-					campaignId: createOptionFromNullable(number, 'campaignId'),
-					dateInsertedStart: createOptionFromNullable(string, 'dateInsertedStart'),
-					dateInsertedEnd: createOptionFromNullable(string, 'dateInsertedEnd'),
+					showArchived: createOptionFromOptional(boolean, 'showArchived'),
+					campaignId: createOptionFromOptional(number, 'campaignId'),
+					dateInsertedStart: createOptionFromOptional(string, 'dateInsertedStart'),
+					dateInsertedEnd: createOptionFromOptional(string, 'dateInsertedEnd'),
 				}),
 			}).encode(parameters);
 
@@ -368,7 +368,7 @@ export const leadController = asks(
 
 		Lead_GetAllUnassignedLeads: parameters => {
 			const encoded = partial({
-				query: type({ showArchived: createOptionFromNullable(boolean, 'showArchived') }),
+				query: type({ showArchived: createOptionFromOptional(boolean, 'showArchived') }),
 			}).encode(parameters);
 
 			return e.API_CLIENT.request({
@@ -425,7 +425,7 @@ export const leadController = asks(
 
 		Lead_ImportListUserForCompany: parameters => {
 			const encoded = partial({
-				query: type({ companyId: createOptionFromNullable(number, 'companyId') }),
+				query: type({ companyId: createOptionFromOptional(number, 'companyId') }),
 			}).encode(parameters);
 
 			return e.API_CLIENT.request({
@@ -698,9 +698,9 @@ export const leadController = asks(
 		Lead_GetLeadMilestonesReport: parameters => {
 			const encoded = partial({
 				query: type({
-					campaignId: createOptionFromNullable(number, 'campaignId'),
-					dateCreatedStart: createOptionFromNullable(string, 'dateCreatedStart'),
-					dateCreatedEnd: createOptionFromNullable(string, 'dateCreatedEnd'),
+					campaignId: createOptionFromOptional(number, 'campaignId'),
+					dateCreatedStart: createOptionFromOptional(string, 'dateCreatedStart'),
+					dateCreatedEnd: createOptionFromOptional(string, 'dateCreatedEnd'),
 				}),
 			}).encode(parameters);
 
@@ -714,9 +714,9 @@ export const leadController = asks(
 		Lead_GetLeadPerformanceReport: parameters => {
 			const encoded = partial({
 				query: type({
-					campaignId: createOptionFromNullable(number, 'campaignId'),
-					dateCreatedStart: createOptionFromNullable(string, 'dateCreatedStart'),
-					dateCreatedEnd: createOptionFromNullable(string, 'dateCreatedEnd'),
+					campaignId: createOptionFromOptional(number, 'campaignId'),
+					dateCreatedStart: createOptionFromOptional(string, 'dateCreatedStart'),
+					dateCreatedEnd: createOptionFromOptional(string, 'dateCreatedEnd'),
 				}),
 			}).encode(parameters);
 
@@ -730,9 +730,9 @@ export const leadController = asks(
 		Lead_GetLeadPerformanceReportDetail: parameters => {
 			const encoded = partial({
 				query: type({
-					campaignId: createOptionFromNullable(number, 'campaignId'),
-					dateCreatedStart: createOptionFromNullable(string, 'dateCreatedStart'),
-					dateCreatedEnd: createOptionFromNullable(string, 'dateCreatedEnd'),
+					campaignId: createOptionFromOptional(number, 'campaignId'),
+					dateCreatedStart: createOptionFromOptional(string, 'dateCreatedStart'),
+					dateCreatedEnd: createOptionFromOptional(string, 'dateCreatedEnd'),
 				}),
 			}).encode(parameters);
 
@@ -746,9 +746,9 @@ export const leadController = asks(
 		Lead_GetLeadStatusReport: parameters => {
 			const encoded = partial({
 				query: type({
-					CampaignId: createOptionFromNullable(number, 'CampaignId'),
-					DateCreatedStart: createOptionFromNullable(string, 'DateCreatedStart'),
-					DateCreatedEnd: createOptionFromNullable(string, 'DateCreatedEnd'),
+					CampaignId: createOptionFromOptional(number, 'CampaignId'),
+					DateCreatedStart: createOptionFromOptional(string, 'DateCreatedStart'),
+					DateCreatedEnd: createOptionFromOptional(string, 'DateCreatedEnd'),
 				}),
 			}).encode(parameters);
 

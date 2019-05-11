@@ -28,7 +28,7 @@ import {
 } from '../definitions/LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, array, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModel = {
 	id: Option<number>;
@@ -42,15 +42,15 @@ export type LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewMo
 	question: Option<Array<LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModel>>;
 };
 export const LELodasoftCommonModelsConfigurationWizardExtractedWizardConfigViewModelIO = type({
-	id: createOptionFromNullable(number, 'id'),
-	name: createOptionFromNullable(string, 'name'),
-	dataId: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardDataIdViewModelIO), 'dataId'),
-	data: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardDataViewModelIO), 'data'),
-	groupId: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO), 'groupId'),
-	group: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardGroupViewModelIO), 'group'),
-	valid: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardValidViewModelIO), 'valid'),
-	tree: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardTreeViewModelIO), 'tree'),
-	question: createOptionFromNullable(
+	id: createOptionFromOptional(number, 'id'),
+	name: createOptionFromOptional(string, 'name'),
+	dataId: createOptionFromOptional(array(LELodasoftCommonModelsConfigurationWizardDataIdViewModelIO), 'dataId'),
+	data: createOptionFromOptional(array(LELodasoftCommonModelsConfigurationWizardDataViewModelIO), 'data'),
+	groupId: createOptionFromOptional(array(LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO), 'groupId'),
+	group: createOptionFromOptional(array(LELodasoftCommonModelsConfigurationWizardGroupViewModelIO), 'group'),
+	valid: createOptionFromOptional(array(LELodasoftCommonModelsConfigurationWizardValidViewModelIO), 'valid'),
+	tree: createOptionFromOptional(array(LELodasoftCommonModelsConfigurationWizardTreeViewModelIO), 'tree'),
+	question: createOptionFromOptional(
 		array(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO),
 		'question',
 	),

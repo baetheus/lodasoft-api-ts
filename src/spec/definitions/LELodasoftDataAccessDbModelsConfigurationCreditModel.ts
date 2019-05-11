@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsConfigurationCreditModel = {
 	creditID: Option<number>;
@@ -20,19 +21,19 @@ export type LELodasoftDataAccessDbModelsConfigurationCreditModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationCreditModelIO = type({
-	creditID: createOptionFromNullable(number, 'creditID'),
-	refNumber: createOptionFromNullable(string, 'refNumber'),
-	date: createOptionFromNullable(DateFromISOString, 'date'),
-	equifax: createOptionFromNullable(number, 'equifax'),
-	experian: createOptionFromNullable(number, 'experian'),
-	transUnion: createOptionFromNullable(number, 'transUnion'),
-	joint: createOptionFromNullable(boolean, 'joint'),
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	integrationHistoryId: createOptionFromNullable(number, 'integrationHistoryId'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	creditID: createOptionFromOptional(number, 'creditID'),
+	refNumber: createOptionFromOptional(string, 'refNumber'),
+	date: createOptionFromOptional(DateFromISOString, 'date'),
+	equifax: createOptionFromOptional(number, 'equifax'),
+	experian: createOptionFromOptional(number, 'experian'),
+	transUnion: createOptionFromOptional(number, 'transUnion'),
+	joint: createOptionFromOptional(boolean, 'joint'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	integrationHistoryId: createOptionFromOptional(number, 'integrationHistoryId'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

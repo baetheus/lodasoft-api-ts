@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactDetails,
@@ -53,23 +54,23 @@ export type LELodasoftCommonModelsLeadsProviderModelsZillowLead = {
 	quote: Option<LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactLoanQuote>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsZillowLeadIO = type({
-	type: createOptionFromNullable(
+	type: createOptionFromOptional(
 		createEnumType<ZillowLeadTypeEnum>(ZillowLeadTypeEnum, 'ZillowLeadTypeEnum'),
 		'type',
 	),
-	id: createOptionFromNullable(string, 'id'),
-	created: createOptionFromNullable(DateFromISOString, 'created'),
-	source: createOptionFromNullable(string, 'source'),
-	price: createOptionFromNullable(number, 'price'),
-	conciergeStatus: createOptionFromNullable(
+	id: createOptionFromOptional(string, 'id'),
+	created: createOptionFromOptional(DateFromISOString, 'created'),
+	source: createOptionFromOptional(string, 'source'),
+	price: createOptionFromOptional(number, 'price'),
+	conciergeStatus: createOptionFromOptional(
 		createEnumType<ZillowLeadConciergeStatusEnum>(ZillowLeadConciergeStatusEnum, 'ZillowLeadConciergeStatusEnum'),
 		'conciergeStatus',
 	),
-	sender: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactSenderIO, 'sender'),
-	recipient: createOptionFromNullable(
+	sender: createOptionFromOptional(LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactSenderIO, 'sender'),
+	recipient: createOptionFromOptional(
 		LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactRecipientIO,
 		'recipient',
 	),
-	details: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactDetailsIO, 'details'),
-	quote: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactLoanQuoteIO, 'quote'),
+	details: createOptionFromOptional(LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactDetailsIO, 'details'),
+	quote: createOptionFromOptional(LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactLoanQuoteIO, 'quote'),
 });

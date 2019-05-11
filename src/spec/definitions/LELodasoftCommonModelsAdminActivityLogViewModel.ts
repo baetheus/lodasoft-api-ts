@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -61,17 +62,17 @@ export type LELodasoftCommonModelsAdminActivityLogViewModel = {
 	trackingId: Option<number>;
 };
 export const LELodasoftCommonModelsAdminActivityLogViewModelIO = type({
-	userId: createOptionFromNullable(string, 'userId'),
-	category: createOptionFromNullable(createEnumType<CategoryEnum>(CategoryEnum, 'CategoryEnum'), 'category'),
-	activityType: createOptionFromNullable(
+	userId: createOptionFromOptional(string, 'userId'),
+	category: createOptionFromOptional(createEnumType<CategoryEnum>(CategoryEnum, 'CategoryEnum'), 'category'),
+	activityType: createOptionFromOptional(
 		createEnumType<ActivityTypeEnum>(ActivityTypeEnum, 'ActivityTypeEnum'),
 		'activityType',
 	),
-	displayText: createOptionFromNullable(string, 'displayText'),
-	dateCreated: createOptionFromNullable(DateFromISOString, 'dateCreated'),
-	loanDocTaskId: createOptionFromNullable(number, 'loanDocTaskId'),
-	messageId: createOptionFromNullable(number, 'messageId'),
-	leadEventId: createOptionFromNullable(number, 'leadEventId'),
-	fileId: createOptionFromNullable(string, 'fileId'),
-	trackingId: createOptionFromNullable(number, 'trackingId'),
+	displayText: createOptionFromOptional(string, 'displayText'),
+	dateCreated: createOptionFromOptional(DateFromISOString, 'dateCreated'),
+	loanDocTaskId: createOptionFromOptional(number, 'loanDocTaskId'),
+	messageId: createOptionFromOptional(number, 'messageId'),
+	leadEventId: createOptionFromOptional(number, 'leadEventId'),
+	fileId: createOptionFromOptional(string, 'fileId'),
+	trackingId: createOptionFromOptional(number, 'trackingId'),
 });

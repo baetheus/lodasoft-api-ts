@@ -56,7 +56,7 @@ import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { boolean, type, partial, string, array } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 import { Observable } from 'rxjs';
 
 export type AccountController = {
@@ -326,7 +326,7 @@ export const accountController = asks(
 
 		Account_GetManageInfo: parameters => {
 			const encoded = partial({
-				query: type({ returnUrl: string, generateState: createOptionFromNullable(boolean, 'generateState') }),
+				query: type({ returnUrl: string, generateState: createOptionFromOptional(boolean, 'generateState') }),
 			}).encode(parameters);
 
 			return e.API_CLIENT.request({
@@ -382,7 +382,7 @@ export const accountController = asks(
 
 		Account_GetExternalLogin: parameters => {
 			const encoded = partial({
-				query: type({ provider: string, error: createOptionFromNullable(string, 'error') }),
+				query: type({ provider: string, error: createOptionFromOptional(string, 'error') }),
 			}).encode(parameters);
 
 			return e.API_CLIENT.request({
@@ -394,7 +394,7 @@ export const accountController = asks(
 
 		Account_GetExternalLogins: parameters => {
 			const encoded = partial({
-				query: type({ returnUrl: string, generateState: createOptionFromNullable(boolean, 'generateState') }),
+				query: type({ returnUrl: string, generateState: createOptionFromOptional(boolean, 'generateState') }),
 			}).encode(parameters);
 
 			return e.API_CLIENT.request({
@@ -406,7 +406,7 @@ export const accountController = asks(
 
 		Account_Register: parameters => {
 			const encoded = partial({
-				query: type({ token: createOptionFromNullable(string, 'token') }),
+				query: type({ token: createOptionFromOptional(string, 'token') }),
 				body: LELodasoftApiModelsRegisterBindingModelIO,
 			}).encode(parameters);
 
@@ -452,7 +452,7 @@ export const accountController = asks(
 
 		Account_RegisterExternal: parameters => {
 			const encoded = partial({
-				query: type({ token: createOptionFromNullable(string, 'token') }),
+				query: type({ token: createOptionFromOptional(string, 'token') }),
 				body: LELodasoftApiModelsRegisterExternalBindingModelIO,
 			}).encode(parameters);
 

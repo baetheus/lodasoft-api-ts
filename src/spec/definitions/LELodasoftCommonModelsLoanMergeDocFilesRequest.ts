@@ -4,7 +4,7 @@ import {
 } from '../definitions/LELodasoftCommonModelsLoanMergeDocFilesInstruction';
 import { Option } from 'fp-ts/lib/Option';
 import { string, dictionary, array, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsLoanMergeDocFilesRequest = {
 	newSourceDocFileBase64Content: Option<{ [key: string]: string }>;
@@ -13,14 +13,14 @@ export type LELodasoftCommonModelsLoanMergeDocFilesRequest = {
 	newFileName: Option<string>;
 };
 export const LELodasoftCommonModelsLoanMergeDocFilesRequestIO = type({
-	newSourceDocFileBase64Content: createOptionFromNullable(
+	newSourceDocFileBase64Content: createOptionFromOptional(
 		dictionary(string, string),
 		'newSourceDocFileBase64Content',
 	),
-	mergeInstructions: createOptionFromNullable(
+	mergeInstructions: createOptionFromOptional(
 		array(LELodasoftCommonModelsLoanMergeDocFilesInstructionIO),
 		'mergeInstructions',
 	),
-	originalFileGuid: createOptionFromNullable(string, 'originalFileGuid'),
-	newFileName: createOptionFromNullable(string, 'newFileName'),
+	originalFileGuid: createOptionFromOptional(string, 'originalFileGuid'),
+	newFileName: createOptionFromOptional(string, 'newFileName'),
 });

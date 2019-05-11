@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsUserUserLookupView = {
 	id: Option<string>;
@@ -9,8 +9,8 @@ export type LELodasoftApiModelsUserUserLookupView = {
 	roleId: Option<number>;
 };
 export const LELodasoftApiModelsUserUserLookupViewIO = type({
-	id: createOptionFromNullable(string, 'id'),
-	firstName: createOptionFromNullable(string, 'firstName'),
-	lastName: createOptionFromNullable(string, 'lastName'),
-	roleId: createOptionFromNullable(number, 'roleId'),
+	id: createOptionFromOptional(string, 'id'),
+	firstName: createOptionFromOptional(string, 'firstName'),
+	lastName: createOptionFromOptional(string, 'lastName'),
+	roleId: createOptionFromOptional(number, 'roleId'),
 });

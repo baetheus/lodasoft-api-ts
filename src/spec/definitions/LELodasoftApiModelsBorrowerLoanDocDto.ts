@@ -4,7 +4,8 @@ import {
 } from '../definitions/LELodasoftDataAccessModelsAdminBorrowerFileDto';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, array, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsBorrowerLoanDocDto = {
 	loanDocId: Option<number>;
@@ -24,19 +25,19 @@ export type LELodasoftApiModelsBorrowerLoanDocDto = {
 	uploadFiles: Option<Array<LELodasoftDataAccessModelsAdminBorrowerFileDto>>;
 };
 export const LELodasoftApiModelsBorrowerLoanDocDtoIO = type({
-	loanDocId: createOptionFromNullable(number, 'loanDocId'),
-	description: createOptionFromNullable(string, 'description'),
-	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	dateView: createOptionFromNullable(DateFromISOString, 'dateView'),
-	dateDownload: createOptionFromNullable(DateFromISOString, 'dateDownload'),
-	dateCreate: createOptionFromNullable(DateFromISOString, 'dateCreate'),
-	expirationDate: createOptionFromNullable(DateFromISOString, 'expirationDate'),
-	fileName: createOptionFromNullable(string, 'fileName'),
-	note: createOptionFromNullable(string, 'note'),
-	condition: createOptionFromNullable(boolean, 'condition'),
-	borrowerID: createOptionFromNullable(number, 'borrowerID'),
-	userId: createOptionFromNullable(number, 'userId'),
-	active: createOptionFromNullable(boolean, 'active'),
-	uploadFiles: createOptionFromNullable(array(LELodasoftDataAccessModelsAdminBorrowerFileDtoIO), 'uploadFiles'),
+	loanDocId: createOptionFromOptional(number, 'loanDocId'),
+	description: createOptionFromOptional(string, 'description'),
+	documentTypeId: createOptionFromOptional(number, 'documentTypeId'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	dateView: createOptionFromOptional(DateFromISOString, 'dateView'),
+	dateDownload: createOptionFromOptional(DateFromISOString, 'dateDownload'),
+	dateCreate: createOptionFromOptional(DateFromISOString, 'dateCreate'),
+	expirationDate: createOptionFromOptional(DateFromISOString, 'expirationDate'),
+	fileName: createOptionFromOptional(string, 'fileName'),
+	note: createOptionFromOptional(string, 'note'),
+	condition: createOptionFromOptional(boolean, 'condition'),
+	borrowerID: createOptionFromOptional(number, 'borrowerID'),
+	userId: createOptionFromOptional(number, 'userId'),
+	active: createOptionFromOptional(boolean, 'active'),
+	uploadFiles: createOptionFromOptional(array(LELodasoftDataAccessModelsAdminBorrowerFileDtoIO), 'uploadFiles'),
 });

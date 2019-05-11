@@ -1,6 +1,8 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { DateFromISOString, createOptionFromNullable } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsLeadsProviderModelsAppointmentInfo = {
 	date: Option<Date>;
@@ -8,7 +10,7 @@ export type LELodasoftCommonModelsLeadsProviderModelsAppointmentInfo = {
 	notes: Option<string>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsAppointmentInfoIO = type({
-	date: createOptionFromNullable(DateFromISOString, 'date'),
-	description: createOptionFromNullable(string, 'description'),
-	notes: createOptionFromNullable(string, 'notes'),
+	date: createOptionFromOptional(DateFromISOString, 'date'),
+	description: createOptionFromOptional(string, 'description'),
+	notes: createOptionFromOptional(string, 'notes'),
 });

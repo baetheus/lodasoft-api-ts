@@ -4,7 +4,8 @@ import {
 } from '../definitions/LELodasoftCommonModelsLeadsProviderModelsAddressInfo';
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsLeadsProviderModelsBorrowerInfo = {
 	firstName: Option<string>;
@@ -17,12 +18,12 @@ export type LELodasoftCommonModelsLeadsProviderModelsBorrowerInfo = {
 	creditScore: Option<number>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsBorrowerInfoIO = type({
-	firstName: createOptionFromNullable(string, 'firstName'),
-	lastName: createOptionFromNullable(string, 'lastName'),
-	birthDate: createOptionFromNullable(DateFromISOString, 'birthDate'),
-	email: createOptionFromNullable(string, 'email'),
-	phone: createOptionFromNullable(string, 'phone'),
-	workPhone: createOptionFromNullable(string, 'workPhone'),
-	mailingAddress: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsAddressInfoIO, 'mailingAddress'),
-	creditScore: createOptionFromNullable(number, 'creditScore'),
+	firstName: createOptionFromOptional(string, 'firstName'),
+	lastName: createOptionFromOptional(string, 'lastName'),
+	birthDate: createOptionFromOptional(DateFromISOString, 'birthDate'),
+	email: createOptionFromOptional(string, 'email'),
+	phone: createOptionFromOptional(string, 'phone'),
+	workPhone: createOptionFromOptional(string, 'workPhone'),
+	mailingAddress: createOptionFromOptional(LELodasoftCommonModelsLeadsProviderModelsAddressInfoIO, 'mailingAddress'),
+	creditScore: createOptionFromOptional(number, 'creditScore'),
 });

@@ -4,11 +4,11 @@ import {
 } from '../definitions/LELodasoftCommonModelsConfigurationDocumentTemplatePageViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { array, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsConfigurationAddDocumentTemplatePagesViewModel = {
 	pages: Option<Array<LELodasoftCommonModelsConfigurationDocumentTemplatePageViewModel>>;
 };
 export const LELodasoftCommonModelsConfigurationAddDocumentTemplatePagesViewModelIO = type({
-	pages: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationDocumentTemplatePageViewModelIO), 'pages'),
+	pages: createOptionFromOptional(array(LELodasoftCommonModelsConfigurationDocumentTemplatePageViewModelIO), 'pages'),
 });

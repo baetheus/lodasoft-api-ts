@@ -8,7 +8,7 @@ import {
 } from '../definitions/LELodasoftApiModelsUserLoginInfoViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { string, array, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsManageInfoViewModel = {
 	localLoginProvider: Option<string>;
@@ -17,10 +17,10 @@ export type LELodasoftApiModelsManageInfoViewModel = {
 	externalLoginProviders: Option<Array<LELodasoftApiModelsExternalLoginViewModel>>;
 };
 export const LELodasoftApiModelsManageInfoViewModelIO = type({
-	localLoginProvider: createOptionFromNullable(string, 'localLoginProvider'),
-	userName: createOptionFromNullable(string, 'userName'),
-	logins: createOptionFromNullable(array(LELodasoftApiModelsUserLoginInfoViewModelIO), 'logins'),
-	externalLoginProviders: createOptionFromNullable(
+	localLoginProvider: createOptionFromOptional(string, 'localLoginProvider'),
+	userName: createOptionFromOptional(string, 'userName'),
+	logins: createOptionFromOptional(array(LELodasoftApiModelsUserLoginInfoViewModelIO), 'logins'),
+	externalLoginProviders: createOptionFromOptional(
 		array(LELodasoftApiModelsExternalLoginViewModelIO),
 		'externalLoginProviders',
 	),

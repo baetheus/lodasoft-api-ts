@@ -16,7 +16,7 @@ import {
 } from '../definitions/LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { array, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsSharedIntegrationsModel = {
 	zillow: Option<LELodasoftApiModelsSharedZillow>;
@@ -25,13 +25,13 @@ export type LELodasoftApiModelsSharedIntegrationsModel = {
 	thirdPartyCredentials: Option<Array<LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModel>>;
 };
 export const LELodasoftApiModelsSharedIntegrationsModelIO = type({
-	zillow: createOptionFromNullable(LELodasoftApiModelsSharedZillowIO, 'zillow'),
-	leadPoint: createOptionFromNullable(LELodasoftApiModelsSharedLeadPointIO, 'leadPoint'),
-	onlineApplications: createOptionFromNullable(
+	zillow: createOptionFromOptional(LELodasoftApiModelsSharedZillowIO, 'zillow'),
+	leadPoint: createOptionFromOptional(LELodasoftApiModelsSharedLeadPointIO, 'leadPoint'),
+	onlineApplications: createOptionFromOptional(
 		LELodasoftApiModelsSharedOnlineApplicationsModelIO,
 		'onlineApplications',
 	),
-	thirdPartyCredentials: createOptionFromNullable(
+	thirdPartyCredentials: createOptionFromOptional(
 		array(LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModelIO),
 		'thirdPartyCredentials',
 	),

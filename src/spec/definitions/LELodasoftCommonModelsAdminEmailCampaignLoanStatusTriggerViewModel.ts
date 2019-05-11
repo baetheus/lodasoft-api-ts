@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsAdminEmailCampaignLoanStatusTriggerViewModel = {
 	emailCampaignLoanStatusTriggerId: Option<number>;
@@ -15,14 +16,14 @@ export type LELodasoftCommonModelsAdminEmailCampaignLoanStatusTriggerViewModel =
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsAdminEmailCampaignLoanStatusTriggerViewModelIO = type({
-	emailCampaignLoanStatusTriggerId: createOptionFromNullable(number, 'emailCampaignLoanStatusTriggerId'),
-	emailCampaignId: createOptionFromNullable(number, 'emailCampaignId'),
-	loanPurposeId: createOptionFromNullable(number, 'loanPurposeId'),
-	loanStatusId: createOptionFromNullable(number, 'loanStatusId'),
-	loanTypeId: createOptionFromNullable(number, 'loanTypeId'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	emailCampaignLoanStatusTriggerId: createOptionFromOptional(number, 'emailCampaignLoanStatusTriggerId'),
+	emailCampaignId: createOptionFromOptional(number, 'emailCampaignId'),
+	loanPurposeId: createOptionFromOptional(number, 'loanPurposeId'),
+	loanStatusId: createOptionFromOptional(number, 'loanStatusId'),
+	loanTypeId: createOptionFromOptional(number, 'loanTypeId'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

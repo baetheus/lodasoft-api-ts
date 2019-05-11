@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -185,21 +185,21 @@ export type LELodasoftApiModelsAdminQuestionTaskAnswerDto = {
 	qaTaskId: Option<Array<number>>;
 };
 export const LELodasoftApiModelsAdminQuestionTaskAnswerDtoIO = type({
-	questionAnswerId: createOptionFromNullable(number, 'questionAnswerId'),
-	questionId: createOptionFromNullable(number, 'questionId'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	answerText: createOptionFromNullable(string, 'answerText'),
-	sortValue: createOptionFromNullable(number, 'sortValue'),
-	require: createOptionFromNullable(boolean, 'require'),
-	tableName: createOptionFromNullable(string, 'tableName'),
-	columnName: createOptionFromNullable(string, 'columnName'),
-	dataType: createOptionFromNullable(createEnumType<DataTypeEnum>(DataTypeEnum, 'DataTypeEnum'), 'dataType'),
-	comparisonType: createOptionFromNullable(
+	questionAnswerId: createOptionFromOptional(number, 'questionAnswerId'),
+	questionId: createOptionFromOptional(number, 'questionId'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	answerText: createOptionFromOptional(string, 'answerText'),
+	sortValue: createOptionFromOptional(number, 'sortValue'),
+	require: createOptionFromOptional(boolean, 'require'),
+	tableName: createOptionFromOptional(string, 'tableName'),
+	columnName: createOptionFromOptional(string, 'columnName'),
+	dataType: createOptionFromOptional(createEnumType<DataTypeEnum>(DataTypeEnum, 'DataTypeEnum'), 'dataType'),
+	comparisonType: createOptionFromOptional(
 		createEnumType<ComparisonType>(ComparisonType, 'ComparisonType'),
 		'comparisonType',
 	),
-	compareValue: createOptionFromNullable(string, 'compareValue'),
-	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
-	exist: createOptionFromNullable(boolean, 'exist'),
-	qaTaskId: createOptionFromNullable(array(number), 'qaTaskId'),
+	compareValue: createOptionFromOptional(string, 'compareValue'),
+	documentTypeId: createOptionFromOptional(number, 'documentTypeId'),
+	exist: createOptionFromOptional(boolean, 'exist'),
+	qaTaskId: createOptionFromOptional(array(number), 'qaTaskId'),
 });

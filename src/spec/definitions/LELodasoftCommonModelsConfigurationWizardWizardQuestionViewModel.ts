@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModel = {
 	id: Option<number>;
@@ -18,17 +19,17 @@ export type LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO = type({
-	id: createOptionFromNullable(number, 'id'),
-	categoryId: createOptionFromNullable(number, 'categoryId'),
-	dataId: createOptionFromNullable(number, 'dataId'),
-	groupId: createOptionFromNullable(number, 'groupId'),
-	name: createOptionFromNullable(string, 'name'),
-	question: createOptionFromNullable(string, 'question'),
-	additional: createOptionFromNullable(string, 'additional'),
-	validate: createOptionFromNullable(string, 'validate'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	id: createOptionFromOptional(number, 'id'),
+	categoryId: createOptionFromOptional(number, 'categoryId'),
+	dataId: createOptionFromOptional(number, 'dataId'),
+	groupId: createOptionFromOptional(number, 'groupId'),
+	name: createOptionFromOptional(string, 'name'),
+	question: createOptionFromOptional(string, 'question'),
+	additional: createOptionFromOptional(string, 'additional'),
+	validate: createOptionFromOptional(string, 'validate'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

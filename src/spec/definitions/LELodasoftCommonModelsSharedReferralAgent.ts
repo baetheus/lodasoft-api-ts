@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsSharedReferralAgent = {
 	userId: Option<string>;
@@ -8,7 +8,7 @@ export type LELodasoftCommonModelsSharedReferralAgent = {
 	lastName: Option<string>;
 };
 export const LELodasoftCommonModelsSharedReferralAgentIO = type({
-	userId: createOptionFromNullable(string, 'userId'),
-	firstName: createOptionFromNullable(string, 'firstName'),
-	lastName: createOptionFromNullable(string, 'lastName'),
+	userId: createOptionFromOptional(string, 'userId'),
+	firstName: createOptionFromOptional(string, 'firstName'),
+	lastName: createOptionFromOptional(string, 'lastName'),
 });

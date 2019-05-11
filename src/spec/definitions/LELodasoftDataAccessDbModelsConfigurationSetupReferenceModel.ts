@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsConfigurationSetupReferenceModel = {
 	setupRefernceId: Option<number>;
@@ -11,10 +11,10 @@ export type LELodasoftDataAccessDbModelsConfigurationSetupReferenceModel = {
 	insertedId: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationSetupReferenceModelIO = type({
-	setupRefernceId: createOptionFromNullable(number, 'setupRefernceId'),
-	tableName: createOptionFromNullable(string, 'tableName'),
-	templateCompanyId: createOptionFromNullable(number, 'templateCompanyId'),
-	templateId: createOptionFromNullable(number, 'templateId'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedId: createOptionFromNullable(number, 'insertedId'),
+	setupRefernceId: createOptionFromOptional(number, 'setupRefernceId'),
+	tableName: createOptionFromOptional(string, 'tableName'),
+	templateCompanyId: createOptionFromOptional(number, 'templateCompanyId'),
+	templateId: createOptionFromOptional(number, 'templateId'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedId: createOptionFromOptional(number, 'insertedId'),
 });

@@ -4,7 +4,7 @@ import {
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationCompanyModel';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsAdminStackingOrderModel = {
 	stakingOrderId: Option<number>;
@@ -14,9 +14,9 @@ export type LELodasoftDataAccessDbModelsAdminStackingOrderModel = {
 	associate: Option<string>;
 };
 export const LELodasoftDataAccessDbModelsAdminStackingOrderModelIO = type({
-	stakingOrderId: createOptionFromNullable(number, 'stakingOrderId'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	company: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'company'),
-	docType: createOptionFromNullable(string, 'docType'),
-	associate: createOptionFromNullable(string, 'associate'),
+	stakingOrderId: createOptionFromOptional(number, 'stakingOrderId'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	company: createOptionFromOptional(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'company'),
+	docType: createOptionFromOptional(string, 'docType'),
+	associate: createOptionFromOptional(string, 'associate'),
 });

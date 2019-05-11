@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsConfigurationQATaskModel = {
 	qaTaskId: Option<number>;
@@ -13,12 +13,12 @@ export type LELodasoftDataAccessDbModelsConfigurationQATaskModel = {
 	requestBorrower: Option<boolean>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationQATaskModelIO = type({
-	qaTaskId: createOptionFromNullable(number, 'qaTaskId'),
-	taskName: createOptionFromNullable(string, 'taskName'),
-	roleId: createOptionFromNullable(number, 'roleId'),
-	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
-	dueDays: createOptionFromNullable(number, 'dueDays'),
-	borrowerTrigger: createOptionFromNullable(number, 'borrowerTrigger'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	requestBorrower: createOptionFromNullable(boolean, 'requestBorrower'),
+	qaTaskId: createOptionFromOptional(number, 'qaTaskId'),
+	taskName: createOptionFromOptional(string, 'taskName'),
+	roleId: createOptionFromOptional(number, 'roleId'),
+	documentTypeId: createOptionFromOptional(number, 'documentTypeId'),
+	dueDays: createOptionFromOptional(number, 'dueDays'),
+	borrowerTrigger: createOptionFromOptional(number, 'borrowerTrigger'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	requestBorrower: createOptionFromOptional(boolean, 'requestBorrower'),
 });

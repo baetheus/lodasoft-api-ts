@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -56,34 +57,34 @@ export type LELodasoftCommonModelsConfigurationTaskViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsConfigurationTaskViewModelIO = type({
-	taskId: createOptionFromNullable(number, 'taskId'),
-	taskName: createOptionFromNullable(string, 'taskName'),
-	triggerAssociations: createOptionFromNullable(string, 'triggerAssociations'),
-	borrowerTrigger: createOptionFromNullable(
+	taskId: createOptionFromOptional(number, 'taskId'),
+	taskName: createOptionFromOptional(string, 'taskName'),
+	triggerAssociations: createOptionFromOptional(string, 'triggerAssociations'),
+	borrowerTrigger: createOptionFromOptional(
 		createEnumType<BorrowerTriggerEnum>(BorrowerTriggerEnum, 'BorrowerTriggerEnum'),
 		'borrowerTrigger',
 	),
-	isLeadTask: createOptionFromNullable(boolean, 'isLeadTask'),
-	roleId: createOptionFromNullable(number, 'roleId'),
-	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
-	reviewRequiredRoleId: createOptionFromNullable(number, 'reviewRequiredRoleId'),
-	notifyPartyRoleId: createOptionFromNullable(number, 'notifyPartyRoleId'),
-	taskType: createOptionFromNullable(createEnumType<TaskTypeEnum>(TaskTypeEnum, 'TaskTypeEnum'), 'taskType'),
-	defaultTaskPriority: createOptionFromNullable(
+	isLeadTask: createOptionFromOptional(boolean, 'isLeadTask'),
+	roleId: createOptionFromOptional(number, 'roleId'),
+	documentTypeId: createOptionFromOptional(number, 'documentTypeId'),
+	reviewRequiredRoleId: createOptionFromOptional(number, 'reviewRequiredRoleId'),
+	notifyPartyRoleId: createOptionFromOptional(number, 'notifyPartyRoleId'),
+	taskType: createOptionFromOptional(createEnumType<TaskTypeEnum>(TaskTypeEnum, 'TaskTypeEnum'), 'taskType'),
+	defaultTaskPriority: createOptionFromOptional(
 		createEnumType<DefaultTaskPriorityEnum>(DefaultTaskPriorityEnum, 'DefaultTaskPriorityEnum'),
 		'defaultTaskPriority',
 	),
-	dueDays: createOptionFromNullable(number, 'dueDays'),
-	permittedAgentTypes: createOptionFromNullable(string, 'permittedAgentTypes'),
-	tasksOnCompletion: createOptionFromNullable(string, 'tasksOnCompletion'),
-	documentDataHeader: createOptionFromNullable(string, 'documentDataHeader'),
-	documentData: createOptionFromNullable(string, 'documentData'),
-	docDataString: createOptionFromNullable(string, 'docDataString'),
-	requestBorrower: createOptionFromNullable(boolean, 'requestBorrower'),
-	alwaysShowPending: createOptionFromNullable(boolean, 'alwaysShowPending'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	dueDays: createOptionFromOptional(number, 'dueDays'),
+	permittedAgentTypes: createOptionFromOptional(string, 'permittedAgentTypes'),
+	tasksOnCompletion: createOptionFromOptional(string, 'tasksOnCompletion'),
+	documentDataHeader: createOptionFromOptional(string, 'documentDataHeader'),
+	documentData: createOptionFromOptional(string, 'documentData'),
+	docDataString: createOptionFromOptional(string, 'docDataString'),
+	requestBorrower: createOptionFromOptional(boolean, 'requestBorrower'),
+	alwaysShowPending: createOptionFromOptional(boolean, 'alwaysShowPending'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsSharedPortalContentViewModel = {
 	companyId: Option<number>;
@@ -12,11 +12,11 @@ export type LELodasoftApiModelsSharedPortalContentViewModel = {
 	showPrequalLetterGeneration: Option<boolean>;
 };
 export const LELodasoftApiModelsSharedPortalContentViewModelIO = type({
-	companyId: createOptionFromNullable(number, 'companyId'),
-	userId: createOptionFromNullable(string, 'userId'),
-	aboutUsContent: createOptionFromNullable(string, 'aboutUsContent'),
-	referralContent: createOptionFromNullable(string, 'referralContent'),
-	showReferralTerms: createOptionFromNullable(boolean, 'showReferralTerms'),
-	referralTermsContent: createOptionFromNullable(string, 'referralTermsContent'),
-	showPrequalLetterGeneration: createOptionFromNullable(boolean, 'showPrequalLetterGeneration'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	userId: createOptionFromOptional(string, 'userId'),
+	aboutUsContent: createOptionFromOptional(string, 'aboutUsContent'),
+	referralContent: createOptionFromOptional(string, 'referralContent'),
+	showReferralTerms: createOptionFromOptional(boolean, 'showReferralTerms'),
+	referralTermsContent: createOptionFromOptional(string, 'referralTermsContent'),
+	showPrequalLetterGeneration: createOptionFromOptional(boolean, 'showPrequalLetterGeneration'),
 });

@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -73,46 +74,46 @@ export type LELodasoftCommonModelsMortgageDeclarationViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageDeclarationViewModelIO = type({
-	declarationId: createOptionFromNullable(number, 'declarationId'),
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	haveJudgement: createOptionFromNullable(boolean, 'haveJudgement'),
-	haveJudgementInfo: createOptionFromNullable(string, 'haveJudgementInfo'),
-	declaredBankruptcy: createOptionFromNullable(boolean, 'declaredBankruptcy'),
-	declaredBankruptcyInfo: createOptionFromNullable(string, 'declaredBankruptcyInfo'),
-	beenForclosed: createOptionFromNullable(boolean, 'beenForclosed'),
-	beenForclosedInfo: createOptionFromNullable(string, 'beenForclosedInfo'),
-	haveLawsuit: createOptionFromNullable(boolean, 'haveLawsuit'),
-	haveLawsuitInfo: createOptionFromNullable(string, 'haveLawsuitInfo'),
-	haveLoanObligation: createOptionFromNullable(boolean, 'haveLoanObligation'),
-	haveLoanObligationInfo: createOptionFromNullable(string, 'haveLoanObligationInfo'),
-	haveTaxDebt: createOptionFromNullable(boolean, 'haveTaxDebt'),
-	haveTaxDebtInfo: createOptionFromNullable(string, 'haveTaxDebtInfo'),
-	haveChildSupport: createOptionFromNullable(boolean, 'haveChildSupport'),
-	haveChildSupportInfo: createOptionFromNullable(string, 'haveChildSupportInfo'),
-	borrowedDownPayment: createOptionFromNullable(boolean, 'borrowedDownPayment'),
-	borrowedDownPaymentInfo: createOptionFromNullable(string, 'borrowedDownPaymentInfo'),
-	coSignedLoan: createOptionFromNullable(boolean, 'coSignedLoan'),
-	coSignedLoanInfo: createOptionFromNullable(string, 'coSignedLoanInfo'),
-	isVeteran: createOptionFromNullable(boolean, 'isVeteran'),
-	residenceStatus: createOptionFromNullable(
+	declarationId: createOptionFromOptional(number, 'declarationId'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	haveJudgement: createOptionFromOptional(boolean, 'haveJudgement'),
+	haveJudgementInfo: createOptionFromOptional(string, 'haveJudgementInfo'),
+	declaredBankruptcy: createOptionFromOptional(boolean, 'declaredBankruptcy'),
+	declaredBankruptcyInfo: createOptionFromOptional(string, 'declaredBankruptcyInfo'),
+	beenForclosed: createOptionFromOptional(boolean, 'beenForclosed'),
+	beenForclosedInfo: createOptionFromOptional(string, 'beenForclosedInfo'),
+	haveLawsuit: createOptionFromOptional(boolean, 'haveLawsuit'),
+	haveLawsuitInfo: createOptionFromOptional(string, 'haveLawsuitInfo'),
+	haveLoanObligation: createOptionFromOptional(boolean, 'haveLoanObligation'),
+	haveLoanObligationInfo: createOptionFromOptional(string, 'haveLoanObligationInfo'),
+	haveTaxDebt: createOptionFromOptional(boolean, 'haveTaxDebt'),
+	haveTaxDebtInfo: createOptionFromOptional(string, 'haveTaxDebtInfo'),
+	haveChildSupport: createOptionFromOptional(boolean, 'haveChildSupport'),
+	haveChildSupportInfo: createOptionFromOptional(string, 'haveChildSupportInfo'),
+	borrowedDownPayment: createOptionFromOptional(boolean, 'borrowedDownPayment'),
+	borrowedDownPaymentInfo: createOptionFromOptional(string, 'borrowedDownPaymentInfo'),
+	coSignedLoan: createOptionFromOptional(boolean, 'coSignedLoan'),
+	coSignedLoanInfo: createOptionFromOptional(string, 'coSignedLoanInfo'),
+	isVeteran: createOptionFromOptional(boolean, 'isVeteran'),
+	residenceStatus: createOptionFromOptional(
 		createEnumType<ResidenceStatusEnum>(ResidenceStatusEnum, 'ResidenceStatusEnum'),
 		'residenceStatus',
 	),
-	occupyProperty: createOptionFromNullable(boolean, 'occupyProperty'),
-	havePropertiesOwnership: createOptionFromNullable(boolean, 'havePropertiesOwnership'),
-	typeOfProperty: createOptionFromNullable(
+	occupyProperty: createOptionFromOptional(boolean, 'occupyProperty'),
+	havePropertiesOwnership: createOptionFromOptional(boolean, 'havePropertiesOwnership'),
+	typeOfProperty: createOptionFromOptional(
 		createEnumType<TypeOfPropertyEnum>(TypeOfPropertyEnum, 'TypeOfPropertyEnum'),
 		'typeOfProperty',
 	),
-	propertyWillBe: createOptionFromNullable(
+	propertyWillBe: createOptionFromOptional(
 		createEnumType<PropertyWillBeEnum>(PropertyWillBeEnum, 'PropertyWillBeEnum'),
 		'propertyWillBe',
 	),
-	heldTitleHow: createOptionFromNullable(number, 'heldTitleHow'),
-	fromCreditReport: createOptionFromNullable(boolean, 'fromCreditReport'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	heldTitleHow: createOptionFromOptional(number, 'heldTitleHow'),
+	fromCreditReport: createOptionFromOptional(boolean, 'fromCreditReport'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

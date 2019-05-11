@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModel = {
 	mergeFieldId: Option<number>;
@@ -11,10 +11,10 @@ export type LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModel 
 	baseType: Option<string>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModelIO = type({
-	mergeFieldId: createOptionFromNullable(number, 'mergeFieldId'),
-	mergeText: createOptionFromNullable(string, 'mergeText'),
-	displayName: createOptionFromNullable(string, 'displayName'),
-	table: createOptionFromNullable(string, 'table'),
-	column: createOptionFromNullable(string, 'column'),
-	baseType: createOptionFromNullable(string, 'baseType'),
+	mergeFieldId: createOptionFromOptional(number, 'mergeFieldId'),
+	mergeText: createOptionFromOptional(string, 'mergeText'),
+	displayName: createOptionFromOptional(string, 'displayName'),
+	table: createOptionFromOptional(string, 'table'),
+	column: createOptionFromOptional(string, 'column'),
+	baseType: createOptionFromOptional(string, 'baseType'),
 });

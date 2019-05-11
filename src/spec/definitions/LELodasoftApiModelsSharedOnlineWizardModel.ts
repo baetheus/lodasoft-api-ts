@@ -1,9 +1,9 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsSharedOnlineWizardModel = { name: Option<string>; url: Option<string> };
 export const LELodasoftApiModelsSharedOnlineWizardModelIO = type({
-	name: createOptionFromNullable(string, 'name'),
-	url: createOptionFromNullable(string, 'url'),
+	name: createOptionFromOptional(string, 'name'),
+	url: createOptionFromOptional(string, 'url'),
 });

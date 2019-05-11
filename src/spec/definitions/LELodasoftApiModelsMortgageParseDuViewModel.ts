@@ -8,7 +8,7 @@ import {
 } from '../definitions/LELodasoftDataAccessModelsAdminBorrowerBorrowerDto';
 import { Option } from 'fp-ts/lib/Option';
 import { array, string, dictionary, number, boolean, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsMortgageParseDuViewModel = {
 	mortgageViewModel: Option<LELodasoftCommonModelsMortgageMortgageViewModel>;
@@ -22,16 +22,16 @@ export type LELodasoftApiModelsMortgageParseDuViewModel = {
 	errorMessage: Option<string>;
 };
 export const LELodasoftApiModelsMortgageParseDuViewModelIO = type({
-	mortgageViewModel: createOptionFromNullable(LELodasoftCommonModelsMortgageMortgageViewModelIO, 'mortgageViewModel'),
-	suggestedBorrowers: createOptionFromNullable(
+	mortgageViewModel: createOptionFromOptional(LELodasoftCommonModelsMortgageMortgageViewModelIO, 'mortgageViewModel'),
+	suggestedBorrowers: createOptionFromOptional(
 		dictionary(string, array(LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO)),
 		'suggestedBorrowers',
 	),
-	loanNumber: createOptionFromNullable(string, 'loanNumber'),
-	loanPurposeId: createOptionFromNullable(number, 'loanPurposeId'),
-	loanTypeId: createOptionFromNullable(number, 'loanTypeId'),
-	losIdentifier: createOptionFromNullable(string, 'losIdentifier'),
-	success: createOptionFromNullable(boolean, 'success'),
-	validationErrors: createOptionFromNullable(array(string), 'validationErrors'),
-	errorMessage: createOptionFromNullable(string, 'errorMessage'),
+	loanNumber: createOptionFromOptional(string, 'loanNumber'),
+	loanPurposeId: createOptionFromOptional(number, 'loanPurposeId'),
+	loanTypeId: createOptionFromOptional(number, 'loanTypeId'),
+	losIdentifier: createOptionFromOptional(string, 'losIdentifier'),
+	success: createOptionFromOptional(boolean, 'success'),
+	validationErrors: createOptionFromOptional(array(string), 'validationErrors'),
+	errorMessage: createOptionFromOptional(string, 'errorMessage'),
 });

@@ -8,16 +8,16 @@ import {
 } from '../definitions/LELodasoftCommonModelsLoanLoanDocTaskViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { array, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsBorrowerUpsertBorrowerCharacteristicsView = {
 	borrowerCharacteristics: Option<Array<LELodasoftApiModelsBorrowerBorrowerCharacteristicView>>;
 	loanDocTasks: Option<Array<LELodasoftCommonModelsLoanLoanDocTaskViewModel>>;
 };
 export const LELodasoftApiModelsBorrowerUpsertBorrowerCharacteristicsViewIO = type({
-	borrowerCharacteristics: createOptionFromNullable(
+	borrowerCharacteristics: createOptionFromOptional(
 		array(LELodasoftApiModelsBorrowerBorrowerCharacteristicViewIO),
 		'borrowerCharacteristics',
 	),
-	loanDocTasks: createOptionFromNullable(array(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO), 'loanDocTasks'),
+	loanDocTasks: createOptionFromOptional(array(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO), 'loanDocTasks'),
 });

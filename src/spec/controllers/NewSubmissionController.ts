@@ -19,7 +19,7 @@ import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, string, type, partial } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 import { Observable } from 'rxjs';
 
 export type NewSubmissionController = {
@@ -76,9 +76,9 @@ export const newSubmissionController = asks(
 		NewSubmission_LosLoanSearch: (credentialId, parameters) => {
 			const encoded = partial({
 				query: type({
-					loanNumber: createOptionFromNullable(string, 'loanNumber'),
-					borrowerFirstName: createOptionFromNullable(string, 'borrowerFirstName'),
-					borrowerLastName: createOptionFromNullable(string, 'borrowerLastName'),
+					loanNumber: createOptionFromOptional(string, 'loanNumber'),
+					borrowerFirstName: createOptionFromOptional(string, 'borrowerFirstName'),
+					borrowerLastName: createOptionFromOptional(string, 'borrowerLastName'),
 				}),
 			}).encode(parameters);
 

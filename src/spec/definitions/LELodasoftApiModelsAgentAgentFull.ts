@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftCommonModelsAdminAgentViewModel,
@@ -22,11 +22,11 @@ export type LELodasoftApiModelsAgentAgentFull = {
 	accountStatus: Option<AccountStatusEnum>;
 };
 export const LELodasoftApiModelsAgentAgentFullIO = type({
-	agent: createOptionFromNullable(LELodasoftCommonModelsAdminAgentViewModelIO, 'agent'),
-	portalUserName: createOptionFromNullable(string, 'portalUserName'),
-	agentTypeId: createOptionFromNullable(number, 'agentTypeId'),
-	isEdit: createOptionFromNullable(boolean, 'isEdit'),
-	accountStatus: createOptionFromNullable(
+	agent: createOptionFromOptional(LELodasoftCommonModelsAdminAgentViewModelIO, 'agent'),
+	portalUserName: createOptionFromOptional(string, 'portalUserName'),
+	agentTypeId: createOptionFromOptional(number, 'agentTypeId'),
+	isEdit: createOptionFromOptional(boolean, 'isEdit'),
+	accountStatus: createOptionFromOptional(
 		createEnumType<AccountStatusEnum>(AccountStatusEnum, 'AccountStatusEnum'),
 		'accountStatus',
 	),

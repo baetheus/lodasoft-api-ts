@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, boolean, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsConfigurationWizardValidViewModel = {
 	id: Option<number>;
@@ -10,9 +10,9 @@ export type LELodasoftCommonModelsConfigurationWizardValidViewModel = {
 	required: Option<boolean>;
 };
 export const LELodasoftCommonModelsConfigurationWizardValidViewModelIO = type({
-	id: createOptionFromNullable(number, 'id'),
-	questionId: createOptionFromNullable(number, 'questionId'),
-	min: createOptionFromNullable(number, 'min'),
-	max: createOptionFromNullable(number, 'max'),
-	required: createOptionFromNullable(boolean, 'required'),
+	id: createOptionFromOptional(number, 'id'),
+	questionId: createOptionFromOptional(number, 'questionId'),
+	min: createOptionFromOptional(number, 'min'),
+	max: createOptionFromOptional(number, 'max'),
+	required: createOptionFromOptional(boolean, 'required'),
 });

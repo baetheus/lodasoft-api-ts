@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftCommonModelsMortgageAddressViewModel,
@@ -43,30 +44,30 @@ export type LELodasoftCommonModelsMortgageEmploymentViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageEmploymentViewModelIO = type({
-	employmentId: createOptionFromNullable(number, 'employmentId'),
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	addressId: createOptionFromNullable(number, 'addressId'),
-	employer: createOptionFromNullable(string, 'employer'),
-	employerEmail: createOptionFromNullable(string, 'employerEmail'),
-	employerPhone: createOptionFromNullable(string, 'employerPhone'),
-	employmentType: createOptionFromNullable(
+	employmentId: createOptionFromOptional(number, 'employmentId'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	addressId: createOptionFromOptional(number, 'addressId'),
+	employer: createOptionFromOptional(string, 'employer'),
+	employerEmail: createOptionFromOptional(string, 'employerEmail'),
+	employerPhone: createOptionFromOptional(string, 'employerPhone'),
+	employmentType: createOptionFromOptional(
 		createEnumType<EmploymentTypeEnum>(EmploymentTypeEnum, 'EmploymentTypeEnum'),
 		'employmentType',
 	),
-	selfEmployed: createOptionFromNullable(boolean, 'selfEmployed'),
-	isPrimary: createOptionFromNullable(boolean, 'isPrimary'),
-	position: createOptionFromNullable(string, 'position'),
-	startDate: createOptionFromNullable(DateFromISOString, 'startDate'),
-	endDate: createOptionFromNullable(DateFromISOString, 'endDate'),
-	yearsOnJob: createOptionFromNullable(number, 'yearsOnJob'),
-	monthsOnJob: createOptionFromNullable(number, 'monthsOnJob'),
-	yearsInLineOfWork: createOptionFromNullable(number, 'yearsInLineOfWork'),
-	fromCreditReport: createOptionFromNullable(boolean, 'fromCreditReport'),
-	address: createOptionFromNullable(LELodasoftCommonModelsMortgageAddressViewModelIO, 'address'),
-	incomes: createOptionFromNullable(array(LELodasoftCommonModelsMortgageIncomeViewModelIO), 'incomes'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	selfEmployed: createOptionFromOptional(boolean, 'selfEmployed'),
+	isPrimary: createOptionFromOptional(boolean, 'isPrimary'),
+	position: createOptionFromOptional(string, 'position'),
+	startDate: createOptionFromOptional(DateFromISOString, 'startDate'),
+	endDate: createOptionFromOptional(DateFromISOString, 'endDate'),
+	yearsOnJob: createOptionFromOptional(number, 'yearsOnJob'),
+	monthsOnJob: createOptionFromOptional(number, 'monthsOnJob'),
+	yearsInLineOfWork: createOptionFromOptional(number, 'yearsInLineOfWork'),
+	fromCreditReport: createOptionFromOptional(boolean, 'fromCreditReport'),
+	address: createOptionFromOptional(LELodasoftCommonModelsMortgageAddressViewModelIO, 'address'),
+	incomes: createOptionFromOptional(array(LELodasoftCommonModelsMortgageIncomeViewModelIO), 'incomes'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

@@ -23,7 +23,7 @@ import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { number, partial, type, boolean, array } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 import { Observable } from 'rxjs';
 
 export type MortgageController = {
@@ -177,7 +177,7 @@ export const mortgageController = asks(
 
 		Mortgage_InsertMortgage: parameters => {
 			const encoded = partial({
-				query: type({ mapFromApplication: createOptionFromNullable(boolean, 'mapFromApplication') }),
+				query: type({ mapFromApplication: createOptionFromOptional(boolean, 'mapFromApplication') }),
 				body: LELodasoftCommonModelsMortgageMortgageViewModelIO,
 			}).encode(parameters);
 

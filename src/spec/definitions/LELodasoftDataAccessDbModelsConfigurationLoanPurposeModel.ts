@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftDataAccessDbModelsConfigurationCompanyModel,
@@ -26,13 +26,13 @@ export type LELodasoftDataAccessDbModelsConfigurationLoanPurposeModel = {
 	order: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationLoanPurposeModelIO = type({
-	loanPurposeId: createOptionFromNullable(number, 'loanPurposeId'),
-	loanPurposeName: createOptionFromNullable(string, 'loanPurposeName'),
-	mortgageLoanPurpose: createOptionFromNullable(
+	loanPurposeId: createOptionFromOptional(number, 'loanPurposeId'),
+	loanPurposeName: createOptionFromOptional(string, 'loanPurposeName'),
+	mortgageLoanPurpose: createOptionFromOptional(
 		createEnumType<MortgageLoanPurposeEnum>(MortgageLoanPurposeEnum, 'MortgageLoanPurposeEnum'),
 		'mortgageLoanPurpose',
 	),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	companyModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'companyModel'),
-	order: createOptionFromNullable(number, 'order'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	companyModel: createOptionFromOptional(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'companyModel'),
+	order: createOptionFromOptional(number, 'order'),
 });

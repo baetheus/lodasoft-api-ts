@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsLeadsReportsLeadMilestonesReportResponse = {
 	speedToContactAttemptMinutes: Option<number>;
@@ -13,12 +13,12 @@ export type LELodasoftCommonModelsLeadsReportsLeadMilestonesReportResponse = {
 	totalContactRate: Option<number>;
 };
 export const LELodasoftCommonModelsLeadsReportsLeadMilestonesReportResponseIO = type({
-	speedToContactAttemptMinutes: createOptionFromNullable(number, 'speedToContactAttemptMinutes'),
-	speedToContactMinutes: createOptionFromNullable(number, 'speedToContactMinutes'),
-	activeLeads: createOptionFromNullable(number, 'activeLeads'),
-	contactRate: createOptionFromNullable(number, 'contactRate'),
-	conversionRate: createOptionFromNullable(number, 'conversionRate'),
-	totalActiveLeads: createOptionFromNullable(number, 'totalActiveLeads'),
-	totalConversionRate: createOptionFromNullable(number, 'totalConversionRate'),
-	totalContactRate: createOptionFromNullable(number, 'totalContactRate'),
+	speedToContactAttemptMinutes: createOptionFromOptional(number, 'speedToContactAttemptMinutes'),
+	speedToContactMinutes: createOptionFromOptional(number, 'speedToContactMinutes'),
+	activeLeads: createOptionFromOptional(number, 'activeLeads'),
+	contactRate: createOptionFromOptional(number, 'contactRate'),
+	conversionRate: createOptionFromOptional(number, 'conversionRate'),
+	totalActiveLeads: createOptionFromOptional(number, 'totalActiveLeads'),
+	totalConversionRate: createOptionFromOptional(number, 'totalConversionRate'),
+	totalContactRate: createOptionFromOptional(number, 'totalContactRate'),
 });

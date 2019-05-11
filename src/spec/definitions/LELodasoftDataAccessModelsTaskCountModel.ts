@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessModelsTaskCountModel = {
 	mt_g2: Option<number>;
@@ -17,16 +17,16 @@ export type LELodasoftDataAccessModelsTaskCountModel = {
 	filter12: Option<number>;
 };
 export const LELodasoftDataAccessModelsTaskCountModelIO = type({
-	mt_g2: createOptionFromNullable(number, 'mt_g2'),
-	mt_l2: createOptionFromNullable(number, 'mt_l2'),
-	ot_g2: createOptionFromNullable(number, 'ot_g2'),
-	ot_l2: createOptionFromNullable(number, 'ot_l2'),
-	bt_s: createOptionFromNullable(number, 'bt_s'),
-	bt_p: createOptionFromNullable(number, 'bt_p'),
-	bt_c: createOptionFromNullable(number, 'bt_c'),
-	doc_l5exp: createOptionFromNullable(number, 'doc_l5exp'),
-	doc_exp: createOptionFromNullable(number, 'doc_exp'),
-	ct: createOptionFromNullable(number, 'ct'),
-	filter11: createOptionFromNullable(number, 'filter11'),
-	filter12: createOptionFromNullable(number, 'filter12'),
+	mt_g2: createOptionFromOptional(number, 'mt_g2'),
+	mt_l2: createOptionFromOptional(number, 'mt_l2'),
+	ot_g2: createOptionFromOptional(number, 'ot_g2'),
+	ot_l2: createOptionFromOptional(number, 'ot_l2'),
+	bt_s: createOptionFromOptional(number, 'bt_s'),
+	bt_p: createOptionFromOptional(number, 'bt_p'),
+	bt_c: createOptionFromOptional(number, 'bt_c'),
+	doc_l5exp: createOptionFromOptional(number, 'doc_l5exp'),
+	doc_exp: createOptionFromOptional(number, 'doc_exp'),
+	ct: createOptionFromOptional(number, 'ct'),
+	filter11: createOptionFromOptional(number, 'filter11'),
+	filter12: createOptionFromOptional(number, 'filter12'),
 });

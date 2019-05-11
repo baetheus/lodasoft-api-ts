@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsOnlineAppFeatureFlags = {
 	voaEnabled: Option<boolean>;
@@ -15,14 +15,14 @@ export type LELodasoftApiModelsOnlineAppFeatureFlags = {
 	creditAuthGenerationEnabled: Option<boolean>;
 };
 export const LELodasoftApiModelsOnlineAppFeatureFlagsIO = type({
-	voaEnabled: createOptionFromNullable(boolean, 'voaEnabled'),
-	creditPullEnabled: createOptionFromNullable(boolean, 'creditPullEnabled'),
-	duEnabled: createOptionFromNullable(boolean, 'duEnabled'),
-	lpaEnabled: createOptionFromNullable(boolean, 'lpaEnabled'),
-	showEConsentVerbiage: createOptionFromNullable(boolean, 'showEConsentVerbiage'),
-	eConsentText: createOptionFromNullable(string, 'eConsentText'),
-	eConsentGenerationEnabled: createOptionFromNullable(boolean, 'eConsentGenerationEnabled'),
-	showCreditAuthVerbiage: createOptionFromNullable(boolean, 'showCreditAuthVerbiage'),
-	creditAuthText: createOptionFromNullable(string, 'creditAuthText'),
-	creditAuthGenerationEnabled: createOptionFromNullable(boolean, 'creditAuthGenerationEnabled'),
+	voaEnabled: createOptionFromOptional(boolean, 'voaEnabled'),
+	creditPullEnabled: createOptionFromOptional(boolean, 'creditPullEnabled'),
+	duEnabled: createOptionFromOptional(boolean, 'duEnabled'),
+	lpaEnabled: createOptionFromOptional(boolean, 'lpaEnabled'),
+	showEConsentVerbiage: createOptionFromOptional(boolean, 'showEConsentVerbiage'),
+	eConsentText: createOptionFromOptional(string, 'eConsentText'),
+	eConsentGenerationEnabled: createOptionFromOptional(boolean, 'eConsentGenerationEnabled'),
+	showCreditAuthVerbiage: createOptionFromOptional(boolean, 'showCreditAuthVerbiage'),
+	creditAuthText: createOptionFromOptional(string, 'creditAuthText'),
+	creditAuthGenerationEnabled: createOptionFromOptional(boolean, 'creditAuthGenerationEnabled'),
 });

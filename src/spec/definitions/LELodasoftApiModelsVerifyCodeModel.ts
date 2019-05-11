@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsVerifyCodeModel = {
 	code: Option<string>;
@@ -8,7 +8,7 @@ export type LELodasoftApiModelsVerifyCodeModel = {
 	password: Option<string>;
 };
 export const LELodasoftApiModelsVerifyCodeModelIO = type({
-	code: createOptionFromNullable(string, 'code'),
-	email: createOptionFromNullable(string, 'email'),
-	password: createOptionFromNullable(string, 'password'),
+	code: createOptionFromOptional(string, 'code'),
+	email: createOptionFromOptional(string, 'email'),
+	password: createOptionFromOptional(string, 'password'),
 });

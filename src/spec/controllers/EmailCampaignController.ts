@@ -11,7 +11,7 @@ import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { array, partial, number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 import { Observable } from 'rxjs';
 
 export type EmailCampaignController = {
@@ -167,7 +167,7 @@ export const emailCampaignController = asks(
 
 		EmailCampaign_GetAllManualEmailTemplates: parameters => {
 			const encoded = partial({
-				query: type({ emailTemplateType: createOptionFromNullable(string, 'emailTemplateType') }),
+				query: type({ emailTemplateType: createOptionFromOptional(string, 'emailTemplateType') }),
 			}).encode(parameters);
 
 			return e.API_CLIENT.request({
@@ -180,8 +180,8 @@ export const emailCampaignController = asks(
 		EmailCampaign_GetManualEmailTemplateById: (emailTemplateId, parameters) => {
 			const encoded = partial({
 				query: type({
-					loanId: createOptionFromNullable(number, 'loanId'),
-					leadId: createOptionFromNullable(number, 'leadId'),
+					loanId: createOptionFromOptional(number, 'loanId'),
+					leadId: createOptionFromOptional(number, 'leadId'),
 				}),
 			}).encode(parameters);
 

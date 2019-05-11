@@ -4,7 +4,7 @@ import {
 } from '../definitions/LELodasoftCommonModelsConfigurationWizardGroupViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, array, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsConfigurationWizardGroupIdViewModel = {
 	id: Option<number>;
@@ -13,8 +13,8 @@ export type LELodasoftCommonModelsConfigurationWizardGroupIdViewModel = {
 	groupList: Option<Array<LELodasoftCommonModelsConfigurationWizardGroupViewModel>>;
 };
 export const LELodasoftCommonModelsConfigurationWizardGroupIdViewModelIO = type({
-	id: createOptionFromNullable(number, 'id'),
-	name: createOptionFromNullable(string, 'name'),
-	propertyName: createOptionFromNullable(string, 'propertyName'),
-	groupList: createOptionFromNullable(array(LELodasoftCommonModelsConfigurationWizardGroupViewModelIO), 'groupList'),
+	id: createOptionFromOptional(number, 'id'),
+	name: createOptionFromOptional(string, 'name'),
+	propertyName: createOptionFromOptional(string, 'propertyName'),
+	groupList: createOptionFromOptional(array(LELodasoftCommonModelsConfigurationWizardGroupViewModelIO), 'groupList'),
 });

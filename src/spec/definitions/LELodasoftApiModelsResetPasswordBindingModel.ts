@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsResetPasswordBindingModel = {
 	email: string;
@@ -11,6 +11,6 @@ export type LELodasoftApiModelsResetPasswordBindingModel = {
 export const LELodasoftApiModelsResetPasswordBindingModelIO = type({
 	email: string,
 	password: string,
-	confirmPassword: createOptionFromNullable(string, 'confirmPassword'),
-	code: createOptionFromNullable(string, 'code'),
+	confirmPassword: createOptionFromOptional(string, 'confirmPassword'),
+	code: createOptionFromOptional(string, 'code'),
 });

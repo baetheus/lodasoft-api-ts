@@ -4,7 +4,8 @@ import {
 } from '../definitions/MicrosoftAspNetIdentityUserLoginInfo';
 import { Option } from 'fp-ts/lib/Option';
 import { string, boolean, array, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsUserData = {
 	userId: Option<string>;
@@ -16,11 +17,11 @@ export type LELodasoftApiModelsUserData = {
 	avatar: Option<string>;
 };
 export const LELodasoftApiModelsUserDataIO = type({
-	userId: createOptionFromNullable(string, 'userId'),
-	email: createOptionFromNullable(string, 'email'),
-	phoneNumber: createOptionFromNullable(string, 'phoneNumber'),
-	twoFactor: createOptionFromNullable(boolean, 'twoFactor'),
-	logins: createOptionFromNullable(array(MicrosoftAspNetIdentityUserLoginInfoIO), 'logins'),
-	lastTimeLogin: createOptionFromNullable(DateFromISOString, 'lastTimeLogin'),
-	avatar: createOptionFromNullable(string, 'avatar'),
+	userId: createOptionFromOptional(string, 'userId'),
+	email: createOptionFromOptional(string, 'email'),
+	phoneNumber: createOptionFromOptional(string, 'phoneNumber'),
+	twoFactor: createOptionFromOptional(boolean, 'twoFactor'),
+	logins: createOptionFromOptional(array(MicrosoftAspNetIdentityUserLoginInfoIO), 'logins'),
+	lastTimeLogin: createOptionFromOptional(DateFromISOString, 'lastTimeLogin'),
+	avatar: createOptionFromOptional(string, 'avatar'),
 });

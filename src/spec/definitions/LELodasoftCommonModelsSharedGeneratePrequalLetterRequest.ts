@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsSharedGeneratePrequalLetterRequest = {
 	productDescription: Option<string>;
@@ -14,13 +14,13 @@ export type LELodasoftCommonModelsSharedGeneratePrequalLetterRequest = {
 	interestRate: Option<number>;
 };
 export const LELodasoftCommonModelsSharedGeneratePrequalLetterRequestIO = type({
-	productDescription: createOptionFromNullable(string, 'productDescription'),
-	address: createOptionFromNullable(string, 'address'),
-	city: createOptionFromNullable(string, 'city'),
-	state: createOptionFromNullable(string, 'state'),
-	zip: createOptionFromNullable(string, 'zip'),
-	loanAmount: createOptionFromNullable(number, 'loanAmount'),
-	purchasePrice: createOptionFromNullable(number, 'purchasePrice'),
-	downPayment: createOptionFromNullable(number, 'downPayment'),
-	interestRate: createOptionFromNullable(number, 'interestRate'),
+	productDescription: createOptionFromOptional(string, 'productDescription'),
+	address: createOptionFromOptional(string, 'address'),
+	city: createOptionFromOptional(string, 'city'),
+	state: createOptionFromOptional(string, 'state'),
+	zip: createOptionFromOptional(string, 'zip'),
+	loanAmount: createOptionFromOptional(number, 'loanAmount'),
+	purchasePrice: createOptionFromOptional(number, 'purchasePrice'),
+	downPayment: createOptionFromOptional(number, 'downPayment'),
+	interestRate: createOptionFromOptional(number, 'interestRate'),
 });

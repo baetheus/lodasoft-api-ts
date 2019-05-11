@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -21,16 +22,16 @@ export type LELodasoftCommonModelsMortgageEmailViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageEmailViewModelIO = type({
-	emailId: createOptionFromNullable(number, 'emailId'),
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	emailAddress: createOptionFromNullable(string, 'emailAddress'),
-	typeOfEmail: createOptionFromNullable(
+	emailId: createOptionFromOptional(number, 'emailId'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	emailAddress: createOptionFromOptional(string, 'emailAddress'),
+	typeOfEmail: createOptionFromOptional(
 		createEnumType<TypeOfEmailEnum>(TypeOfEmailEnum, 'TypeOfEmailEnum'),
 		'typeOfEmail',
 	),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

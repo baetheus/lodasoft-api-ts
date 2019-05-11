@@ -24,7 +24,7 @@ import {
 } from '../definitions/LELodasoftCommonModelsLeadsProviderModelsCustomDataInfo';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, array, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsLeadsProviderModelsLodasoftLead = {
 	borrowerInfo: Option<LELodasoftCommonModelsLeadsProviderModelsBorrowerInfo>;
@@ -46,33 +46,33 @@ export type LELodasoftCommonModelsLeadsProviderModelsLodasoftLead = {
 	referralSource: Option<number>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsLodasoftLeadIO = type({
-	borrowerInfo: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsBorrowerInfoIO, 'borrowerInfo'),
-	subjectPropertyAddress: createOptionFromNullable(
+	borrowerInfo: createOptionFromOptional(LELodasoftCommonModelsLeadsProviderModelsBorrowerInfoIO, 'borrowerInfo'),
+	subjectPropertyAddress: createOptionFromOptional(
 		LELodasoftCommonModelsLeadsProviderModelsAddressInfoIO,
 		'subjectPropertyAddress',
 	),
-	loanAmount: createOptionFromNullable(number, 'loanAmount'),
-	appraisedValue: createOptionFromNullable(number, 'appraisedValue'),
-	cashOutAmount: createOptionFromNullable(number, 'cashOutAmount'),
-	downPayment: createOptionFromNullable(number, 'downPayment'),
-	interestRate: createOptionFromNullable(number, 'interestRate'),
-	loanPurposeId: createOptionFromNullable(number, 'loanPurposeId'),
-	currentLoanInfo: createOptionFromNullable(
+	loanAmount: createOptionFromOptional(number, 'loanAmount'),
+	appraisedValue: createOptionFromOptional(number, 'appraisedValue'),
+	cashOutAmount: createOptionFromOptional(number, 'cashOutAmount'),
+	downPayment: createOptionFromOptional(number, 'downPayment'),
+	interestRate: createOptionFromOptional(number, 'interestRate'),
+	loanPurposeId: createOptionFromOptional(number, 'loanPurposeId'),
+	currentLoanInfo: createOptionFromOptional(
 		LELodasoftCommonModelsLeadsProviderModelsCurrentLoanInfoIO,
 		'currentLoanInfo',
 	),
-	assignmentInfo: createOptionFromNullable(
+	assignmentInfo: createOptionFromOptional(
 		LELodasoftCommonModelsLeadsProviderModelsAssignmentInfoIO,
 		'assignmentInfo',
 	),
-	appointmentInfo: createOptionFromNullable(
+	appointmentInfo: createOptionFromOptional(
 		LELodasoftCommonModelsLeadsProviderModelsAppointmentInfoIO,
 		'appointmentInfo',
 	),
-	customData: createOptionFromNullable(LELodasoftCommonModelsLeadsProviderModelsCustomDataInfoIO, 'customData'),
-	losRefNumber: createOptionFromNullable(string, 'losRefNumber'),
-	internalNotes: createOptionFromNullable(string, 'internalNotes'),
-	leadSource: createOptionFromNullable(string, 'leadSource'),
-	tags: createOptionFromNullable(array(string), 'tags'),
-	referralSource: createOptionFromNullable(number, 'referralSource'),
+	customData: createOptionFromOptional(LELodasoftCommonModelsLeadsProviderModelsCustomDataInfoIO, 'customData'),
+	losRefNumber: createOptionFromOptional(string, 'losRefNumber'),
+	internalNotes: createOptionFromOptional(string, 'internalNotes'),
+	leadSource: createOptionFromOptional(string, 'leadSource'),
+	tags: createOptionFromOptional(array(string), 'tags'),
+	referralSource: createOptionFromOptional(number, 'referralSource'),
 });

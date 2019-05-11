@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsAdminInternalContactModel = {
 	internalContactId: Option<number>;
@@ -9,8 +9,8 @@ export type LELodasoftDataAccessDbModelsAdminInternalContactModel = {
 	userId: Option<string>;
 };
 export const LELodasoftDataAccessDbModelsAdminInternalContactModelIO = type({
-	internalContactId: createOptionFromNullable(number, 'internalContactId'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	roleId: createOptionFromNullable(number, 'roleId'),
-	userId: createOptionFromNullable(string, 'userId'),
+	internalContactId: createOptionFromOptional(number, 'internalContactId'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	roleId: createOptionFromOptional(number, 'roleId'),
+	userId: createOptionFromOptional(string, 'userId'),
 });

@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type MicrosoftAspNetIdentityEntityFrameworkIdentityUserLogin = {
 	loginProvider: Option<string>;
@@ -8,7 +8,7 @@ export type MicrosoftAspNetIdentityEntityFrameworkIdentityUserLogin = {
 	userId: Option<string>;
 };
 export const MicrosoftAspNetIdentityEntityFrameworkIdentityUserLoginIO = type({
-	loginProvider: createOptionFromNullable(string, 'loginProvider'),
-	providerKey: createOptionFromNullable(string, 'providerKey'),
-	userId: createOptionFromNullable(string, 'userId'),
+	loginProvider: createOptionFromOptional(string, 'loginProvider'),
+	providerKey: createOptionFromOptional(string, 'providerKey'),
+	userId: createOptionFromOptional(string, 'userId'),
 });

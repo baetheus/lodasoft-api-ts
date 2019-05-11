@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsAdminEmailTemplateImageViewModel = {
 	emailTemplateImageId: Option<number>;
@@ -16,15 +17,15 @@ export type LELodasoftCommonModelsAdminEmailTemplateImageViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsAdminEmailTemplateImageViewModelIO = type({
-	emailTemplateImageId: createOptionFromNullable(number, 'emailTemplateImageId'),
-	emailTemplateImageGuid: createOptionFromNullable(string, 'emailTemplateImageGuid'),
-	definedEmailTemplateId: createOptionFromNullable(number, 'definedEmailTemplateId'),
-	emailTemplateId: createOptionFromNullable(number, 'emailTemplateId'),
-	mimeType: createOptionFromNullable(string, 'mimeType'),
-	imageData: createOptionFromNullable(string, 'imageData'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	emailTemplateImageId: createOptionFromOptional(number, 'emailTemplateImageId'),
+	emailTemplateImageGuid: createOptionFromOptional(string, 'emailTemplateImageGuid'),
+	definedEmailTemplateId: createOptionFromOptional(number, 'definedEmailTemplateId'),
+	emailTemplateId: createOptionFromOptional(number, 'emailTemplateId'),
+	mimeType: createOptionFromOptional(string, 'mimeType'),
+	imageData: createOptionFromOptional(string, 'imageData'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

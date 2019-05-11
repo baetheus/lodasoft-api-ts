@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessModelsReportTaskMetricsModel = {
 	userId: Option<string>;
@@ -16,15 +16,15 @@ export type LELodasoftDataAccessModelsReportTaskMetricsModel = {
 	avgBorrApproval: Option<number>;
 };
 export const LELodasoftDataAccessModelsReportTaskMetricsModelIO = type({
-	userId: createOptionFromNullable(string, 'userId'),
-	userFullName: createOptionFromNullable(string, 'userFullName'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	roleId: createOptionFromNullable(number, 'roleId'),
-	loanPurpose: createOptionFromNullable(number, 'loanPurpose'),
-	loanType: createOptionFromNullable(number, 'loanType'),
-	taskCount: createOptionFromNullable(number, 'taskCount'),
-	taskIdentifier: createOptionFromNullable(string, 'taskIdentifier'),
-	avgTaskCompletion: createOptionFromNullable(number, 'avgTaskCompletion'),
-	avgBorrSubmission: createOptionFromNullable(number, 'avgBorrSubmission'),
-	avgBorrApproval: createOptionFromNullable(number, 'avgBorrApproval'),
+	userId: createOptionFromOptional(string, 'userId'),
+	userFullName: createOptionFromOptional(string, 'userFullName'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	roleId: createOptionFromOptional(number, 'roleId'),
+	loanPurpose: createOptionFromOptional(number, 'loanPurpose'),
+	loanType: createOptionFromOptional(number, 'loanType'),
+	taskCount: createOptionFromOptional(number, 'taskCount'),
+	taskIdentifier: createOptionFromOptional(string, 'taskIdentifier'),
+	avgTaskCompletion: createOptionFromOptional(number, 'avgTaskCompletion'),
+	avgBorrSubmission: createOptionFromOptional(number, 'avgBorrSubmission'),
+	avgBorrApproval: createOptionFromOptional(number, 'avgBorrApproval'),
 });

@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -46,32 +47,32 @@ export type LELodasoftCommonModelsEventsEventViewModel = {
 	readOnly: Option<boolean>;
 };
 export const LELodasoftCommonModelsEventsEventViewModelIO = type({
-	eventId: createOptionFromNullable(number, 'eventId'),
-	title: createOptionFromNullable(string, 'title'),
-	eventType: createOptionFromNullable(createEnumType<EventTypeEnum>(EventTypeEnum, 'EventTypeEnum'), 'eventType'),
-	description: createOptionFromNullable(string, 'description'),
-	privilege: createOptionFromNullable(createEnumType<PrivilegeEnum>(PrivilegeEnum, 'PrivilegeEnum'), 'privilege'),
-	location: createOptionFromNullable(string, 'location'),
-	icon: createOptionFromNullable(string, 'icon'),
-	className: createOptionFromNullable(string, 'className'),
-	allDay: createOptionFromNullable(boolean, 'allDay'),
-	dateCreate: createOptionFromNullable(DateFromISOString, 'dateCreate'),
-	dateStart: createOptionFromNullable(DateFromISOString, 'dateStart'),
-	dateEnd: createOptionFromNullable(DateFromISOString, 'dateEnd'),
-	eventRepeat: createOptionFromNullable(string, 'eventRepeat'),
-	remindBeforeMinutes: createOptionFromNullable(number, 'remindBeforeMinutes'),
-	remindToaster: createOptionFromNullable(boolean, 'remindToaster'),
-	remindSms: createOptionFromNullable(boolean, 'remindSms'),
-	remindEmail: createOptionFromNullable(boolean, 'remindEmail'),
-	userId: createOptionFromNullable(string, 'userId'),
-	userName: createOptionFromNullable(string, 'userName'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	loginName: createOptionFromNullable(string, 'loginName'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	leadId: createOptionFromNullable(number, 'leadId'),
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	borrowerName: createOptionFromNullable(string, 'borrowerName'),
-	borrowerPhone: createOptionFromNullable(string, 'borrowerPhone'),
-	displayAddress: createOptionFromNullable(string, 'displayAddress'),
-	readOnly: createOptionFromNullable(boolean, 'readOnly'),
+	eventId: createOptionFromOptional(number, 'eventId'),
+	title: createOptionFromOptional(string, 'title'),
+	eventType: createOptionFromOptional(createEnumType<EventTypeEnum>(EventTypeEnum, 'EventTypeEnum'), 'eventType'),
+	description: createOptionFromOptional(string, 'description'),
+	privilege: createOptionFromOptional(createEnumType<PrivilegeEnum>(PrivilegeEnum, 'PrivilegeEnum'), 'privilege'),
+	location: createOptionFromOptional(string, 'location'),
+	icon: createOptionFromOptional(string, 'icon'),
+	className: createOptionFromOptional(string, 'className'),
+	allDay: createOptionFromOptional(boolean, 'allDay'),
+	dateCreate: createOptionFromOptional(DateFromISOString, 'dateCreate'),
+	dateStart: createOptionFromOptional(DateFromISOString, 'dateStart'),
+	dateEnd: createOptionFromOptional(DateFromISOString, 'dateEnd'),
+	eventRepeat: createOptionFromOptional(string, 'eventRepeat'),
+	remindBeforeMinutes: createOptionFromOptional(number, 'remindBeforeMinutes'),
+	remindToaster: createOptionFromOptional(boolean, 'remindToaster'),
+	remindSms: createOptionFromOptional(boolean, 'remindSms'),
+	remindEmail: createOptionFromOptional(boolean, 'remindEmail'),
+	userId: createOptionFromOptional(string, 'userId'),
+	userName: createOptionFromOptional(string, 'userName'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	loginName: createOptionFromOptional(string, 'loginName'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	leadId: createOptionFromOptional(number, 'leadId'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	borrowerName: createOptionFromOptional(string, 'borrowerName'),
+	borrowerPhone: createOptionFromOptional(string, 'borrowerPhone'),
+	displayAddress: createOptionFromOptional(string, 'displayAddress'),
+	readOnly: createOptionFromOptional(boolean, 'readOnly'),
 });

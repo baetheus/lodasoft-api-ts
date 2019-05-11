@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModel,
@@ -33,26 +34,26 @@ export type LELodasoftCommonModelsConfigurationDocumentTemplateViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsConfigurationDocumentTemplateViewModelIO = type({
-	documentTemplateId: createOptionFromNullable(number, 'documentTemplateId'),
-	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
-	documentTemplateType: createOptionFromNullable(
+	documentTemplateId: createOptionFromOptional(number, 'documentTemplateId'),
+	documentTypeId: createOptionFromOptional(number, 'documentTypeId'),
+	documentTemplateType: createOptionFromOptional(
 		createEnumType<DocumentTemplateTypeEnum>(DocumentTemplateTypeEnum, 'DocumentTemplateTypeEnum'),
 		'documentTemplateType',
 	),
-	documentTemplateName: createOptionFromNullable(string, 'documentTemplateName'),
-	description: createOptionFromNullable(string, 'description'),
-	headerHtml: createOptionFromNullable(string, 'headerHtml'),
-	bodyHtml: createOptionFromNullable(string, 'bodyHtml'),
-	footerHtml: createOptionFromNullable(string, 'footerHtml'),
-	hasPdfData: createOptionFromNullable(boolean, 'hasPdfData'),
-	pdfData: createOptionFromNullable(string, 'pdfData'),
-	fields: createOptionFromNullable(
+	documentTemplateName: createOptionFromOptional(string, 'documentTemplateName'),
+	description: createOptionFromOptional(string, 'description'),
+	headerHtml: createOptionFromOptional(string, 'headerHtml'),
+	bodyHtml: createOptionFromOptional(string, 'bodyHtml'),
+	footerHtml: createOptionFromOptional(string, 'footerHtml'),
+	hasPdfData: createOptionFromOptional(boolean, 'hasPdfData'),
+	pdfData: createOptionFromOptional(string, 'pdfData'),
+	fields: createOptionFromOptional(
 		array(LELodasoftCommonModelsConfigurationDocumentTemplateFieldViewModelIO),
 		'fields',
 	),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -83,34 +84,34 @@ export type LELodasoftCommonModelsMessageMessageHistoryViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMessageMessageHistoryViewModelIO = type({
-	extendedDetail: createOptionFromNullable(string, 'extendedDetail'),
-	id: createOptionFromNullable(number, 'id'),
-	campaignId: createOptionFromNullable(number, 'campaignId'),
-	automatedEmailId: createOptionFromNullable(number, 'automatedEmailId'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	agentId: createOptionFromNullable(number, 'agentId'),
-	eventId: createOptionFromNullable(number, 'eventId'),
-	leadId: createOptionFromNullable(number, 'leadId'),
-	fromUserId: createOptionFromNullable(string, 'fromUserId'),
-	msgType: createOptionFromNullable(createEnumType<MsgTypeEnum>(MsgTypeEnum, 'MsgTypeEnum'), 'msgType'),
-	delivery: createOptionFromNullable(createEnumType<DeliveryEnum>(DeliveryEnum, 'DeliveryEnum'), 'delivery'),
-	priority: createOptionFromNullable(createEnumType<PriorityEnum>(PriorityEnum, 'PriorityEnum'), 'priority'),
-	status: createOptionFromNullable(createEnumType<StatusEnum>(StatusEnum, 'StatusEnum'), 'status'),
-	to: createOptionFromNullable(string, 'to'),
-	from: createOptionFromNullable(string, 'from'),
-	cc: createOptionFromNullable(string, 'cc'),
-	bcc: createOptionFromNullable(string, 'bcc'),
-	subject: createOptionFromNullable(string, 'subject'),
-	body: createOptionFromNullable(string, 'body'),
-	trackingGuid: createOptionFromNullable(string, 'trackingGuid'),
-	originalOpenDate: createOptionFromNullable(DateFromISOString, 'originalOpenDate'),
-	mostRecentOpenDate: createOptionFromNullable(DateFromISOString, 'mostRecentOpenDate'),
-	createDate: createOptionFromNullable(DateFromISOString, 'createDate'),
-	lastUpdate: createOptionFromNullable(DateFromISOString, 'lastUpdate'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	extendedDetail: createOptionFromOptional(string, 'extendedDetail'),
+	id: createOptionFromOptional(number, 'id'),
+	campaignId: createOptionFromOptional(number, 'campaignId'),
+	automatedEmailId: createOptionFromOptional(number, 'automatedEmailId'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	agentId: createOptionFromOptional(number, 'agentId'),
+	eventId: createOptionFromOptional(number, 'eventId'),
+	leadId: createOptionFromOptional(number, 'leadId'),
+	fromUserId: createOptionFromOptional(string, 'fromUserId'),
+	msgType: createOptionFromOptional(createEnumType<MsgTypeEnum>(MsgTypeEnum, 'MsgTypeEnum'), 'msgType'),
+	delivery: createOptionFromOptional(createEnumType<DeliveryEnum>(DeliveryEnum, 'DeliveryEnum'), 'delivery'),
+	priority: createOptionFromOptional(createEnumType<PriorityEnum>(PriorityEnum, 'PriorityEnum'), 'priority'),
+	status: createOptionFromOptional(createEnumType<StatusEnum>(StatusEnum, 'StatusEnum'), 'status'),
+	to: createOptionFromOptional(string, 'to'),
+	from: createOptionFromOptional(string, 'from'),
+	cc: createOptionFromOptional(string, 'cc'),
+	bcc: createOptionFromOptional(string, 'bcc'),
+	subject: createOptionFromOptional(string, 'subject'),
+	body: createOptionFromOptional(string, 'body'),
+	trackingGuid: createOptionFromOptional(string, 'trackingGuid'),
+	originalOpenDate: createOptionFromOptional(DateFromISOString, 'originalOpenDate'),
+	mostRecentOpenDate: createOptionFromOptional(DateFromISOString, 'mostRecentOpenDate'),
+	createDate: createOptionFromOptional(DateFromISOString, 'createDate'),
+	lastUpdate: createOptionFromOptional(DateFromISOString, 'lastUpdate'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

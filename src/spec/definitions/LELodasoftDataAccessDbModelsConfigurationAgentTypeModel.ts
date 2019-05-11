@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsConfigurationAgentTypeModel = {
 	agentTypeId: Option<number>;
@@ -13,12 +14,12 @@ export type LELodasoftDataAccessDbModelsConfigurationAgentTypeModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationAgentTypeModelIO = type({
-	agentTypeId: createOptionFromNullable(number, 'agentTypeId'),
-	agentTypeName: createOptionFromNullable(string, 'agentTypeName'),
-	order: createOptionFromNullable(number, 'order'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	agentTypeId: createOptionFromOptional(number, 'agentTypeId'),
+	agentTypeName: createOptionFromOptional(string, 'agentTypeName'),
+	order: createOptionFromOptional(number, 'order'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

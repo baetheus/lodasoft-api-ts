@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsConfigurationWizardDataViewModel = {
 	id: Option<number>;
@@ -10,9 +10,9 @@ export type LELodasoftCommonModelsConfigurationWizardDataViewModel = {
 	buttonImage: Option<string>;
 };
 export const LELodasoftCommonModelsConfigurationWizardDataViewModelIO = type({
-	id: createOptionFromNullable(number, 'id'),
-	dataId: createOptionFromNullable(number, 'dataId'),
-	value: createOptionFromNullable(string, 'value'),
-	name: createOptionFromNullable(string, 'name'),
-	buttonImage: createOptionFromNullable(string, 'buttonImage'),
+	id: createOptionFromOptional(number, 'id'),
+	dataId: createOptionFromOptional(number, 'dataId'),
+	value: createOptionFromOptional(string, 'value'),
+	name: createOptionFromOptional(string, 'name'),
+	buttonImage: createOptionFromOptional(string, 'buttonImage'),
 });

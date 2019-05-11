@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, boolean, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsSharedCreateAccountResponseModel = {
 	userId: Option<string>;
@@ -9,8 +9,8 @@ export type LELodasoftCommonModelsSharedCreateAccountResponseModel = {
 	errorMessage: Option<string>;
 };
 export const LELodasoftCommonModelsSharedCreateAccountResponseModelIO = type({
-	userId: createOptionFromNullable(string, 'userId'),
-	success: createOptionFromNullable(boolean, 'success'),
-	alreadyRegistered: createOptionFromNullable(boolean, 'alreadyRegistered'),
-	errorMessage: createOptionFromNullable(string, 'errorMessage'),
+	userId: createOptionFromOptional(string, 'userId'),
+	success: createOptionFromOptional(boolean, 'success'),
+	alreadyRegistered: createOptionFromOptional(boolean, 'alreadyRegistered'),
+	errorMessage: createOptionFromOptional(string, 'errorMessage'),
 });

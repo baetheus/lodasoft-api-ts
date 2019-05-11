@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, array, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsAdminPipelineFilterCriteria = {
 	loanPurposes: Option<Array<number>>;
@@ -8,7 +8,7 @@ export type LELodasoftApiModelsAdminPipelineFilterCriteria = {
 	users: Option<Array<string>>;
 };
 export const LELodasoftApiModelsAdminPipelineFilterCriteriaIO = type({
-	loanPurposes: createOptionFromNullable(array(number), 'loanPurposes'),
-	loanStatuses: createOptionFromNullable(array(number), 'loanStatuses'),
-	users: createOptionFromNullable(array(string), 'users'),
+	loanPurposes: createOptionFromOptional(array(number), 'loanPurposes'),
+	loanStatuses: createOptionFromOptional(array(number), 'loanStatuses'),
+	users: createOptionFromOptional(array(string), 'users'),
 });

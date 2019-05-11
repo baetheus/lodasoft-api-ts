@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -38,24 +39,24 @@ export type LELodasoftApiModelsFileExportLoanDocModel = {
 	active: Option<boolean>;
 };
 export const LELodasoftApiModelsFileExportLoanDocModelIO = type({
-	taskStatus: createOptionFromNullable(
+	taskStatus: createOptionFromOptional(
 		createEnumType<TaskStatusEnum>(TaskStatusEnum, 'TaskStatusEnum'),
 		'taskStatus',
 	),
-	conditionStatus: createOptionFromNullable(
+	conditionStatus: createOptionFromOptional(
 		createEnumType<ConditionStatusEnum>(ConditionStatusEnum, 'ConditionStatusEnum'),
 		'conditionStatus',
 	),
-	guid: createOptionFromNullable(string, 'guid'),
-	loanDocId: createOptionFromNullable(number, 'loanDocId'),
-	note: createOptionFromNullable(string, 'note'),
-	borrowerNote: createOptionFromNullable(string, 'borrowerNote'),
-	condition: createOptionFromNullable(boolean, 'condition'),
-	replacementValuesJson: createOptionFromNullable(string, 'replacementValuesJson'),
-	fileName: createOptionFromNullable(string, 'fileName'),
-	mimeType: createOptionFromNullable(string, 'mimeType'),
-	fileData: createOptionFromNullable(string, 'fileData'),
-	createDate: createOptionFromNullable(DateFromISOString, 'createDate'),
-	exportDate: createOptionFromNullable(DateFromISOString, 'exportDate'),
-	active: createOptionFromNullable(boolean, 'active'),
+	guid: createOptionFromOptional(string, 'guid'),
+	loanDocId: createOptionFromOptional(number, 'loanDocId'),
+	note: createOptionFromOptional(string, 'note'),
+	borrowerNote: createOptionFromOptional(string, 'borrowerNote'),
+	condition: createOptionFromOptional(boolean, 'condition'),
+	replacementValuesJson: createOptionFromOptional(string, 'replacementValuesJson'),
+	fileName: createOptionFromOptional(string, 'fileName'),
+	mimeType: createOptionFromOptional(string, 'mimeType'),
+	fileData: createOptionFromOptional(string, 'fileData'),
+	createDate: createOptionFromOptional(DateFromISOString, 'createDate'),
+	exportDate: createOptionFromOptional(DateFromISOString, 'exportDate'),
+	active: createOptionFromOptional(boolean, 'active'),
 });

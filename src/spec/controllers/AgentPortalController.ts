@@ -71,7 +71,7 @@ import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { partial, boolean, array, number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 import { Observable } from 'rxjs';
 
 export type AgentPortalController = {
@@ -312,7 +312,7 @@ export const agentPortalController = asks(
 
 		AgentPortal_UploadDocument: (taskId, borrowerNote, parameters) => {
 			const encoded = partial({
-				query: type({ progressStatus: createOptionFromNullable(boolean, 'progressStatus') }),
+				query: type({ progressStatus: createOptionFromOptional(boolean, 'progressStatus') }),
 			}).encode(parameters);
 
 			return e.API_CLIENT.request({

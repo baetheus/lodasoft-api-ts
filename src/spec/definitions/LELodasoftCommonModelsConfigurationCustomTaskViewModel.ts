@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -61,32 +62,32 @@ export type LELodasoftCommonModelsConfigurationCustomTaskViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsConfigurationCustomTaskViewModelIO = type({
-	customTaskId: createOptionFromNullable(number, 'customTaskId'),
-	taskCategoryId: createOptionFromNullable(number, 'taskCategoryId'),
-	loanStatusId: createOptionFromNullable(number, 'loanStatusId'),
-	taskDescription: createOptionFromNullable(string, 'taskDescription'),
-	option: createOptionFromNullable(createEnumType<OptionEnum>(OptionEnum, 'OptionEnum'), 'option'),
-	applyTo: createOptionFromNullable(createEnumType<ApplyToEnum>(ApplyToEnum, 'ApplyToEnum'), 'applyTo'),
-	roleId: createOptionFromNullable(number, 'roleId'),
-	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
-	reviewRequiredRoleId: createOptionFromNullable(number, 'reviewRequiredRoleId'),
-	notifyPartyRoleId: createOptionFromNullable(number, 'notifyPartyRoleId'),
-	taskType: createOptionFromNullable(createEnumType<TaskTypeEnum>(TaskTypeEnum, 'TaskTypeEnum'), 'taskType'),
-	defaultTaskPriority: createOptionFromNullable(
+	customTaskId: createOptionFromOptional(number, 'customTaskId'),
+	taskCategoryId: createOptionFromOptional(number, 'taskCategoryId'),
+	loanStatusId: createOptionFromOptional(number, 'loanStatusId'),
+	taskDescription: createOptionFromOptional(string, 'taskDescription'),
+	option: createOptionFromOptional(createEnumType<OptionEnum>(OptionEnum, 'OptionEnum'), 'option'),
+	applyTo: createOptionFromOptional(createEnumType<ApplyToEnum>(ApplyToEnum, 'ApplyToEnum'), 'applyTo'),
+	roleId: createOptionFromOptional(number, 'roleId'),
+	documentTypeId: createOptionFromOptional(number, 'documentTypeId'),
+	reviewRequiredRoleId: createOptionFromOptional(number, 'reviewRequiredRoleId'),
+	notifyPartyRoleId: createOptionFromOptional(number, 'notifyPartyRoleId'),
+	taskType: createOptionFromOptional(createEnumType<TaskTypeEnum>(TaskTypeEnum, 'TaskTypeEnum'), 'taskType'),
+	defaultTaskPriority: createOptionFromOptional(
 		createEnumType<DefaultTaskPriority>(DefaultTaskPriority, 'DefaultTaskPriority'),
 		'defaultTaskPriority',
 	),
-	dueDays: createOptionFromNullable(number, 'dueDays'),
-	permittedAgentTypes: createOptionFromNullable(string, 'permittedAgentTypes'),
-	tasksOnCompletion: createOptionFromNullable(string, 'tasksOnCompletion'),
-	documentDataHeader: createOptionFromNullable(string, 'documentDataHeader'),
-	documentData: createOptionFromNullable(string, 'documentData'),
-	docDataString: createOptionFromNullable(string, 'docDataString'),
-	requestBorrower: createOptionFromNullable(boolean, 'requestBorrower'),
-	alwaysShowPending: createOptionFromNullable(boolean, 'alwaysShowPending'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	dueDays: createOptionFromOptional(number, 'dueDays'),
+	permittedAgentTypes: createOptionFromOptional(string, 'permittedAgentTypes'),
+	tasksOnCompletion: createOptionFromOptional(string, 'tasksOnCompletion'),
+	documentDataHeader: createOptionFromOptional(string, 'documentDataHeader'),
+	documentData: createOptionFromOptional(string, 'documentData'),
+	docDataString: createOptionFromOptional(string, 'docDataString'),
+	requestBorrower: createOptionFromOptional(boolean, 'requestBorrower'),
+	alwaysShowPending: createOptionFromOptional(boolean, 'alwaysShowPending'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

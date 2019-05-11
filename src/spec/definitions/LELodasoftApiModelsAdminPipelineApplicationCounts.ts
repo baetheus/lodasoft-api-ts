@@ -4,15 +4,15 @@ import {
 } from '../definitions/LELodasoftDataAccessModelsAppCountByFilterCriteria';
 import { Option } from 'fp-ts/lib/Option';
 import { array, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsAdminPipelineApplicationCounts = {
 	byLoanStatus: Option<Array<LELodasoftDataAccessModelsAppCountByFilterCriteria>>;
 	byLoanPurpose: Option<Array<LELodasoftDataAccessModelsAppCountByFilterCriteria>>;
 };
 export const LELodasoftApiModelsAdminPipelineApplicationCountsIO = type({
-	byLoanStatus: createOptionFromNullable(array(LELodasoftDataAccessModelsAppCountByFilterCriteriaIO), 'byLoanStatus'),
-	byLoanPurpose: createOptionFromNullable(
+	byLoanStatus: createOptionFromOptional(array(LELodasoftDataAccessModelsAppCountByFilterCriteriaIO), 'byLoanStatus'),
+	byLoanPurpose: createOptionFromOptional(
 		array(LELodasoftDataAccessModelsAppCountByFilterCriteriaIO),
 		'byLoanPurpose',
 	),

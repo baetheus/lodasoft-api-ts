@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -18,14 +18,14 @@ export type LELodasoftCommonModelsConfigurationSendTestSmsRequest = {
 	companyId: Option<number>;
 };
 export const LELodasoftCommonModelsConfigurationSendTestSmsRequestIO = type({
-	serviceType: createOptionFromNullable(
+	serviceType: createOptionFromOptional(
 		createEnumType<ServiceTypeEnum>(ServiceTypeEnum, 'ServiceTypeEnum'),
 		'serviceType',
 	),
-	fromPhoneNumber: createOptionFromNullable(string, 'fromPhoneNumber'),
-	accountIdentifier: createOptionFromNullable(string, 'accountIdentifier'),
-	authToken: createOptionFromNullable(string, 'authToken'),
-	toPhoneNumber: createOptionFromNullable(string, 'toPhoneNumber'),
-	message: createOptionFromNullable(string, 'message'),
-	companyId: createOptionFromNullable(number, 'companyId'),
+	fromPhoneNumber: createOptionFromOptional(string, 'fromPhoneNumber'),
+	accountIdentifier: createOptionFromOptional(string, 'accountIdentifier'),
+	authToken: createOptionFromOptional(string, 'authToken'),
+	toPhoneNumber: createOptionFromOptional(string, 'toPhoneNumber'),
+	message: createOptionFromOptional(string, 'message'),
+	companyId: createOptionFromOptional(number, 'companyId'),
 });

@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -36,30 +37,30 @@ export type LELodasoftDataAccessModelsAdminBorrowerBorrowerDto = {
 	dateCreateBorrower: Option<Date>;
 };
 export const LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO = type({
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	creditScore: createOptionFromNullable(number, 'creditScore'),
-	firstName: createOptionFromNullable(string, 'firstName'),
-	lastName: createOptionFromNullable(string, 'lastName'),
-	last4Ssn: createOptionFromNullable(string, 'last4Ssn'),
-	userId: createOptionFromNullable(string, 'userId'),
-	phone: createOptionFromNullable(string, 'phone'),
-	email: createOptionFromNullable(string, 'email'),
-	isRegister: createOptionFromNullable(boolean, 'isRegister'),
-	isInvited: createOptionFromNullable(boolean, 'isInvited'),
-	isPrimary: createOptionFromNullable(boolean, 'isPrimary'),
-	isPortalMerged: createOptionFromNullable(boolean, 'isPortalMerged'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	lastTimeLogin: createOptionFromNullable(DateFromISOString, 'lastTimeLogin'),
-	birthDate: createOptionFromNullable(DateFromISOString, 'birthDate'),
-	mailingStreet: createOptionFromNullable(string, 'mailingStreet'),
-	mailingCity: createOptionFromNullable(string, 'mailingCity'),
-	mailingState: createOptionFromNullable(string, 'mailingState'),
-	mailingZip: createOptionFromNullable(string, 'mailingZip'),
-	borrowerContact: createOptionFromNullable(string, 'borrowerContact'),
-	creditMonitoringStatus: createOptionFromNullable(
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	creditScore: createOptionFromOptional(number, 'creditScore'),
+	firstName: createOptionFromOptional(string, 'firstName'),
+	lastName: createOptionFromOptional(string, 'lastName'),
+	last4Ssn: createOptionFromOptional(string, 'last4Ssn'),
+	userId: createOptionFromOptional(string, 'userId'),
+	phone: createOptionFromOptional(string, 'phone'),
+	email: createOptionFromOptional(string, 'email'),
+	isRegister: createOptionFromOptional(boolean, 'isRegister'),
+	isInvited: createOptionFromOptional(boolean, 'isInvited'),
+	isPrimary: createOptionFromOptional(boolean, 'isPrimary'),
+	isPortalMerged: createOptionFromOptional(boolean, 'isPortalMerged'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	lastTimeLogin: createOptionFromOptional(DateFromISOString, 'lastTimeLogin'),
+	birthDate: createOptionFromOptional(DateFromISOString, 'birthDate'),
+	mailingStreet: createOptionFromOptional(string, 'mailingStreet'),
+	mailingCity: createOptionFromOptional(string, 'mailingCity'),
+	mailingState: createOptionFromOptional(string, 'mailingState'),
+	mailingZip: createOptionFromOptional(string, 'mailingZip'),
+	borrowerContact: createOptionFromOptional(string, 'borrowerContact'),
+	creditMonitoringStatus: createOptionFromOptional(
 		createEnumType<CreditMonitoringStatusEnum>(CreditMonitoringStatusEnum, 'CreditMonitoringStatusEnum'),
 		'creditMonitoringStatus',
 	),
-	dateCreateBorrower: createOptionFromNullable(DateFromISOString, 'dateCreateBorrower'),
+	dateCreateBorrower: createOptionFromOptional(DateFromISOString, 'dateCreateBorrower'),
 });

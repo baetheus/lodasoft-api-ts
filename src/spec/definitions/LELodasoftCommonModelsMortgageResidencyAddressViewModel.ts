@@ -1,11 +1,12 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
 
 import {
   LELodasoftCommonModelsMortgageAddressViewModel,
   LELodasoftCommonModelsMortgageAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageAddressViewModel';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 import { createEnumType } from '../utils/utils';
 
 export enum OwnRentTypeEnum {
@@ -38,21 +39,21 @@ export type LELodasoftCommonModelsMortgageResidencyAddressViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageResidencyAddressViewModelIO = type({
-	residencyAddressId: createOptionFromNullable(number, 'residencyAddressId'),
+	residencyAddressId: createOptionFromOptional(number, 'residencyAddressId'),
 	borrowerId: number,
-	addressId: createOptionFromNullable(number, 'addressId'),
+	addressId: createOptionFromOptional(number, 'addressId'),
 	residencyBasis: createEnumType<ResidencyBasisEnum>(ResidencyBasisEnum, 'ResidencyBasisEnum'),
-	durationYears: createOptionFromNullable(number, 'durationYears'),
-	durationMonths: createOptionFromNullable(number, 'durationMonths'),
-	ownRentType: createOptionFromNullable(
+	durationYears: createOptionFromOptional(number, 'durationYears'),
+	durationMonths: createOptionFromOptional(number, 'durationMonths'),
+	ownRentType: createOptionFromOptional(
 		createEnumType<OwnRentTypeEnum>(OwnRentTypeEnum, 'OwnRentTypeEnum'),
 		'ownRentType',
 	),
-	fromCreditReport: createOptionFromNullable(boolean, 'fromCreditReport'),
-	address: createOptionFromNullable(LELodasoftCommonModelsMortgageAddressViewModelIO, 'address'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	fromCreditReport: createOptionFromOptional(boolean, 'fromCreditReport'),
+	address: createOptionFromOptional(LELodasoftCommonModelsMortgageAddressViewModelIO, 'address'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

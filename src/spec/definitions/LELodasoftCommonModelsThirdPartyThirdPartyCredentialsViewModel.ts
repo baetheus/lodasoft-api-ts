@@ -4,7 +4,8 @@ import {
 } from '../definitions/LELodasoftCommonModelsThirdPartyThirdPartyKeyValuePairViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, array, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModel = {
 	credentialId: Option<number>;
@@ -23,21 +24,21 @@ export type LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsThirdPartyThirdPartyCredentialsViewModelIO = type({
-	credentialId: createOptionFromNullable(number, 'credentialId'),
-	credentialType: createOptionFromNullable(string, 'credentialType'),
-	vendorName: createOptionFromNullable(string, 'vendorName'),
-	url: createOptionFromNullable(string, 'url'),
-	userName: createOptionFromNullable(string, 'userName'),
-	password: createOptionFromNullable(string, 'password'),
-	userId: createOptionFromNullable(string, 'userId'),
-	credentialProviderId: createOptionFromNullable(number, 'credentialProviderId'),
-	thirdPartyKeyValuePairs: createOptionFromNullable(
+	credentialId: createOptionFromOptional(number, 'credentialId'),
+	credentialType: createOptionFromOptional(string, 'credentialType'),
+	vendorName: createOptionFromOptional(string, 'vendorName'),
+	url: createOptionFromOptional(string, 'url'),
+	userName: createOptionFromOptional(string, 'userName'),
+	password: createOptionFromOptional(string, 'password'),
+	userId: createOptionFromOptional(string, 'userId'),
+	credentialProviderId: createOptionFromOptional(number, 'credentialProviderId'),
+	thirdPartyKeyValuePairs: createOptionFromOptional(
 		array(LELodasoftCommonModelsThirdPartyThirdPartyKeyValuePairViewModelIO),
 		'thirdPartyKeyValuePairs',
 	),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsAdminCurrentLoanInfoModel = {
 	currentLoanInfoId: Option<number>;
@@ -11,10 +11,10 @@ export type LELodasoftDataAccessDbModelsAdminCurrentLoanInfoModel = {
 	term: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsAdminCurrentLoanInfoModelIO = type({
-	currentLoanInfoId: createOptionFromNullable(number, 'currentLoanInfoId'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	currentUnpaidPrincipalBalance: createOptionFromNullable(number, 'currentUnpaidPrincipalBalance'),
-	propertyValue: createOptionFromNullable(number, 'propertyValue'),
-	currentRate: createOptionFromNullable(number, 'currentRate'),
-	term: createOptionFromNullable(number, 'term'),
+	currentLoanInfoId: createOptionFromOptional(number, 'currentLoanInfoId'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	currentUnpaidPrincipalBalance: createOptionFromOptional(number, 'currentUnpaidPrincipalBalance'),
+	propertyValue: createOptionFromOptional(number, 'propertyValue'),
+	currentRate: createOptionFromOptional(number, 'currentRate'),
+	term: createOptionFromOptional(number, 'term'),
 });

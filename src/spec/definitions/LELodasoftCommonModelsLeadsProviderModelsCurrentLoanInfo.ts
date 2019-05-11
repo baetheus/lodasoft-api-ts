@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsLeadsProviderModelsCurrentLoanInfo = {
 	unpaidPrincipalBalance: Option<number>;
@@ -9,8 +9,8 @@ export type LELodasoftCommonModelsLeadsProviderModelsCurrentLoanInfo = {
 	term: Option<number>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsCurrentLoanInfoIO = type({
-	unpaidPrincipalBalance: createOptionFromNullable(number, 'unpaidPrincipalBalance'),
-	estimatedValue: createOptionFromNullable(number, 'estimatedValue'),
-	interestRate: createOptionFromNullable(number, 'interestRate'),
-	term: createOptionFromNullable(number, 'term'),
+	unpaidPrincipalBalance: createOptionFromOptional(number, 'unpaidPrincipalBalance'),
+	estimatedValue: createOptionFromOptional(number, 'estimatedValue'),
+	interestRate: createOptionFromOptional(number, 'interestRate'),
+	term: createOptionFromOptional(number, 'term'),
 });

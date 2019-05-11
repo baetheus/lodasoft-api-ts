@@ -4,7 +4,7 @@ import {
 } from '../definitions/LELodasoftThirdPartyTheWorkNumberModelsVerificationEmployer';
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrower = {
 	firstName: Option<string>;
@@ -14,9 +14,9 @@ export type LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrower = {
 	employer: Option<LELodasoftThirdPartyTheWorkNumberModelsVerificationEmployer>;
 };
 export const LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrowerIO = type({
-	firstName: createOptionFromNullable(string, 'firstName'),
-	middleName: createOptionFromNullable(string, 'middleName'),
-	lastName: createOptionFromNullable(string, 'lastName'),
-	ssn: createOptionFromNullable(string, 'ssn'),
-	employer: createOptionFromNullable(LELodasoftThirdPartyTheWorkNumberModelsVerificationEmployerIO, 'employer'),
+	firstName: createOptionFromOptional(string, 'firstName'),
+	middleName: createOptionFromOptional(string, 'middleName'),
+	lastName: createOptionFromOptional(string, 'lastName'),
+	ssn: createOptionFromOptional(string, 'ssn'),
+	employer: createOptionFromOptional(LELodasoftThirdPartyTheWorkNumberModelsVerificationEmployerIO, 'employer'),
 });

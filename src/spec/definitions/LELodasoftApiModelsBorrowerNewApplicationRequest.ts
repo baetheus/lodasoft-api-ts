@@ -8,7 +8,7 @@ import {
 } from '../definitions/LELodasoftDataAccessDbModelsAdminBorrowerModel';
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsBorrowerNewApplicationRequest = {
 	application: Option<LELodasoftCommonModelsConfigurationApplicationViewModel>;
@@ -16,7 +16,7 @@ export type LELodasoftApiModelsBorrowerNewApplicationRequest = {
 	coBorrower: Option<LELodasoftDataAccessDbModelsAdminBorrowerModel>;
 };
 export const LELodasoftApiModelsBorrowerNewApplicationRequestIO = type({
-	application: createOptionFromNullable(LELodasoftCommonModelsConfigurationApplicationViewModelIO, 'application'),
-	internalContactGroupNumber: createOptionFromNullable(string, 'internalContactGroupNumber'),
-	coBorrower: createOptionFromNullable(LELodasoftDataAccessDbModelsAdminBorrowerModelIO, 'coBorrower'),
+	application: createOptionFromOptional(LELodasoftCommonModelsConfigurationApplicationViewModelIO, 'application'),
+	internalContactGroupNumber: createOptionFromOptional(string, 'internalContactGroupNumber'),
+	coBorrower: createOptionFromOptional(LELodasoftDataAccessDbModelsAdminBorrowerModelIO, 'coBorrower'),
 });

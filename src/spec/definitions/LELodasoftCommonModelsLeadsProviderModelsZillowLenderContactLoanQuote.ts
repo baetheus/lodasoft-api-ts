@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, boolean, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactLoanQuote = {
 	rate: Option<number>;
@@ -21,20 +21,20 @@ export type LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactLoanQuot
 	maxAllowedLTV: Option<number>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactLoanQuoteIO = type({
-	rate: createOptionFromNullable(number, 'rate'),
-	apr: createOptionFromNullable(number, 'apr'),
-	termMonths: createOptionFromNullable(number, 'termMonths'),
-	dueInMonths: createOptionFromNullable(number, 'dueInMonths'),
-	interestOnlyMonths: createOptionFromNullable(number, 'interestOnlyMonths'),
-	lockDays: createOptionFromNullable(number, 'lockDays'),
-	hasPrepaymentPenalty: createOptionFromNullable(boolean, 'hasPrepaymentPenalty'),
-	jumbo: createOptionFromNullable(boolean, 'jumbo'),
-	harp: createOptionFromNullable(boolean, 'harp'),
-	lenderPaidMortgageInsurance: createOptionFromNullable(boolean, 'lenderPaidMortgageInsurance'),
-	annualMortgageInsurancePercent: createOptionFromNullable(number, 'annualMortgageInsurancePercent'),
-	currentBackerMustBeFannieMae: createOptionFromNullable(boolean, 'currentBackerMustBeFannieMae'),
-	currentBackerMustBeFreddieMac: createOptionFromNullable(boolean, 'currentBackerMustBeFreddieMac'),
-	lenderCredit: createOptionFromNullable(number, 'lenderCredit'),
-	lenderCreditPercent: createOptionFromNullable(number, 'lenderCreditPercent'),
-	maxAllowedLTV: createOptionFromNullable(number, 'maxAllowedLTV'),
+	rate: createOptionFromOptional(number, 'rate'),
+	apr: createOptionFromOptional(number, 'apr'),
+	termMonths: createOptionFromOptional(number, 'termMonths'),
+	dueInMonths: createOptionFromOptional(number, 'dueInMonths'),
+	interestOnlyMonths: createOptionFromOptional(number, 'interestOnlyMonths'),
+	lockDays: createOptionFromOptional(number, 'lockDays'),
+	hasPrepaymentPenalty: createOptionFromOptional(boolean, 'hasPrepaymentPenalty'),
+	jumbo: createOptionFromOptional(boolean, 'jumbo'),
+	harp: createOptionFromOptional(boolean, 'harp'),
+	lenderPaidMortgageInsurance: createOptionFromOptional(boolean, 'lenderPaidMortgageInsurance'),
+	annualMortgageInsurancePercent: createOptionFromOptional(number, 'annualMortgageInsurancePercent'),
+	currentBackerMustBeFannieMae: createOptionFromOptional(boolean, 'currentBackerMustBeFannieMae'),
+	currentBackerMustBeFreddieMac: createOptionFromOptional(boolean, 'currentBackerMustBeFreddieMac'),
+	lenderCredit: createOptionFromOptional(number, 'lenderCredit'),
+	lenderCreditPercent: createOptionFromOptional(number, 'lenderCreditPercent'),
+	maxAllowedLTV: createOptionFromOptional(number, 'maxAllowedLTV'),
 });

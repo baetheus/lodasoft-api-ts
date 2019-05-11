@@ -12,7 +12,7 @@ import {
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModel';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, array, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsAdminEmailCampaignTriggerModelView = {
 	id: Option<number>;
@@ -30,25 +30,25 @@ export type LELodasoftApiModelsAdminEmailCampaignTriggerModelView = {
 	listGlobalEmail: Option<Array<LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModel>>;
 };
 export const LELodasoftApiModelsAdminEmailCampaignTriggerModelViewIO = type({
-	id: createOptionFromNullable(number, 'id'),
-	emailCampaignId: createOptionFromNullable(number, 'emailCampaignId'),
-	fieldName: createOptionFromNullable(number, 'fieldName'),
-	comparisionType: createOptionFromNullable(number, 'comparisionType'),
-	compareValue: createOptionFromNullable(string, 'compareValue'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	group: createOptionFromNullable(string, 'group'),
-	emailCampaignIdString: createOptionFromNullable(string, 'emailCampaignIdString'),
-	comparisionTypeString: createOptionFromNullable(string, 'comparisionTypeString'),
-	fieldNameString: createOptionFromNullable(string, 'fieldNameString'),
-	listComparision: createOptionFromNullable(
+	id: createOptionFromOptional(number, 'id'),
+	emailCampaignId: createOptionFromOptional(number, 'emailCampaignId'),
+	fieldName: createOptionFromOptional(number, 'fieldName'),
+	comparisionType: createOptionFromOptional(number, 'comparisionType'),
+	compareValue: createOptionFromOptional(string, 'compareValue'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	group: createOptionFromOptional(string, 'group'),
+	emailCampaignIdString: createOptionFromOptional(string, 'emailCampaignIdString'),
+	comparisionTypeString: createOptionFromOptional(string, 'comparisionTypeString'),
+	fieldNameString: createOptionFromOptional(string, 'fieldNameString'),
+	listComparision: createOptionFromOptional(
 		array(LELodasoftDataAccessDbModelsAdminLookupTypeModelIO),
 		'listComparision',
 	),
-	listEmailCampaign: createOptionFromNullable(
+	listEmailCampaign: createOptionFromOptional(
 		array(LELodasoftDataAccessDbModelsConfigurationEmailCampaignModelIO),
 		'listEmailCampaign',
 	),
-	listGlobalEmail: createOptionFromNullable(
+	listGlobalEmail: createOptionFromOptional(
 		array(LELodasoftDataAccessDbModelsConfigurationGlobalEmailMergeFieldModelIO),
 		'listGlobalEmail',
 	),

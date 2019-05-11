@@ -1,8 +1,8 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsSharedGenerateCreditAuthRequest = { creditAuthText: Option<string> };
 export const LELodasoftCommonModelsSharedGenerateCreditAuthRequestIO = type({
-	creditAuthText: createOptionFromNullable(string, 'creditAuthText'),
+	creditAuthText: createOptionFromOptional(string, 'creditAuthText'),
 });

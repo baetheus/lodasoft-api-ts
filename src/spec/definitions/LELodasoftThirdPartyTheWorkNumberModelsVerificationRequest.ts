@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrower,
@@ -25,14 +25,14 @@ export type LELodasoftThirdPartyTheWorkNumberModelsVerificationRequest = {
 	borrower: Option<LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrower>;
 };
 export const LELodasoftThirdPartyTheWorkNumberModelsVerificationRequestIO = type({
-	requestType: createOptionFromNullable(
+	requestType: createOptionFromOptional(
 		createEnumType<RequestTypeEnum>(RequestTypeEnum, 'RequestTypeEnum'),
 		'requestType',
 	),
-	responseFormat: createOptionFromNullable(
+	responseFormat: createOptionFromOptional(
 		createEnumType<ResponseFormatEnum>(ResponseFormatEnum, 'ResponseFormatEnum'),
 		'responseFormat',
 	),
-	referenceNumber: createOptionFromNullable(string, 'referenceNumber'),
-	borrower: createOptionFromNullable(LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrowerIO, 'borrower'),
+	referenceNumber: createOptionFromOptional(string, 'referenceNumber'),
+	borrower: createOptionFromOptional(LELodasoftThirdPartyTheWorkNumberModelsVerificationBorrowerIO, 'borrower'),
 });

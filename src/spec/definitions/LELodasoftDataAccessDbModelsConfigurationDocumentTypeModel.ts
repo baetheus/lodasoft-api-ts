@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsConfigurationDocumentTypeModel = {
 	documentTypeId: Option<number>;
@@ -9,8 +9,8 @@ export type LELodasoftDataAccessDbModelsConfigurationDocumentTypeModel = {
 	order: Option<number>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationDocumentTypeModelIO = type({
-	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	documentTypeName: createOptionFromNullable(string, 'documentTypeName'),
-	order: createOptionFromNullable(number, 'order'),
+	documentTypeId: createOptionFromOptional(number, 'documentTypeId'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	documentTypeName: createOptionFromOptional(string, 'documentTypeName'),
+	order: createOptionFromOptional(number, 'order'),
 });

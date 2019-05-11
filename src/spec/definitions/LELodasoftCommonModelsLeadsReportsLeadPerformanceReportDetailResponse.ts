@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, array, number, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsLeadsReportsLeadPerformanceReportDetailResponse = {
 	labels: Option<Array<string>>;
@@ -12,11 +12,11 @@ export type LELodasoftCommonModelsLeadsReportsLeadPerformanceReportDetailRespons
 	leadsConvertedCount: Option<Array<number>>;
 };
 export const LELodasoftCommonModelsLeadsReportsLeadPerformanceReportDetailResponseIO = type({
-	labels: createOptionFromNullable(array(string), 'labels'),
-	newLeadsReceived: createOptionFromNullable(array(number), 'newLeadsReceived'),
-	contactAttemptsCount: createOptionFromNullable(array(number), 'contactAttemptsCount'),
-	contactSuccessCount: createOptionFromNullable(array(number), 'contactSuccessCount'),
-	emailsSentCount: createOptionFromNullable(array(number), 'emailsSentCount'),
-	uniqueLeadsContactedCount: createOptionFromNullable(array(number), 'uniqueLeadsContactedCount'),
-	leadsConvertedCount: createOptionFromNullable(array(number), 'leadsConvertedCount'),
+	labels: createOptionFromOptional(array(string), 'labels'),
+	newLeadsReceived: createOptionFromOptional(array(number), 'newLeadsReceived'),
+	contactAttemptsCount: createOptionFromOptional(array(number), 'contactAttemptsCount'),
+	contactSuccessCount: createOptionFromOptional(array(number), 'contactSuccessCount'),
+	emailsSentCount: createOptionFromOptional(array(number), 'emailsSentCount'),
+	uniqueLeadsContactedCount: createOptionFromOptional(array(number), 'uniqueLeadsContactedCount'),
+	leadsConvertedCount: createOptionFromOptional(array(number), 'leadsConvertedCount'),
 });

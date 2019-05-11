@@ -12,7 +12,8 @@ import {
 } from '../definitions/LELodasoftCommonModelsAdminEmailCampaignTaskStatusTriggerViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, array, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsAdminEmailCampaignViewModel = {
 	emailCampaignId: Option<number>;
@@ -29,25 +30,25 @@ export type LELodasoftCommonModelsAdminEmailCampaignViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsAdminEmailCampaignViewModelIO = type({
-	emailCampaignId: createOptionFromNullable(number, 'emailCampaignId'),
-	emailCampaignName: createOptionFromNullable(string, 'emailCampaignName'),
-	repeatDays: createOptionFromNullable(number, 'repeatDays'),
-	active: createOptionFromNullable(boolean, 'active'),
-	triggers: createOptionFromNullable(
+	emailCampaignId: createOptionFromOptional(number, 'emailCampaignId'),
+	emailCampaignName: createOptionFromOptional(string, 'emailCampaignName'),
+	repeatDays: createOptionFromOptional(number, 'repeatDays'),
+	active: createOptionFromOptional(boolean, 'active'),
+	triggers: createOptionFromOptional(
 		array(LELodasoftCommonModelsAdminEmailCampaignLoanStatusTriggerViewModelIO),
 		'triggers',
 	),
-	taskStatusTriggers: createOptionFromNullable(
+	taskStatusTriggers: createOptionFromOptional(
 		array(LELodasoftCommonModelsAdminEmailCampaignTaskStatusTriggerViewModelIO),
 		'taskStatusTriggers',
 	),
-	automatedEmails: createOptionFromNullable(
+	automatedEmails: createOptionFromOptional(
 		array(LELodasoftCommonModelsAdminAutomatedEmailViewModelIO),
 		'automatedEmails',
 	),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

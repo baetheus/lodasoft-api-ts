@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModel = {
 	employementInfoId: Option<number>;
@@ -13,12 +13,12 @@ export type LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModel = {
 	current: Option<boolean>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationEmploymentInfoModelIO = type({
-	employementInfoId: createOptionFromNullable(number, 'employementInfoId'),
-	companyName: createOptionFromNullable(string, 'companyName'),
-	position: createOptionFromNullable(string, 'position'),
-	years: createOptionFromNullable(number, 'years'),
-	months: createOptionFromNullable(number, 'months'),
-	monthlyIncome: createOptionFromNullable(number, 'monthlyIncome'),
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	current: createOptionFromNullable(boolean, 'current'),
+	employementInfoId: createOptionFromOptional(number, 'employementInfoId'),
+	companyName: createOptionFromOptional(string, 'companyName'),
+	position: createOptionFromOptional(string, 'position'),
+	years: createOptionFromOptional(number, 'years'),
+	months: createOptionFromOptional(number, 'months'),
+	monthlyIncome: createOptionFromOptional(number, 'monthlyIncome'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	current: createOptionFromOptional(boolean, 'current'),
 });

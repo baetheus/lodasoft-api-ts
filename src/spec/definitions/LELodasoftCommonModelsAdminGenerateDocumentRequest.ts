@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, dictionary, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsAdminGenerateDocumentRequest = {
 	documentTemplateId: Option<number>;
@@ -8,7 +8,7 @@ export type LELodasoftCommonModelsAdminGenerateDocumentRequest = {
 	replacementValues: Option<{ [key: string]: string }>;
 };
 export const LELodasoftCommonModelsAdminGenerateDocumentRequestIO = type({
-	documentTemplateId: createOptionFromNullable(number, 'documentTemplateId'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	replacementValues: createOptionFromNullable(dictionary(string, string), 'replacementValues'),
+	documentTemplateId: createOptionFromOptional(number, 'documentTemplateId'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	replacementValues: createOptionFromOptional(dictionary(string, string), 'replacementValues'),
 });

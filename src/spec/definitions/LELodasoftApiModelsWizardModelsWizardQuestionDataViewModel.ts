@@ -8,13 +8,13 @@ import {
 } from '../definitions/LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsWizardModelsWizardQuestionDataViewModel = {
 	question: Option<LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModel>;
 	valid: Option<LELodasoftCommonModelsConfigurationWizardValidViewModel>;
 };
 export const LELodasoftApiModelsWizardModelsWizardQuestionDataViewModelIO = type({
-	question: createOptionFromNullable(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO, 'question'),
-	valid: createOptionFromNullable(LELodasoftCommonModelsConfigurationWizardValidViewModelIO, 'valid'),
+	question: createOptionFromOptional(LELodasoftCommonModelsConfigurationWizardWizardQuestionViewModelIO, 'question'),
+	valid: createOptionFromOptional(LELodasoftCommonModelsConfigurationWizardValidViewModelIO, 'valid'),
 });

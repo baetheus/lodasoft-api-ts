@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModel = {
 	id: Option<number>;
@@ -19,18 +20,18 @@ export type LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsOnlineAppOnlineAppProgressViewModelIO = type({
-	id: createOptionFromNullable(number, 'id'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	mortgageId: createOptionFromNullable(number, 'mortgageId'),
-	currentStatus: createOptionFromNullable(number, 'currentStatus'),
-	currentStatusDatetime: createOptionFromNullable(DateFromISOString, 'currentStatusDatetime'),
-	lastSuccessfulStatus: createOptionFromNullable(number, 'lastSuccessfulStatus'),
-	lastSuccessfulStatusDatetime: createOptionFromNullable(DateFromISOString, 'lastSuccessfulStatusDatetime'),
-	currentSessionId: createOptionFromNullable(string, 'currentSessionId'),
-	sessionCount: createOptionFromNullable(number, 'sessionCount'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	id: createOptionFromOptional(number, 'id'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	mortgageId: createOptionFromOptional(number, 'mortgageId'),
+	currentStatus: createOptionFromOptional(number, 'currentStatus'),
+	currentStatusDatetime: createOptionFromOptional(DateFromISOString, 'currentStatusDatetime'),
+	lastSuccessfulStatus: createOptionFromOptional(number, 'lastSuccessfulStatus'),
+	lastSuccessfulStatusDatetime: createOptionFromOptional(DateFromISOString, 'lastSuccessfulStatusDatetime'),
+	currentSessionId: createOptionFromOptional(string, 'currentSessionId'),
+	sessionCount: createOptionFromOptional(number, 'sessionCount'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

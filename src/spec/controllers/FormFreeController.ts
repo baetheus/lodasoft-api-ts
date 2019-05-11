@@ -11,7 +11,7 @@ import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { array, number, type, partial, string } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 import { Observable } from 'rxjs';
 
 export type FormFreeController = {
@@ -67,9 +67,9 @@ export const formFreeController = asks(
 		FormFree_GetFormFreeHistory: parameters => {
 			const encoded = partial({
 				query: type({
-					loanId: createOptionFromNullable(number, 'loanId'),
-					leadId: createOptionFromNullable(number, 'leadId'),
-					borrowerId: createOptionFromNullable(number, 'borrowerId'),
+					loanId: createOptionFromOptional(number, 'loanId'),
+					leadId: createOptionFromOptional(number, 'leadId'),
+					borrowerId: createOptionFromOptional(number, 'borrowerId'),
 				}),
 			}).encode(parameters);
 
@@ -105,7 +105,7 @@ export const formFreeController = asks(
 
 		FormFree_InviteBorrower: (loanId, borrowerId, parameters) => {
 			const encoded = partial({
-				query: type({ requestType: createOptionFromNullable(string, 'requestType') }),
+				query: type({ requestType: createOptionFromOptional(string, 'requestType') }),
 			}).encode(parameters);
 
 			return e.API_CLIENT.request({

@@ -7,7 +7,7 @@ import { decodeAndMap, unknownType } from '../utils/utils';
 import { Option } from 'fp-ts/lib/Option';
 import { asks } from 'fp-ts/lib/Reader';
 import { partial, number, boolean, array, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 import { Observable } from 'rxjs';
 
 export type EventsController = {
@@ -130,9 +130,9 @@ export const eventsController = asks(
 		Events_GetAllEvents: parameters => {
 			const encoded = partial({
 				query: type({
-					filterdate: createOptionFromNullable(string, 'filterdate'),
-					applicationId: createOptionFromNullable(number, 'applicationId'),
-					leadId: createOptionFromNullable(number, 'leadId'),
+					filterdate: createOptionFromOptional(string, 'filterdate'),
+					applicationId: createOptionFromOptional(number, 'applicationId'),
+					leadId: createOptionFromOptional(number, 'leadId'),
 				}),
 			}).encode(parameters);
 

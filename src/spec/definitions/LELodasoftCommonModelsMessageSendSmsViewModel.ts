@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsMessageSendSmsViewModel = {
 	from: Option<string>;
@@ -8,7 +8,7 @@ export type LELodasoftCommonModelsMessageSendSmsViewModel = {
 	body: Option<string>;
 };
 export const LELodasoftCommonModelsMessageSendSmsViewModelIO = type({
-	from: createOptionFromNullable(string, 'from'),
-	to: createOptionFromNullable(string, 'to'),
-	body: createOptionFromNullable(string, 'body'),
+	from: createOptionFromOptional(string, 'from'),
+	to: createOptionFromOptional(string, 'to'),
+	body: createOptionFromOptional(string, 'body'),
 });

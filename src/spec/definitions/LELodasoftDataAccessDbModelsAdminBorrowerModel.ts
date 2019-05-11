@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -44,38 +45,38 @@ export type LELodasoftDataAccessDbModelsAdminBorrowerModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftDataAccessDbModelsAdminBorrowerModelIO = type({
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	userId: createOptionFromNullable(string, 'userId'),
-	firstName: createOptionFromNullable(string, 'firstName'),
-	middleName: createOptionFromNullable(string, 'middleName'),
-	lastName: createOptionFromNullable(string, 'lastName'),
-	birthDate: createOptionFromNullable(DateFromISOString, 'birthDate'),
-	socialSecNum: createOptionFromNullable(string, 'socialSecNum'),
-	borrowerContact: createOptionFromNullable(string, 'borrowerContact'),
-	creditScore: createOptionFromNullable(number, 'creditScore'),
-	alertViaSms: createOptionFromNullable(boolean, 'alertViaSms'),
-	mobilePhone: createOptionFromNullable(string, 'mobilePhone'),
-	workPhone: createOptionFromNullable(string, 'workPhone'),
-	extPhone: createOptionFromNullable(string, 'extPhone'),
-	fax: createOptionFromNullable(string, 'fax'),
-	email: createOptionFromNullable(string, 'email'),
-	assistantName: createOptionFromNullable(string, 'assistantName'),
-	assistantPhone: createOptionFromNullable(string, 'assistantPhone'),
-	doNotCall: createOptionFromNullable(boolean, 'doNotCall'),
-	doNotEmail: createOptionFromNullable(boolean, 'doNotEmail'),
-	mailingStreet: createOptionFromNullable(string, 'mailingStreet'),
-	mailingPOBox: createOptionFromNullable(string, 'mailingPOBox'),
-	mailingCity: createOptionFromNullable(string, 'mailingCity'),
-	mailingState: createOptionFromNullable(string, 'mailingState'),
-	mailingZip: createOptionFromNullable(string, 'mailingZip'),
-	dateCreateBorrower: createOptionFromNullable(DateFromISOString, 'dateCreateBorrower'),
-	creditMonitoringStatus: createOptionFromNullable(
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	userId: createOptionFromOptional(string, 'userId'),
+	firstName: createOptionFromOptional(string, 'firstName'),
+	middleName: createOptionFromOptional(string, 'middleName'),
+	lastName: createOptionFromOptional(string, 'lastName'),
+	birthDate: createOptionFromOptional(DateFromISOString, 'birthDate'),
+	socialSecNum: createOptionFromOptional(string, 'socialSecNum'),
+	borrowerContact: createOptionFromOptional(string, 'borrowerContact'),
+	creditScore: createOptionFromOptional(number, 'creditScore'),
+	alertViaSms: createOptionFromOptional(boolean, 'alertViaSms'),
+	mobilePhone: createOptionFromOptional(string, 'mobilePhone'),
+	workPhone: createOptionFromOptional(string, 'workPhone'),
+	extPhone: createOptionFromOptional(string, 'extPhone'),
+	fax: createOptionFromOptional(string, 'fax'),
+	email: createOptionFromOptional(string, 'email'),
+	assistantName: createOptionFromOptional(string, 'assistantName'),
+	assistantPhone: createOptionFromOptional(string, 'assistantPhone'),
+	doNotCall: createOptionFromOptional(boolean, 'doNotCall'),
+	doNotEmail: createOptionFromOptional(boolean, 'doNotEmail'),
+	mailingStreet: createOptionFromOptional(string, 'mailingStreet'),
+	mailingPOBox: createOptionFromOptional(string, 'mailingPOBox'),
+	mailingCity: createOptionFromOptional(string, 'mailingCity'),
+	mailingState: createOptionFromOptional(string, 'mailingState'),
+	mailingZip: createOptionFromOptional(string, 'mailingZip'),
+	dateCreateBorrower: createOptionFromOptional(DateFromISOString, 'dateCreateBorrower'),
+	creditMonitoringStatus: createOptionFromOptional(
 		createEnumType<CreditMonitoringStatusEnum>(CreditMonitoringStatusEnum, 'CreditMonitoringStatusEnum'),
 		'creditMonitoringStatus',
 	),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

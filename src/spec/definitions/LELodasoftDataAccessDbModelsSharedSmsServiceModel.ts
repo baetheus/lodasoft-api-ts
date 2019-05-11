@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsSharedSmsServiceModel = {
 	smsServiceId: Option<number>;
@@ -16,15 +17,15 @@ export type LELodasoftDataAccessDbModelsSharedSmsServiceModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftDataAccessDbModelsSharedSmsServiceModelIO = type({
-	smsServiceId: createOptionFromNullable(number, 'smsServiceId'),
-	userId: createOptionFromNullable(string, 'userId'),
-	serviceType: createOptionFromNullable(string, 'serviceType'),
-	fromPhoneNumber: createOptionFromNullable(string, 'fromPhoneNumber'),
-	accountIdentifier: createOptionFromNullable(string, 'accountIdentifier'),
-	authToken: createOptionFromNullable(string, 'authToken'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	smsServiceId: createOptionFromOptional(number, 'smsServiceId'),
+	userId: createOptionFromOptional(string, 'userId'),
+	serviceType: createOptionFromOptional(string, 'serviceType'),
+	fromPhoneNumber: createOptionFromOptional(string, 'fromPhoneNumber'),
+	accountIdentifier: createOptionFromOptional(string, 'accountIdentifier'),
+	authToken: createOptionFromOptional(string, 'authToken'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

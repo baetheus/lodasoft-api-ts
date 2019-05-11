@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftCommonModelsMortgageAddressViewModel,
@@ -51,29 +52,29 @@ export type LELodasoftCommonModelsMortgageReoViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageReoViewModelIO = type({
-	reoId: createOptionFromNullable(number, 'reoId'),
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	addressId: createOptionFromNullable(number, 'addressId'),
-	typeOfProperty: createOptionFromNullable(
+	reoId: createOptionFromOptional(number, 'reoId'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	addressId: createOptionFromOptional(number, 'addressId'),
+	typeOfProperty: createOptionFromOptional(
 		createEnumType<TypeOfPropertyEnum>(TypeOfPropertyEnum, 'TypeOfPropertyEnum'),
 		'typeOfProperty',
 	),
-	dispositionStatus: createOptionFromNullable(
+	dispositionStatus: createOptionFromOptional(
 		createEnumType<DispositionStatusEnum>(DispositionStatusEnum, 'DispositionStatusEnum'),
 		'dispositionStatus',
 	),
-	marketValue: createOptionFromNullable(number, 'marketValue'),
-	amountOfMortgage: createOptionFromNullable(number, 'amountOfMortgage'),
-	grossRentalIncome: createOptionFromNullable(number, 'grossRentalIncome'),
-	netRentalIncome: createOptionFromNullable(number, 'netRentalIncome'),
-	mortgagePayment: createOptionFromNullable(number, 'mortgagePayment'),
-	monthlyMiscExpenses: createOptionFromNullable(number, 'monthlyMiscExpenses'),
-	isCurrentResidence: createOptionFromNullable(boolean, 'isCurrentResidence'),
-	isSubjectProperty: createOptionFromNullable(boolean, 'isSubjectProperty'),
-	address: createOptionFromNullable(LELodasoftCommonModelsMortgageAddressViewModelIO, 'address'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	marketValue: createOptionFromOptional(number, 'marketValue'),
+	amountOfMortgage: createOptionFromOptional(number, 'amountOfMortgage'),
+	grossRentalIncome: createOptionFromOptional(number, 'grossRentalIncome'),
+	netRentalIncome: createOptionFromOptional(number, 'netRentalIncome'),
+	mortgagePayment: createOptionFromOptional(number, 'mortgagePayment'),
+	monthlyMiscExpenses: createOptionFromOptional(number, 'monthlyMiscExpenses'),
+	isCurrentResidence: createOptionFromOptional(boolean, 'isCurrentResidence'),
+	isSubjectProperty: createOptionFromOptional(boolean, 'isSubjectProperty'),
+	address: createOptionFromOptional(LELodasoftCommonModelsMortgageAddressViewModelIO, 'address'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

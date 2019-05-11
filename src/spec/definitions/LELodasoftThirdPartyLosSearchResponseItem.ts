@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftThirdPartyLosSearchResponseItem = {
 	losIdentifier: Option<string>;
@@ -13,12 +13,12 @@ export type LELodasoftThirdPartyLosSearchResponseItem = {
 	subjectPropertyZip: Option<string>;
 };
 export const LELodasoftThirdPartyLosSearchResponseItemIO = type({
-	losIdentifier: createOptionFromNullable(string, 'losIdentifier'),
-	loanNumber: createOptionFromNullable(string, 'loanNumber'),
-	borrowerFirstName: createOptionFromNullable(string, 'borrowerFirstName'),
-	borrowerLastName: createOptionFromNullable(string, 'borrowerLastName'),
-	subjectPropertyAddress: createOptionFromNullable(string, 'subjectPropertyAddress'),
-	subjectPropertyCity: createOptionFromNullable(string, 'subjectPropertyCity'),
-	subjectPropertyState: createOptionFromNullable(string, 'subjectPropertyState'),
-	subjectPropertyZip: createOptionFromNullable(string, 'subjectPropertyZip'),
+	losIdentifier: createOptionFromOptional(string, 'losIdentifier'),
+	loanNumber: createOptionFromOptional(string, 'loanNumber'),
+	borrowerFirstName: createOptionFromOptional(string, 'borrowerFirstName'),
+	borrowerLastName: createOptionFromOptional(string, 'borrowerLastName'),
+	subjectPropertyAddress: createOptionFromOptional(string, 'subjectPropertyAddress'),
+	subjectPropertyCity: createOptionFromOptional(string, 'subjectPropertyCity'),
+	subjectPropertyState: createOptionFromOptional(string, 'subjectPropertyState'),
+	subjectPropertyZip: createOptionFromOptional(string, 'subjectPropertyZip'),
 });

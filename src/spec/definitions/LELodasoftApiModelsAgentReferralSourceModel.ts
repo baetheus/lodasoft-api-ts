@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsAgentReferralSourceModel = {
 	agentId: Option<number>;
@@ -10,9 +10,9 @@ export type LELodasoftApiModelsAgentReferralSourceModel = {
 	orgName: Option<string>;
 };
 export const LELodasoftApiModelsAgentReferralSourceModelIO = type({
-	agentId: createOptionFromNullable(number, 'agentId'),
-	firstName: createOptionFromNullable(string, 'firstName'),
-	lastName: createOptionFromNullable(string, 'lastName'),
-	title: createOptionFromNullable(string, 'title'),
-	orgName: createOptionFromNullable(string, 'orgName'),
+	agentId: createOptionFromOptional(number, 'agentId'),
+	firstName: createOptionFromOptional(string, 'firstName'),
+	lastName: createOptionFromOptional(string, 'lastName'),
+	title: createOptionFromOptional(string, 'title'),
+	orgName: createOptionFromOptional(string, 'orgName'),
 });

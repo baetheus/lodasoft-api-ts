@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -45,32 +46,32 @@ export type LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO = type({
-	formFreeHistoryId: createOptionFromNullable(number, 'formFreeHistoryId'),
-	firstName: createOptionFromNullable(string, 'firstName'),
-	lastName: createOptionFromNullable(string, 'lastName'),
-	email: createOptionFromNullable(string, 'email'),
-	last4Ssn: createOptionFromNullable(string, 'last4Ssn'),
-	voaRequestType: createOptionFromNullable(
+	formFreeHistoryId: createOptionFromOptional(number, 'formFreeHistoryId'),
+	firstName: createOptionFromOptional(string, 'firstName'),
+	lastName: createOptionFromOptional(string, 'lastName'),
+	email: createOptionFromOptional(string, 'email'),
+	last4Ssn: createOptionFromOptional(string, 'last4Ssn'),
+	voaRequestType: createOptionFromOptional(
 		createEnumType<VoaRequestTypeEnum>(VoaRequestTypeEnum, 'VoaRequestTypeEnum'),
 		'voaRequestType',
 	),
-	transactionId: createOptionFromNullable(string, 'transactionId'),
-	accountChekOrderId: createOptionFromNullable(string, 'accountChekOrderId'),
-	reportId: createOptionFromNullable(string, 'reportId'),
-	orderStatus: createOptionFromNullable(number, 'orderStatus'),
-	loginUrl: createOptionFromNullable(string, 'loginUrl'),
-	status: createOptionFromNullable(string, 'status'),
-	leadId: createOptionFromNullable(number, 'leadId'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	loanDocTaskId: createOptionFromNullable(number, 'loanDocTaskId'),
-	taskStatus: createOptionFromNullable(
+	transactionId: createOptionFromOptional(string, 'transactionId'),
+	accountChekOrderId: createOptionFromOptional(string, 'accountChekOrderId'),
+	reportId: createOptionFromOptional(string, 'reportId'),
+	orderStatus: createOptionFromOptional(number, 'orderStatus'),
+	loginUrl: createOptionFromOptional(string, 'loginUrl'),
+	status: createOptionFromOptional(string, 'status'),
+	leadId: createOptionFromOptional(number, 'leadId'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	loanDocTaskId: createOptionFromOptional(number, 'loanDocTaskId'),
+	taskStatus: createOptionFromOptional(
 		createEnumType<TaskStatusEnum>(TaskStatusEnum, 'TaskStatusEnum'),
 		'taskStatus',
 	),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

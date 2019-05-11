@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftCommonModelsSharedPortalTaskDocument,
@@ -45,29 +46,29 @@ export type LELodasoftCommonModelsSharedPortalTaskModel = {
 	allowUpload: Option<boolean>;
 };
 export const LELodasoftCommonModelsSharedPortalTaskModelIO = type({
-	taskId: createOptionFromNullable(number, 'taskId'),
-	taskTypeId: createOptionFromNullable(string, 'taskTypeId'),
-	borrowerTaskType: createOptionFromNullable(
+	taskId: createOptionFromOptional(number, 'taskId'),
+	taskTypeId: createOptionFromOptional(string, 'taskTypeId'),
+	borrowerTaskType: createOptionFromOptional(
 		createEnumType<BorrowerTaskTypeEnum>(BorrowerTaskTypeEnum, 'BorrowerTaskTypeEnum'),
 		'borrowerTaskType',
 	),
-	description: createOptionFromNullable(string, 'description'),
-	docType: createOptionFromNullable(string, 'docType'),
-	docSortOrder: createOptionFromNullable(number, 'docSortOrder'),
-	submittedDate: createOptionFromNullable(DateFromISOString, 'submittedDate'),
-	approvedDate: createOptionFromNullable(DateFromISOString, 'approvedDate'),
-	dueDate: createOptionFromNullable(DateFromISOString, 'dueDate'),
-	templateDocumentUrl: createOptionFromNullable(string, 'templateDocumentUrl'),
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	borrowerName: createOptionFromNullable(string, 'borrowerName'),
-	borrowerFacingNote: createOptionFromNullable(string, 'borrowerFacingNote'),
-	borrowerTaskStatus: createOptionFromNullable(
+	description: createOptionFromOptional(string, 'description'),
+	docType: createOptionFromOptional(string, 'docType'),
+	docSortOrder: createOptionFromOptional(number, 'docSortOrder'),
+	submittedDate: createOptionFromOptional(DateFromISOString, 'submittedDate'),
+	approvedDate: createOptionFromOptional(DateFromISOString, 'approvedDate'),
+	dueDate: createOptionFromOptional(DateFromISOString, 'dueDate'),
+	templateDocumentUrl: createOptionFromOptional(string, 'templateDocumentUrl'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	borrowerName: createOptionFromOptional(string, 'borrowerName'),
+	borrowerFacingNote: createOptionFromOptional(string, 'borrowerFacingNote'),
+	borrowerTaskStatus: createOptionFromOptional(
 		createEnumType<BorrowerTaskStatusEnum>(BorrowerTaskStatusEnum, 'BorrowerTaskStatusEnum'),
 		'borrowerTaskStatus',
 	),
-	linkedDocuments: createOptionFromNullable(
+	linkedDocuments: createOptionFromOptional(
 		array(LELodasoftCommonModelsSharedPortalTaskDocumentIO),
 		'linkedDocuments',
 	),
-	allowUpload: createOptionFromNullable(boolean, 'allowUpload'),
+	allowUpload: createOptionFromOptional(boolean, 'allowUpload'),
 });

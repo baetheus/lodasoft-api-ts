@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsExternalLoginViewModel = {
 	name: Option<string>;
@@ -8,7 +8,7 @@ export type LELodasoftApiModelsExternalLoginViewModel = {
 	state: Option<string>;
 };
 export const LELodasoftApiModelsExternalLoginViewModelIO = type({
-	name: createOptionFromNullable(string, 'name'),
-	url: createOptionFromNullable(string, 'url'),
-	state: createOptionFromNullable(string, 'state'),
+	name: createOptionFromOptional(string, 'name'),
+	url: createOptionFromOptional(string, 'url'),
+	state: createOptionFromOptional(string, 'state'),
 });

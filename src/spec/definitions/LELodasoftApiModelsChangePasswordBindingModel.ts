@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsChangePasswordBindingModel = {
 	oldPassword: string;
@@ -10,5 +10,5 @@ export type LELodasoftApiModelsChangePasswordBindingModel = {
 export const LELodasoftApiModelsChangePasswordBindingModelIO = type({
 	oldPassword: string,
 	newPassword: string,
-	confirmPassword: createOptionFromNullable(string, 'confirmPassword'),
+	confirmPassword: createOptionFromOptional(string, 'confirmPassword'),
 });

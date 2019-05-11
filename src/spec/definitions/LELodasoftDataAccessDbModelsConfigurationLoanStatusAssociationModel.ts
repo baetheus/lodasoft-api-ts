@@ -4,7 +4,7 @@ import {
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationLoanStatusModel';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel = {
 	id: Option<number>;
@@ -20,18 +20,18 @@ export type LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModel 
 	isLeadStatusAssociation: Option<boolean>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationLoanStatusAssociationModelIO = type({
-	id: createOptionFromNullable(number, 'id'),
-	loanPurposeId: createOptionFromNullable(number, 'loanPurposeId'),
-	loanStatusId: createOptionFromNullable(number, 'loanStatusId'),
-	loanStatusModel: createOptionFromNullable(
+	id: createOptionFromOptional(number, 'id'),
+	loanPurposeId: createOptionFromOptional(number, 'loanPurposeId'),
+	loanStatusId: createOptionFromOptional(number, 'loanStatusId'),
+	loanStatusModel: createOptionFromOptional(
 		LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO,
 		'loanStatusModel',
 	),
-	borrowerFriendlyStatus: createOptionFromNullable(string, 'borrowerFriendlyStatus'),
-	borrowerFriendlyBlurb: createOptionFromNullable(string, 'borrowerFriendlyBlurb'),
-	supressBorrowerNotification: createOptionFromNullable(boolean, 'supressBorrowerNotification'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	order: createOptionFromNullable(number, 'order'),
-	associatedStatuses: createOptionFromNullable(string, 'associatedStatuses'),
-	isLeadStatusAssociation: createOptionFromNullable(boolean, 'isLeadStatusAssociation'),
+	borrowerFriendlyStatus: createOptionFromOptional(string, 'borrowerFriendlyStatus'),
+	borrowerFriendlyBlurb: createOptionFromOptional(string, 'borrowerFriendlyBlurb'),
+	supressBorrowerNotification: createOptionFromOptional(boolean, 'supressBorrowerNotification'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	order: createOptionFromOptional(number, 'order'),
+	associatedStatuses: createOptionFromOptional(string, 'associatedStatuses'),
+	isLeadStatusAssociation: createOptionFromOptional(boolean, 'isLeadStatusAssociation'),
 });

@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftCommonModelsAdminEmailTemplateImageViewModel,
@@ -28,19 +29,19 @@ export type LELodasoftCommonModelsAdminEmailTemplateViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsAdminEmailTemplateViewModelIO = type({
-	emailTemplateId: createOptionFromNullable(number, 'emailTemplateId'),
-	emailTemplateName: createOptionFromNullable(string, 'emailTemplateName'),
-	description: createOptionFromNullable(string, 'description'),
-	emailTemplateType: createOptionFromNullable(
+	emailTemplateId: createOptionFromOptional(number, 'emailTemplateId'),
+	emailTemplateName: createOptionFromOptional(string, 'emailTemplateName'),
+	description: createOptionFromOptional(string, 'description'),
+	emailTemplateType: createOptionFromOptional(
 		createEnumType<EmailTemplateTypeEnum>(EmailTemplateTypeEnum, 'EmailTemplateTypeEnum'),
 		'emailTemplateType',
 	),
-	manualSendEnabled: createOptionFromNullable(boolean, 'manualSendEnabled'),
-	emailText: createOptionFromNullable(string, 'emailText'),
-	images: createOptionFromNullable(array(LELodasoftCommonModelsAdminEmailTemplateImageViewModelIO), 'images'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	manualSendEnabled: createOptionFromOptional(boolean, 'manualSendEnabled'),
+	emailText: createOptionFromOptional(string, 'emailText'),
+	images: createOptionFromOptional(array(LELodasoftCommonModelsAdminEmailTemplateImageViewModelIO), 'images'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

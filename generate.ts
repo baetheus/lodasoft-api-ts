@@ -6,7 +6,7 @@ import { join } from 'path';
 const TEMP_FILE_NAME = join(__dirname, 'spec.json');
 
 const API_URL = process.env.API_URL || 'http://devapi.lodasoft.com/swagger/docs/v1';
-const LIB_PATH = join(__dirname, 'src');
+const LIB_PATH = join(__dirname, 'temp');
 
 const makeClient = async (url: string, path: string) => {
 	const swagger = await fetch(url).then(r => r.text());

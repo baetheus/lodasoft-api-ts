@@ -8,15 +8,15 @@ import {
 } from '../definitions/LELodasoftDataAccessDbModelsAdminCurrentLoanInfoModel';
 import { Option } from 'fp-ts/lib/Option';
 import { type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiModelsBorrowerLoanInfo = {
 	application: Option<LELodasoftCommonModelsConfigurationApplicationViewModel>;
 	currentLoanInfo: Option<LELodasoftDataAccessDbModelsAdminCurrentLoanInfoModel>;
 };
 export const LELodasoftApiModelsBorrowerLoanInfoIO = type({
-	application: createOptionFromNullable(LELodasoftCommonModelsConfigurationApplicationViewModelIO, 'application'),
-	currentLoanInfo: createOptionFromNullable(
+	application: createOptionFromOptional(LELodasoftCommonModelsConfigurationApplicationViewModelIO, 'application'),
+	currentLoanInfo: createOptionFromOptional(
 		LELodasoftDataAccessDbModelsAdminCurrentLoanInfoModelIO,
 		'currentLoanInfo',
 	),

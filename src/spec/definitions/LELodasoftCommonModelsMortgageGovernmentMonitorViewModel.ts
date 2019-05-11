@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -48,15 +49,15 @@ export type LELodasoftCommonModelsMortgageGovernmentMonitorViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO = type({
-	governmentMonitorId: createOptionFromNullable(number, 'governmentMonitorId'),
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	isFurnishInfo: createOptionFromNullable(boolean, 'isFurnishInfo'),
-	ethnicity: createOptionFromNullable(createEnumType<EthnicityEnum>(EthnicityEnum, 'EthnicityEnum'), 'ethnicity'),
-	race: createOptionFromNullable(createEnumType<RaceEnum>(RaceEnum, 'RaceEnum'), 'race'),
-	sex: createOptionFromNullable(createEnumType<SexEnum>(SexEnum, 'SexEnum'), 'sex'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	governmentMonitorId: createOptionFromOptional(number, 'governmentMonitorId'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	isFurnishInfo: createOptionFromOptional(boolean, 'isFurnishInfo'),
+	ethnicity: createOptionFromOptional(createEnumType<EthnicityEnum>(EthnicityEnum, 'EthnicityEnum'), 'ethnicity'),
+	race: createOptionFromOptional(createEnumType<RaceEnum>(RaceEnum, 'RaceEnum'), 'race'),
+	sex: createOptionFromOptional(createEnumType<SexEnum>(SexEnum, 'SexEnum'), 'sex'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

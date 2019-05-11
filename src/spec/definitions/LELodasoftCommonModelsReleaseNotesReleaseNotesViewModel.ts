@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsReleaseNotesReleaseNotesViewModel = {
 	id: Option<number>;
@@ -14,13 +15,13 @@ export type LELodasoftCommonModelsReleaseNotesReleaseNotesViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsReleaseNotesReleaseNotesViewModelIO = type({
-	id: createOptionFromNullable(number, 'id'),
-	version: createOptionFromNullable(string, 'version'),
-	uri: createOptionFromNullable(string, 'uri'),
-	releaseDate: createOptionFromNullable(DateFromISOString, 'releaseDate'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	id: createOptionFromOptional(number, 'id'),
+	version: createOptionFromOptional(string, 'version'),
+	uri: createOptionFromOptional(string, 'uri'),
+	releaseDate: createOptionFromOptional(DateFromISOString, 'releaseDate'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

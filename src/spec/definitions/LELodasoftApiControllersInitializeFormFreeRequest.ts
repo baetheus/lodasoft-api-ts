@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftApiControllersInitializeFormFreeRequest = {
 	firstName: Option<string>;
@@ -11,10 +11,10 @@ export type LELodasoftApiControllersInitializeFormFreeRequest = {
 	maxWidth: Option<number>;
 };
 export const LELodasoftApiControllersInitializeFormFreeRequestIO = type({
-	firstName: createOptionFromNullable(string, 'firstName'),
-	lastName: createOptionFromNullable(string, 'lastName'),
-	email: createOptionFromNullable(string, 'email'),
-	last4Ssn: createOptionFromNullable(string, 'last4Ssn'),
-	maxHeight: createOptionFromNullable(number, 'maxHeight'),
-	maxWidth: createOptionFromNullable(number, 'maxWidth'),
+	firstName: createOptionFromOptional(string, 'firstName'),
+	lastName: createOptionFromOptional(string, 'lastName'),
+	email: createOptionFromOptional(string, 'email'),
+	last4Ssn: createOptionFromOptional(string, 'last4Ssn'),
+	maxHeight: createOptionFromOptional(number, 'maxHeight'),
+	maxWidth: createOptionFromOptional(number, 'maxWidth'),
 });

@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftCommonModelsMortgageAddressViewModel,
@@ -54,32 +55,32 @@ export type LELodasoftCommonModelsMortgageLiabilityViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsMortgageLiabilityViewModelIO = type({
-	liabilityId: createOptionFromNullable(number, 'liabilityId'),
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	addressId: createOptionFromNullable(number, 'addressId'),
-	typeOfLiability: createOptionFromNullable(
+	liabilityId: createOptionFromOptional(number, 'liabilityId'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	addressId: createOptionFromOptional(number, 'addressId'),
+	typeOfLiability: createOptionFromOptional(
 		createEnumType<TypeOfLiabilityEnum>(TypeOfLiabilityEnum, 'TypeOfLiabilityEnum'),
 		'typeOfLiability',
 	),
-	creditorName: createOptionFromNullable(string, 'creditorName'),
-	accountNumber: createOptionFromNullable(string, 'accountNumber'),
-	monthlyPayment: createOptionFromNullable(number, 'monthlyPayment'),
-	monthsLeftToPay: createOptionFromNullable(number, 'monthsLeftToPay'),
-	unpaidBalance: createOptionFromNullable(number, 'unpaidBalance'),
-	willBePaidOff: createOptionFromNullable(boolean, 'willBePaidOff'),
-	isResubordinate: createOptionFromNullable(boolean, 'isResubordinate'),
-	isExcluded: createOptionFromNullable(boolean, 'isExcluded'),
-	late30Days: createOptionFromNullable(number, 'late30Days'),
-	late60Days: createOptionFromNullable(number, 'late60Days'),
-	late90Days: createOptionFromNullable(number, 'late90Days'),
-	late120Days: createOptionFromNullable(number, 'late120Days'),
-	consumerDisputeIndicator: createOptionFromNullable(boolean, 'consumerDisputeIndicator'),
-	derogatoryDataIndicator: createOptionFromNullable(boolean, 'derogatoryDataIndicator'),
-	fromCreditReport: createOptionFromNullable(boolean, 'fromCreditReport'),
-	address: createOptionFromNullable(LELodasoftCommonModelsMortgageAddressViewModelIO, 'address'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	creditorName: createOptionFromOptional(string, 'creditorName'),
+	accountNumber: createOptionFromOptional(string, 'accountNumber'),
+	monthlyPayment: createOptionFromOptional(number, 'monthlyPayment'),
+	monthsLeftToPay: createOptionFromOptional(number, 'monthsLeftToPay'),
+	unpaidBalance: createOptionFromOptional(number, 'unpaidBalance'),
+	willBePaidOff: createOptionFromOptional(boolean, 'willBePaidOff'),
+	isResubordinate: createOptionFromOptional(boolean, 'isResubordinate'),
+	isExcluded: createOptionFromOptional(boolean, 'isExcluded'),
+	late30Days: createOptionFromOptional(number, 'late30Days'),
+	late60Days: createOptionFromOptional(number, 'late60Days'),
+	late90Days: createOptionFromOptional(number, 'late90Days'),
+	late120Days: createOptionFromOptional(number, 'late120Days'),
+	consumerDisputeIndicator: createOptionFromOptional(boolean, 'consumerDisputeIndicator'),
+	derogatoryDataIndicator: createOptionFromOptional(boolean, 'derogatoryDataIndicator'),
+	fromCreditReport: createOptionFromOptional(boolean, 'fromCreditReport'),
+	address: createOptionFromOptional(LELodasoftCommonModelsMortgageAddressViewModelIO, 'address'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

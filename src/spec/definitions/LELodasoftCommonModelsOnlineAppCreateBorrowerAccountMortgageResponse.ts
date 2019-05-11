@@ -4,7 +4,7 @@ import {
 } from '../definitions/LELodasoftCommonModelsAuthenticationTokenResponseModel';
 import { Option } from 'fp-ts/lib/Option';
 import { number, boolean, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponse = {
 	borrowerId: Option<number>;
@@ -14,9 +14,9 @@ export type LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponse
 	authToken: Option<LELodasoftCommonModelsAuthenticationTokenResponseModel>;
 };
 export const LELodasoftCommonModelsOnlineAppCreateBorrowerAccountMortgageResponseIO = type({
-	borrowerId: createOptionFromNullable(number, 'borrowerId'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	userExists: createOptionFromNullable(boolean, 'userExists'),
-	userMustConfirmRegistration: createOptionFromNullable(boolean, 'userMustConfirmRegistration'),
-	authToken: createOptionFromNullable(LELodasoftCommonModelsAuthenticationTokenResponseModelIO, 'authToken'),
+	borrowerId: createOptionFromOptional(number, 'borrowerId'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	userExists: createOptionFromOptional(boolean, 'userExists'),
+	userMustConfirmRegistration: createOptionFromOptional(boolean, 'userMustConfirmRegistration'),
+	authToken: createOptionFromOptional(LELodasoftCommonModelsAuthenticationTokenResponseModelIO, 'authToken'),
 });

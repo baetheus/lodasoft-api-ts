@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactRecipient = {
 	lenderId: Option<string>;
@@ -11,10 +11,10 @@ export type LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactRecipien
 	nmlsLicense: Option<string>;
 };
 export const LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactRecipientIO = type({
-	lenderId: createOptionFromNullable(string, 'lenderId'),
-	firstName: createOptionFromNullable(string, 'firstName'),
-	lastName: createOptionFromNullable(string, 'lastName'),
-	emailAddress: createOptionFromNullable(string, 'emailAddress'),
-	phoneNumber: createOptionFromNullable(string, 'phoneNumber'),
-	nmlsLicense: createOptionFromNullable(string, 'nmlsLicense'),
+	lenderId: createOptionFromOptional(string, 'lenderId'),
+	firstName: createOptionFromOptional(string, 'firstName'),
+	lastName: createOptionFromOptional(string, 'lastName'),
+	emailAddress: createOptionFromOptional(string, 'emailAddress'),
+	phoneNumber: createOptionFromOptional(string, 'phoneNumber'),
+	nmlsLicense: createOptionFromOptional(string, 'nmlsLicense'),
 });

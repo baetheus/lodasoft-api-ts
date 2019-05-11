@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsSharedCallbackModel = {
 	applicationId: Option<number>;
@@ -9,8 +10,8 @@ export type LELodasoftCommonModelsSharedCallbackModel = {
 	bestCallbackTime: Option<Date>;
 };
 export const LELodasoftCommonModelsSharedCallbackModelIO = type({
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	bestContactNumber: createOptionFromNullable(string, 'bestContactNumber'),
-	note: createOptionFromNullable(string, 'note'),
-	bestCallbackTime: createOptionFromNullable(DateFromISOString, 'bestCallbackTime'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	bestContactNumber: createOptionFromOptional(string, 'bestContactNumber'),
+	note: createOptionFromOptional(string, 'note'),
+	bestCallbackTime: createOptionFromOptional(DateFromISOString, 'bestCallbackTime'),
 });

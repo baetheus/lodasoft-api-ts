@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsConfigurationWizardGroupViewModel = {
 	id: Option<number>;
@@ -13,12 +13,12 @@ export type LELodasoftCommonModelsConfigurationWizardGroupViewModel = {
 	validate: Option<string>;
 };
 export const LELodasoftCommonModelsConfigurationWizardGroupViewModelIO = type({
-	id: createOptionFromNullable(number, 'id'),
-	groupId: createOptionFromNullable(number, 'groupId'),
-	questionId: createOptionFromNullable(number, 'questionId'),
-	categoryId: createOptionFromNullable(number, 'categoryId'),
-	name: createOptionFromNullable(string, 'name'),
-	question: createOptionFromNullable(string, 'question'),
-	answer: createOptionFromNullable(string, 'answer'),
-	validate: createOptionFromNullable(string, 'validate'),
+	id: createOptionFromOptional(number, 'id'),
+	groupId: createOptionFromOptional(number, 'groupId'),
+	questionId: createOptionFromOptional(number, 'questionId'),
+	categoryId: createOptionFromOptional(number, 'categoryId'),
+	name: createOptionFromOptional(string, 'name'),
+	question: createOptionFromOptional(string, 'question'),
+	answer: createOptionFromOptional(string, 'answer'),
+	validate: createOptionFromOptional(string, 'validate'),
 });

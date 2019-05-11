@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftCommonModelsAdminTrackingUserViewModel,
@@ -107,21 +108,21 @@ export type LELodasoftCommonModelsAdminTrackingViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsAdminTrackingViewModelIO = type({
-	trackingId: createOptionFromNullable(number, 'trackingId'),
-	by: createOptionFromNullable(string, 'by'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	taskId: createOptionFromNullable(number, 'taskId'),
-	fileId: createOptionFromNullable(string, 'fileId'),
-	actionType: createOptionFromNullable(
+	trackingId: createOptionFromOptional(number, 'trackingId'),
+	by: createOptionFromOptional(string, 'by'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	taskId: createOptionFromOptional(number, 'taskId'),
+	fileId: createOptionFromOptional(string, 'fileId'),
+	actionType: createOptionFromOptional(
 		createEnumType<ActionTypeEnum>(ActionTypeEnum, 'ActionTypeEnum'),
 		'actionType',
 	),
-	actionValue: createOptionFromNullable(string, 'actionValue'),
-	dateCreated: createOptionFromNullable(DateFromISOString, 'dateCreated'),
-	userProfile: createOptionFromNullable(LELodasoftCommonModelsAdminTrackingUserViewModelIO, 'userProfile'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	actionValue: createOptionFromOptional(string, 'actionValue'),
+	dateCreated: createOptionFromOptional(DateFromISOString, 'dateCreated'),
+	userProfile: createOptionFromOptional(LELodasoftCommonModelsAdminTrackingUserViewModelIO, 'userProfile'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

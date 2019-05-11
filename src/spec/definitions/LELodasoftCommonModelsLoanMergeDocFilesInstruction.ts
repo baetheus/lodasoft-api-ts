@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import { createEnumType } from '../utils/utils';
 
@@ -27,18 +27,18 @@ export type LELodasoftCommonModelsLoanMergeDocFilesInstruction = {
 	removePagesFromSource: Option<boolean>;
 };
 export const LELodasoftCommonModelsLoanMergeDocFilesInstructionIO = type({
-	sourceDocFileGuid: createOptionFromNullable(string, 'sourceDocFileGuid'),
-	destinationDocFileGuid: createOptionFromNullable(string, 'destinationDocFileGuid'),
-	destinationLoanDocId: createOptionFromNullable(number, 'destinationLoanDocId'),
-	destinationLoanDocTaskId: createOptionFromNullable(number, 'destinationLoanDocTaskId'),
-	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
-	description: createOptionFromNullable(string, 'description'),
-	fileName: createOptionFromNullable(string, 'fileName'),
-	note: createOptionFromNullable(string, 'note'),
-	borrowerNote: createOptionFromNullable(string, 'borrowerNote'),
-	condition: createOptionFromNullable(boolean, 'condition'),
-	mergeMode: createOptionFromNullable(createEnumType<MergeModeEnum>(MergeModeEnum, 'MergeModeEnum'), 'mergeMode'),
-	allPages: createOptionFromNullable(boolean, 'allPages'),
-	customPages: createOptionFromNullable(array(number), 'customPages'),
-	removePagesFromSource: createOptionFromNullable(boolean, 'removePagesFromSource'),
+	sourceDocFileGuid: createOptionFromOptional(string, 'sourceDocFileGuid'),
+	destinationDocFileGuid: createOptionFromOptional(string, 'destinationDocFileGuid'),
+	destinationLoanDocId: createOptionFromOptional(number, 'destinationLoanDocId'),
+	destinationLoanDocTaskId: createOptionFromOptional(number, 'destinationLoanDocTaskId'),
+	documentTypeId: createOptionFromOptional(number, 'documentTypeId'),
+	description: createOptionFromOptional(string, 'description'),
+	fileName: createOptionFromOptional(string, 'fileName'),
+	note: createOptionFromOptional(string, 'note'),
+	borrowerNote: createOptionFromOptional(string, 'borrowerNote'),
+	condition: createOptionFromOptional(boolean, 'condition'),
+	mergeMode: createOptionFromOptional(createEnumType<MergeModeEnum>(MergeModeEnum, 'MergeModeEnum'), 'mergeMode'),
+	allPages: createOptionFromOptional(boolean, 'allPages'),
+	customPages: createOptionFromOptional(array(number), 'customPages'),
+	removePagesFromSource: createOptionFromOptional(boolean, 'removePagesFromSource'),
 });

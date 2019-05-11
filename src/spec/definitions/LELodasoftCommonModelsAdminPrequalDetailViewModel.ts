@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftCommonModelsAdminPrequalDetailViewModel = {
 	prequalDetailId: Option<number>;
@@ -16,15 +17,15 @@ export type LELodasoftCommonModelsAdminPrequalDetailViewModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftCommonModelsAdminPrequalDetailViewModelIO = type({
-	prequalDetailId: createOptionFromNullable(number, 'prequalDetailId'),
-	applicationId: createOptionFromNullable(number, 'applicationId'),
-	loanProgramDescription: createOptionFromNullable(string, 'loanProgramDescription'),
-	maxPurchasePrice: createOptionFromNullable(number, 'maxPurchasePrice'),
-	downPaymentPercent: createOptionFromNullable(number, 'downPaymentPercent'),
-	interestRate: createOptionFromNullable(number, 'interestRate'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	prequalDetailId: createOptionFromOptional(number, 'prequalDetailId'),
+	applicationId: createOptionFromOptional(number, 'applicationId'),
+	loanProgramDescription: createOptionFromOptional(string, 'loanProgramDescription'),
+	maxPurchasePrice: createOptionFromOptional(number, 'maxPurchasePrice'),
+	downPaymentPercent: createOptionFromOptional(number, 'downPaymentPercent'),
+	interestRate: createOptionFromOptional(number, 'interestRate'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

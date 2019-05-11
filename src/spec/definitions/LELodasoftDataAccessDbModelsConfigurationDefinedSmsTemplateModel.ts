@@ -8,7 +8,7 @@ import {
 } from '../definitions/LELodasoftDataAccessDbModelsUserProfile';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, type } from 'io-ts';
-import { createOptionFromNullable } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsConfigurationDefinedSmsTemplateModel = {
 	id: Option<number>;
@@ -28,19 +28,19 @@ export type LELodasoftDataAccessDbModelsConfigurationDefinedSmsTemplateModel = {
 	reminderSms: Option<string>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationDefinedSmsTemplateModelIO = type({
-	id: createOptionFromNullable(number, 'id'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	company: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'company'),
-	userId: createOptionFromNullable(string, 'userId'),
-	user: createOptionFromNullable(LELodasoftDataAccessDbModelsUserProfileIO, 'user'),
-	onlineAppRegistrationOverride: createOptionFromNullable(boolean, 'onlineAppRegistrationOverride'),
-	onlineAppRegistrationSms: createOptionFromNullable(string, 'onlineAppRegistrationSms'),
-	inviteOverride: createOptionFromNullable(boolean, 'inviteOverride'),
-	inviteSms: createOptionFromNullable(string, 'inviteSms'),
-	inviteAgentOverride: createOptionFromNullable(boolean, 'inviteAgentOverride'),
-	inviteAgentSms: createOptionFromNullable(string, 'inviteAgentSms'),
-	requestOverride: createOptionFromNullable(boolean, 'requestOverride'),
-	requestSms: createOptionFromNullable(string, 'requestSms'),
-	reminderOverride: createOptionFromNullable(boolean, 'reminderOverride'),
-	reminderSms: createOptionFromNullable(string, 'reminderSms'),
+	id: createOptionFromOptional(number, 'id'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	company: createOptionFromOptional(LELodasoftDataAccessDbModelsConfigurationCompanyModelIO, 'company'),
+	userId: createOptionFromOptional(string, 'userId'),
+	user: createOptionFromOptional(LELodasoftDataAccessDbModelsUserProfileIO, 'user'),
+	onlineAppRegistrationOverride: createOptionFromOptional(boolean, 'onlineAppRegistrationOverride'),
+	onlineAppRegistrationSms: createOptionFromOptional(string, 'onlineAppRegistrationSms'),
+	inviteOverride: createOptionFromOptional(boolean, 'inviteOverride'),
+	inviteSms: createOptionFromOptional(string, 'inviteSms'),
+	inviteAgentOverride: createOptionFromOptional(boolean, 'inviteAgentOverride'),
+	inviteAgentSms: createOptionFromOptional(string, 'inviteAgentSms'),
+	requestOverride: createOptionFromOptional(boolean, 'requestOverride'),
+	requestSms: createOptionFromOptional(string, 'requestSms'),
+	reminderOverride: createOptionFromOptional(boolean, 'reminderOverride'),
+	reminderSms: createOptionFromOptional(string, 'reminderSms'),
 });

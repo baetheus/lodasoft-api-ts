@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, boolean, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 export type LELodasoftDataAccessDbModelsConfigurationOnlineApplicationSettingsModel = {
 	onlineApplicationSettingsId: Option<number>;
@@ -21,20 +22,20 @@ export type LELodasoftDataAccessDbModelsConfigurationOnlineApplicationSettingsMo
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationOnlineApplicationSettingsModelIO = type({
-	onlineApplicationSettingsId: createOptionFromNullable(number, 'onlineApplicationSettingsId'),
-	eConsentDocumentTemplateId: createOptionFromNullable(number, 'eConsentDocumentTemplateId'),
-	creditAuthDocumentTemplateId: createOptionFromNullable(number, 'creditAuthDocumentTemplateId'),
-	showEConsentVerbiage: createOptionFromNullable(boolean, 'showEConsentVerbiage'),
-	eConsentText: createOptionFromNullable(string, 'eConsentText'),
-	enableEConsentDocumentGeneration: createOptionFromNullable(boolean, 'enableEConsentDocumentGeneration'),
-	showCreditAuthVerbiage: createOptionFromNullable(boolean, 'showCreditAuthVerbiage'),
-	creditAuthText: createOptionFromNullable(string, 'creditAuthText'),
-	enableCreditAuthDocumentGeneration: createOptionFromNullable(boolean, 'enableCreditAuthDocumentGeneration'),
-	enableDigitalAssetVerification: createOptionFromNullable(boolean, 'enableDigitalAssetVerification'),
-	enableDigitalEmploymentVerification: createOptionFromNullable(boolean, 'enableDigitalEmploymentVerification'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	onlineApplicationSettingsId: createOptionFromOptional(number, 'onlineApplicationSettingsId'),
+	eConsentDocumentTemplateId: createOptionFromOptional(number, 'eConsentDocumentTemplateId'),
+	creditAuthDocumentTemplateId: createOptionFromOptional(number, 'creditAuthDocumentTemplateId'),
+	showEConsentVerbiage: createOptionFromOptional(boolean, 'showEConsentVerbiage'),
+	eConsentText: createOptionFromOptional(string, 'eConsentText'),
+	enableEConsentDocumentGeneration: createOptionFromOptional(boolean, 'enableEConsentDocumentGeneration'),
+	showCreditAuthVerbiage: createOptionFromOptional(boolean, 'showCreditAuthVerbiage'),
+	creditAuthText: createOptionFromOptional(string, 'creditAuthText'),
+	enableCreditAuthDocumentGeneration: createOptionFromOptional(boolean, 'enableCreditAuthDocumentGeneration'),
+	enableDigitalAssetVerification: createOptionFromOptional(boolean, 'enableDigitalAssetVerification'),
+	enableDigitalEmploymentVerification: createOptionFromOptional(boolean, 'enableDigitalEmploymentVerification'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });

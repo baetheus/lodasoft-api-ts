@@ -1,6 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromNullable, DateFromISOString } from 'io-ts-types';
+import { DateFromISOString } from 'io-ts-types';
+import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftDataAccessDbModelsConfigurationCharacteristicModel,
@@ -82,52 +83,52 @@ export type LELodasoftDataAccessDbModelsConfigurationCustomTaskModel = {
 	dateUpdated: Option<Date>;
 };
 export const LELodasoftDataAccessDbModelsConfigurationCustomTaskModelIO = type({
-	customTaskId: createOptionFromNullable(number, 'customTaskId'),
-	taskCategoryId: createOptionFromNullable(number, 'taskCategoryId'),
-	taskCategoryModel: createOptionFromNullable(
+	customTaskId: createOptionFromOptional(number, 'customTaskId'),
+	taskCategoryId: createOptionFromOptional(number, 'taskCategoryId'),
+	taskCategoryModel: createOptionFromOptional(
 		LELodasoftDataAccessDbModelsConfigurationCharacteristicModelIO,
 		'taskCategoryModel',
 	),
-	loanStatusId: createOptionFromNullable(number, 'loanStatusId'),
-	loanStatusModel: createOptionFromNullable(
+	loanStatusId: createOptionFromOptional(number, 'loanStatusId'),
+	loanStatusModel: createOptionFromOptional(
 		LELodasoftDataAccessDbModelsConfigurationLoanStatusModelIO,
 		'loanStatusModel',
 	),
-	taskDescription: createOptionFromNullable(string, 'taskDescription'),
-	option: createOptionFromNullable(createEnumType<OptionEnum>(OptionEnum, 'OptionEnum'), 'option'),
-	applyTo: createOptionFromNullable(createEnumType<ApplyToEnum>(ApplyToEnum, 'ApplyToEnum'), 'applyTo'),
-	roleId: createOptionFromNullable(number, 'roleId'),
-	roleModel: createOptionFromNullable(LELodasoftDataAccessDbModelsConfigurationRoleModelIO, 'roleModel'),
-	documentTypeId: createOptionFromNullable(number, 'documentTypeId'),
-	documentType: createOptionFromNullable(
+	taskDescription: createOptionFromOptional(string, 'taskDescription'),
+	option: createOptionFromOptional(createEnumType<OptionEnum>(OptionEnum, 'OptionEnum'), 'option'),
+	applyTo: createOptionFromOptional(createEnumType<ApplyToEnum>(ApplyToEnum, 'ApplyToEnum'), 'applyTo'),
+	roleId: createOptionFromOptional(number, 'roleId'),
+	roleModel: createOptionFromOptional(LELodasoftDataAccessDbModelsConfigurationRoleModelIO, 'roleModel'),
+	documentTypeId: createOptionFromOptional(number, 'documentTypeId'),
+	documentType: createOptionFromOptional(
 		LELodasoftDataAccessDbModelsConfigurationDocumentTypeModelIO,
 		'documentType',
 	),
-	reviewRequiredRoleId: createOptionFromNullable(number, 'reviewRequiredRoleId'),
-	reviewRequiredRoleModel: createOptionFromNullable(
+	reviewRequiredRoleId: createOptionFromOptional(number, 'reviewRequiredRoleId'),
+	reviewRequiredRoleModel: createOptionFromOptional(
 		LELodasoftDataAccessDbModelsConfigurationRoleModelIO,
 		'reviewRequiredRoleModel',
 	),
-	notifyPartyRoleId: createOptionFromNullable(number, 'notifyPartyRoleId'),
-	notifyPartyRoleModel: createOptionFromNullable(
+	notifyPartyRoleId: createOptionFromOptional(number, 'notifyPartyRoleId'),
+	notifyPartyRoleModel: createOptionFromOptional(
 		LELodasoftDataAccessDbModelsConfigurationRoleModelIO,
 		'notifyPartyRoleModel',
 	),
-	taskType: createOptionFromNullable(createEnumType<TaskTypeEnum>(TaskTypeEnum, 'TaskTypeEnum'), 'taskType'),
-	dueDays: createOptionFromNullable(number, 'dueDays'),
-	permittedAgentTypes: createOptionFromNullable(string, 'permittedAgentTypes'),
-	tasksOnCompletion: createOptionFromNullable(string, 'tasksOnCompletion'),
-	documentDataHeader: createOptionFromNullable(string, 'documentDataHeader'),
-	defaultTaskPriority: createOptionFromNullable(
+	taskType: createOptionFromOptional(createEnumType<TaskTypeEnum>(TaskTypeEnum, 'TaskTypeEnum'), 'taskType'),
+	dueDays: createOptionFromOptional(number, 'dueDays'),
+	permittedAgentTypes: createOptionFromOptional(string, 'permittedAgentTypes'),
+	tasksOnCompletion: createOptionFromOptional(string, 'tasksOnCompletion'),
+	documentDataHeader: createOptionFromOptional(string, 'documentDataHeader'),
+	defaultTaskPriority: createOptionFromOptional(
 		createEnumType<DefaultTaskPriorityEnum>(DefaultTaskPriorityEnum, 'DefaultTaskPriorityEnum'),
 		'defaultTaskPriority',
 	),
-	docDataString: createOptionFromNullable(string, 'docDataString'),
-	requestBorrower: createOptionFromNullable(boolean, 'requestBorrower'),
-	alwaysShowPending: createOptionFromNullable(boolean, 'alwaysShowPending'),
-	companyId: createOptionFromNullable(number, 'companyId'),
-	insertedBy: createOptionFromNullable(string, 'insertedBy'),
-	dateInserted: createOptionFromNullable(DateFromISOString, 'dateInserted'),
-	updatedBy: createOptionFromNullable(string, 'updatedBy'),
-	dateUpdated: createOptionFromNullable(DateFromISOString, 'dateUpdated'),
+	docDataString: createOptionFromOptional(string, 'docDataString'),
+	requestBorrower: createOptionFromOptional(boolean, 'requestBorrower'),
+	alwaysShowPending: createOptionFromOptional(boolean, 'alwaysShowPending'),
+	companyId: createOptionFromOptional(number, 'companyId'),
+	insertedBy: createOptionFromOptional(string, 'insertedBy'),
+	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	updatedBy: createOptionFromOptional(string, 'updatedBy'),
+	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
 });
