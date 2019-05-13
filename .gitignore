@@ -1,6 +1,6 @@
 dist
 lib
-temp
+temp*
 node_modules
 .rpt2_cache
 .vscode

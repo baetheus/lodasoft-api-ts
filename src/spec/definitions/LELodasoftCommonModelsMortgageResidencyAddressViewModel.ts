@@ -3,8 +3,8 @@ import { boolean, number, string, type } from 'io-ts';
 import { DateFromISOString } from 'io-ts-types';
 
 import {
-  LELodasoftCommonModelsMortgageAddressViewModel,
-  LELodasoftCommonModelsMortgageAddressViewModelIO,
+	LELodasoftCommonModelsMortgageAddressViewModel,
+	LELodasoftCommonModelsMortgageAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageAddressViewModel';
 import { createOptionFromOptional } from '../utils/optionFromOptional';
 import { createEnumType } from '../utils/utils';

@@ -3,65 +3,65 @@ import { array, boolean, number, string, type } from 'io-ts';
 import { DateFromISOString } from 'io-ts-types';
 
 import {
-  LELodasoftCommonModelsMortgageAssetViewModel,
-  LELodasoftCommonModelsMortgageAssetViewModelIO,
+	LELodasoftCommonModelsMortgageAssetViewModel,
+	LELodasoftCommonModelsMortgageAssetViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageAssetViewModel';
 import {
-  LELodasoftCommonModelsMortgageDeclarationViewModel,
-  LELodasoftCommonModelsMortgageDeclarationViewModelIO,
+	LELodasoftCommonModelsMortgageDeclarationViewModel,
+	LELodasoftCommonModelsMortgageDeclarationViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageDeclarationViewModel';
 import {
-  LELodasoftCommonModelsMortgageDependentViewModel,
-  LELodasoftCommonModelsMortgageDependentViewModelIO,
+	LELodasoftCommonModelsMortgageDependentViewModel,
+	LELodasoftCommonModelsMortgageDependentViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageDependentViewModel';
 import {
-  LELodasoftCommonModelsMortgageEmailViewModel,
-  LELodasoftCommonModelsMortgageEmailViewModelIO,
+	LELodasoftCommonModelsMortgageEmailViewModel,
+	LELodasoftCommonModelsMortgageEmailViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageEmailViewModel';
 import {
-  LELodasoftCommonModelsMortgageEmploymentViewModel,
-  LELodasoftCommonModelsMortgageEmploymentViewModelIO,
+	LELodasoftCommonModelsMortgageEmploymentViewModel,
+	LELodasoftCommonModelsMortgageEmploymentViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageEmploymentViewModel';
 import {
-  LELodasoftCommonModelsMortgageExpenseViewModel,
-  LELodasoftCommonModelsMortgageExpenseViewModelIO,
+	LELodasoftCommonModelsMortgageExpenseViewModel,
+	LELodasoftCommonModelsMortgageExpenseViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageExpenseViewModel';
 import {
-  LELodasoftCommonModelsMortgageGovernmentMonitorViewModel,
-  LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO,
+	LELodasoftCommonModelsMortgageGovernmentMonitorViewModel,
+	LELodasoftCommonModelsMortgageGovernmentMonitorViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageGovernmentMonitorViewModel';
 import {
-  LELodasoftCommonModelsMortgageIncomeViewModel,
-  LELodasoftCommonModelsMortgageIncomeViewModelIO,
+	LELodasoftCommonModelsMortgageIncomeViewModel,
+	LELodasoftCommonModelsMortgageIncomeViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageIncomeViewModel';
 import {
-  LELodasoftCommonModelsMortgageLiabilityViewModel,
-  LELodasoftCommonModelsMortgageLiabilityViewModelIO,
+	LELodasoftCommonModelsMortgageLiabilityViewModel,
+	LELodasoftCommonModelsMortgageLiabilityViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageLiabilityViewModel';
 import {
-  LELodasoftCommonModelsMortgagePhoneViewModel,
-  LELodasoftCommonModelsMortgagePhoneViewModelIO,
+	LELodasoftCommonModelsMortgagePhoneViewModel,
+	LELodasoftCommonModelsMortgagePhoneViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgagePhoneViewModel';
 import {
-  LELodasoftCommonModelsMortgageReoViewModel,
-  LELodasoftCommonModelsMortgageReoViewModelIO,
+	LELodasoftCommonModelsMortgageReoViewModel,
+	LELodasoftCommonModelsMortgageReoViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageReoViewModel';
 import {
-  LELodasoftCommonModelsMortgageResidencyAddressViewModel,
-  LELodasoftCommonModelsMortgageResidencyAddressViewModelIO,
+	LELodasoftCommonModelsMortgageResidencyAddressViewModel,
+	LELodasoftCommonModelsMortgageResidencyAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageResidencyAddressViewModel';
 import { createOptionFromOptional } from '../utils/optionFromOptional';
 import { createEnumType } from '../utils/utils';
 
 export enum MaritalStatusEnum {
-	'Single',
-	'Married',
-	'Separated',
+	'Single' = 0,
+	'Married' = 1,
+	'Separated' = 2,
 }
 
-export enum TypeOfBorrower {
-	'PrimaryBorrower',
-	'CoBorrower',
+export enum TypeOfBorrowerEnum {
+	'PrimaryBorrower' = 0,
+	'CoBorrower' = 1,
 }
 
 export type LELodasoftCommonModelsMortgageMortgageBorrowerViewModel = {
@@ -82,7 +82,7 @@ export type LELodasoftCommonModelsMortgageMortgageBorrowerViewModel = {
 	creditScore_Equifax: Option<number>;
 	creditScore_Experian: Option<number>;
 	creditScore_TransUnion: Option<number>;
-	typeOfBorrower: TypeOfBorrower;
+	typeOfBorrower: TypeOfBorrowerEnum;
 	active: Option<boolean>;
 	assets: Option<Array<LELodasoftCommonModelsMortgageAssetViewModel>>;
 	declarations: Option<Array<LELodasoftCommonModelsMortgageDeclarationViewModel>>;
@@ -114,16 +114,13 @@ export const LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO = type({
 	dependentCount: createOptionFromOptional(number, 'dependentCount'),
 	authorizedCreditCheck: createOptionFromOptional(boolean, 'authorizedCreditCheck'),
 	socialSecNum: createOptionFromOptional(string, 'socialSecNum'),
-	maritalStatus: createOptionFromOptional(
-		createEnumType<MaritalStatusEnum>(MaritalStatusEnum, 'MaritalStatusEnum'),
-		'maritalStatus',
-	),
+	maritalStatus: createOptionFromOptional(createEnumType<MaritalStatusEnum>(MaritalStatusEnum, 'MaritalStatusEnum')),
 	dateOfBirth: createOptionFromOptional(DateFromISOString, 'dateOfBirth'),
 	creditScore: createOptionFromOptional(number, 'creditScore'),
 	creditScore_Equifax: createOptionFromOptional(number, 'creditScore_Equifax'),
 	creditScore_Experian: createOptionFromOptional(number, 'creditScore_Experian'),
 	creditScore_TransUnion: createOptionFromOptional(number, 'creditScore_TransUnion'),
-	typeOfBorrower: createEnumType<TypeOfBorrower>(TypeOfBorrower, 'TypeOfBorrower'),
+	typeOfBorrower: createEnumType<TypeOfBorrowerEnum>(TypeOfBorrowerEnum, 'TypeOfBorrowerEnum'),
 	active: createOptionFromOptional(boolean, 'active'),
 	assets: createOptionFromOptional(array(LELodasoftCommonModelsMortgageAssetViewModelIO), 'assets'),
 	declarations: createOptionFromOptional(array(LELodasoftCommonModelsMortgageDeclarationViewModelIO), 'declarations'),

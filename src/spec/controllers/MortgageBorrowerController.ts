@@ -1,3 +1,9 @@
+import { Option } from 'fp-ts/lib/Option';
+import { asks } from 'fp-ts/lib/Reader';
+import { array, boolean, number, partial, type } from 'io-ts';
+import { createOptionFromNullable } from 'io-ts-types';
+import { Observable } from 'rxjs';
+
 import { TAPIClient } from '../client/client';
 import {
 	LELodasoftCommonModelsMortgageAssetViewModel,
@@ -52,9 +58,6 @@ import {
 	LELodasoftCommonModelsMortgageResidencyAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageResidencyAddressViewModel';
 import { decodeAndMap, unknownType } from '../utils/utils';
-import { asks } from 'fp-ts/lib/Reader';
-import { number, partial, array } from 'io-ts';
-import { Observable } from 'rxjs';
 
 export type MortgageBorrowerController = {
 	/**
@@ -75,8 +78,12 @@ export type MortgageBorrowerController = {
 
 	/**
 	 * @param { number } borrowerId undefined
+	 * @param { object } [parameters]
 	 */
-	readonly MortgageBorrower_DeleteBorrower: (borrowerId: number) => Observable<unknown>;
+	readonly MortgageBorrower_DeleteBorrower: (
+		borrowerId: number,
+		parameters: { query?: { cleanupOrphanedContacts: Option<boolean> } },
+	) => Observable<unknown>;
 
 	/**
 	 * @param { object } parameters
@@ -300,10 +307,15 @@ export const mortgageBorrowerController = asks(
 			}).pipe(decodeAndMap(LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO));
 		},
 
-		MortgageBorrower_DeleteBorrower: borrowerId => {
+		MortgageBorrower_DeleteBorrower: (borrowerId, parameters) => {
+			const encoded = partial({
+				query: type({ cleanupOrphanedContacts: createOptionFromNullable(boolean, 'cleanupOrphanedContacts') }),
+			}).encode(parameters);
+
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/mortgage/borrowers/${encodeURIComponent(number.encode(borrowerId).toString())}`,
 				method: 'DELETE',
+				query: encoded.query,
 			}).pipe(decodeAndMap(unknownType));
 		},
 

@@ -1,12 +1,16 @@
+import { asks } from 'fp-ts/lib/Reader';
+import { array, number, partial, string } from 'io-ts';
+import { Observable } from 'rxjs';
+
 import { TAPIClient } from '../client/client';
 import {
 	LELodasoftApiControllersInitializeFormFreeRequest,
 	LELodasoftApiControllersInitializeFormFreeRequestIO,
 } from '../definitions/LELodasoftApiControllersInitializeFormFreeRequest';
 import {
-	LELodasoftApiModelsBorrowerApplicationViewModel,
-	LELodasoftApiModelsBorrowerApplicationViewModelIO,
-} from '../definitions/LELodasoftApiModelsBorrowerApplicationViewModel';
+	LELodasoftApiModelsBorrowerOnlineAppUpdateReturnModel,
+	LELodasoftApiModelsBorrowerOnlineAppUpdateReturnModelIO,
+} from '../definitions/LELodasoftApiModelsBorrowerOnlineAppUpdateReturnModel';
 import {
 	LELodasoftApiModelsOnlineAppFeatureFlags,
 	LELodasoftApiModelsOnlineAppFeatureFlagsIO,
@@ -44,6 +48,10 @@ import {
 	LELodasoftCommonModelsSharedGenerateEConsentResponseIO,
 } from '../definitions/LELodasoftCommonModelsSharedGenerateEConsentResponse';
 import {
+	LELodasoftDataAccessDbModelsConfigurationLoanPurposeModel,
+	LELodasoftDataAccessDbModelsConfigurationLoanPurposeModelIO,
+} from '../definitions/LELodasoftDataAccessDbModelsConfigurationLoanPurposeModel';
+import {
 	LELodasoftDataAccessDbModelsConfigurationLoanTypeModel,
 	LELodasoftDataAccessDbModelsConfigurationLoanTypeModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationLoanTypeModel';
@@ -52,9 +60,6 @@ import {
 	LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponseIO,
 } from '../definitions/LELodasoftThirdPartyFormFreeModelsEnrollmentWidgetResponse';
 import { decodeAndMap, unknownType } from '../utils/utils';
-import { asks } from 'fp-ts/lib/Reader';
-import { number, array, string, partial } from 'io-ts';
-import { Observable } from 'rxjs';
 
 export type OnlineAppController = {
 	/**
@@ -62,6 +67,14 @@ export type OnlineAppController = {
 	 * @param { number } loanId - loan id
 	 */
 	readonly OnlineApp_GetFeatureFlags: (loanId: number) => Observable<LELodasoftApiModelsOnlineAppFeatureFlags>;
+
+	/**
+	 * Get loan types for online application
+	 * @param { number } loanId - loan / application id
+	 */
+	readonly OnlineApp_GetLoanPurposes: (
+		loanId: number,
+	) => Observable<Array<LELodasoftDataAccessDbModelsConfigurationLoanPurposeModel>>;
 
 	/**
 	 * Get loan types for online application
@@ -87,7 +100,17 @@ export type OnlineAppController = {
 	readonly OnlineApp_UpdateLoanType: (
 		loanId: number,
 		loanTypeId: number,
-	) => Observable<LELodasoftApiModelsBorrowerApplicationViewModel>;
+	) => Observable<LELodasoftApiModelsBorrowerOnlineAppUpdateReturnModel>;
+
+	/**
+	 * Update Loan type on an application
+	 * @param { number } loanId - loan / application id
+	 * @param { number } loanPurposeId - loan purpose id
+	 */
+	readonly OnlineApp_UpdateLoanPurpose: (
+		loanId: number,
+		loanPurposeId: number,
+	) => Observable<LELodasoftApiModelsBorrowerOnlineAppUpdateReturnModel>;
 
 	/**
 	 * Update online application status
@@ -179,6 +202,13 @@ export const onlineAppController = asks(
 			}).pipe(decodeAndMap(LELodasoftApiModelsOnlineAppFeatureFlagsIO));
 		},
 
+		OnlineApp_GetLoanPurposes: loanId => {
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/loanPurposes/${encodeURIComponent(number.encode(loanId).toString())}`,
+				method: 'GET',
+			}).pipe(decodeAndMap(array(LELodasoftDataAccessDbModelsConfigurationLoanPurposeModelIO)));
+		},
+
 		OnlineApp_GetLoanTypes: loanId => {
 			return e.API_CLIENT.request({
 				url: `${e.PREFIX}/api/online-app/loantypes/${encodeURIComponent(number.encode(loanId).toString())}`,
@@ -201,7 +231,16 @@ export const onlineAppController = asks(
 					number.encode(loanId).toString(),
 				)}/${encodeURIComponent(number.encode(loanTypeId).toString())}`,
 				method: 'POST',
-			}).pipe(decodeAndMap(LELodasoftApiModelsBorrowerApplicationViewModelIO));
+			}).pipe(decodeAndMap(LELodasoftApiModelsBorrowerOnlineAppUpdateReturnModelIO));
+		},
+
+		OnlineApp_UpdateLoanPurpose: (loanId, loanPurposeId) => {
+			return e.API_CLIENT.request({
+				url: `${e.PREFIX}/api/online-app/loanpurpose/${encodeURIComponent(
+					number.encode(loanId).toString(),
+				)}/${encodeURIComponent(number.encode(loanPurposeId).toString())}`,
+				method: 'POST',
+			}).pipe(decodeAndMap(LELodasoftApiModelsBorrowerOnlineAppUpdateReturnModelIO));
 		},
 
 		OnlineApp_GetStatus: loanId => {
