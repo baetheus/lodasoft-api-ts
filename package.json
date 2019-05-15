@@ -30,9 +30,9 @@
   "devDependencies": {
     "@nll/swagger-codegen-ts": "^1.2.0",
     "@nll/utils-ts": "^0.1.0",
-    "fp-ts": "^1.14.4",
-    "io-ts": "^1.8.3",
-    "io-ts-types": "^0.4.4",
+    "fp-ts": "^1.18.1",
+    "io-ts": "^1.8.6",
+    "io-ts-types": "^0.4.7",
     "io-ts-reporters": "0.0.21",
     "monocle-ts": "^1.7.1",
     "node-fetch": "^2.3.0",
@@ -46,11 +46,10 @@
     "typescript": "^3.3.3333"
   },
   "peerDependencies": {
-    "@nll/dux": "^1.0.5",
     "@nll/utils-ts": "^0.1.0",
-    "fp-ts": "^1.14.4",
-    "io-ts": "^1.8.3",
-    "io-ts-types": "^0.4.4",
+    "fp-ts": "^1.18.1",
+    "io-ts": "^1.8.6",
+    "io-ts-types": "^0.4.7",
     "io-ts-reporters": "0.0.21",
     "rxjs": "^6.4.0"
   }
