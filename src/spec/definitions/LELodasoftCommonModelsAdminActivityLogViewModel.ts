@@ -1,9 +1,9 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
 import { DateFromISOString } from 'io-ts-types';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
-import { createEnumType } from '../utils/utils';
+import { createEnumType } from '@nll/utils-ts/lib/io';
 
 export enum CategoryEnum {
 	'LoanChangeStatus',

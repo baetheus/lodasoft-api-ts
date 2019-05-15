@@ -8,7 +8,7 @@ import {
 } from '../definitions/LELodasoftDataAccessDbModelsAdminCurrentLoanInfoModel';
 import { Option } from 'fp-ts/lib/Option';
 import { type } from 'io-ts';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftApiModelsBorrowerLoanInfo = {
 	application: Option<LELodasoftCommonModelsConfigurationApplicationViewModel>;

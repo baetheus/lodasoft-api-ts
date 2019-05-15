@@ -4,7 +4,7 @@ import {
 } from '../definitions/LELodasoftCommonModelsLeadsLeadViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, boolean, array, type } from 'io-ts';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftApiModelsMortgageParseDuLeadViewModel = {
 	leadViewModel: Option<LELodasoftCommonModelsLeadsLeadViewModel>;

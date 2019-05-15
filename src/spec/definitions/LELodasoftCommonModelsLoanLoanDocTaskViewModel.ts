@@ -1,7 +1,8 @@
+import { createEnumType } from '@nll/utils-ts/lib/io';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
 import { DateFromISOString } from 'io-ts-types';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftCommonModelsConfigurationCustomTaskViewModel,
@@ -15,7 +16,6 @@ import {
 	LELodasoftCommonModelsLoanLoanDocViewModel,
 	LELodasoftCommonModelsLoanLoanDocViewModelIO,
 } from '../definitions/LELodasoftCommonModelsLoanLoanDocViewModel';
-import { createEnumType } from '../utils/utils';
 
 export enum TaskTypeEnum {
 	'RequestDocument',

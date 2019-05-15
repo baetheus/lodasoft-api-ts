@@ -17,7 +17,7 @@ import {
 import { Option } from 'fp-ts/lib/Option';
 import { number, array, string, type } from 'io-ts';
 import { DateFromISOString } from 'io-ts-types';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftCommonModelsMortgageMortgageViewModel = {
 	mortgageId: Option<number>;

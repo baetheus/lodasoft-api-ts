@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, type } from 'io-ts';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftCommonModelsLeadsProviderModelsCustomDataInfo = {
 	customData1: Option<string>;

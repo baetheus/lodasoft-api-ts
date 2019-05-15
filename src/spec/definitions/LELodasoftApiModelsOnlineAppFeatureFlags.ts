@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, string, type } from 'io-ts';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftApiModelsOnlineAppFeatureFlags = {
 	voaEnabled: Option<boolean>;

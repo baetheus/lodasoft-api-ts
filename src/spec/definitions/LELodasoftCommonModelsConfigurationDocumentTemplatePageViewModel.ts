@@ -5,7 +5,7 @@ import {
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, array, type } from 'io-ts';
 import { DateFromISOString } from 'io-ts-types';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftCommonModelsConfigurationDocumentTemplatePageViewModel = {
 	documentTemplatePageId: Option<number>;

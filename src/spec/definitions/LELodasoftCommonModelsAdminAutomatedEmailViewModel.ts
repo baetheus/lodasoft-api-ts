@@ -1,7 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, type } from 'io-ts';
 import { DateFromISOString } from 'io-ts-types';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftCommonModelsAdminAutomatedEmailViewModel = {
 	automatedEmailId: Option<number>;

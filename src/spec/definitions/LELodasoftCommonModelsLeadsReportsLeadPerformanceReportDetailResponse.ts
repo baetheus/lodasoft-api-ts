@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, array, number, type } from 'io-ts';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftCommonModelsLeadsReportsLeadPerformanceReportDetailResponse = {
 	labels: Option<Array<string>>;

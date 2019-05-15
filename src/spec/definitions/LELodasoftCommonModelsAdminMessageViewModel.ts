@@ -1,7 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, array, type } from 'io-ts';
 import { DateFromISOString } from 'io-ts-types';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftCommonModelsAdminMessageViewModel = {
 	messageId: Option<number>;

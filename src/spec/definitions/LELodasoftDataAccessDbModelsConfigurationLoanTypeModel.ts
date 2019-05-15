@@ -1,12 +1,12 @@
+import { createEnumType } from '@nll/utils-ts/lib/io';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftDataAccessDbModelsConfigurationCompanyModel,
 	LELodasoftDataAccessDbModelsConfigurationCompanyModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsConfigurationCompanyModel';
-import { createEnumType } from '../utils/utils';
 
 export enum MortgageAppliedForTypeEnum {
 	'VA',

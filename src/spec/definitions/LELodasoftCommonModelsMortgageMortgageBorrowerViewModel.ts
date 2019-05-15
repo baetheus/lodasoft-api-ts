@@ -50,8 +50,8 @@ import {
 	LELodasoftCommonModelsMortgageResidencyAddressViewModel,
 	LELodasoftCommonModelsMortgageResidencyAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageResidencyAddressViewModel';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
-import { createEnumType } from '../utils/utils';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
+import { createEnumType } from '@nll/utils-ts/lib/io';
 
 export enum MaritalStatusEnum {
 	'Single' = 0,

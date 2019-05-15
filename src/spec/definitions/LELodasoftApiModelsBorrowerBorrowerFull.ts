@@ -1,12 +1,12 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, string, type } from 'io-ts';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 import {
 	LELodasoftDataAccessDbModelsAdminBorrowerModel,
 	LELodasoftDataAccessDbModelsAdminBorrowerModelIO,
 } from '../definitions/LELodasoftDataAccessDbModelsAdminBorrowerModel';
-import { createEnumType } from '../utils/utils';
+import { createEnumType } from '@nll/utils-ts/lib/io';
 
 export enum AccountStatusEnum {
 	'NotInvited',

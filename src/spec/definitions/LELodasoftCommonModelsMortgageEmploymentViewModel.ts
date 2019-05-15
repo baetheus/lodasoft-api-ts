@@ -1,7 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, string, type } from 'io-ts';
 import { DateFromISOString } from 'io-ts-types';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 import {
 	LELodasoftCommonModelsMortgageAddressViewModel,
@@ -11,7 +11,7 @@ import {
 	LELodasoftCommonModelsMortgageIncomeViewModel,
 	LELodasoftCommonModelsMortgageIncomeViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageIncomeViewModel';
-import { createEnumType } from '../utils/utils';
+import { createEnumType } from '@nll/utils-ts/lib/io';
 
 export enum EmploymentTypeEnum {
 	'CurrentEmployer',

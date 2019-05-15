@@ -1,8 +1,8 @@
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, string, type } from 'io-ts';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
-import { createEnumType } from '../utils/utils';
+import { createEnumType } from '@nll/utils-ts/lib/io';
 
 export enum CreditScoreRangeEnum {
 	'R_760_',

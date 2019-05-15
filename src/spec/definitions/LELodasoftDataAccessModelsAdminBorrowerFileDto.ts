@@ -1,7 +1,7 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, boolean, type } from 'io-ts';
 import { DateFromISOString } from 'io-ts-types';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftDataAccessModelsAdminBorrowerFileDto = {
 	guid: Option<string>;

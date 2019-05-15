@@ -1,7 +1,8 @@
+import { createEnumType } from '@nll/utils-ts/lib/io';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
 import { DateFromISOString } from 'io-ts-types';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
 
 import {
 	LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactDetails,
@@ -19,7 +20,6 @@ import {
 	LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactSender,
 	LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactSenderIO,
 } from '../definitions/LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactSender';
-import { createEnumType } from '../utils/utils';
 
 export enum ZillowLeadTypeEnum {
 	'simple',

@@ -1,9 +1,10 @@
+import { createEnumType } from '@nll/utils-ts/lib/io';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 import { Option } from 'fp-ts/lib/Option';
 import { dictionary, string, type } from 'io-ts';
 import { DateFromISOString } from 'io-ts-types';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
 
-import { createEnumType, unknownType } from '../utils/utils';
+import { unknownType } from '../utils/utils';
 
 export enum LevelEnum {
 	'Fatal',

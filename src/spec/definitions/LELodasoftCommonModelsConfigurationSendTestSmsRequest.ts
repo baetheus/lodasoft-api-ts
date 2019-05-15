@@ -1,8 +1,7 @@
+import { createEnumType } from '@nll/utils-ts/lib/io';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
-
-import { createEnumType } from '../utils/utils';
 
 export enum ServiceTypeEnum {
 	'Twilio',

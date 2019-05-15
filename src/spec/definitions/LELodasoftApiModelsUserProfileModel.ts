@@ -32,7 +32,7 @@ import {
 } from '../definitions/LELodasoftDataAccessDbModelsUserProfile';
 import { Option } from 'fp-ts/lib/Option';
 import { array, string, type } from 'io-ts';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftApiModelsUserProfileModel = {
 	userProfile: Option<LELodasoftDataAccessDbModelsUserProfile>;

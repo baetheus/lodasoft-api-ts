@@ -8,7 +8,7 @@ import {
 } from '../definitions/LELodasoftDataAccessModelsAdminBorrowerBorrowerDto';
 import { Option } from 'fp-ts/lib/Option';
 import { array, string, dictionary, number, boolean, type } from 'io-ts';
-import { createOptionFromOptional } from '../utils/optionFromOptional';
+import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftApiModelsMortgageParseDuViewModel = {
 	mortgageViewModel: Option<LELodasoftCommonModelsMortgageMortgageViewModel>;
