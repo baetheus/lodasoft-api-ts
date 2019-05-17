@@ -4,7 +4,7 @@ import {
 } from '../definitions/LELodasoftDataAccessModelsAdminBorrowerFileDto';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, array, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftApiModelsBorrowerLoanDocDto = {
@@ -29,10 +29,10 @@ export const LELodasoftApiModelsBorrowerLoanDocDtoIO = type({
 	description: createOptionFromOptional(string, 'description'),
 	documentTypeId: createOptionFromOptional(number, 'documentTypeId'),
 	applicationId: createOptionFromOptional(number, 'applicationId'),
-	dateView: createOptionFromOptional(DateFromISOString, 'dateView'),
-	dateDownload: createOptionFromOptional(DateFromISOString, 'dateDownload'),
-	dateCreate: createOptionFromOptional(DateFromISOString, 'dateCreate'),
-	expirationDate: createOptionFromOptional(DateFromISOString, 'expirationDate'),
+	dateView: createOptionFromOptional(DateFromDatelike, 'dateView'),
+	dateDownload: createOptionFromOptional(DateFromDatelike, 'dateDownload'),
+	dateCreate: createOptionFromOptional(DateFromDatelike, 'dateCreate'),
+	expirationDate: createOptionFromOptional(DateFromDatelike, 'expirationDate'),
 	fileName: createOptionFromOptional(string, 'fileName'),
 	note: createOptionFromOptional(string, 'note'),
 	condition: createOptionFromOptional(boolean, 'condition'),

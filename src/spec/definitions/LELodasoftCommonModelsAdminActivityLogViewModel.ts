@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 import { createEnumType } from '@nll/utils-ts/lib/io';
@@ -69,7 +69,7 @@ export const LELodasoftCommonModelsAdminActivityLogViewModelIO = type({
 		'activityType',
 	),
 	displayText: createOptionFromOptional(string, 'displayText'),
-	dateCreated: createOptionFromOptional(DateFromISOString, 'dateCreated'),
+	dateCreated: createOptionFromOptional(DateFromDatelike, 'dateCreated'),
 	loanDocTaskId: createOptionFromOptional(number, 'loanDocTaskId'),
 	messageId: createOptionFromOptional(number, 'messageId'),
 	leadEventId: createOptionFromOptional(number, 'leadEventId'),

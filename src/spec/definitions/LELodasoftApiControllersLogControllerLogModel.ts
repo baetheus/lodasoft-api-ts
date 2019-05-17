@@ -1,8 +1,8 @@
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createEnumType } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 import { Option } from 'fp-ts/lib/Option';
 import { dictionary, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
 
 import { unknownType } from '../utils/utils';
 
@@ -25,7 +25,7 @@ export type LELodasoftApiControllersLogControllerLogModel = {
 };
 export const LELodasoftApiControllersLogControllerLogModelIO = type({
 	level: createOptionFromOptional(createEnumType<LevelEnum>(LevelEnum, 'LevelEnum')),
-	timestamp: createOptionFromOptional(DateFromISOString, 'timestamp'),
+	timestamp: createOptionFromOptional(DateFromDatelike, 'timestamp'),
 	message: createOptionFromOptional(string, 'message'),
 	actionType: createOptionFromOptional(string, 'actionType'),
 	origin: createOptionFromOptional(string, 'origin'),

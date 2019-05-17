@@ -1,8 +1,8 @@
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createEnumType } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
 
 import {
 	LELodasoftCommonModelsLeadsProviderModelsZillowLenderContactDetails,
@@ -59,7 +59,7 @@ export const LELodasoftCommonModelsLeadsProviderModelsZillowLeadIO = type({
 		'type',
 	),
 	id: createOptionFromOptional(string, 'id'),
-	created: createOptionFromOptional(DateFromISOString, 'created'),
+	created: createOptionFromOptional(DateFromDatelike, 'created'),
 	source: createOptionFromOptional(string, 'source'),
 	price: createOptionFromOptional(number, 'price'),
 	conciergeStatus: createOptionFromOptional(

@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, boolean, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftApiModelsAdminInviteViewModel = {
@@ -21,8 +21,8 @@ export const LELodasoftApiModelsAdminInviteViewModelIO = type({
 	firstName: createOptionFromOptional(string, 'firstName'),
 	lastName: createOptionFromOptional(string, 'lastName'),
 	companyId: createOptionFromOptional(number, 'companyId'),
-	sentDate: createOptionFromOptional(DateFromISOString, 'sentDate'),
-	registerDate: createOptionFromOptional(DateFromISOString, 'registerDate'),
+	sentDate: createOptionFromOptional(DateFromDatelike, 'sentDate'),
+	registerDate: createOptionFromOptional(DateFromDatelike, 'registerDate'),
 	isAdmin: createOptionFromOptional(boolean, 'isAdmin'),
 	userId: createOptionFromOptional(string, 'userId'),
 	active: createOptionFromOptional(boolean, 'active'),

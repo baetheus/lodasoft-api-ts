@@ -2,7 +2,7 @@ import { createEnumType } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 
 export enum MsgTypeEnum {
 	'Unspecified',
@@ -104,13 +104,13 @@ export const LELodasoftCommonModelsMessageMessageHistoryViewModelIO = type({
 	subject: createOptionFromOptional(string, 'subject'),
 	body: createOptionFromOptional(string, 'body'),
 	trackingGuid: createOptionFromOptional(string, 'trackingGuid'),
-	originalOpenDate: createOptionFromOptional(DateFromISOString, 'originalOpenDate'),
-	mostRecentOpenDate: createOptionFromOptional(DateFromISOString, 'mostRecentOpenDate'),
-	createDate: createOptionFromOptional(DateFromISOString, 'createDate'),
-	lastUpdate: createOptionFromOptional(DateFromISOString, 'lastUpdate'),
+	originalOpenDate: createOptionFromOptional(DateFromDatelike, 'originalOpenDate'),
+	mostRecentOpenDate: createOptionFromOptional(DateFromDatelike, 'mostRecentOpenDate'),
+	createDate: createOptionFromOptional(DateFromDatelike, 'createDate'),
+	lastUpdate: createOptionFromOptional(DateFromDatelike, 'lastUpdate'),
 	companyId: createOptionFromOptional(number, 'companyId'),
 	insertedBy: createOptionFromOptional(string, 'insertedBy'),
-	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	dateInserted: createOptionFromOptional(DateFromDatelike, 'dateInserted'),
 	updatedBy: createOptionFromOptional(string, 'updatedBy'),
-	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
+	dateUpdated: createOptionFromOptional(DateFromDatelike, 'dateUpdated'),
 });

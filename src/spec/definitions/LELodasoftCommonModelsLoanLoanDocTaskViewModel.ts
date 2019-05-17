@@ -2,7 +2,7 @@ import { createEnumType } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 
 import {
 	LELodasoftCommonModelsConfigurationCustomTaskViewModel,
@@ -141,12 +141,12 @@ export const LELodasoftCommonModelsLoanLoanDocTaskViewModelIO = type({
 	requestBorrower: createOptionFromOptional(boolean, 'requestBorrower'),
 	condition: createOptionFromOptional(boolean, 'condition'),
 	requiresReview: createOptionFromOptional(boolean, 'requiresReview'),
-	requestDate: createOptionFromOptional(DateFromISOString, 'requestDate'),
-	dueDate: createOptionFromOptional(DateFromISOString, 'dueDate'),
-	submittedDate: createOptionFromOptional(DateFromISOString, 'submittedDate'),
-	acknowledgementDate: createOptionFromOptional(DateFromISOString, 'acknowledgementDate'),
-	completeDate: createOptionFromOptional(DateFromISOString, 'completeDate'),
-	followUpDate: createOptionFromOptional(DateFromISOString, 'followUpDate'),
+	requestDate: createOptionFromOptional(DateFromDatelike, 'requestDate'),
+	dueDate: createOptionFromOptional(DateFromDatelike, 'dueDate'),
+	submittedDate: createOptionFromOptional(DateFromDatelike, 'submittedDate'),
+	acknowledgementDate: createOptionFromOptional(DateFromDatelike, 'acknowledgementDate'),
+	completeDate: createOptionFromOptional(DateFromDatelike, 'completeDate'),
+	followUpDate: createOptionFromOptional(DateFromDatelike, 'followUpDate'),
 	active: createOptionFromOptional(boolean, 'active'),
 	taskModel: createOptionFromOptional(LELodasoftCommonModelsConfigurationTaskViewModelIO, 'taskModel'),
 	customTaskModel: createOptionFromOptional(
@@ -156,7 +156,7 @@ export const LELodasoftCommonModelsLoanLoanDocTaskViewModelIO = type({
 	loanDocModel: createOptionFromOptional(LELodasoftCommonModelsLoanLoanDocViewModelIO, 'loanDocModel'),
 	companyId: createOptionFromOptional(number, 'companyId'),
 	insertedBy: createOptionFromOptional(string, 'insertedBy'),
-	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	dateInserted: createOptionFromOptional(DateFromDatelike, 'dateInserted'),
 	updatedBy: createOptionFromOptional(string, 'updatedBy'),
-	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
+	dateUpdated: createOptionFromOptional(DateFromDatelike, 'dateUpdated'),
 });

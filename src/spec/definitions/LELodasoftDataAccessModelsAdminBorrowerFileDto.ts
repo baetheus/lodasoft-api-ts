@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, boolean, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftDataAccessModelsAdminBorrowerFileDto = {
@@ -21,7 +21,7 @@ export const LELodasoftDataAccessModelsAdminBorrowerFileDtoIO = type({
 	note: createOptionFromOptional(string, 'note'),
 	borrowerNote: createOptionFromOptional(string, 'borrowerNote'),
 	condition: createOptionFromOptional(boolean, 'condition'),
-	createDate: createOptionFromOptional(DateFromISOString, 'createDate'),
-	expirationDate: createOptionFromOptional(DateFromISOString, 'expirationDate'),
+	createDate: createOptionFromOptional(DateFromDatelike, 'createDate'),
+	expirationDate: createOptionFromOptional(DateFromDatelike, 'expirationDate'),
 	active: createOptionFromOptional(boolean, 'active'),
 });

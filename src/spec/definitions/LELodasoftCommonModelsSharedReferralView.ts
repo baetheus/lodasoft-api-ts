@@ -4,7 +4,7 @@ import {
 } from '../definitions/LELodasoftCommonModelsSharedBorrowerView';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftCommonModelsSharedReferralView = {
@@ -50,6 +50,6 @@ export const LELodasoftCommonModelsSharedReferralViewIO = type({
 	companyId: createOptionFromOptional(number, 'companyId'),
 	companyName: createOptionFromOptional(string, 'companyName'),
 	applicationName: createOptionFromOptional(string, 'applicationName'),
-	createDate: createOptionFromOptional(DateFromISOString, 'createDate'),
+	createDate: createOptionFromOptional(DateFromDatelike, 'createDate'),
 	borrowerDetails: createOptionFromOptional(LELodasoftCommonModelsSharedBorrowerViewIO, 'borrowerDetails'),
 });

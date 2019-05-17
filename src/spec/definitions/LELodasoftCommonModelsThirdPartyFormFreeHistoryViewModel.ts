@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 import { createEnumType } from '@nll/utils-ts/lib/io';
@@ -71,7 +71,7 @@ export const LELodasoftCommonModelsThirdPartyFormFreeHistoryViewModelIO = type({
 	),
 	companyId: createOptionFromOptional(number, 'companyId'),
 	insertedBy: createOptionFromOptional(string, 'insertedBy'),
-	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	dateInserted: createOptionFromOptional(DateFromDatelike, 'dateInserted'),
 	updatedBy: createOptionFromOptional(string, 'updatedBy'),
-	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
+	dateUpdated: createOptionFromOptional(DateFromDatelike, 'dateUpdated'),
 });

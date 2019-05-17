@@ -1,7 +1,7 @@
-import { Option } from 'fp-ts/lib/Option';
-import { string, number, boolean, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
+import { Option } from 'fp-ts/lib/Option';
+import { boolean, number, string, type } from 'io-ts';
 
 export type LELodasoftCommonModelsLoanDocFileViewModel = {
 	guid: Option<string>;
@@ -31,7 +31,7 @@ export const LELodasoftCommonModelsLoanDocFileViewModelIO = type({
 	fileName: createOptionFromOptional(string, 'fileName'),
 	mimeType: createOptionFromOptional(string, 'mimeType'),
 	fileData: createOptionFromOptional(string, 'fileData'),
-	createDate: createOptionFromOptional(DateFromISOString, 'createDate'),
-	exportDate: createOptionFromOptional(DateFromISOString, 'exportDate'),
+	createDate: createOptionFromOptional(DateFromDatelike, 'createDate'),
+	exportDate: createOptionFromOptional(DateFromDatelike, 'exportDate'),
 	active: createOptionFromOptional(boolean, 'active'),
 });

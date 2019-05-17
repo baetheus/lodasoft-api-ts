@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftApiModelsBorrowerApplicationViewModel = {
@@ -33,5 +33,5 @@ export const LELodasoftApiModelsBorrowerApplicationViewModelIO = type({
 	loanAmount: createOptionFromOptional(number, 'loanAmount'),
 	loanStatusId: createOptionFromOptional(number, 'loanStatusId'),
 	loanPurposeId: createOptionFromOptional(number, 'loanPurposeId'),
-	dateCreated: createOptionFromOptional(DateFromISOString, 'dateCreated'),
+	dateCreated: createOptionFromOptional(DateFromDatelike, 'dateCreated'),
 });

@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 import {
@@ -57,8 +57,8 @@ export const LELodasoftCommonModelsMortgageEmploymentViewModelIO = type({
 	selfEmployed: createOptionFromOptional(boolean, 'selfEmployed'),
 	isPrimary: createOptionFromOptional(boolean, 'isPrimary'),
 	position: createOptionFromOptional(string, 'position'),
-	startDate: createOptionFromOptional(DateFromISOString, 'startDate'),
-	endDate: createOptionFromOptional(DateFromISOString, 'endDate'),
+	startDate: createOptionFromOptional(DateFromDatelike, 'startDate'),
+	endDate: createOptionFromOptional(DateFromDatelike, 'endDate'),
 	yearsOnJob: createOptionFromOptional(number, 'yearsOnJob'),
 	monthsOnJob: createOptionFromOptional(number, 'monthsOnJob'),
 	yearsInLineOfWork: createOptionFromOptional(number, 'yearsInLineOfWork'),
@@ -67,7 +67,7 @@ export const LELodasoftCommonModelsMortgageEmploymentViewModelIO = type({
 	incomes: createOptionFromOptional(array(LELodasoftCommonModelsMortgageIncomeViewModelIO), 'incomes'),
 	companyId: createOptionFromOptional(number, 'companyId'),
 	insertedBy: createOptionFromOptional(string, 'insertedBy'),
-	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	dateInserted: createOptionFromOptional(DateFromDatelike, 'dateInserted'),
 	updatedBy: createOptionFromOptional(string, 'updatedBy'),
-	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
+	dateUpdated: createOptionFromOptional(DateFromDatelike, 'dateUpdated'),
 });

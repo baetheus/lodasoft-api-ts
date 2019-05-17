@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 
 import {
 	LELodasoftCommonModelsMortgageAssetViewModel,
@@ -115,7 +115,7 @@ export const LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO = type({
 	authorizedCreditCheck: createOptionFromOptional(boolean, 'authorizedCreditCheck'),
 	socialSecNum: createOptionFromOptional(string, 'socialSecNum'),
 	maritalStatus: createOptionFromOptional(createEnumType<MaritalStatusEnum>(MaritalStatusEnum, 'MaritalStatusEnum')),
-	dateOfBirth: createOptionFromOptional(DateFromISOString, 'dateOfBirth'),
+	dateOfBirth: createOptionFromOptional(DateFromDatelike, 'dateOfBirth'),
 	creditScore: createOptionFromOptional(number, 'creditScore'),
 	creditScore_Equifax: createOptionFromOptional(number, 'creditScore_Equifax'),
 	creditScore_Experian: createOptionFromOptional(number, 'creditScore_Experian'),
@@ -142,7 +142,7 @@ export const LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO = type({
 	),
 	companyId: createOptionFromOptional(number, 'companyId'),
 	insertedBy: createOptionFromOptional(string, 'insertedBy'),
-	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	dateInserted: createOptionFromOptional(DateFromDatelike, 'dateInserted'),
 	updatedBy: createOptionFromOptional(string, 'updatedBy'),
-	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
+	dateUpdated: createOptionFromOptional(DateFromDatelike, 'dateUpdated'),
 });

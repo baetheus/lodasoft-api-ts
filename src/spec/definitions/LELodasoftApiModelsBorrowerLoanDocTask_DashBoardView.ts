@@ -2,7 +2,7 @@ import { createEnumType } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 
 import {
 	LELodasoftDataAccessModelsAdminBorrowerFileDto,
@@ -120,12 +120,12 @@ export const LELodasoftApiModelsBorrowerLoanDocTask_DashBoardViewIO = type({
 	docTypeText: createOptionFromOptional(string, 'docTypeText'),
 	description: createOptionFromOptional(string, 'description'),
 	dueDays: createOptionFromOptional(number, 'dueDays'),
-	requestDate: createOptionFromOptional(DateFromISOString, 'requestDate'),
-	dueDate: createOptionFromOptional(DateFromISOString, 'dueDate'),
-	followUp: createOptionFromOptional(DateFromISOString, 'followUp'),
-	completeDate: createOptionFromOptional(DateFromISOString, 'completeDate'),
-	submittedDate: createOptionFromOptional(DateFromISOString, 'submittedDate'),
-	expirationDate: createOptionFromOptional(DateFromISOString, 'expirationDate'),
+	requestDate: createOptionFromOptional(DateFromDatelike, 'requestDate'),
+	dueDate: createOptionFromOptional(DateFromDatelike, 'dueDate'),
+	followUp: createOptionFromOptional(DateFromDatelike, 'followUp'),
+	completeDate: createOptionFromOptional(DateFromDatelike, 'completeDate'),
+	submittedDate: createOptionFromOptional(DateFromDatelike, 'submittedDate'),
+	expirationDate: createOptionFromOptional(DateFromDatelike, 'expirationDate'),
 	userId: createOptionFromOptional(string, 'userId'),
 	roleId: createOptionFromOptional(number, 'roleId'),
 	requestBorrower: createOptionFromOptional(boolean, 'requestBorrower'),

@@ -2,7 +2,7 @@ import { createEnumType } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 
 export enum AccountTypeEnum {
 	'DDA',
@@ -36,5 +36,5 @@ export const LELodasoftThirdPartyFormFreeModelsLiteAccountInfoIO = type({
 	fiAccountType: createOptionFromOptional(string, 'fiAccountType'),
 	fiPlanName: createOptionFromOptional(string, 'fiPlanName'),
 	balance: createOptionFromOptional(number, 'balance'),
-	balanceDate: createOptionFromOptional(DateFromISOString, 'balanceDate'),
+	balanceDate: createOptionFromOptional(DateFromDatelike, 'balanceDate'),
 });

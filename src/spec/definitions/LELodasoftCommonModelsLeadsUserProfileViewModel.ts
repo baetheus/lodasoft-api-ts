@@ -2,7 +2,7 @@ import { createEnumType } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 
 export enum UserTypeEnum {
 	'Admin',
@@ -62,8 +62,8 @@ export const LELodasoftCommonModelsLeadsUserProfileViewModelIO = type({
 	smsSignature: createOptionFromOptional(string, 'smsSignature'),
 	flagAdmin: createOptionFromOptional(boolean, 'flagAdmin'),
 	reportTo: createOptionFromOptional(string, 'reportTo'),
-	inviteDate: createOptionFromOptional(DateFromISOString, 'inviteDate'),
-	confirmationDate: createOptionFromOptional(DateFromISOString, 'confirmationDate'),
+	inviteDate: createOptionFromOptional(DateFromDatelike, 'inviteDate'),
+	confirmationDate: createOptionFromOptional(DateFromDatelike, 'confirmationDate'),
 	twoFactorEnabled: createOptionFromOptional(boolean, 'twoFactorEnabled'),
 	email: createOptionFromOptional(string, 'email'),
 	emailConfirmed: createOptionFromOptional(boolean, 'emailConfirmed'),

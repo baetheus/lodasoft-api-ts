@@ -2,7 +2,7 @@ import { createEnumType } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 
 export enum MessageDeliveryEnum {
 	'Unspecified',
@@ -128,7 +128,7 @@ export const LELodasoftDataAccessDbModelsAdminAlertModelIO = type({
 	notifyPartyId: createOptionFromOptional(string, 'notifyPartyId'),
 	alertType: createOptionFromOptional(createEnumType<AlertTypeEnum>(AlertTypeEnum, 'AlertTypeEnum'), 'alertType'),
 	alertText: createOptionFromOptional(string, 'alertText'),
-	createDate: createOptionFromOptional(DateFromISOString, 'createDate'),
+	createDate: createOptionFromOptional(DateFromDatelike, 'createDate'),
 	applicationStatus: createOptionFromOptional(string, 'applicationStatus'),
 	propertyAddress: createOptionFromOptional(string, 'propertyAddress'),
 	userName: createOptionFromOptional(string, 'userName'),

@@ -4,7 +4,7 @@ import {
 } from '../definitions/LELodasoftCommonModelsLeadsProviderModelsAddressInfo';
 import { Option } from 'fp-ts/lib/Option';
 import { string, number, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftCommonModelsLeadsProviderModelsBorrowerInfo = {
@@ -20,7 +20,7 @@ export type LELodasoftCommonModelsLeadsProviderModelsBorrowerInfo = {
 export const LELodasoftCommonModelsLeadsProviderModelsBorrowerInfoIO = type({
 	firstName: createOptionFromOptional(string, 'firstName'),
 	lastName: createOptionFromOptional(string, 'lastName'),
-	birthDate: createOptionFromOptional(DateFromISOString, 'birthDate'),
+	birthDate: createOptionFromOptional(DateFromDatelike, 'birthDate'),
 	email: createOptionFromOptional(string, 'email'),
 	phone: createOptionFromOptional(string, 'phone'),
 	workPhone: createOptionFromOptional(string, 'workPhone'),

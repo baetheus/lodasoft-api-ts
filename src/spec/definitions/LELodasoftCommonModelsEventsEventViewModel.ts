@@ -1,8 +1,8 @@
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createEnumType } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
 
 export enum EventTypeEnum {
 	'Appointment',
@@ -55,9 +55,9 @@ export const LELodasoftCommonModelsEventsEventViewModelIO = type({
 	icon: createOptionFromOptional(string, 'icon'),
 	className: createOptionFromOptional(string, 'className'),
 	allDay: createOptionFromOptional(boolean, 'allDay'),
-	dateCreate: createOptionFromOptional(DateFromISOString, 'dateCreate'),
-	dateStart: createOptionFromOptional(DateFromISOString, 'dateStart'),
-	dateEnd: createOptionFromOptional(DateFromISOString, 'dateEnd'),
+	dateCreate: createOptionFromOptional(DateFromDatelike, 'dateCreate'),
+	dateStart: createOptionFromOptional(DateFromDatelike, 'dateStart'),
+	dateEnd: createOptionFromOptional(DateFromDatelike, 'dateEnd'),
 	eventRepeat: createOptionFromOptional(string, 'eventRepeat'),
 	remindBeforeMinutes: createOptionFromOptional(number, 'remindBeforeMinutes'),
 	remindToaster: createOptionFromOptional(boolean, 'remindToaster'),

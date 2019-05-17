@@ -16,7 +16,7 @@ import {
 } from '../definitions/LELodasoftCommonModelsMortgageTransactionDetailViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { number, array, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftCommonModelsMortgageMortgageViewModel = {
@@ -53,7 +53,7 @@ export const LELodasoftCommonModelsMortgageMortgageViewModelIO = type({
 	borrowers: createOptionFromOptional(array(LELodasoftCommonModelsMortgageMortgageBorrowerViewModelIO), 'borrowers'),
 	companyId: createOptionFromOptional(number, 'companyId'),
 	insertedBy: createOptionFromOptional(string, 'insertedBy'),
-	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	dateInserted: createOptionFromOptional(DateFromDatelike, 'dateInserted'),
 	updatedBy: createOptionFromOptional(string, 'updatedBy'),
-	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
+	dateUpdated: createOptionFromOptional(DateFromDatelike, 'dateUpdated'),
 });

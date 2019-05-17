@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, array, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftCommonModelsAdminMessageViewModel = {
@@ -31,7 +31,7 @@ export const LELodasoftCommonModelsAdminMessageViewModelIO = type({
 	userId: createOptionFromOptional(string, 'userId'),
 	content: createOptionFromOptional(string, 'content'),
 	flagInternalMessage: createOptionFromOptional(boolean, 'flagInternalMessage'),
-	postTime: createOptionFromOptional(DateFromISOString, 'postTime'),
+	postTime: createOptionFromOptional(DateFromDatelike, 'postTime'),
 	senderId: createOptionFromOptional(string, 'senderId'),
 	senderFirstName: createOptionFromOptional(string, 'senderFirstName'),
 	senderLastName: createOptionFromOptional(string, 'senderLastName'),
@@ -39,7 +39,7 @@ export const LELodasoftCommonModelsAdminMessageViewModelIO = type({
 	notifyPartyId: createOptionFromOptional(array(string), 'notifyPartyId'),
 	companyId: createOptionFromOptional(number, 'companyId'),
 	insertedBy: createOptionFromOptional(string, 'insertedBy'),
-	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	dateInserted: createOptionFromOptional(DateFromDatelike, 'dateInserted'),
 	updatedBy: createOptionFromOptional(string, 'updatedBy'),
-	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
+	dateUpdated: createOptionFromOptional(DateFromDatelike, 'dateUpdated'),
 });

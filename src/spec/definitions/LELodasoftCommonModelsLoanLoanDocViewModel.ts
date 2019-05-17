@@ -4,7 +4,7 @@ import {
 } from '../definitions/LELodasoftCommonModelsLoanDocFileViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, array, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftCommonModelsLoanLoanDocViewModel = {
@@ -26,7 +26,7 @@ export const LELodasoftCommonModelsLoanLoanDocViewModelIO = type({
 	documentTypeId: createOptionFromOptional(number, 'documentTypeId'),
 	description: createOptionFromOptional(string, 'description'),
 	note: createOptionFromOptional(string, 'note'),
-	expirationDate: createOptionFromOptional(DateFromISOString, 'expirationDate'),
+	expirationDate: createOptionFromOptional(DateFromDatelike, 'expirationDate'),
 	retask: createOptionFromOptional(boolean, 'retask'),
 	active: createOptionFromOptional(boolean, 'active'),
 	docFiles: createOptionFromOptional(array(LELodasoftCommonModelsLoanDocFileViewModelIO), 'docFiles'),

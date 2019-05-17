@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 import {
@@ -99,7 +99,7 @@ export const LELodasoftDataAccessDbModelsUserProfileIO = type({
 	avatarId: createOptionFromOptional(string, 'avatarId'),
 	firstName: createOptionFromOptional(string, 'firstName'),
 	lastName: createOptionFromOptional(string, 'lastName'),
-	dob: createOptionFromOptional(DateFromISOString, 'dob'),
+	dob: createOptionFromOptional(DateFromDatelike, 'dob'),
 	timeZone: createOptionFromOptional(string, 'timeZone'),
 	title: createOptionFromOptional(string, 'title'),
 	nmls: createOptionFromOptional(string, 'nmls'),
@@ -107,8 +107,8 @@ export const LELodasoftDataAccessDbModelsUserProfileIO = type({
 	smsSignature: createOptionFromOptional(string, 'smsSignature'),
 	flagAdmin: createOptionFromOptional(boolean, 'flagAdmin'),
 	reportTo: createOptionFromOptional(string, 'reportTo'),
-	inviteDate: createOptionFromOptional(DateFromISOString, 'inviteDate'),
-	confirmationDate: createOptionFromOptional(DateFromISOString, 'confirmationDate'),
+	inviteDate: createOptionFromOptional(DateFromDatelike, 'inviteDate'),
+	confirmationDate: createOptionFromOptional(DateFromDatelike, 'confirmationDate'),
 	confirmationToken: createOptionFromOptional(string, 'confirmationToken'),
 	cellPhone: createOptionFromOptional(string, 'cellPhone'),
 	workPhone: createOptionFromOptional(string, 'workPhone'),
@@ -120,8 +120,8 @@ export const LELodasoftDataAccessDbModelsUserProfileIO = type({
 	mailingState: createOptionFromOptional(string, 'mailingState'),
 	mailingZip: createOptionFromOptional(string, 'mailingZip'),
 	active: createOptionFromOptional(boolean, 'active'),
-	currentTimeLogin: createOptionFromOptional(DateFromISOString, 'currentTimeLogin'),
-	lastTimeLogin: createOptionFromOptional(DateFromISOString, 'lastTimeLogin'),
+	currentTimeLogin: createOptionFromOptional(DateFromDatelike, 'currentTimeLogin'),
+	lastTimeLogin: createOptionFromOptional(DateFromDatelike, 'lastTimeLogin'),
 	releaseNotesVersion: createOptionFromOptional(string, 'releaseNotesVersion'),
 	userImage: createOptionFromOptional(string, 'userImage'),
 	userImageData: createOptionFromOptional(string, 'userImageData'),
@@ -132,7 +132,7 @@ export const LELodasoftDataAccessDbModelsUserProfileIO = type({
 	phoneNumber: createOptionFromOptional(string, 'phoneNumber'),
 	phoneNumberConfirmed: createOptionFromOptional(boolean, 'phoneNumberConfirmed'),
 	twoFactorEnabled: createOptionFromOptional(boolean, 'twoFactorEnabled'),
-	lockoutEndDateUtc: createOptionFromOptional(DateFromISOString, 'lockoutEndDateUtc'),
+	lockoutEndDateUtc: createOptionFromOptional(DateFromDatelike, 'lockoutEndDateUtc'),
 	lockoutEnabled: createOptionFromOptional(boolean, 'lockoutEnabled'),
 	accessFailedCount: createOptionFromOptional(number, 'accessFailedCount'),
 	roles: createOptionFromOptional(array(MicrosoftAspNetIdentityEntityFrameworkIdentityUserRoleIO), 'roles'),

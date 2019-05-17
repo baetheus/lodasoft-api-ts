@@ -2,7 +2,7 @@ import { createEnumType } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 
 export enum ReportTypeEnum {
 	'TasksByCompany',
@@ -27,8 +27,8 @@ export type LELodasoftCommonModelsReportTaskMetricsRequest = {
 };
 export const LELodasoftCommonModelsReportTaskMetricsRequestIO = type({
 	companyId: createOptionFromOptional(number, 'companyId'),
-	startDate: createOptionFromOptional(DateFromISOString, 'startDate'),
-	endDate: createOptionFromOptional(DateFromISOString, 'endDate'),
+	startDate: createOptionFromOptional(DateFromDatelike, 'startDate'),
+	endDate: createOptionFromOptional(DateFromDatelike, 'endDate'),
 	reportType: createOptionFromOptional(
 		createEnumType<ReportTypeEnum>(ReportTypeEnum, 'ReportTypeEnum'),
 		'reportType',

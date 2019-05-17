@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftCommonModelsAdminAgentNoteViewModel = {
@@ -23,13 +23,13 @@ export const LELodasoftCommonModelsAdminAgentNoteViewModelIO = type({
 	agentId: createOptionFromOptional(number, 'agentId'),
 	userId: createOptionFromOptional(string, 'userId'),
 	content: createOptionFromOptional(string, 'content'),
-	postTime: createOptionFromOptional(DateFromISOString, 'postTime'),
+	postTime: createOptionFromOptional(DateFromDatelike, 'postTime'),
 	userFirstName: createOptionFromOptional(string, 'userFirstName'),
 	userLastName: createOptionFromOptional(string, 'userLastName'),
 	userAvatar: createOptionFromOptional(string, 'userAvatar'),
 	companyId: createOptionFromOptional(number, 'companyId'),
 	insertedBy: createOptionFromOptional(string, 'insertedBy'),
-	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	dateInserted: createOptionFromOptional(DateFromDatelike, 'dateInserted'),
 	updatedBy: createOptionFromOptional(string, 'updatedBy'),
-	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
+	dateUpdated: createOptionFromOptional(DateFromDatelike, 'dateUpdated'),
 });

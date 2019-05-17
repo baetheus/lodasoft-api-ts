@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftCommonModelsConfigurationApplicationViewModel = {
@@ -63,21 +63,21 @@ export const LELodasoftCommonModelsConfigurationApplicationViewModelIO = type({
 	productId: createOptionFromOptional(number, 'productId'),
 	lenderId: createOptionFromOptional(number, 'lenderId'),
 	term: createOptionFromOptional(number, 'term'),
-	estimatedClosingDate: createOptionFromOptional(DateFromISOString, 'estimatedClosingDate'),
-	lockExpirationDate: createOptionFromOptional(DateFromISOString, 'lockExpirationDate'),
-	cdIssueDate: createOptionFromOptional(DateFromISOString, 'cdIssueDate'),
-	cdSignedDate: createOptionFromOptional(DateFromISOString, 'cdSignedDate'),
-	originationDate: createOptionFromOptional(DateFromISOString, 'originationDate'),
+	estimatedClosingDate: createOptionFromOptional(DateFromDatelike, 'estimatedClosingDate'),
+	lockExpirationDate: createOptionFromOptional(DateFromDatelike, 'lockExpirationDate'),
+	cdIssueDate: createOptionFromOptional(DateFromDatelike, 'cdIssueDate'),
+	cdSignedDate: createOptionFromOptional(DateFromDatelike, 'cdSignedDate'),
+	originationDate: createOptionFromOptional(DateFromDatelike, 'originationDate'),
 	mailingStreet: createOptionFromOptional(string, 'mailingStreet'),
 	mailingPOBox: createOptionFromOptional(string, 'mailingPOBox'),
 	mailingCity: createOptionFromOptional(string, 'mailingCity'),
 	mailingState: createOptionFromOptional(string, 'mailingState'),
 	mailingZip: createOptionFromOptional(string, 'mailingZip'),
-	dateCreate: createOptionFromOptional(DateFromISOString, 'dateCreate'),
+	dateCreate: createOptionFromOptional(DateFromDatelike, 'dateCreate'),
 	referralSource: createOptionFromOptional(number, 'referralSource'),
 	companyId: createOptionFromOptional(number, 'companyId'),
 	insertedBy: createOptionFromOptional(string, 'insertedBy'),
-	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	dateInserted: createOptionFromOptional(DateFromDatelike, 'dateInserted'),
 	updatedBy: createOptionFromOptional(string, 'updatedBy'),
-	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
+	dateUpdated: createOptionFromOptional(DateFromDatelike, 'dateUpdated'),
 });

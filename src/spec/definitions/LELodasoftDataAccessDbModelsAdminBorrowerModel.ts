@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 import { createEnumType } from '@nll/utils-ts/lib/io';
@@ -50,7 +50,7 @@ export const LELodasoftDataAccessDbModelsAdminBorrowerModelIO = type({
 	firstName: createOptionFromOptional(string, 'firstName'),
 	middleName: createOptionFromOptional(string, 'middleName'),
 	lastName: createOptionFromOptional(string, 'lastName'),
-	birthDate: createOptionFromOptional(DateFromISOString, 'birthDate'),
+	birthDate: createOptionFromOptional(DateFromDatelike, 'birthDate'),
 	socialSecNum: createOptionFromOptional(string, 'socialSecNum'),
 	borrowerContact: createOptionFromOptional(string, 'borrowerContact'),
 	creditScore: createOptionFromOptional(number, 'creditScore'),
@@ -69,14 +69,14 @@ export const LELodasoftDataAccessDbModelsAdminBorrowerModelIO = type({
 	mailingCity: createOptionFromOptional(string, 'mailingCity'),
 	mailingState: createOptionFromOptional(string, 'mailingState'),
 	mailingZip: createOptionFromOptional(string, 'mailingZip'),
-	dateCreateBorrower: createOptionFromOptional(DateFromISOString, 'dateCreateBorrower'),
+	dateCreateBorrower: createOptionFromOptional(DateFromDatelike, 'dateCreateBorrower'),
 	creditMonitoringStatus: createOptionFromOptional(
 		createEnumType<CreditMonitoringStatusEnum>(CreditMonitoringStatusEnum, 'CreditMonitoringStatusEnum'),
 		'creditMonitoringStatus',
 	),
 	companyId: createOptionFromOptional(number, 'companyId'),
 	insertedBy: createOptionFromOptional(string, 'insertedBy'),
-	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	dateInserted: createOptionFromOptional(DateFromDatelike, 'dateInserted'),
 	updatedBy: createOptionFromOptional(string, 'updatedBy'),
-	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
+	dateUpdated: createOptionFromOptional(DateFromDatelike, 'dateUpdated'),
 });

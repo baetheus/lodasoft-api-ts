@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 import { createEnumType } from '@nll/utils-ts/lib/io';
@@ -51,8 +51,8 @@ export const LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO = type({
 	isPrimary: createOptionFromOptional(boolean, 'isPrimary'),
 	isPortalMerged: createOptionFromOptional(boolean, 'isPortalMerged'),
 	applicationId: createOptionFromOptional(number, 'applicationId'),
-	lastTimeLogin: createOptionFromOptional(DateFromISOString, 'lastTimeLogin'),
-	birthDate: createOptionFromOptional(DateFromISOString, 'birthDate'),
+	lastTimeLogin: createOptionFromOptional(DateFromDatelike, 'lastTimeLogin'),
+	birthDate: createOptionFromOptional(DateFromDatelike, 'birthDate'),
 	mailingStreet: createOptionFromOptional(string, 'mailingStreet'),
 	mailingCity: createOptionFromOptional(string, 'mailingCity'),
 	mailingState: createOptionFromOptional(string, 'mailingState'),
@@ -62,5 +62,5 @@ export const LELodasoftDataAccessModelsAdminBorrowerBorrowerDtoIO = type({
 		createEnumType<CreditMonitoringStatusEnum>(CreditMonitoringStatusEnum, 'CreditMonitoringStatusEnum'),
 		'creditMonitoringStatus',
 	),
-	dateCreateBorrower: createOptionFromOptional(DateFromISOString, 'dateCreateBorrower'),
+	dateCreateBorrower: createOptionFromOptional(DateFromDatelike, 'dateCreateBorrower'),
 });

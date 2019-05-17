@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, boolean, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftCommonModelsPipelinePipelineApplicationView = {
@@ -43,13 +43,13 @@ export const LELodasoftCommonModelsPipelinePipelineApplicationViewIO = type({
 	applicationId: createOptionFromOptional(number, 'applicationId'),
 	lastName: createOptionFromOptional(string, 'lastName'),
 	firstName: createOptionFromOptional(string, 'firstName'),
-	dateCreateBorrower: createOptionFromOptional(DateFromISOString, 'dateCreateBorrower'),
+	dateCreateBorrower: createOptionFromOptional(DateFromDatelike, 'dateCreateBorrower'),
 	refNumber: createOptionFromOptional(string, 'refNumber'),
 	mailingStreet: createOptionFromOptional(string, 'mailingStreet'),
 	mailingCity: createOptionFromOptional(string, 'mailingCity'),
 	mailingState: createOptionFromOptional(string, 'mailingState'),
 	mailingZip: createOptionFromOptional(string, 'mailingZip'),
-	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	dateInserted: createOptionFromOptional(DateFromDatelike, 'dateInserted'),
 	loanAmount: createOptionFromOptional(number, 'loanAmount'),
 	loanStatusId: createOptionFromOptional(number, 'loanStatusId'),
 	loanStatusName: createOptionFromOptional(string, 'loanStatusName'),
@@ -61,15 +61,15 @@ export const LELodasoftCommonModelsPipelinePipelineApplicationViewIO = type({
 	userId: createOptionFromOptional(string, 'userId'),
 	showAsArchive: createOptionFromOptional(boolean, 'showAsArchive'),
 	hideFromCounter: createOptionFromOptional(boolean, 'hideFromCounter'),
-	appCreateDate: createOptionFromOptional(DateFromISOString, 'appCreateDate'),
-	lockExpirationDate: createOptionFromOptional(DateFromISOString, 'lockExpirationDate'),
-	estimatedClosingDate: createOptionFromOptional(DateFromISOString, 'estimatedClosingDate'),
-	cdIssueDate: createOptionFromOptional(DateFromISOString, 'cdIssueDate'),
-	cdSignedDate: createOptionFromOptional(DateFromISOString, 'cdSignedDate'),
-	originationDate: createOptionFromOptional(DateFromISOString, 'originationDate'),
+	appCreateDate: createOptionFromOptional(DateFromDatelike, 'appCreateDate'),
+	lockExpirationDate: createOptionFromOptional(DateFromDatelike, 'lockExpirationDate'),
+	estimatedClosingDate: createOptionFromOptional(DateFromDatelike, 'estimatedClosingDate'),
+	cdIssueDate: createOptionFromOptional(DateFromDatelike, 'cdIssueDate'),
+	cdSignedDate: createOptionFromOptional(DateFromDatelike, 'cdSignedDate'),
+	originationDate: createOptionFromOptional(DateFromDatelike, 'originationDate'),
 	primaryRoleContact: createOptionFromOptional(string, 'primaryRoleContact'),
 	primaryRoleContactId: createOptionFromOptional(string, 'primaryRoleContactId'),
 	primaryRoleName: createOptionFromOptional(string, 'primaryRoleName'),
 	lenderName: createOptionFromOptional(string, 'lenderName'),
-	loanStatusChangedDate: createOptionFromOptional(DateFromISOString, 'loanStatusChangedDate'),
+	loanStatusChangedDate: createOptionFromOptional(DateFromDatelike, 'loanStatusChangedDate'),
 });

@@ -4,7 +4,7 @@ import {
 } from '../definitions/LELodasoftCommonModelsLoanLoanDocTaskViewModel';
 import { Option } from 'fp-ts/lib/Option';
 import { number, array, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftApiModelsBorrowerLoanDocTaskUpsertModel = {
@@ -17,5 +17,5 @@ export const LELodasoftApiModelsBorrowerLoanDocTaskUpsertModelIO = type({
 	loanDocTask: createOptionFromOptional(LELodasoftCommonModelsLoanLoanDocTaskViewModelIO, 'loanDocTask'),
 	multipleBorrower: createOptionFromOptional(array(number), 'multipleBorrower'),
 	numFiles: createOptionFromOptional(number, 'numFiles'),
-	expirationDate: createOptionFromOptional(DateFromISOString, 'expirationDate'),
+	expirationDate: createOptionFromOptional(DateFromDatelike, 'expirationDate'),
 });

@@ -1,7 +1,7 @@
-import { Option } from 'fp-ts/lib/Option';
-import { number, boolean, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
+import { Option } from 'fp-ts/lib/Option';
+import { boolean, number, string, type } from 'io-ts';
 
 export type LELodasoftCommonModelsLeadsLeadCreditViewModel = {
 	leadCreditId: Option<number>;
@@ -22,7 +22,7 @@ export type LELodasoftCommonModelsLeadsLeadCreditViewModel = {
 export const LELodasoftCommonModelsLeadsLeadCreditViewModelIO = type({
 	leadCreditId: createOptionFromOptional(number, 'leadCreditId'),
 	leadId: createOptionFromOptional(number, 'leadId'),
-	creditRunDate: createOptionFromOptional(DateFromISOString, 'creditRunDate'),
+	creditRunDate: createOptionFromOptional(DateFromDatelike, 'creditRunDate'),
 	experianScore: createOptionFromOptional(number, 'experianScore'),
 	equifaxScore: createOptionFromOptional(number, 'equifaxScore'),
 	transUnionScore: createOptionFromOptional(number, 'transUnionScore'),
@@ -31,7 +31,7 @@ export const LELodasoftCommonModelsLeadsLeadCreditViewModelIO = type({
 	notes: createOptionFromOptional(string, 'notes'),
 	companyId: createOptionFromOptional(number, 'companyId'),
 	insertedBy: createOptionFromOptional(string, 'insertedBy'),
-	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	dateInserted: createOptionFromOptional(DateFromDatelike, 'dateInserted'),
 	updatedBy: createOptionFromOptional(string, 'updatedBy'),
-	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
+	dateUpdated: createOptionFromOptional(DateFromDatelike, 'dateUpdated'),
 });

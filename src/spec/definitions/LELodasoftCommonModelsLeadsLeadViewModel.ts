@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { number, string, array, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 export type LELodasoftCommonModelsLeadsLeadViewModel = {
@@ -74,7 +74,7 @@ export const LELodasoftCommonModelsLeadsLeadViewModelIO = type({
 	firstName: createOptionFromOptional(string, 'firstName'),
 	lastName: createOptionFromOptional(string, 'lastName'),
 	socialSecurityNumber: createOptionFromOptional(string, 'socialSecurityNumber'),
-	birthDate: createOptionFromOptional(DateFromISOString, 'birthDate'),
+	birthDate: createOptionFromOptional(DateFromDatelike, 'birthDate'),
 	email: createOptionFromOptional(string, 'email'),
 	phone: createOptionFromOptional(string, 'phone'),
 	workPhone: createOptionFromOptional(string, 'workPhone'),
@@ -102,7 +102,7 @@ export const LELodasoftCommonModelsLeadsLeadViewModelIO = type({
 	currentLoanInterestRate: createOptionFromOptional(number, 'currentLoanInterestRate'),
 	currentLoanTerm: createOptionFromOptional(number, 'currentLoanTerm'),
 	leadContactUserId: createOptionFromOptional(string, 'leadContactUserId'),
-	appointmentDate: createOptionFromOptional(DateFromISOString, 'appointmentDate'),
+	appointmentDate: createOptionFromOptional(DateFromDatelike, 'appointmentDate'),
 	appointmentDescription: createOptionFromOptional(string, 'appointmentDescription'),
 	appointmentNotes: createOptionFromOptional(string, 'appointmentNotes'),
 	customData1: createOptionFromOptional(string, 'customData1'),
@@ -122,12 +122,12 @@ export const LELodasoftCommonModelsLeadsLeadViewModelIO = type({
 	losRefNumber: createOptionFromOptional(string, 'losRefNumber'),
 	internalNotes: createOptionFromOptional(string, 'internalNotes'),
 	postLeadRequestJson: createOptionFromOptional(string, 'postLeadRequestJson'),
-	lastAttemptedContact: createOptionFromOptional(DateFromISOString, 'lastAttemptedContact'),
-	lastSuccessfulContact: createOptionFromOptional(DateFromISOString, 'lastSuccessfulContact'),
+	lastAttemptedContact: createOptionFromOptional(DateFromDatelike, 'lastAttemptedContact'),
+	lastSuccessfulContact: createOptionFromOptional(DateFromDatelike, 'lastSuccessfulContact'),
 	leadListIds: createOptionFromOptional(array(number), 'leadListIds'),
 	companyId: createOptionFromOptional(number, 'companyId'),
 	insertedBy: createOptionFromOptional(string, 'insertedBy'),
-	dateInserted: createOptionFromOptional(DateFromISOString, 'dateInserted'),
+	dateInserted: createOptionFromOptional(DateFromDatelike, 'dateInserted'),
 	updatedBy: createOptionFromOptional(string, 'updatedBy'),
-	dateUpdated: createOptionFromOptional(DateFromISOString, 'dateUpdated'),
+	dateUpdated: createOptionFromOptional(DateFromDatelike, 'dateUpdated'),
 });

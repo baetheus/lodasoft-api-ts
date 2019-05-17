@@ -1,6 +1,6 @@
 import { Option } from 'fp-ts/lib/Option';
 import { array, boolean, number, string, type } from 'io-ts';
-import { DateFromISOString } from 'io-ts-types';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
 
 import {
@@ -55,9 +55,9 @@ export const LELodasoftCommonModelsSharedPortalTaskModelIO = type({
 	description: createOptionFromOptional(string, 'description'),
 	docType: createOptionFromOptional(string, 'docType'),
 	docSortOrder: createOptionFromOptional(number, 'docSortOrder'),
-	submittedDate: createOptionFromOptional(DateFromISOString, 'submittedDate'),
-	approvedDate: createOptionFromOptional(DateFromISOString, 'approvedDate'),
-	dueDate: createOptionFromOptional(DateFromISOString, 'dueDate'),
+	submittedDate: createOptionFromOptional(DateFromDatelike, 'submittedDate'),
+	approvedDate: createOptionFromOptional(DateFromDatelike, 'approvedDate'),
+	dueDate: createOptionFromOptional(DateFromDatelike, 'dueDate'),
 	templateDocumentUrl: createOptionFromOptional(string, 'templateDocumentUrl'),
 	borrowerId: createOptionFromOptional(number, 'borrowerId'),
 	borrowerName: createOptionFromOptional(string, 'borrowerName'),
