@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.3](https://github.com/baetheus/lodasoft-api-ts/compare/v0.7.2...v0.7.3) (2019-05-17)
+
+
+### Bug Fixes
+
+* migrated to DateFromDatelike instead of DateFromIsoString ([7f7606c](https://github.com/baetheus/lodasoft-api-ts/commit/7f7606c))
+
+
+
 ### [0.7.2](https://github.com/baetheus/lodasoft-api-ts/compare/v0.7.1...v0.7.2) (2019-05-15)
 
 
