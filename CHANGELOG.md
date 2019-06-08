@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.4](https://github.com/baetheus/lodasoft-api-ts/compare/v0.7.3...v0.7.4) (2019-06-08)
+
+
+### Bug Fixes
+
+* **residencyBasis:** added another unknown residency basis ([fa0e904](https://github.com/baetheus/lodasoft-api-ts/commit/fa0e904))
+
+
+
 ### [0.7.3](https://github.com/baetheus/lodasoft-api-ts/compare/v0.7.2...v0.7.3) (2019-05-17)
 
 
