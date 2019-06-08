@@ -1,12 +1,12 @@
 import { createEnumType } from '@nll/utils-ts/lib/io';
 import { createOptionFromOptional } from '@nll/utils-ts/lib/io';
+import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 import { Option } from 'fp-ts/lib/Option';
 import { boolean, number, string, type } from 'io-ts';
-import { DateFromDatelike } from '@nll/utils-ts/lib/io';
 
 import {
-	LELodasoftCommonModelsMortgageAddressViewModel,
-	LELodasoftCommonModelsMortgageAddressViewModelIO,
+  LELodasoftCommonModelsMortgageAddressViewModel,
+  LELodasoftCommonModelsMortgageAddressViewModelIO,
 } from '../definitions/LELodasoftCommonModelsMortgageAddressViewModel';
 
 export enum OwnRentTypeEnum {
@@ -20,6 +20,7 @@ export enum ResidencyBasisEnum {
 	'FormerAddress',
 	'MailingAddress',
 	'UnknownAddress',
+	'UnknownAddress2',
 }
 
 export type LELodasoftCommonModelsMortgageResidencyAddressViewModel = {
