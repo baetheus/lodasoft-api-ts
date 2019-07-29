@@ -2,21 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [0.9.0](https://github.com/baetheus/lodasoft-api-ts/compare/v0.7.4...v0.9.0) (2019-07-29)
+## [1.0.0](https://github.com/baetheus/lodasoft-api-ts/compare/v0.7.4...v1.0.0) (2019-07-29)
 
 
 ### Features
 
-* switched from swagger-codegen-ts to api-codegen-ts BREAKING CHANGE: This switch changed the entire api surface ([b9d3989](https://github.com/baetheus/lodasoft-api-ts/commit/b9d3989))
+* switched from swagger-codegen-ts to api-codegen-ts ([7c77112](https://github.com/baetheus/lodasoft-api-ts/commit/7c77112))
 
 
+### BREAKING CHANGES
 
-## [0.8.0](https://github.com/baetheus/lodasoft-api-ts/compare/v0.7.4...v0.8.0) (2019-07-29)
+* This switch changed the entire api surface
 
-
-### Features
-
-* switched from swagger-codegen-ts to api-codegen-ts ([92bdb68](https://github.com/baetheus/lodasoft-api-ts/commit/92bdb68))
+* No more wrapping optionals in Options
+* Controllers are standalone curried functions
+* Upgraded dependencies to fp-ts and io-ts v2+
 
 
 
