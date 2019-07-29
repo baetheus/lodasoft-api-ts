@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.9.0](https://github.com/baetheus/lodasoft-api-ts/compare/v0.7.4...v0.9.0) (2019-07-29)
+
+
+### Features
+
+* switched from swagger-codegen-ts to api-codegen-ts BREAKING CHANGE: This switch changed the entire api surface ([b9d3989](https://github.com/baetheus/lodasoft-api-ts/commit/b9d3989))
+
+
+
+## [0.8.0](https://github.com/baetheus/lodasoft-api-ts/compare/v0.7.4...v0.8.0) (2019-07-29)
+
+
+### Features
+
+* switched from swagger-codegen-ts to api-codegen-ts ([92bdb68](https://github.com/baetheus/lodasoft-api-ts/commit/92bdb68))
+
+
+
 ### [0.7.4](https://github.com/baetheus/lodasoft-api-ts/compare/v0.7.3...v0.7.4) (2019-06-08)
 
 
